@@ -151,7 +151,7 @@ Members of Level 3 Clearance may recieve organization access request notificatio
 <img src= "https://via.placeholder.com/150/9a48d0/FFFFFF?text=9A48D0">
 
 # Image & Video Reference
-![App Demo](https://gitlab.com/the-vikings/mjolnir/bishopric-assistant/-/raw/creative/readme/videos/App_Demo.mov)
-![Project Overview](https://gitlab.com/the-vikings/mjolnir/bishopric-assistant/-/raw/creative/readme/images/Project_Overview.png)
-![Bishop Account Creation](https://gitlab.com/the-vikings/mjolnir/bishopric-assistant/-/raw/creative/readme/images/Bishop_Account_Creation.png)
-![Login & Sign Up Screen](https://gitlab.com/the-vikings/mjolnir/bishopric-assistant/-/raw/creative/readme/images/LoginSignUpView.png)
+![App Demo](./videos/App_Demo.mov)
+![Project Overview](./images/Project_Overview.png)
+![Bishop Account Creation](./images/Bishop_Account_Creation.png)
+![Login & Sign Up Screen](./images/LoginSignUpView.png)
