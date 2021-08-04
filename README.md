@@ -143,12 +143,13 @@ Members may recieve custom notifications from creator of the event
 Members of Level 3 Clearance may recieve organization access request notifications
 
 ## Colors
-[Link to Colors](https://coolors.co/071013-23b5d3-fbfbff-7261a3-9a48d0)<br><br>
+[Link to Colors](https://coolors.co/071013-e73a23-fbfbff-7192be-5370b9)<br><br>
 <img src= "https://via.placeholder.com/150/071013/FFFFFF?text=071013">
-<img src= "https://via.placeholder.com/150/23b5d3/FFFFFF?text=23B5D3">
+<img src= "https://via.placeholder.com/150/e73a23/FFFFFF?text=E73A23">
 <img src= "https://via.placeholder.com/150/fbfbff/000000?text=FBFBFF">
-<img src= "https://via.placeholder.com/150/7261a3/FFFFFF?text=7261A3">
-<img src= "https://via.placeholder.com/150/9a48d0/FFFFFF?text=9A48D0">
+<img src= "https://via.placeholder.com/150/7192be/FFFFFF?text=7192BE">
+<img src= "https://via.placeholder.com/150/5370b9/FFFFFF?text=5370b9">
+<img src= "https://via.placeholder.com/150/A3A3A3/FFFFFF?text=A3A3A3">
 
 # Image & Video Reference
 ![App Demo](./videos/App_Demo.mov)
