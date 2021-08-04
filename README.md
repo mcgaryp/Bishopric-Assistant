@@ -154,5 +154,3 @@ Members of Level 3 Clearance may recieve organization access request notificatio
 # Image & Video Reference
 ![App Demo](./videos/App_Demo.mov)
 ![Project Overview](./images/Project_Overview.png)
-![Bishop Account Creation](./images/Bishop_Account_Creation.png)
-![Login & Sign Up Screen](./images/LoginSignUpView.png)
