@@ -152,6 +152,7 @@ Members of Level 3 Clearance may recieve organization access request notificatio
 <img src= "https://via.placeholder.com/150/A3A3A3/FFFFFF?text=A3A3A3">
 
 # Image & Video Reference
-![App Demo](./videos/App_Demo.mov)
-![Project Overview](./images/Project_Overview.png)
+![App Demo](./videos/Mobile_Demo.mov)
+![Project Overview](./images/Mobile_Overview.png)
 ![Desktop Demo](./videos/Desktop_Demo.mov)
+![Project Overview](./images/Desktop_Overview.png)
