@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-08-06T00:09:27.301Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15" etag="hY0aHbtEiFK9ktjo_CGW" version="14.9.4" type="gitlab" pages="2">
+<mxfile host="app.diagrams.net" modified="2021-08-06T00:11:24.939Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15" etag="6NkOYjIQHlz0LeG3DvYn" version="14.9.4" type="gitlab" pages="2">
   <diagram id="uE5EgFV-Q7cMQlkpuFj4" name="Database">
     <mxGraphModel dx="830" dy="542" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="1100" background="#F4F1DE" math="0" shadow="0">
       <root>
@@ -296,14 +296,14 @@
     </mxGraphModel>
   </diagram>
   <diagram id="bgt0irrA8g836Ba8XUsN" name="Login State Machine">
-    <mxGraphModel dx="2201" dy="921" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="#F4F1DE" math="0" shadow="0">
+    <mxGraphModel dx="2677" dy="2775" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="1700" background="#F4F1DE" math="0" shadow="0">
       <root>
         <mxCell id="meDA7NMBxY1w1qmJ5l1A-0" />
         <mxCell id="meDA7NMBxY1w1qmJ5l1A-1" parent="meDA7NMBxY1w1qmJ5l1A-0" />
         <mxCell id="meDA7NMBxY1w1qmJ5l1A-4" value="Failure" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=#F4F1DE;strokeColor=#E07A5F;fontColor=#393C56;" edge="1" parent="meDA7NMBxY1w1qmJ5l1A-1" source="meDA7NMBxY1w1qmJ5l1A-2" target="meDA7NMBxY1w1qmJ5l1A-3">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="meDA7NMBxY1w1qmJ5l1A-13" value="Success" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=#F4F1DE;strokeColor=#E07A5F;fontColor=#393C56;" edge="1" parent="meDA7NMBxY1w1qmJ5l1A-1" source="meDA7NMBxY1w1qmJ5l1A-2" target="meDA7NMBxY1w1qmJ5l1A-11">
+        <mxCell id="meDA7NMBxY1w1qmJ5l1A-13" value="Success" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=#F4F1DE;strokeColor=#E07A5F;fontColor=#393C56;" edge="1" parent="meDA7NMBxY1w1qmJ5l1A-1" source="meDA7NMBxY1w1qmJ5l1A-2" target="meDA7NMBxY1w1qmJ5l1A-11">
           <mxGeometry x="0.1376" relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="150" y="220" />
@@ -358,7 +358,7 @@
         <mxCell id="meDA7NMBxY1w1qmJ5l1A-8" value="Attempt 4" style="html=1;align=center;verticalAlign=top;rounded=1;absoluteArcSize=1;arcSize=10;dashed=0;fillColor=#F2CC8F;strokeColor=#E07A5F;fontColor=#393C56;" vertex="1" parent="meDA7NMBxY1w1qmJ5l1A-1">
           <mxGeometry x="740" y="120" width="140" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="meDA7NMBxY1w1qmJ5l1A-12" value="Failure" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=#F4F1DE;strokeColor=#E07A5F;fontColor=#393C56;" edge="1" parent="meDA7NMBxY1w1qmJ5l1A-1" source="meDA7NMBxY1w1qmJ5l1A-10" target="meDA7NMBxY1w1qmJ5l1A-22">
+        <mxCell id="meDA7NMBxY1w1qmJ5l1A-12" value="Failure" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=#F4F1DE;strokeColor=#E07A5F;fontColor=#393C56;" edge="1" parent="meDA7NMBxY1w1qmJ5l1A-1" source="meDA7NMBxY1w1qmJ5l1A-10" target="meDA7NMBxY1w1qmJ5l1A-22">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="1180" y="140" as="targetPoint" />
             <Array as="points">
@@ -386,7 +386,7 @@
         <mxCell id="meDA7NMBxY1w1qmJ5l1A-20" value="" style="ellipse;html=1;shape=endState;fillColor=#F2CC8F;strokeColor=#E07A5F;fontColor=#393C56;" vertex="1" parent="meDA7NMBxY1w1qmJ5l1A-1">
           <mxGeometry x="1399.9999999999995" y="205" width="30" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="meDA7NMBxY1w1qmJ5l1A-21" value="Failure" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;startArrow=none;startFill=0;endArrow=classic;endFill=1;labelBackgroundColor=#F4F1DE;strokeColor=#E07A5F;fontColor=#393C56;" edge="1" parent="meDA7NMBxY1w1qmJ5l1A-1" source="meDA7NMBxY1w1qmJ5l1A-11" target="meDA7NMBxY1w1qmJ5l1A-11">
+        <mxCell id="meDA7NMBxY1w1qmJ5l1A-21" value="Failure" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;startArrow=none;startFill=0;endArrow=classic;endFill=1;labelBackgroundColor=#F4F1DE;strokeColor=#E07A5F;fontColor=#393C56;" edge="1" parent="meDA7NMBxY1w1qmJ5l1A-1" source="meDA7NMBxY1w1qmJ5l1A-11" target="meDA7NMBxY1w1qmJ5l1A-11">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="1285" y="280" />
@@ -395,11 +395,19 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="meDA7NMBxY1w1qmJ5l1A-23" value="Success" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=none;startFill=0;endArrow=classic;endFill=1;labelBackgroundColor=#F4F1DE;strokeColor=#E07A5F;fontColor=#393C56;" edge="1" parent="meDA7NMBxY1w1qmJ5l1A-1" source="meDA7NMBxY1w1qmJ5l1A-22" target="meDA7NMBxY1w1qmJ5l1A-2">
+        <mxCell id="meDA7NMBxY1w1qmJ5l1A-23" value="Success" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=none;startFill=0;endArrow=classic;endFill=1;labelBackgroundColor=#F4F1DE;strokeColor=#E07A5F;fontColor=#393C56;" edge="1" parent="meDA7NMBxY1w1qmJ5l1A-1" source="meDA7NMBxY1w1qmJ5l1A-22" target="meDA7NMBxY1w1qmJ5l1A-2">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="meDA7NMBxY1w1qmJ5l1A-22" value="Account Recovery" style="html=1;align=center;verticalAlign=top;rounded=1;absoluteArcSize=1;arcSize=10;dashed=0;fillColor=#F2CC8F;strokeColor=#E07A5F;fontColor=#393C56;" vertex="1" parent="meDA7NMBxY1w1qmJ5l1A-1">
           <mxGeometry x="630" y="40" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="meDA7NMBxY1w1qmJ5l1A-25" value="Failure" style="edgeStyle=orthogonalEdgeStyle;curved=0;rounded=1;sketch=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;fontColor=#393C56;strokeColor=#E07A5F;fillColor=#F2CC8F;" edge="1" parent="meDA7NMBxY1w1qmJ5l1A-1" source="meDA7NMBxY1w1qmJ5l1A-22" target="meDA7NMBxY1w1qmJ5l1A-22">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="735" />
+              <mxPoint x="665" />
+            </Array>
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
