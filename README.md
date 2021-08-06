@@ -4,7 +4,28 @@ Often times in the Church of Jesus Christ of Latter Day Saints Bishoprics are ov
 [Project Link](https://framer.com/projects/Bishopric-Assistant--wzwg61DlBXbe1V1mMWYQ-2tWPm)
 
 ## Data Model Structure
-```
+![Database Structure](./charts/Database_Structure.png)
+
+### Firebase
+- According to [this article](https://stackoverflow.com/questions/41107699/using-same-firebase-app-with-web-and-mobile-app) a firebase project can be used as a backend to web applicaiton and mobile applications at the same time.
+- Potential video from [youtube](https://www.youtube.com/watch?v=xZn0Vzc4uFE) that talks about how to integrate firebase into multiple platforms.
+- This backend could potentially assist in a lot fo other ways if the application wanted to be scaled up. One suche example is it will allow the number of users to increase by simply switching to the pay as you use plan offered by firebase with minimal up keep.
+- By offering a real time database the users would recieve changes instantly on their devices.
+
+#### Pricing **Free Within**
+|Authentication|Cloud Firestore|Hosting|Realtime Database|Cloud Storage|Test Lab|
+|-|-|-|-|-|-|
+|10k/month|Stored Data 1GiB, Network egress 10GiB/Month, Document writes 20k/day, Document reads 50k/day, Document deletes 20k/day|Storage 10Gb, Data transfer 360MB/day, Custom Domain, Multiple sites| Simultaneous connections 100, GB stored 1GB, Gb downloaded, 10Gb/month, Database per project 1|GB stored 5GB, GB downloaded 1GB/day, Upload operatios 20k/day, DownloadOperations 50k/day, Buckets per project 1|Virtual Divice Tests 10 tests/day, Physical Device Tests 5 tests/day|
+
+### Alternative Databases to Firebase
+Based on the following alternatives it would be wise to use Firebase as it will provide a host server and all database needs.
+- [MySQL](mysql.com) costs money and is only a database needs a server to run on
+- [Cloud Firestore](https://firebase.google.com/products/firestore?gclid=Cj0KCQjwu7OIBhCsARIsALxCUaP3cRtbRxYQMtxVvUBaViJtdN7LEiIIJ3HfHvmVfc4tIeB9PNai0NEaAhN6EALw_wcB&gclsrc=aw.ds)(Included in Firebase)
+- [Parse](https://docs.parseplatform.org/parse-server/guide/) is similar to firebase uses either MongoDB or Postgres as databases, but still needs a server
+- [MongoDB](https://www.mongodb.com) but it is only a database
+- [Postgres](https://www.postgresql.org/about/) needs a server to run on
+
+<!-- ```
 - Bishopric
     - Members: Class
         - Bishop: Person, Level 1
@@ -54,7 +75,7 @@ Often times in the Church of Jesus Christ of Latter Day Saints Bishoprics are ov
     - Secretary
     - Clerk
     - Ward Counsel Member
-```
+``` -->
 ## Functionalities
 - Organize Bishopric
     - Create a bishopric account
