@@ -121,10 +121,15 @@ Should the user need to change their password a method should be provided to the
 |Failure then...| User is given option to resubmit the PIN or request a new pin, enters [Password Recovery State Management](TODO)|
 
 ### Viewing & Changing Account Information
-The user is provided with a space to view their account information. [Mobile Profile](./images/appImages/ProfileView.png), [Desktop Profile](./images/desktopImages/ProfilePage.png), [Mobile Edit Profile](./images/appImages/EditProfileView.png), [Desktop Edit Profile](./images/desktopImages/EditProfilePage.png)
+The user is provided with a space to view their account information (name, phone, email, role), the number of events they are assigned to, the number of assignments they have, edit organization button and a leave organization button. [Mobile Profile](./images/appImages/ProfileView.png), [Desktop Profile](./images/desktopImages/ProfilePage.png), [Mobile Edit Profile](./images/appImages/EditProfileView.png), [Desktop Edit Profile](./images/desktopImages/EditProfilePage.png)
 |Function|Detail|
 |-|-|
-|||
+|Leave Organization|User may request to leave organization|
+|Edit User Account|Edit button on the top right of the screen|
+|Change Icon|User Icon is replacable|
+|Change Phone|User may Change their phone number|
+|Change Password| User may change their password|
+|Save Settings|Button to save settings|
 
 ## Home
 The Home design for a mobile platform will differ from a web platform. [Desktop Home](./images/desktopImages/HomePage.png)  
@@ -146,6 +151,57 @@ The user will see:
 |Navigation|Standard [Desktop Navigation](TODO)|
 |Footer|Standard [Desktop Footer](TODO)|
 
+## Events
+The Events design for a mobile platform will differ from a web platform. [Mobile Events](./images/appImages/EventView.png), [Desktop Events](./images/desktopImages/EventPage.png)
+|Function|Detail|
+|-|-|
+|Create Event|Mobile - Button to Action call, Web Located on the page|
+|Events Card|Navigate to Event Detail View|
+
+# Components
+## Navigation
+Used to navigate from view/page to another.
+### Web 
+![Desktop Overview](./images/Desktop_Overview.png)
+
+### Mobile 
+![Mobile Overview](./images/App_Overview.png)
+
+## Lists
+A list is a component that should contain a Title, List of Cards. The title is a navigation link.
+### Event List
+TODO
+### Assignment List
+TODO
+### Organization Members List
+TODO
+
+## Cards
+Used to display information to the user. The Card is tappable to navigate to or pop a modal.
+### Event Card
+TODO
+### Assignment Card
+TODO
+### Member Card
+TODO
+
+## Detail View
+Used to display a very detailed information to the user.
+### Event Detail View
+TODO
+### Assignment Detail View
+TODO
+### Member Detail View
+TODO
+
+## Footer
+Items that are always displayed at the bottom of the desktop.
+### Legal
+TODO
+### Privacy
+TODO
+### SiteMap
+TODO
 
 
 <!-- Template to attach image links [Mobile](./images/appImages/View.png), [Desktop](./images/desktopImages/Page.png) -->
