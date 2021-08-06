@@ -3,21 +3,21 @@ Often times in the Church of Jesus Christ of Latter Day Saints Bishoprics are ov
 
 [Project Link](https://framer.com/projects/Bishopric-Assistant--wzwg61DlBXbe1V1mMWYQ-2tWPm)
 
-## Data Model Structure
+# Data Model Structure
 ![Database Structure](./charts/Database_Structure.png)
 
-### Firebase
+## Firebase
 - According to [this article](https://stackoverflow.com/questions/41107699/using-same-firebase-app-with-web-and-mobile-app) a firebase project can be used as a backend to web applicaiton and mobile applications at the same time.
 - Potential video from [youtube](https://www.youtube.com/watch?v=xZn0Vzc4uFE) that talks about how to integrate firebase into multiple platforms.
 - This backend could potentially assist in a lot fo other ways if the application wanted to be scaled up. One suche example is it will allow the number of users to increase by simply switching to the pay as you use plan offered by firebase with minimal up keep.
 - By offering a real time database the users would recieve changes instantly on their devices.
 
-#### Pricing **Free Within**
+### Pricing **Free Within**
 |Authentication|Cloud Firestore|Hosting|Realtime Database|Cloud Storage|Test Lab|
 |-|-|-|-|-|-|
 |10k/month|Stored Data 1GiB, Network egress 10GiB/Month, Document writes 20k/day, Document reads 50k/day, Document deletes 20k/day|Storage 10Gb, Data transfer 360MB/day, Custom Domain, Multiple sites| Simultaneous connections 100, GB stored 1GB, Gb downloaded, 10Gb/month, Database per project 1|GB stored 5GB, GB downloaded 1GB/day, Upload operatios 20k/day, DownloadOperations 50k/day, Buckets per project 1|Virtual Divice Tests 10 tests/day, Physical Device Tests 5 tests/day|
 
-### Alternative Databases to Firebase
+## Alternative Databases to Firebase
 Based on the following alternatives it would be wise to use Firebase as it will provide a host server and all database needs.
 - [MySQL](mysql.com) costs money and is only a database needs a server to run on
 - [Cloud Firestore](https://firebase.google.com/products/firestore?gclid=Cj0KCQjwu7OIBhCsARIsALxCUaP3cRtbRxYQMtxVvUBaViJtdN7LEiIIJ3HfHvmVfc4tIeB9PNai0NEaAhN6EALw_wcB&gclsrc=aw.ds)(Included in Firebase)
@@ -76,8 +76,8 @@ Based on the following alternatives it would be wise to use Firebase as it will 
     - Clerk
     - Ward Counsel Member
 ``` -->
-## Functionalities
-### User Accounts
+# Functionalities
+## User Accounts
 User accounts are essential. The account will be used to house the following information:  
 - **Name** First & Last
 - **Phone Number** contacting purposes
@@ -89,7 +89,7 @@ User accounts are essential. The account will be used to house the following inf
 - **ID* form of identification with application users
 - Profile Image This is still on the table, but not a necessity, images will take up a lot of space on a database.
 
-#### Account Creation
+### Account Creation
 User will be able to create an account with the following information. [Mobile](./images/appImages/SignUpView.png), [Desktop](./images/desktopImages/SignUpPage.png)
 |Function|Detail|
 |-|-|
@@ -101,7 +101,7 @@ User will be able to create an account with the following information. [Mobile](
 |Request Insertion|Inserts the data into database|
 |Verify Insertion|Verifys that the information was properly inserted into the database|
 
-#### Account Login
+### Account Login
 User will be able to login to the application through a login process. [Mobile](./images/appImages/LoginView.png), [Desktop](./images/desktopImages/LoginPage.png)
 |Function|Detail|
 |-|-|
@@ -110,7 +110,7 @@ User will be able to login to the application through a login process. [Mobile](
 |Successful then...|Loads user data into application and permits access to app|
 |Failure then...|Enters [Login State Management](TODO)|
 
-#### Forgotten Passwords
+### Forgotten Passwords
 Should the user need to change their password a method should be provided to them at login. [Mobile PIN](./images/appImages/PinView.png), [Desktop PIN](./images/desktopImages/PinPage.png), [Mobile Password Change](./images/appImages/PasswordChangeRequestView.png), [Desktop Password Change](./images/desktopImages/PasswordChangeRequestPage.png), [Mobile Change](./images/appImages/ChangePasswordView.png), [Desktop Change](./images/desktopImages/ChangePasswordPage.png)
 |Function|Detail|
 |-|-|
@@ -120,13 +120,35 @@ Should the user need to change their password a method should be provided to the
 |Successful then...|User is directed to password and confirmation space where it enters [Passowrd State Management](TODO)|
 |Failure then...| User is given option to resubmit the PIN or request a new pin, enters [Password Recovery State Management](TODO)|
 
-#### Viewing & Changing Account Information
+### Viewing & Changing Account Information
 The user is provided with a space to view their account information. [Mobile Profile](./images/appImages/ProfileView.png), [Desktop Profile](./images/desktopImages/ProfilePage.png), [Mobile Edit Profile](./images/appImages/EditProfileView.png), [Desktop Edit Profile](./images/desktopImages/EditProfilePage.png)
 |Function|Detail|
 |-|-|
 |||
 
-<!-- [Mobile](./images/appImages/View.png), [Desktop](./images/desktopImages/Page.png) -->
+## Home
+The Home design for a mobile platform will differ from a web platform. [Desktop Home](./images/desktopImages/HomePage.png)  
+
+### Mobile
+The user will not have a Home View.  
+
+### Web
+The user will see:
+- a list of organization events.
+- a list of assigned assignments.
+- a list of the members in the organization.
+
+|Function|Detail|
+|-|-|
+|[Events List](TODO)|Displays a current list of all organization events sorted by more recent date & time. Users should only see the events they are assigned to|
+|[Assignements List](TODO)||Displays a current list of all assignments from the organization the user is assigned to, sorted by most recent due date & time|
+|[Organization List](TODO)|Displays a list of current organization member cards, sorted by the security levels from highest to lowest|
+|Navigation|Standard [Desktop Navigation](TODO)|
+|Footer|Standard [Desktop Footer](TODO)|
+
+
+
+<!-- Template to attach image links [Mobile](./images/appImages/View.png), [Desktop](./images/desktopImages/Page.png) -->
 
 
 - Organize Bishopric
