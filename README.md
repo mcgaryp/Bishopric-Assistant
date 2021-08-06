@@ -141,7 +141,7 @@ The user will see:
 |Function|Detail|
 |-|-|
 |[Events List](TODO)|Displays a current list of all organization events sorted by more recent date & time. Users should only see the events they are assigned to|
-|[Assignements List](TODO)||Displays a current list of all assignments from the organization the user is assigned to, sorted by most recent due date & time|
+|[Assignements List](TODO)|Displays a current list of all assignments from the organization the user is assigned to, sorted by most recent due date & time|
 |[Organization List](TODO)|Displays a list of current organization member cards, sorted by the security levels from highest to lowest|
 |Navigation|Standard [Desktop Navigation](TODO)|
 |Footer|Standard [Desktop Footer](TODO)|
