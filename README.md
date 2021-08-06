@@ -77,6 +77,58 @@ Based on the following alternatives it would be wise to use Firebase as it will 
     - Ward Counsel Member
 ``` -->
 ## Functionalities
+### User Accounts
+User accounts are essential. The account will be used to house the following information:  
+- **Name** First & Last
+- **Phone Number** contacting purposes
+- **Email** contacting purposes and doubles as their username
+- **Password** used for privacy and security of sensitive data in different accounts
+- **Organization Role** security clearance purposes to assist in privacy
+- **List of Assigned Events** 
+- **List of Assigned Assignments** 
+- **ID* form of identification with application users
+- Profile Image This is still on the table, but not a necessity, images will take up a lot of space on a database.
+
+#### Account Creation
+User will be able to create an account with the following information. [Mobile](./images/appImages/SignUpView.png), [Desktop](./images/desktopImages/SignUpPage.png)
+|Function|Detail|
+|-|-|
+|Prompts User|First & Last Name, email, Phone Number, Choose from a list of Roles, password & confirmation|
+|Checks email|Verifies to make sure the email is not currently in use in the database & is a valid email address|
+|Checks password|Verifies that the password is secure|
+|Checks confirm password|Verifies that the second password matches the first|
+|Insertion Check|Checks that it is safe to insert information into database|
+|Request Insertion|Inserts the data into database|
+|Verify Insertion|Verifys that the information was properly inserted into the database|
+
+#### Account Login
+User will be able to login to the application through a login process. [Mobile](./images/appImages/LoginView.png), [Desktop](./images/desktopImages/LoginPage.png)
+|Function|Detail|
+|-|-|
+|Prompts User|User is given a space for username and password|
+|Confirms Account|Requests data to confirm account information|
+|Successful then...|Loads user data into application and permits access to app|
+|Failure then...|Enters [Login State Management](TODO)|
+
+#### Forgotten Passwords
+Should the user need to change their password a method should be provided to them at login. [Mobile PIN](./images/appImages/PinView.png), [Desktop PIN](./images/desktopImages/PinPage.png), [Mobile Password Change](./images/appImages/PasswordChangeRequestView.png), [Desktop Password Change](./images/desktopImages/PasswordChangeRequestPage.png), [Mobile Change](./images/appImages/ChangePasswordView.png), [Desktop Change](./images/desktopImages/ChangePasswordPage.png)
+|Function|Detail|
+|-|-|
+|Username Prompted|The user should be given a space to provide their username/email|
+|Email Sent|A unique PIN is sent to the users email, verifies email sends successfully|
+|Pin Verification|A space is provided to the user to allow for PIN input|
+|Successful then...|User is directed to password and confirmation space where it enters [Passowrd State Management](TODO)|
+|Failure then...| User is given option to resubmit the PIN or request a new pin, enters [Password Recovery State Management](TODO)|
+
+#### Viewing & Changing Account Information
+The user is provided with a space to view their account information. [Mobile Profile](./images/appImages/ProfileView.png), [Desktop Profile](./images/desktopImages/ProfilePage.png), [Mobile Edit Profile](./images/appImages/EditProfileView.png), [Desktop Edit Profile](./images/desktopImages/EditProfilePage.png)
+|Function|Detail|
+|-|-|
+|||
+
+<!-- [Mobile](./images/appImages/View.png), [Desktop](./images/desktopImages/Page.png) -->
+
+
 - Organize Bishopric
     - Create a bishopric account
     - Add/Remove members as they are called and released during the service of a bishop
