@@ -158,6 +158,32 @@ The Events design for a mobile platform will differ from a web platform. [Mobile
 |Create Event|Mobile - Button to Action call, Web Located on the page|
 |Events Card|Navigate to Event Detail View|
 
+## Organizations 
+### Limitations to an Organization
+The Bishopric will follow this structure, (**NOTE:** the structure also includes viewing clearance):
+1. One Bishop 
+    - The Bishop has the power to add any members that have requested to join in his organization
+    - The Bishop has the power to remove any members from his organization
+2. Up to 2 counselors
+    - A counselor has the power to add or remove any Secretary or Ward Counsel Member from the organization
+3. Zero or more Secretaries & Clerks
+    - A Secretary has the power to add or remove any Counselor or Ward Counsel Member from the organization
+4. Zero or more Ward Counsel Members
+
+- A member of the organization may view upcoming meetings they have clearance for, special secretaries and clerks may have Bishop level viewing
+- Any Meeting or Assignment assigned to a member gives them overriding clearance to see
+
+### Creating an Organization
+Only a bishop can create an organization.  
+Every member in the organization will need to create an account and request too join the Bishops organization.  
+The Bishop should first create his account and the organization account, then either request or add users as they are called to the organization. 
+
+### Removing an Organization
+TODO
+
+### Editing an Organization
+TODO
+
 # Components
 ## Navigation
 Used to navigate from view/page to another.
@@ -228,7 +254,7 @@ TODO
 TODO
 
 
-<!-- Template to attach image links [Mobile](./images/appImages/View.png), [Desktop](./images/desktopImages/Page.png) -->
+<!-- Template to attach image links [Mobile](./images/appImages/View.png), [Desktop](./images/desktopImages/Page.png) 
 
 
 - Organize Bishopric
@@ -262,26 +288,7 @@ TODO
         - Limited Admin Rights/View only
 - Notifications
     - Notify assigned users of meetings and assignments
-    - Notify assigned users of new meetings and assignments
-
-## Bishopric Organization
-The Bishopric will follow this structure, (**NOTE:** the structure also includes viewing clearance):
-1. One Bishop 
-    - The Bishop has the power to add any members that have requested to join in his organization
-    - The Bishop has the power to remove any members from his organization
-2. Up to 2 counselors
-    - A counselor has the power to add or remove any Secretary or Ward Counsel Member from the organization
-3. Zero or more Secretaries & Clerks
-    - A Secretary has the power to add or remove any Counselor or Ward Counsel Member from the organization
-4. Zero or more Ward Counsel Members
-
-- A member of the organization may view upcoming meetings they have clearance for, special secretaries and clerks may have Bishop level viewing
-- Any Meeting or Assignment assigned to a member gives them overriding clearance to see
-
-### Creating a Bishopric
-Only a bishop can create an organization.  
-Every member in the organization will need to create an account and request too join the Bishops organization.  
-The Bishop should first create his account and the organization account, then either request or add users as they are called to the organization.  
+    - Notify assigned users of new meetings and assignments --> 
 
 ## Creating, Scheduling, & Organizing Meetings
 ### Bishopric Member Avaliability
@@ -298,17 +305,17 @@ Level 3 and above may create, edit, & assign assignments to any member of the or
 Events should include the following:
 
 | Event Detail | Meeting | Interview | Assignment |
-|--------------|---------|-----------|------------|
-| Name         | X       | X         | X          |
-| Time         | X       | X         | X          |
-| Date         | X       | X         | X          |
-| Place        | X       | X         |            |
-| Assignee     | X       | X         | X          |
-| Agenda       | X       |           |            |
-| Interviewee  |         | X         |            |
-| Notes        | X       | X         | X          |
-| Notify       | X       | X         | X          |
-| Custom Notify| X       | X         | X          |
+|-|-|-|-|
+|Name|X|X|X|
+|Time|X|X|X|
+|Date|X|X|X|
+|Place|X|X||
+|Assignee|X|X|X|
+|Agenda|X|||
+|Interviewee||X||
+|Notes|X|X|X|
+|Notify|X|X|X|
+|Custom Notify|X|X|X|
 
 ## Notifications
 Members will be notified when a new assignment or event has been assigned to them  
