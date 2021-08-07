@@ -191,7 +191,7 @@ Events should include the following:
 |Custom Notify|X|X|X|
 
 ## Organizations 
-### Limitations and Clearances of an Organization
+### Limitations and Clearances
 The an organization will follow this structure, any Level automatically has the clearance of the levels below it. (1 is the highest)
 1. Level 1 Owner of Organization (Only 1)
     - The owner has the power to add any members that have requested to join in his organization
@@ -213,19 +213,19 @@ The an organization will follow this structure, any Level automatically has the 
 - Any Meeting or Assignment assigned to a member gives them overriding clearance to see details
 - A member may make modifications their phone number, password, and personal settings
 
-### Creating an Organization
+### Creating
 Only a Level 1 can create an organization.   
 Every member in the organization will need to create an account and request too join the organization.   
 The owner needs to create the organization account, then request or add users to the organization.  
 
-### Removing an Organization
+### Removing
 Only an owner may disolve an organization.  
 All organizations disolve 6 years after creation or 1 year of inactivity.  
 
-### Editing an Organization
+### Editing
 Only the owner may edit the name or other information of the organization.
 
-### Roles in an Organization
+### Roles
 #### Ward Organization
 1. Bishop - Owner
 2. 1st Counselor - Co-Owner
@@ -272,8 +272,8 @@ Includes the following:
 - Title
 - Date
 - Time
-- Notes
 - Assignee (Optional 1+)
+- Notes (Optional)
 - Interviewee (Optional)
 - Agenda (Optional)
 
@@ -299,12 +299,17 @@ Includes the following:
 
 ## Detail View
 Used to display a very detailed information to the user.
-### Event Detail View
+<!--### Event Detail View
 TODO
 ### Assignment Detail View
-TODO
+TODO-->
 ### Member Detail View
-TODO
+View that is displayed when a Member card is clicked on. Details should include:
+- Name
+- Role (Editable if a [security clearance](limitations_and_clearances) permits)
+- Icon
+- Phone
+- Email
 
 ## Footer
 Items that are always displayed at the bottom of the desktop.
