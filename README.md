@@ -157,7 +157,7 @@ The user will see:
 |[Events List](#lists)|Displays a current list of all organization events sorted by more recent date & time. Users should only see the events they are assigned to|
 |[Assignements List](#lists)|Displays a current list of all assignments from the organization the user is assigned to, sorted by most recent due date & time|
 |[Organization List](#lists)|Displays a list of current organization member cards, sorted by the security levels from highest to lowest|
-|Navigation|Standard [Desktop Navigation](#web-2)|
+|Navigation|Standard [Desktop Navigation](#navigation)|
 |Footer|Standard [Desktop Footer](#footer)|
 
 ## Events & Assignments
