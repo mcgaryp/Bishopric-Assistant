@@ -172,9 +172,10 @@ A list is a component that should contain a Title, List of Cards. The title is a
 Includes the following:
 - Title (Navigation Link in web)
 - List of Cards
+
 ![Events List](./images/componentsImages/EventsList.png)
-![Assignments List](./images/componentsImages/AssignmentsList.png)
 ![Member List](./images/componentsImages/MemberList.png)
+![Assignments List](./images/componentsImages/AssignmentsList.png)
 
 ## Cards
 Used to display information to the user. The Card is tappable to navigate to or pop a modal.
@@ -187,20 +188,25 @@ Includes the following:
 - Assignee (Optional 1+)
 - Interviewee (Optional)
 - Agenda (Optional)
+
 ![Event Card](./images/componentsImages/EventCard.png)
 ![Event Card 2](./images/componentsImages/EventCard2.png)
+
 ### Assignment Card (Navigation Link)
 Includes the following:
 - Title
 - Date
 - Notes
 - Time (Optional)
+
 ![Assignment Card](./images/componentsImages/AssignmentCard.png)
+
 ### Organization Members Card (Navigation Link)
 Includes the following:
 - Icon
 - First & Last Name
 - Role
+
 ![Member Card](./images/componentsImages/MemberCard.png)
 
 ## Detail View
