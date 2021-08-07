@@ -316,7 +316,7 @@ TODO-->
 ### Member Detail View
 View that is displayed when a Member card is clicked on. Details should include:
 - Name
-- Role (Editable if a [security clearance](limitations_and_clearances) permits)
+- Role (Editable if a [security clearance](#limitations-and-clearances) permits)
 - Icon
 - Phone
 - Email
