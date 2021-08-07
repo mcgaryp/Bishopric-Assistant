@@ -1,7 +1,13 @@
 # Bishopric Assistant
 Often times in the Church of Jesus Christ of Latter Day Saints Bishoprics are overwhelmed with many different tasks and responsibilities. The intention of this software is to help oliviate some of those stresses and help to organize tasks that need to be done as well as manage assignments, meetings and more.
 
-[Project Link](https://framer.com/projects/Bishopric-Assistant--wzwg61DlBXbe1V1mMWYQ-2tWPm)
+Find the complete UI mock ups [@Framer.com Project](https://framer.com/projects/Bishopric-Assistant--wzwg61DlBXbe1V1mMWYQ-2tWPm)
+
+<details><summary><h1>Table of Contents</h1></summary>
+
+[TOC]
+
+</details>
 
 # Data Model Structure
 ![Database Structure](./charts/Database_Structure.png)
