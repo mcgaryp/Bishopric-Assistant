@@ -9,6 +9,17 @@ Find the complete UI mock ups [@Framer.com Project](https://framer.com/projects/
 
 </details>
 
+<details><summary>Tasks to look into</summary>
+
+- [ ] [Kirtura](https://github.com/Kitura/Kitura)
+- [ ] [Vapor](https://github.com/vapor/vapor)
+    - [ ] [Leaf](https://github.com/vapor/leaf)
+- [ ] [Apple's Focus](https://swift.org/server/)
+- [ ] [RW Tutorial](https://www.raywenderlich.com/21799750-templating-vapor-applications-with-leaf)
+- [ ] [ADR](https://adr.github.io)
+- [ ] [ADL Example](https://adr.github.io/madr/docs/adr/)
+
+
 # Data Model Structure
 ![Database Structure](./charts/Database_Structure.png)
 
@@ -24,7 +35,7 @@ Find the complete UI mock ups [@Framer.com Project](https://framer.com/projects/
 |10k/month|Stored Data 1GiB<br>Network egress 10GiB/Month<br>Document writes 20k/day<br>Document reads 50k/day<br>Document deletes 20k/day|Storage 10Gb<br>Data transfer 360MB/day<br>Custom Domain<br>Multiple sites| Simultaneous connections 100<br>GB stored 1GB<br>Gb downloaded<br>10Gb/month<br>Database per project 1|GB stored 5GB<br>GB downloaded 1GB/day<br>Upload operatios 20k/day<br>DownloadOperations 50k/day<br>Buckets per project 1|Virtual Divice Tests 10 tests/day<br>Physical Device Tests 5 tests/day|
 
 ## Alternative Databases to Firebase
-Based on the following alternatives it would be wise to use Firebase as it will provide a host server and all database needs.
+Based on the following alternatives it would be wise to use Firebase Firestore as wit allows for complex tables to the database and is already integrated into Firebase
 - [MySQL](mysql.com) costs money and is only a database needs a server to run on
 - [Cloud Firestore](https://firebase.google.com/products/firestore?gclid=Cj0KCQjwu7OIBhCsARIsALxCUaP3cRtbRxYQMtxVvUBaViJtdN7LEiIIJ3HfHvmVfc4tIeB9PNai0NEaAhN6EALw_wcB&gclsrc=aw.ds)(Included in Firebase)
 - [Parse](https://docs.parseplatform.org/parse-server/guide/) is similar to firebase uses either MongoDB or Postgres as databases, but still needs a server
