@@ -100,6 +100,7 @@ A user account can be created two different ways.
 1. User downloads the mobile app or visits the web app and selects the sign up button.
 2. Head of the organization sends a request to the users email with a link to sign up inside of their organization. 
 User will be able to create an account with the following information. [Mobile](./images/appImages/SignUpView.png), [Desktop](./images/desktopImages/SignUpPage.png)
+
 |Function|Detail|
 |-|-|
 |Prompts User|First & Last Name, email, Phone Number, Choose from a list of Roles, password & confirmation|
