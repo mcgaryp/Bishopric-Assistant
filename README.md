@@ -294,7 +294,7 @@ Includes the following:
 Includes the following:
 - Title
 - Date
-- Notes
+- Notes (Optional)
 - Time (Optional)
 
 ![Assignment Card](./images/componentsImages/AssignmentCard.png)
@@ -320,6 +320,13 @@ View that is displayed when a Member card is clicked on. Details should include:
 - Icon
 - Phone
 - Email
+- Event Count
+- Assignment Count
+- Create Assignment Button
+- Create Event Button
+- Remove From Organization (Optional depending on [Security Clearance](#limitations-and-clearances))
+
+![Member Details Card](./images/componentsImages/MemberCardDetails.png)
 
 ## Footer
 Items that are always displayed at the bottom of the desktop.
