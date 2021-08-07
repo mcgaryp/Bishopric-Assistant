@@ -90,6 +90,9 @@ User accounts are essential. The account will be used to house the following inf
 - Profile Image This is still on the table, but not a necessity, images will take up a lot of space on a database.
 
 ### Account Creation
+A user account can be created two different ways.
+1. User downloads the mobile app or visits the web app and selects the sign up button.
+2. Head of the organization sends a request to the users email with a link to sign up inside of their organization. 
 User will be able to create an account with the following information. [Mobile](./images/appImages/SignUpView.png), [Desktop](./images/desktopImages/SignUpPage.png)
 |Function|Detail|
 |-|-|
@@ -151,38 +154,97 @@ The user will see:
 |Navigation|Standard [Desktop Navigation](TODO)|
 |Footer|Standard [Desktop Footer](TODO)|
 
-## Events
+## Events & Assignments
+Assignments can be given to any member in the organization and are designed to help pass along tasks as well as follow up on tasks to see that they are completed in a timely fashion.
 The Events design for a mobile platform will differ from a web platform. [Mobile Events](./images/appImages/EventView.png), [Desktop Events](./images/desktopImages/EventPage.png)
 |Function|Detail|
 |-|-|
 |Create Event|Mobile - Button to Action call, Web Located on the page|
 |Events Card|Navigate to Event Detail View|
 
-## Organizations 
-### Limitations to an Organization
-The Bishopric will follow this structure, (**NOTE:** the structure also includes viewing clearance):
-1. One Bishop 
-    - The Bishop has the power to add any members that have requested to join in his organization
-    - The Bishop has the power to remove any members from his organization
-2. Up to 2 counselors
-    - A counselor has the power to add or remove any Secretary or Ward Counsel Member from the organization
-3. Zero or more Secretaries & Clerks
-    - A Secretary has the power to add or remove any Counselor or Ward Counsel Member from the organization
-4. Zero or more Ward Counsel Members
 
-- A member of the organization may view upcoming meetings they have clearance for, special secretaries and clerks may have Bishop level viewing
-- Any Meeting or Assignment assigned to a member gives them overriding clearance to see
+### Member Avaliability
+**Level 2 Clearance Required**  
+Level 1 & 2s will be able to block out or set hours they are avaliable for events each day of the week [Image of UI](TODO)  
+Level 3s will be able to see Level 1 & 2's avaliability and schedule Events in those time slots [Image of UI](TODO)  
+Time slots should have a minimum of 15 min increments, multiple time slots may be selected for one event [Image of UI](TODO)  
+
+### Scheduling Events & Assignments
+**Level 3 Clearance Required**  
+Level 3 and above may create, edit, & assign events to any member of the organization    
+Level 3 and above may create, edit, & assign assignments to any member of the organization  
+
+#### Event & Assignment Details
+Events should include the following:
+
+| Event Detail | Meeting | Interview | Assignment |
+|-|-|-|-|
+|Name|X|X|X|
+|Time|X|X|X|
+|Date|X|X|X|
+|Place|X|X||
+|Assignee|X|X|X|
+|Agenda|X|||
+|Interviewee||X||
+|Notes|X|X|X|
+|Notify|X|X|X|
+|Custom Notify|X|X|X|
+
+## Organizations 
+### Limitations and Clearances of an Organization
+The an organization will follow this structure, any Level automatically has the clearance of the levels below it. (1 is the highest)
+1. Level 1 Owner of Organization (Only 1)
+    - The owner has the power to add any members that have requested to join in his organization
+    - The owner has the power to remove any members from the organization
+    - May adjust the roll of any member
+    - May disolve the organization
+    - May create the organization
+2. Level 2 Co-Owners of Organiztion (2 Max)
+    - May add or remove any Level 3 Members of the organization
+    - May adjust the role of Level 3 Members
+3. Level 3 Maintainers of Organization (0+)
+    - May add or remove any Level 2 or 4 Members of the organization
+    - May adjust the role of Level 4 members
+4. Level 4 Guests of Organization (0+)
+    - Limited viewing privilages
+
+- A member of the organization may view upcoming meetings they have clearance for
+- A member may have overriden clearance if approved by a member with clearance to that item
+- Any Meeting or Assignment assigned to a member gives them overriding clearance to see details
+- A member may make modifications their phone number, password, and personal settings
 
 ### Creating an Organization
-Only a bishop can create an organization.  
-Every member in the organization will need to create an account and request too join the Bishops organization.  
-The Bishop should first create his account and the organization account, then either request or add users as they are called to the organization. 
+Only a Level 1 can create an organization.   
+Every member in the organization will need to create an account and request too join the organization.   
+The owner needs to create the organization account, then request or add users to the organization.  
 
 ### Removing an Organization
-TODO
+Only an owner may disolve an organization.  
+All organizations disolve 6 years after creation or 1 year of inactivity.  
 
 ### Editing an Organization
-TODO
+Only the owner may edit the name or other information of the organization.
+
+### Roles in an Organization
+#### Ward Organization
+1. Bishop - Owner
+2. 1st Counselor - Co-Owner
+3. 2nd Counselor - Co-Owner
+4. Ward Clerk - Maintainer
+5. Assistant Ward Clerk - Maintainer
+6. Ward Executive Secretary - Maintainer
+7. Ward Assistant Executive Secretary - Maintainer
+8. Elders Quorum President - Guest
+9. Relief Society President - Guest
+10. Young Womens President - Guest
+11. Primary President - Guest
+12. Young Mens President - Guest
+13. Sunday School President - Guest
+14. Ward Mission Leader - Guest
+15. Ward Temple & Family History Leader - Guest
+
+<!--#### Branch Organization
+TODO: Not to be added at this time but here as a place holder for later down the road -->
 
 # Components
 ## Navigation
@@ -289,33 +351,6 @@ TODO
 - Notifications
     - Notify assigned users of meetings and assignments
     - Notify assigned users of new meetings and assignments --> 
-
-## Creating, Scheduling, & Organizing Meetings
-### Bishopric Member Avaliability
-**Level 2 Clearance Required**  
-Counselors and the Bishop will be able to block out or set hours they are avaliable for interiews each day of the week  
-Secretaries & Clerks will be able to see Bishop & Counselors avaliability and schedule Meetings in those time slots
-Time slots should have a minimum of 15 min increments, multiple time slots may be selected for one event
-
-### Scheduling Events & Assignments
-**Level 3 Clearance Required**  
-Level 3 and above may create, edit, & assign events to any member of the organization  
-Level 3 and above may create, edit, & assign assignments to any member of the organization
-#### Event & Assignment Details
-Events should include the following:
-
-| Event Detail | Meeting | Interview | Assignment |
-|-|-|-|-|
-|Name|X|X|X|
-|Time|X|X|X|
-|Date|X|X|X|
-|Place|X|X||
-|Assignee|X|X|X|
-|Agenda|X|||
-|Interviewee||X||
-|Notes|X|X|X|
-|Notify|X|X|X|
-|Custom Notify|X|X|X|
 
 ## Notifications
 Members will be notified when a new assignment or event has been assigned to them  
