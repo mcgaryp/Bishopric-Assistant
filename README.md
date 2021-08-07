@@ -15,7 +15,7 @@ Often times in the Church of Jesus Christ of Latter Day Saints Bishoprics are ov
 ### Pricing **Free Within**
 |Authentication|Cloud Firestore|Hosting|Realtime Database|Cloud Storage|Test Lab|
 |-|-|-|-|-|-|
-|10k/month|Stored Data 1GiB, Network egress 10GiB/Month, Document writes 20k/day, Document reads 50k/day, Document deletes 20k/day|Storage 10Gb, Data transfer 360MB/day, Custom Domain, Multiple sites| Simultaneous connections 100, GB stored 1GB, Gb downloaded, 10Gb/month, Database per project 1|GB stored 5GB, GB downloaded 1GB/day, Upload operatios 20k/day, DownloadOperations 50k/day, Buckets per project 1|Virtual Divice Tests 10 tests/day, Physical Device Tests 5 tests/day|
+|10k/month|Stored Data 1GiB<br>Network egress 10GiB/Month<br>Document writes 20k/day<br>Document reads 50k/day<br>Document deletes 20k/day|Storage 10Gb<br>Data transfer 360MB/day<br>Custom Domain<br>Multiple sites| Simultaneous connections 100<br>GB stored 1GB<br>Gb downloaded<br>10Gb/month<br>Database per project 1|GB stored 5GB<br>GB downloaded 1GB/day<br>Upload operatios 20k/day<br>DownloadOperations 50k/day<br>Buckets per project 1|Virtual Divice Tests 10 tests/day<br>Physical Device Tests 5 tests/day|
 
 ## Alternative Databases to Firebase
 Based on the following alternatives it would be wise to use Firebase as it will provide a host server and all database needs.
