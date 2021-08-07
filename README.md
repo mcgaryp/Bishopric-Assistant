@@ -117,7 +117,7 @@ User will be able to login to the application through a login process. [Mobile](
 |Prompts User|User is given a space for username and password|
 |Confirms Account|Requests data to confirm account information|
 |Successful then...|Loads user data into application and permits access to app|
-|Failure then...|Enters [Login State Management](TODO)|
+|Failure then...|Enters [Login State Management](#state-management)|
 
 ### Forgotten Passwords
 Should the user need to change their password a method should be provided to them at login. [Mobile PIN](./images/appImages/PinView.png), [Desktop PIN](./images/desktopImages/PinPage.png), [Mobile Password Change](./images/appImages/PasswordChangeRequestView.png), [Desktop Password Change](./images/desktopImages/PasswordChangeRequestPage.png), [Mobile Change](./images/appImages/ChangePasswordView.png), [Desktop Change](./images/desktopImages/ChangePasswordPage.png)
@@ -126,8 +126,8 @@ Should the user need to change their password a method should be provided to the
 |Username Prompted|The user should be given a space to provide their username/email|
 |Email Sent|A unique PIN is sent to the users email, verifies email sends successfully|
 |Pin Verification|A space is provided to the user to allow for PIN input|
-|Successful then...|User is directed to password and confirmation space where it enters [Passowrd State Management](TODO)|
-|Failure then...| User is given option to resubmit the PIN or request a new pin, enters [Password Recovery State Management](TODO)|
+|Successful then...|User is directed to password and confirmation space where it enters [Passowrd State Management](#state-management)|
+|Failure then...| User is given option to resubmit the PIN or request a new pin, enters [Password Recovery State Management](#state-managment)|
 
 ### Viewing & Changing Account Information
 The user is provided with a space to view their account information (name, phone, email, role), the number of events they are assigned to, the number of assignments they have, edit organization button and a leave organization button. [Mobile Profile](./images/appImages/ProfileView.png), [Desktop Profile](./images/desktopImages/ProfilePage.png), [Mobile Edit Profile](./images/appImages/EditProfileView.png), [Desktop Edit Profile](./images/desktopImages/EditProfilePage.png)
@@ -154,11 +154,11 @@ The user will see:
 
 |Function|Detail|
 |-|-|
-|[Events List](TODO)|Displays a current list of all organization events sorted by more recent date & time. Users should only see the events they are assigned to|
-|[Assignements List](TODO)|Displays a current list of all assignments from the organization the user is assigned to, sorted by most recent due date & time|
-|[Organization List](TODO)|Displays a list of current organization member cards, sorted by the security levels from highest to lowest|
-|Navigation|Standard [Desktop Navigation](TODO)|
-|Footer|Standard [Desktop Footer](TODO)|
+|[Events List](#lists)|Displays a current list of all organization events sorted by more recent date & time. Users should only see the events they are assigned to|
+|[Assignements List](#lists)|Displays a current list of all assignments from the organization the user is assigned to, sorted by most recent due date & time|
+|[Organization List](#lists)|Displays a list of current organization member cards, sorted by the security levels from highest to lowest|
+|Navigation|Standard [Desktop Navigation](#web-2)|
+|Footer|Standard [Desktop Footer](#footer)|
 
 ## Events & Assignments
 Assignments can be given to any member in the organization and are designed to help pass along tasks as well as follow up on tasks to see that they are completed in a timely fashion.
@@ -251,6 +251,10 @@ Only the owner may edit the name or other information of the organization.
 
 <!--#### Branch Organization
 TODO: Not to be added at this time but here as a place holder for later down the road -->
+
+# State Managment
+Various state machines throughout the application
+
 
 # Components
 ## Navigation
