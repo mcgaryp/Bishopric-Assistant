@@ -127,7 +127,7 @@ Should the user need to change their password a method should be provided to the
 |Email Sent|A unique PIN is sent to the users email, verifies email sends successfully|
 |Pin Verification|A space is provided to the user to allow for PIN input|
 |Successful then...|User is directed to password and confirmation space where it enters [Passowrd State Management](#state-management)|
-|Failure then...| User is given option to resubmit the PIN or request a new pin, enters [Password Recovery State Management](#state-managment)|
+|Failure then...| User is given option to resubmit the PIN or request a new pin, enters [Password Recovery State Management](#state-management)|
 
 ### Viewing & Changing Account Information
 The user is provided with a space to view their account information (name, phone, email, role), the number of events they are assigned to, the number of assignments they have, edit organization button and a leave organization button. [Mobile Profile](./images/appImages/ProfileView.png), [Desktop Profile](./images/desktopImages/ProfilePage.png), [Mobile Edit Profile](./images/appImages/EditProfileView.png), [Desktop Edit Profile](./images/desktopImages/EditProfilePage.png)
@@ -252,9 +252,9 @@ Only the owner may edit the name or other information of the organization.
 <!--#### Branch Organization
 TODO: Not to be added at this time but here as a place holder for later down the road -->
 
-# State Managment
+# State Management
 Various state machines throughout the application
-
+![Stae Management Images](./charts/State_Machines.png)
 
 # Components
 ## Navigation
