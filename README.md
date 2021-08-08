@@ -19,6 +19,8 @@ Find the complete UI mock ups [@Framer.com Project](https://framer.com/projects/
 - [ ] [ADR](https://adr.github.io)
 - [ ] [ADL Example](https://adr.github.io/madr/docs/adr/)
 
+</details>
+
 
 # Data Model Structure
 ![Database Structure](./charts/Database_Structure.png)
