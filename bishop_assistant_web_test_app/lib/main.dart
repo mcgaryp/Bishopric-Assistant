@@ -1,10 +1,14 @@
-// Import the firebase_core plugin
-import 'package:bishop_assistant_web_test_app/MyFirebaseApp.dart';
 import 'package:bishop_assistant_web_test_app/navigation/RouteStrings.dart';
-import 'package:bishop_assistant_web_test_app/pages/Home.dart';
-import 'package:bishop_assistant_web_test_app/pages/Login.dart';
-import 'package:bishop_assistant_web_test_app/pages/Signup.dart';
+import 'package:bishop_assistant_web_test_app/theme/ThemeData.dart';
 import 'package:flutter/material.dart';
+
+///
+/// main.dart
+/// bishop_assistant_web_test_app
+///
+/// Created by Porter McGary on 8/13/21
+/// Copyright 2021 Porter McGary. All rights reserved.
+///
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,20 +29,7 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: "Firestore Demo",
-        theme: ThemeData(
-            backgroundColor: Color.fromRGBO(11, 83, 112, 1),
-            buttonColor: Color.fromRGBO(113, 146, 190, 1),
-            primaryColor: Color.fromRGBO(11, 83, 112, 1),
-            accentColor: Color.fromRGBO(251, 251, 255, 1),
-            errorColor: Color.fromRGBO(231, 58, 35, 1)),
-        routes: {
-          "/": (context) => MyFirebaseApp(),
-          rHome: (context) => Home(),
-          rLogin: (context) => Login(),
-          rSignup: (context) => Signup(),
-        });
+    return MaterialApp(title: "Firestore Demo", theme: theme, routes: routes);
   }
 }
 

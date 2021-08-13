@@ -3,6 +3,14 @@ import 'package:bishop_assistant_web_test_app/widgets/Content.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
+///
+/// MyFirebaseApp.dart
+/// bishop_assistant_web_test_app
+///
+/// Created by Porter McGary on 8/13/21
+/// Copyright 2021 Porter McGary. All rights reserved.
+///
+
 class MyFirebaseApp extends StatelessWidget {
   const MyFirebaseApp({Key? key}) : super(key: key);
 

@@ -1,11 +1,19 @@
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:flutter/cupertino.dart';
 
+///
+/// Decorations.dart
+/// bishop_assistant_web_test_app
+///
+/// Created by Porter McGary on 8/13/21
+/// Copyright 2021 Porter McGary. All rights reserved.
+///
+
 const BoxDecoration boxDecoration = BoxDecoration(
     borderRadius: borderRadius20, color: white, boxShadow: boxShadow);
 
 const BoxDecoration primaryButtonDecoration = BoxDecoration(
-    borderRadius: borderRadius20, color: accent, boxShadow: boxShadow);
+    borderRadius: borderRadius20, color: lightAccent, boxShadow: boxShadow);
 
 const BoxDecoration textButtonDecoration = BoxDecoration();
 

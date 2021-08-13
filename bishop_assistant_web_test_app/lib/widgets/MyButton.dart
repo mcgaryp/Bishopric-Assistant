@@ -2,6 +2,14 @@ import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
 import 'package:flutter/material.dart';
 
+///
+/// MyButton.dart
+/// bishop_assistant_web_test_app
+///
+/// Created by Porter McGary on 8/13/21
+/// Copyright 2021 Porter McGary. All rights reserved.
+///
+
 class MyButton extends StatelessWidget {
   final String label;
   final Function() onPressed;

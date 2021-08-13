@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 ///
 /// FirestoreHelper.dart
-/// Bishop Assistant Web Test
+/// bishop_assistant_web_test_app
 ///
 /// Created by Porter McGary on 8/8/2021
 /// Copyright 2021 Porter McGary. All rights reserved.

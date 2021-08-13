@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 
 ///
 /// FirebaseDropDown.dart
-/// Bishop Assistant Web Test
+/// bishop_assistant_web_test_app
 ///
-/// Created by Porter McGary on 8/8/2021
+/// Created by Porter McGary on 8/13/21
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
 

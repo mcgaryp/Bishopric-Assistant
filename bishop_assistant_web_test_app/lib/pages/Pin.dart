@@ -6,33 +6,25 @@ import 'package:bishop_assistant_web_test_app/widgets/login_signup/InputField.da
 import 'package:flutter/material.dart';
 
 ///
-/// Login.dart
+/// Pin.dart
 /// bishop_assistant_web_test_app
 ///
 /// Created by Porter McGary on 8/13/21
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
 
-class Login extends StatelessWidget {
-  const Login({Key? key}) : super(key: key);
+class Pin extends StatelessWidget {
+  const Pin({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return DarkPage(inputs: [
-      InputField(hint: username),
-      InputField(hint: password),
+      InputField(hint: pin),
     ], buttons: [
       MyButton(
-          label: login,
-          onPressed: () => Navigator.pushReplacementNamed(context, rHome)),
-      MyButton(
-          label: signup,
-          onPressed: () => Navigator.pushNamed(context, rSignup)),
-      MyButton(
-        label: forgot,
-        onPressed: () => Navigator.pushNamed(context, rPasswordRequest),
-        style: MyButtonStyle.text,
-      )
+          label: confirmPin,
+          onPressed: () =>
+              Navigator.pushReplacementNamed(context, rChangePassword)),
     ]);
   }
 }
