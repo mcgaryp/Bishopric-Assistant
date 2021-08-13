@@ -4,8 +4,10 @@ import 'package:flutter/cupertino.dart';
 const BoxDecoration boxDecoration = BoxDecoration(
     borderRadius: borderRadius20, color: white, boxShadow: boxShadow);
 
-const BoxDecoration buttonDecoration = BoxDecoration(
+const BoxDecoration primaryButtonDecoration = BoxDecoration(
     borderRadius: borderRadius20, color: accent, boxShadow: boxShadow);
+
+const BoxDecoration textButtonDecoration = BoxDecoration();
 
 const double padding8 = 8.0;
 const double padding16 = 16.0;

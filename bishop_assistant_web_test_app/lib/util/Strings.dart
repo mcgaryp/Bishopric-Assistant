@@ -10,3 +10,4 @@ const String signup = "Sign Up";
 const String login = "Login";
 const String role = "Role";
 const String username = "Username";
+const String forgot = "Forgot?";

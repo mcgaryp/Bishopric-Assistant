@@ -29,7 +29,12 @@ class Login extends StatelessWidget {
                     Navigator.pushReplacementNamed(context, rHome)),
             MyButton(
                 label: signup,
-                onPressed: () => Navigator.pushNamed(context, rSignup))
+                onPressed: () => Navigator.pushNamed(context, rSignup)),
+            MyButton(
+              label: forgot,
+              onPressed: () {/* TODO Build Forget Page */},
+              style: MyButtonStyle.text,
+            )
           ])
         ],
       )
