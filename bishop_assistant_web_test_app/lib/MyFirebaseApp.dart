@@ -1,5 +1,5 @@
-import 'package:bishop_assistant_web_test_app/pages/Login.dart';
-import 'package:bishop_assistant_web_test_app/widgets/Content.dart';
+import 'package:bishop_assistant_web_test_app/pages/Home.dart';
+import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +17,7 @@ class MyFirebaseApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: darkAccent,
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: FutureBuilder(
@@ -31,7 +31,8 @@ class MyFirebaseApp extends StatelessWidget {
 
             // Once complete, show your application
             if (snapshot.connectionState == ConnectionState.done) {
-              return Content(child: Login());
+              // return Content(child: Login()); // TODO: Replace
+              return Home();
             }
 
             // Otherwise, show something whilst waiting for initialization to complete

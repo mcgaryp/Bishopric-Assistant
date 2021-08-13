@@ -1,4 +1,5 @@
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
+import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
 import 'package:flutter/material.dart';
 
@@ -42,7 +43,10 @@ class NavigationButton extends StatelessWidget {
 
     if (widget == null) throw ErrorDescription("Label and Icon were both null");
 
-    return widget;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: padding8),
+      child: widget,
+    );
   }
 
   void _navigate(BuildContext context) => Navigator.pushNamed(context, path);

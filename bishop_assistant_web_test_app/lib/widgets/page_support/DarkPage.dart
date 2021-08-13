@@ -1,9 +1,9 @@
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
-import 'package:bishop_assistant_web_test_app/widgets/Content.dart';
 import 'package:bishop_assistant_web_test_app/widgets/MySpacer.dart';
 import 'package:bishop_assistant_web_test_app/widgets/login_signup/MyConstrainedBoxes.dart';
 import 'package:bishop_assistant_web_test_app/widgets/login_signup/MyDivider.dart';
+import 'package:bishop_assistant_web_test_app/widgets/page_support/Content.dart';
 import 'package:bishop_assistant_web_test_app/widgets/title/Title.dart';
 import 'package:flutter/material.dart';
 

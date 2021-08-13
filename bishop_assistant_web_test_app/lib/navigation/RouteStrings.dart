@@ -25,6 +25,8 @@ const String rEvents = "/events";
 const String rAssignments = "/assignments";
 const String rOrganization = "/organization";
 const String rProfile = "/profile";
+const String rLegal = "/legal";
+const String rPrivacy = "/privacy";
 
 final Map<String, Widget Function(BuildContext)> routes = {
   "/": (context) => MyFirebaseApp(),
@@ -34,4 +36,10 @@ final Map<String, Widget Function(BuildContext)> routes = {
   rPasswordRequest: (context) => RequestPasswordReset(),
   rPIN: (context) => Pin(),
   rChangePassword: (context) => ChangePassword(),
+  // rEvents: (context) =>
+  // rAssignments: (context) =>
+  // rOrganization: (context) =>
+  // rProfile: (context) =>
+  // rLegal: (context) =>
+  // rPrivacy: (context) =>
 };

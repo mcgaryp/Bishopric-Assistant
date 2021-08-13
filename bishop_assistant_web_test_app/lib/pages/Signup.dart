@@ -1,9 +1,9 @@
 import 'package:bishop_assistant_web_test_app/util/DatabasePaths.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
-import 'package:bishop_assistant_web_test_app/widgets/DarkPage.dart';
 import 'package:bishop_assistant_web_test_app/widgets/FirebaseDropDown.dart';
 import 'package:bishop_assistant_web_test_app/widgets/MyButton.dart';
 import 'package:bishop_assistant_web_test_app/widgets/login_signup/InputField.dart';
+import 'package:bishop_assistant_web_test_app/widgets/page_support/DarkPage.dart';
 import 'package:flutter/material.dart';
 
 ///

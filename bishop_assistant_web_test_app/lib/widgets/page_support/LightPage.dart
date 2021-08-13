@@ -4,7 +4,8 @@ import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
-import 'package:bishop_assistant_web_test_app/widgets/Content.dart';
+import 'package:bishop_assistant_web_test_app/widgets/footer/FooterButton.dart';
+import 'package:bishop_assistant_web_test_app/widgets/page_support/Content.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -21,7 +22,7 @@ class LightPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Action items
+    // Action items
     final List<Widget> actions = [
       NavigationButton(label: home, path: rHome),
       NavigationButton(label: events, path: rEvents),
@@ -30,11 +31,11 @@ class LightPage extends StatelessWidget {
       NavigationButton(icon: Icons.person, path: rProfile),
     ];
 
-    // TODO: Footer
+    // Footer
     final List<Widget> footer = [
-      Text("Legal"),
-      Text("Privacy"),
-      Text("SiteMap")
+      FooterButton(label: legal, path: rLegal),
+      FooterButton(label: privacy, path: rPrivacy),
+      FooterButton(label: "SiteMap", path: rHome)
     ];
 
     return Scaffold(
@@ -49,13 +50,12 @@ class LightPage extends StatelessWidget {
         actions: actions,
       ),
       body: Content(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(padding8),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: children,
-            ),
+        child: Padding(
+          padding: const EdgeInsets.only(
+              top: padding8, left: padding8, right: padding8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: children,
           ),
         ),
       ),
