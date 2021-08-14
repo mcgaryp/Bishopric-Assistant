@@ -35,3 +35,17 @@ class MyConstrainedBox200 extends StatelessWidget {
     );
   }
 }
+
+class MyConstrainedBox600 extends StatelessWidget {
+  final List<Widget> children;
+  const MyConstrainedBox600({required this.children, Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxWidth: 600),
+      child: Column(children: children),
+    );
+  }
+}

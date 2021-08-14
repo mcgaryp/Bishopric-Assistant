@@ -19,6 +19,8 @@ const BoxDecoration primaryButtonDecoration = BoxDecoration(
 const BoxDecoration contentSnapShotDecoration = BoxDecoration(
     borderRadius: borderRadiusTop20, color: darkAccent, boxShadow: boxShadow);
 
+const BoxDecoration darkContentDecoration = BoxDecoration(color: darkAccent);
+
 const BoxDecoration textButtonDecoration = BoxDecoration();
 
 final BoxDecoration borderDecoration =

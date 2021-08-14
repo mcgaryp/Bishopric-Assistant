@@ -7,7 +7,7 @@ import 'package:bishop_assistant_web_test_app/widgets/title/Brand.dart';
 import 'package:bishop_assistant_web_test_app/widgets/title/Logo.dart';
 import 'package:flutter/material.dart';
 
-import 'Content.dart';
+import '../Content.dart';
 
 ///
 /// LightPageWeb.dart
@@ -26,11 +26,11 @@ class LightPageWeb extends StatelessWidget {
   Widget build(BuildContext context) {
     // Action items
     final List<Widget> actions = [
-      NavigationButton(label: home, path: rHome),
-      NavigationButton(label: events, path: rEvents),
-      NavigationButton(label: assignments, path: rAssignments),
-      NavigationButton(label: organization, path: rOrganization),
-      NavigationButton(icon: Icons.person, path: rProfile),
+      WebNavigationButton(label: home, path: rHome),
+      WebNavigationButton(label: events, path: rEvents),
+      WebNavigationButton(label: assignments, path: rAssignments),
+      WebNavigationButton(label: organization, path: rOrganization),
+      WebNavigationButton(icon: Icons.person, path: rProfile),
     ];
 
     return Scaffold(

@@ -4,7 +4,7 @@ import 'Brand.dart';
 import 'Logo.dart';
 
 ///
-/// Title.dart
+/// MyTitle.dart
 /// bishop_assistant_web_test_app
 ///
 /// Created by Porter McGary on 8/13/21
@@ -16,8 +16,8 @@ class MyTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 32.0),
+    return Container(
+      constraints: BoxConstraints(maxWidth: 500),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [Logo(), Brand()],

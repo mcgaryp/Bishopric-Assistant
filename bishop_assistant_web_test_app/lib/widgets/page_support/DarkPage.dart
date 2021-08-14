@@ -4,7 +4,7 @@ import 'package:bishop_assistant_web_test_app/widgets/MySpacer.dart';
 import 'package:bishop_assistant_web_test_app/widgets/login_signup/MyConstrainedBoxes.dart';
 import 'package:bishop_assistant_web_test_app/widgets/login_signup/MyDivider.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/Content.dart';
-import 'package:bishop_assistant_web_test_app/widgets/title/Title.dart';
+import 'package:bishop_assistant_web_test_app/widgets/title/MyTitle.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -34,7 +34,7 @@ class DarkPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           MyTitle(),
-                          MyDivider(),
+                          MyConstrainedBox600(children: [MyDivider()]),
                           MyConstrainedBox300(
                             children: inputs,
                           ),

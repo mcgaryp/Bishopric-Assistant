@@ -11,11 +11,12 @@ import 'package:flutter/material.dart';
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
 
-class NavigationButton extends StatelessWidget {
+class WebNavigationButton extends StatelessWidget {
   final String? label;
   final IconData? icon;
   final String path;
-  const NavigationButton({this.label, this.icon, required this.path, Key? key})
+  const WebNavigationButton(
+      {this.label, this.icon, required this.path, Key? key})
       : super(key: key);
 
   @override

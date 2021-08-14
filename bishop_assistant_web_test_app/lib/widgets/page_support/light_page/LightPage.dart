@@ -1,8 +1,8 @@
 import 'package:bishop_assistant_web_test_app/navigation/RouteStrings.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/footer/FooterButton.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/LightPageMobile.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/LightPageWeb.dart';
+import 'package:bishop_assistant_web_test_app/widgets/page_support/light_page/LightPageMobile.dart';
+import 'package:bishop_assistant_web_test_app/widgets/page_support/light_page/LightPageWeb.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 

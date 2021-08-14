@@ -11,6 +11,8 @@ import 'Colors.dart';
 ///
 
 // TODO: Font Styles need redone and standardized
+//    Suggestion have styles that are like apples and have a dark and light
+//    version of each
 const TextStyle hintStyle = TextStyle(color: hintText);
 const TextStyle labelStyle = TextStyle(color: blackText);
 const TextStyle dropdownStyle = TextStyle(color: blackText);
@@ -21,4 +23,7 @@ const TextStyle title2Style = TextStyle(color: blackText, fontSize: 24);
 const TextStyle subtitleStyle = TextStyle(color: whiteText, fontSize: 36);
 const TextStyle subtitle2Style = TextStyle(color: blackText, fontSize: 30);
 const TextStyle captionStyle = TextStyle(color: hintText, fontSize: 16);
+const TextStyle caption2Style = TextStyle(color: whiteText, fontSize: 16);
 const TextStyle bodyStyle = TextStyle(color: blackText, fontSize: 20);
+const TextStyle body2Style = TextStyle(color: whiteText, fontSize: 20);
+const TextStyle darkButtonStyle = TextStyle(color: blackText);

@@ -1,13 +1,14 @@
-import 'package:bishop_assistant_web_test_app/navigation/NavigationButton.dart';
+import 'package:bishop_assistant_web_test_app/database/Member.dart';
+import 'package:bishop_assistant_web_test_app/navigation/MobileNavigationButton.dart';
 import 'package:bishop_assistant_web_test_app/navigation/RouteStrings.dart';
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
-import 'package:bishop_assistant_web_test_app/widgets/title/Brand.dart';
-import 'package:bishop_assistant_web_test_app/widgets/title/Logo.dart';
+import 'package:bishop_assistant_web_test_app/widgets/MemberAccountDrawerHeader.dart';
+import 'package:bishop_assistant_web_test_app/widgets/title/MyTitle.dart';
 import 'package:flutter/material.dart';
 
-import 'Content.dart';
+import '../Content.dart';
 
 ///
 /// LightPageMobile.dart
@@ -27,23 +28,19 @@ class LightPageMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     // Action items
     final List<Widget> actions = [
-      NavigationButton(icon: Icons.person, path: rProfile),
-      NavigationButton(label: home, path: rHome),
-      NavigationButton(label: events, path: rEvents),
-      NavigationButton(label: assignments, path: rAssignments),
-      NavigationButton(label: organization, path: rOrganization),
+      MemberDrawerHeader(Member()),
+      MobileNavigationButton(home, rHome),
+      MobileNavigationButton(events, rEvents),
+      MobileNavigationButton(assignments, rAssignments),
+      MobileNavigationButton(organization, rOrganization),
     ];
 
     return Scaffold(
       backgroundColor: white,
-      drawer: Drawer(child: Column(children: actions)),
+      drawer: Drawer(child: ListView(children: actions)),
       appBar: AppBar(
         backgroundColor: darkAccent,
-        centerTitle: false,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [Logo(), Brand()],
-        ),
+        title: MyTitle(),
       ),
       body: Content(
         child: Padding(
