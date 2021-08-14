@@ -1,8 +1,12 @@
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
+import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
 import 'package:bishop_assistant_web_test_app/util/DatabasePaths.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/FirebaseDropDown.dart';
 import 'package:bishop_assistant_web_test_app/widgets/FormInputField.dart';
+import 'package:bishop_assistant_web_test_app/widgets/MultiSelectField.dart';
+import 'package:bishop_assistant_web_test_app/widgets/MyButton.dart';
+import 'package:bishop_assistant_web_test_app/widgets/RowToggle.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/MyCard.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -15,8 +19,15 @@ import 'package:intl/intl.dart';
 /// Copyright 2021 porter. All rights reserved.
 ///
 
-class CreateEvent extends StatelessWidget {
+class CreateEvent extends StatefulWidget {
   const CreateEvent({Key? key}) : super(key: key);
+
+  @override
+  _CreateEventState createState() => _CreateEventState();
+}
+
+class _CreateEventState extends State<CreateEvent> {
+  var _selectedMembers = [];
 
   @override
   Widget build(BuildContext context) {
@@ -54,10 +65,13 @@ class CreateEvent extends StatelessWidget {
           collectionPath: Collections.event_types,
           document: EventTypesDoc(),
           isInput: true),
-      FirebaseDropDown(
-          collectionPath: Collections.members,
-          document: MembersDoc(),
-          isInput: true),
+      // TODO: Turn into MultiSelect options
+      //    look at https://pub.dev/packages/multi_select_flutter
+      MultiSelectField(assignees),
+      // FirebaseDropDown(
+      //     collectionPath: Collections.members,
+      //     document: MembersDoc(),
+      //     isInput: true),
       FormInputField(
         agenda,
         hint: agendaHint,
@@ -67,7 +81,27 @@ class CreateEvent extends StatelessWidget {
         hint: notesHint,
       ),
       // TODO: create a custom switch item
-      Switch(value: false, onChanged: (value) {})
+      RowToggle(notifyAssignee),
+      RowToggle(notifyInterviewee),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            notifyWhen,
+            style: bodyStyle,
+            maxLines: 2,
+            softWrap: true,
+          ),
+          ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 100),
+            child: FormInputField(
+              time,
+              hint: DateFormat.j().format(DateTime.now()),
+            ),
+          )
+        ],
+      ),
+      MyButton(label: createEvent, onPressed: () {/*TODO*/})
     ]);
   }
 }
