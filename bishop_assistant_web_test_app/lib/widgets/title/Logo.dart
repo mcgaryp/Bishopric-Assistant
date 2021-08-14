@@ -1,3 +1,4 @@
+import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -13,7 +14,10 @@ class Logo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text("Logo Here",
-        style: TextStyle(color: Theme.of(context).accentColor));
+    return Icon(
+      Icons.accessibility_new_rounded,
+      color: white,
+      size: 40,
+    );
   }
 }

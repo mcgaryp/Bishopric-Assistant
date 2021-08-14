@@ -20,7 +20,7 @@ class MyTitle extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 32.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [Logo(), Expanded(child: Brand())],
+        children: [Logo(), Brand()],
       ),
     );
   }

@@ -1,10 +1,10 @@
 import 'package:bishop_assistant_web_test_app/MyFirebaseApp.dart';
 import 'package:bishop_assistant_web_test_app/pages/ChangePassword.dart';
-import 'package:bishop_assistant_web_test_app/pages/Home.dart';
 import 'package:bishop_assistant_web_test_app/pages/Login.dart';
 import 'package:bishop_assistant_web_test_app/pages/Pin.dart';
 import 'package:bishop_assistant_web_test_app/pages/RequestPasswordReset.dart';
 import 'package:bishop_assistant_web_test_app/pages/Signup.dart';
+import 'package:bishop_assistant_web_test_app/pages/home/Home.dart';
 import 'package:flutter/cupertino.dart';
 
 ///
