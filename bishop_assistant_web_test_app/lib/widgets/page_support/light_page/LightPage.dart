@@ -31,14 +31,27 @@ class LightPage extends StatelessWidget {
     return ResponsiveBuilder(builder: (context, size) {
       if (child == null && children == null)
         throw Exception("there needs to have either a child or children");
+      print(size.screenSize.width);
+      // under 700 should be mobile
+      // above 700 should be web/tablet
+      // TODO: Solve the 404 Page error
+      // TODO: Go back to [DeviceScreenType]
+      if (size.screenSize.width > 700) {
+        if (children != null) return LightPageWeb(children!, footer);
+      } else {
+        if (child != null) return LightPageMobile(child!, footer);
+      }
+
+      return LightPageMobile(Text(page404), footer);
 
       switch (size.deviceScreenType) {
         case DeviceScreenType.mobile:
-        case DeviceScreenType.tablet:
           return LightPageMobile(child!, footer);
+        case DeviceScreenType.tablet:
         case DeviceScreenType.desktop:
-        default:
           return LightPageWeb(children!, footer);
+        default:
+          return LightPageMobile(Text(page404), footer);
       }
     });
   }

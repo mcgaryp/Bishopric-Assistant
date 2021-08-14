@@ -1,3 +1,5 @@
+import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
+import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
 import 'package:flutter/material.dart';
 
@@ -17,16 +19,24 @@ class FormInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      decoration: InputDecoration(
-          // TODO: Border
-          hintText: hint,
-          hintStyle: hintStyle,
-          labelText: label,
-          labelStyle: bodyStyle),
-      onSaved: (String? value) {
-        print('Value saved as "$value"');
-      },
+    return Padding(
+      padding: const EdgeInsets.only(bottom: padding8),
+      child: TextField(
+        decoration: InputDecoration(
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: lightAccent),
+                borderRadius: borderRadius20),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: darkAccent),
+                borderRadius: borderRadius20),
+            hintText: hint,
+            hintStyle: hintStyle,
+            labelText: label,
+            labelStyle: bodyStyle),
+        onChanged: (String? value) {
+          print('Value saved as "$value"');
+        },
+      ),
     );
   }
 }

@@ -17,10 +17,12 @@ class FirebaseDropDown extends StatefulWidget {
   final Collections collectionPath;
   final Document document;
   final String hint;
+  final bool isInput;
   const FirebaseDropDown(
       {required this.collectionPath,
       required this.document,
       this.hint = "",
+      this.isInput = false,
       Key? key})
       : super(key: key);
 
@@ -48,9 +50,9 @@ class _FirebaseDropDownState extends State<FirebaseDropDown> {
   @override
   build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: padding16),
+      padding: EdgeInsets.only(top: widget.isInput ? 0 : padding16),
       child: Container(
-        decoration: boxDecoration,
+        decoration: widget.isInput ? null : boxDecoration,
         child: Padding(
           padding: const EdgeInsets.only(left: padding16, right: padding8),
           child: DropdownButton(
