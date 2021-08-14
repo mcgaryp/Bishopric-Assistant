@@ -13,7 +13,7 @@ import 'Colors.dart';
 // TODO: Font Styles need redone and standardized
 //    Suggestion have styles that are like apples and have a dark and light
 //    version of each
-const TextStyle hintStyle = TextStyle(color: hintText);
+const TextStyle hintStyle = TextStyle(color: hintText, fontSize: 12);
 const TextStyle labelStyle = TextStyle(color: blackText);
 const TextStyle dropdownStyle = TextStyle(color: blackText);
 const TextStyle brandStyle = TextStyle(color: whiteText, fontSize: 50);

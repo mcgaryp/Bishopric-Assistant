@@ -1,4 +1,5 @@
-import 'package:bishop_assistant_web_test_app/database/Member.dart';
+import 'package:bishop_assistant_web_test_app/database/models/Event.dart';
+import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
@@ -17,94 +18,79 @@ import 'package:flutter/material.dart';
 
 // TODO: Object need recreated
 class EventCard extends StatelessWidget {
-  // TODO: Event Object in the future?
-  final String title;
-  final DateTime dateTime;
-  final String? location;
-  final List<Member>? mAssignees;
-  final Member? mInterviewee;
-  final String? mAgenda;
-  final String? mNotes;
+  final Event event;
 
-  const EventCard(
-      {required this.title,
-      required this.dateTime,
-      this.location,
-      this.mAssignees,
-      this.mInterviewee,
-      this.mAgenda,
-      this.mNotes,
-      Key? key})
-      : super(key: key);
+  const EventCard(this.event, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Widget? agendaStuff;
     Widget? noteStuff;
-    List<Widget> assigneeList = [];
+    Widget? intervieweeStuff;
+    Widget? assigneeStuff;
 
-    if (mAgenda != null) {
+    if (event.agenda != null) {
       agendaStuff = Padding(
         padding: const EdgeInsets.only(bottom: padding8),
-        child: Column(children: [
-          Align(
-              alignment: Alignment.centerLeft,
-              child: Text(agenda + ":", style: title2Style)),
-          Align(
-              alignment: Alignment.centerLeft,
-              child: Text(mAgenda!, style: bodyStyle)),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text(agenda + ":", style: title2Style),
+          Text(event.agenda!, style: bodyStyle),
         ]),
       );
     }
 
-    if (mNotes != null) {
+    if (event.notes != null) {
       noteStuff = Padding(
         padding: const EdgeInsets.only(bottom: padding8),
-        child: Column(children: [
-          Align(
-              alignment: Alignment.centerLeft,
-              child: Text(notes + ":", style: title2Style)),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              mNotes!,
-              style: bodyStyle,
-              softWrap: true,
-              overflow: TextOverflow.visible,
-            ),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text(notes + ":", style: title2Style),
+          Text(
+            event.notes!,
+            style: bodyStyle,
+            textAlign: TextAlign.justify,
           )
         ]),
       );
     }
 
-    if (mAssignees != null) {
-      String amountOfAssignees = mAssignees!.length > 1 ? assignees : assignee;
-      assigneeList.add(Align(
-          alignment: Alignment.centerLeft,
-          child: Text(amountOfAssignees + ":", style: title2Style)));
-      for (Member assignee in mAssignees!) {
-        assigneeList.add(Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            "    ${assignee.firstName} ${assignee.lastName}",
-            style: bodyStyle,
-          ),
+    if (event.assignees != null) {
+      List<Widget> assigneeList = [];
+      String amountOfAssignees =
+          event.assignees!.length > 1 ? assignees : assignee;
+      for (Member assignee in event.assignees!) {
+        assigneeList.add(Text(
+          "    ${assignee.firstName} ${assignee.lastName}",
+          style: bodyStyle,
         ));
       }
+      assigneeStuff = Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(amountOfAssignees + ":", style: title2Style),
+          Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: assigneeList)
+        ],
+      );
+    }
+
+    if (event.interviewee != null) {
+      intervieweeStuff =
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Text(interviewee + ":", style: title2Style),
+        Text(event.interviewee!, style: bodyStyle)
+      ]);
     }
 
     return MyCard(children: [
-      CardTitle(title),
-      CardSubtitle(dateTime, location: location),
+      CardTitle(event.name),
+      CardSubtitle(event.dateTime, location: event.location),
       if (agendaStuff != null) agendaStuff,
       if (noteStuff != null) noteStuff,
-      if (mAssignees != null)
-        Padding(
-          padding: const EdgeInsets.only(bottom: padding8),
-          child: Column(children: assigneeList),
-        )
-      // Text("Interviewee"),
-      // Text("Name of Person"),
+      if (assigneeStuff != null) assigneeStuff,
+      if (intervieweeStuff != null) intervieweeStuff
     ]);
   }
 }

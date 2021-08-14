@@ -14,8 +14,6 @@ class Content extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: Container(
-            constraints: BoxConstraints(maxWidth: 1200), child: child));
+    return Center(child: child);
   }
 }

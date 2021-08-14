@@ -34,3 +34,7 @@ const String notes = "Notes";
 const String assignee = "Assignee";
 const String assignees = "Assignees";
 const String interviewee = "Interviewee";
+const String createEvent = "Create New Event";
+const String event = "Event";
+const String eventNameHint = "What is the name of this event?";
+const String eventName = "Event Name";

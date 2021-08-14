@@ -19,14 +19,15 @@ class WebContentSnapShot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SnapShotBackground(
-      child: Column(
-        children: [
-          RowTitle(title),
-          Expanded(child: ListView(children: children))
-        ],
+    return Expanded(
+      child: SnapShotBackground(
+        child: Column(
+          children: [
+            RowTitle(title),
+            Expanded(child: ListView(children: children))
+          ],
+        ),
       ),
-      // Expanded(child: ListView(children: children))
     );
   }
 }

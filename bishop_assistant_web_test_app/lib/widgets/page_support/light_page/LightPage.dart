@@ -15,8 +15,9 @@ import 'package:responsive_builder/responsive_builder.dart';
 ///
 
 class LightPage extends StatelessWidget {
-  final List<Widget> children;
-  const LightPage({required this.children, Key? key}) : super(key: key);
+  final List<Widget>? children;
+  final Widget? child;
+  const LightPage({this.children, this.child, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +29,16 @@ class LightPage extends StatelessWidget {
     ];
 
     return ResponsiveBuilder(builder: (context, size) {
+      if (child == null && children == null)
+        throw Exception("there needs to have either a child or children");
+
       switch (size.deviceScreenType) {
         case DeviceScreenType.mobile:
         case DeviceScreenType.tablet:
-          return LightPageMobile(children, footer);
+          return LightPageMobile(child!, footer);
         case DeviceScreenType.desktop:
         default:
-          return LightPageWeb(children, footer);
+          return LightPageWeb(children!, footer);
       }
     });
   }

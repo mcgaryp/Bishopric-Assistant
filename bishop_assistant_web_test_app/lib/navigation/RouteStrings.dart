@@ -1,10 +1,16 @@
 import 'package:bishop_assistant_web_test_app/MyFirebaseApp.dart';
-import 'package:bishop_assistant_web_test_app/pages/ChangePassword.dart';
-import 'package:bishop_assistant_web_test_app/pages/Login.dart';
-import 'package:bishop_assistant_web_test_app/pages/Pin.dart';
-import 'package:bishop_assistant_web_test_app/pages/RequestPasswordReset.dart';
-import 'package:bishop_assistant_web_test_app/pages/Signup.dart';
+import 'package:bishop_assistant_web_test_app/pages/AssignmentPage.dart';
+import 'package:bishop_assistant_web_test_app/pages/OrganizationPage.dart';
+import 'package:bishop_assistant_web_test_app/pages/ProfilePage.dart';
+import 'package:bishop_assistant_web_test_app/pages/event/EventPage.dart';
+import 'package:bishop_assistant_web_test_app/pages/footer/Legal.dart';
+import 'package:bishop_assistant_web_test_app/pages/footer/Privacy.dart';
 import 'package:bishop_assistant_web_test_app/pages/home/Home.dart';
+import 'package:bishop_assistant_web_test_app/pages/recover_password/ChangePassword.dart';
+import 'package:bishop_assistant_web_test_app/pages/recover_password/Pin.dart';
+import 'package:bishop_assistant_web_test_app/pages/recover_password/RequestPasswordReset.dart';
+import 'package:bishop_assistant_web_test_app/pages/signup_login/Login.dart';
+import 'package:bishop_assistant_web_test_app/pages/signup_login/Signup.dart';
 import 'package:flutter/cupertino.dart';
 
 ///
@@ -27,6 +33,8 @@ const String rOrganization = "/organization";
 const String rProfile = "/profile";
 const String rLegal = "/legal";
 const String rPrivacy = "/privacy";
+const String rAddEvent = "/events/create";
+const String rAddAssignment = "/assignments/create";
 
 final Map<String, Widget Function(BuildContext)> routes = {
   "/": (context) => MyFirebaseApp(),
@@ -36,10 +44,12 @@ final Map<String, Widget Function(BuildContext)> routes = {
   rPasswordRequest: (context) => RequestPasswordReset(),
   rPIN: (context) => Pin(),
   rChangePassword: (context) => ChangePassword(),
-  // rEvents: (context) =>
-  // rAssignments: (context) =>
-  // rOrganization: (context) =>
-  // rProfile: (context) =>
-  // rLegal: (context) =>
-  // rPrivacy: (context) =>
+  rEvents: (context) => EventPage(),
+  rAssignments: (context) => AssignmentPage(),
+  rOrganization: (context) => OrganizationPage(),
+  rProfile: (context) => ProfilePage(),
+  rLegal: (context) => Legal(),
+  rPrivacy: (context) => Privacy(),
+  // rAddEvent: (context) => ,
+  // rAddAssignment: (context) => ,
 };

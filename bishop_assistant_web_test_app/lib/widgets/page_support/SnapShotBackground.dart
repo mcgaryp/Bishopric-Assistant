@@ -18,13 +18,11 @@ class SnapShotBackground extends StatelessWidget {
     const EdgeInsets padding =
         EdgeInsets.only(top: padding8, left: padding8, right: padding8);
 
-    return Expanded(
-      child: Padding(
-        padding: padding,
-        child: Container(
-          decoration: contentSnapShotDecoration,
-          child: Padding(padding: padding, child: child),
-        ),
+    return Padding(
+      padding: padding,
+      child: Container(
+        decoration: contentSnapShotDecoration,
+        child: Padding(padding: padding, child: child),
       ),
     );
   }

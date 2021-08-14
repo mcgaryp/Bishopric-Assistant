@@ -22,14 +22,11 @@ class HomeMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LightPage(children: [
-      MobileContentSnapShot([
-        // RowTitle(events),
-        // Column(children: eventsList)
-        Section(events, eventsList),
-        Section(assignments, assignmentsList),
-        Section(organization, membersList)
-      ])
-    ]);
+    return LightPage(
+        child: MobileContentSnapShot([
+      Section(events, eventsList),
+      Section(assignments, assignmentsList),
+      Section(organization, membersList)
+    ]));
   }
 }

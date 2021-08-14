@@ -1,4 +1,5 @@
-import 'package:bishop_assistant_web_test_app/database/Member.dart';
+import 'package:bishop_assistant_web_test_app/database/models/Event.dart';
+import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
 import 'package:bishop_assistant_web_test_app/pages/home/HomeMobile.dart';
 import 'package:bishop_assistant_web_test_app/pages/home/HomeWeb.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/AssignmentCard.dart';
@@ -19,29 +20,8 @@ class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
 
   final List<Widget> eventsList = [
-    EventCard(
-      title: "Ward Counsel",
-      dateTime: DateTime.now(),
-      mAssignees: [Member(), Member()],
-      mNotes:
-          "It is a long established fact that a reader will be distracted by"
-          " the readable content of a page when looking at its layout. "
-          "The point of using Lorem Ipsum is that it has a more-or-less "
-          "normal distribution of letters, as opposed to using 'Content "
-          "here, content here', making it look like readable English. "
-          "Many desktop publishing packages and web page editors now "
-          "use Lorem Ipsum as their default model text, and a search "
-          "for 'lorem ipsum' will uncover many web sites still in their "
-          "infancy. Various versions have evolved over the years, "
-          "sometimes by accident, sometimes on purpose (injected humour "
-          "and the like).",
-      mAgenda: " - paragraphs\n - words\n - bytes\n - lists",
-      location: "Bishops office",
-    ),
-    EventCard(
-      title: "Ward Counsel",
-      dateTime: DateTime.now(),
-    ),
+    EventCard(Meeting.example),
+    EventCard(Interview.example),
   ];
 
   final List<Widget> assignmentsList = [
@@ -52,24 +32,13 @@ class Home extends StatelessWidget {
   ];
 
   final List<Widget> membersList = [
-    MemberCard(Member()),
-    MemberCard(Member()),
-    MemberCard(Member()),
-    MemberCard(Member()),
-    MemberCard(Member()),
-    MemberCard(Member()),
-    MemberCard(Member()),
-    MemberCard(Member()),
-    MemberCard(Member()),
-    MemberCard(Member()),
-    MemberCard(Member()),
-    MemberCard(Member()),
-    MemberCard(Member()),
-    MemberCard(Member()),
-    MemberCard(Member()),
-    MemberCard(Member()),
-    MemberCard(Member()),
-    MemberCard(Member()),
+    MemberCard(Member.bishopExample),
+    MemberCard(Member.counselor1Example),
+    MemberCard(Member.counselor2Example),
+    MemberCard(Member.wardClerkExample),
+    MemberCard(Member.assistantWardClerkExample),
+    MemberCard(Member.wardExecutiveSecretaryExample),
+    MemberCard(Member.wardAssistantExecutiveSecretaryExample)
   ];
 
   @override
