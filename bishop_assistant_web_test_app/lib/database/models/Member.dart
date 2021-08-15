@@ -1,3 +1,4 @@
+import 'package:bishop_assistant_web_test_app/database/DatabaseModel.dart';
 import 'package:bishop_assistant_web_test_app/database/models/Role.dart';
 import 'package:flutter/material.dart';
 
@@ -9,8 +10,7 @@ import 'package:flutter/material.dart';
 /// Copyright 2021 porter. All rights reserved.
 ///
 
-class Member {
-  late int id = -1;
+class Member extends DatabaseModel {
   late String firstName = "Porter";
   late String lastName = "McGary";
   late String phone = "(479) 696-1637";
@@ -20,14 +20,17 @@ class Member {
   late int security;
 
   Member(
-      {required this.id,
+      {required id,
       required this.firstName,
       required this.lastName,
       required this.phone,
       required this.email,
       this.image = Icons.person,
       required this.role,
-      required this.security});
+      required this.security})
+      : super(id, "$firstName $lastName");
+
+  Member.model(int id, String name) : super(id, name);
 
   static Member bishopExample = Member(
       id: 0,

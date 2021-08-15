@@ -16,7 +16,6 @@ import 'package:flutter/material.dart';
 /// Copyright 2021 porter. All rights reserved.
 ///
 
-// TODO: Object need recreated
 class EventCard extends StatelessWidget {
   final Event event;
 

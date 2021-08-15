@@ -3,8 +3,8 @@ import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
 import 'package:bishop_assistant_web_test_app/util/DatabasePaths.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/FirebaseDropDown.dart';
+import 'package:bishop_assistant_web_test_app/widgets/FirebaseMultiSelectField.dart';
 import 'package:bishop_assistant_web_test_app/widgets/FormInputField.dart';
-import 'package:bishop_assistant_web_test_app/widgets/MultiSelectField.dart';
 import 'package:bishop_assistant_web_test_app/widgets/MyButton.dart';
 import 'package:bishop_assistant_web_test_app/widgets/RowToggle.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/MyCard.dart';
@@ -62,16 +62,12 @@ class _CreateEventState extends State<CreateEvent> {
         hint: locationHint,
       ),
       FirebaseDropDown(
+          hint: eventType,
           collectionPath: Collections.event_types,
           document: EventTypesDoc(),
           isInput: true),
-      // TODO: Turn into MultiSelect options
-      //    look at https://pub.dev/packages/multi_select_flutter
-      MultiSelectField(assignees),
-      // FirebaseDropDown(
-      //     collectionPath: Collections.members,
-      //     document: MembersDoc(),
-      //     isInput: true),
+      FirebaseMultiSelectField(assignees,
+          collectionPath: Collections.members, document: MembersDoc()),
       FormInputField(
         agenda,
         hint: agendaHint,
@@ -80,9 +76,9 @@ class _CreateEventState extends State<CreateEvent> {
         notes,
         hint: notesHint,
       ),
-      // TODO: create a custom switch item
       RowToggle(notifyAssignee),
       RowToggle(notifyInterviewee),
+      // TODO: Create a custom time input field
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

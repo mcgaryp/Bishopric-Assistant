@@ -1,3 +1,5 @@
+import 'package:bishop_assistant_web_test_app/database/DatabaseModel.dart';
+
 ///
 /// Role.dart
 /// bishop_assistant_web_test_app
@@ -14,4 +16,8 @@ enum Role {
   assistantWardClerk,
   wardExecutiveSecretary,
   assistantWardExecutiveSecretary
+}
+
+class MemberRole extends DatabaseModel {
+  MemberRole.model(int id, String name) : super(id, name);
 }

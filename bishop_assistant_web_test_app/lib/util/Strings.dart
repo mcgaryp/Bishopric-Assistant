@@ -48,3 +48,4 @@ const String agendaHint = "What should this meeting include in it?";
 const String notifyAssignee = "Notify Assignee";
 const String notifyInterviewee = "Notify Interviewee";
 const String notifyWhen = "Hours to notify before event";
+const String eventType = "Event Type";

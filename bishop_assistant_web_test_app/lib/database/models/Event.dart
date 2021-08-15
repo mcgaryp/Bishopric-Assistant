@@ -1,3 +1,4 @@
+import 'package:bishop_assistant_web_test_app/database/DatabaseModel.dart';
 import 'package:bishop_assistant_web_test_app/database/models/EventType.dart';
 import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
 
@@ -9,23 +10,22 @@ import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
 /// Copyright 2021 porter. All rights reserved.
 ///
 
-abstract class Event {
+abstract class Event extends DatabaseModel {
   late EventType eventType;
   late DateTime dateTime;
-  late int id;
-  late String name;
   String? location;
   String? notes;
   String? agenda;
   String? interviewee;
   List<Member>? assignees;
 
-  Event(this.id, this.name, this.dateTime, this.eventType,
+  Event(id, name, this.dateTime, this.eventType,
       {this.location,
       this.notes,
       this.assignees,
       this.agenda,
-      this.interviewee});
+      this.interviewee})
+      : super(id, name);
 }
 
 class Meeting extends Event {

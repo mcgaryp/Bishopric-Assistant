@@ -23,6 +23,9 @@ const BoxDecoration darkContentDecoration = BoxDecoration(color: darkAccent);
 
 const BoxDecoration textButtonDecoration = BoxDecoration();
 
+final BoxDecoration inputOnLightDecoration =
+    BoxDecoration(borderRadius: borderRadius20, border: darkBorder);
+
 final BoxDecoration borderDecoration =
     BoxDecoration(border: Border.all(color: Colors.red));
 
@@ -35,6 +38,8 @@ const double radius20 = 20.0;
 const BorderRadius borderRadius20 = BorderRadius.all(Radius.circular(radius20));
 const BorderRadius borderRadiusTop20 =
     BorderRadius.vertical(top: Radius.circular(radius20));
+
+final Border darkBorder = Border.all(color: darkAccent);
 
 const List<BoxShadow> boxShadow = [
   BoxShadow(offset: Offset(2, 4), blurRadius: 4, spreadRadius: 3, color: shadow)

@@ -50,9 +50,11 @@ class _FirebaseDropDownState extends State<FirebaseDropDown> {
   @override
   build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: widget.isInput ? 0 : padding16),
+      padding: EdgeInsets.only(
+          top: widget.isInput ? 0 : padding16,
+          bottom: widget.isInput ? padding8 : 0),
       child: Container(
-        decoration: widget.isInput ? null : boxDecoration,
+        decoration: widget.isInput ? inputOnLightDecoration : boxDecoration,
         child: Padding(
           padding: const EdgeInsets.only(left: padding16, right: padding8),
           child: DropdownButton(
