@@ -71,21 +71,26 @@ class _FirebaseDropDownState extends State<FirebaseDropDown> {
   }
 
   void _onChanged(newValue) {
-    setState(() {
-      dropdownValue = newValue!;
-    });
+    if (this.mounted) {
+      setState(() {
+        dropdownValue = newValue!;
+      });
+    }
   }
 
-  void _getMenuItems() async {
+  Future<void> _getMenuItems() async {
     final snapshot =
         await FirestoreHelper.reference(widget.collectionPath.string()).get();
     List<QueryDocumentSnapshot> data = FirestoreHelper.listQuerySnap(snapshot);
-    setState(() {
-      collection = data
-          .map<DropdownMenuItem>((e) => DropdownMenuItem(
-              value: e[widget.document.name],
-              child: Text(e[widget.document.name])))
-          .toList();
-    });
+
+    if (this.mounted) {
+      setState(() {
+        collection = data
+            .map<DropdownMenuItem>((e) => DropdownMenuItem(
+                value: e[widget.document.name],
+                child: Text(e[widget.document.name])))
+            .toList();
+      });
+    }
   }
 }
