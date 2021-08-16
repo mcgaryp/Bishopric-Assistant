@@ -5,6 +5,8 @@ import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/MyCard.dart';
 import 'package:flutter/material.dart';
 
+import 'MemberIcon.dart';
+
 ///
 /// MemberCard.dart
 /// bishop_assistant_web_test_app
@@ -23,17 +25,7 @@ class MemberCard extends StatelessWidget {
       Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Container(
-            decoration:
-                BoxDecoration(shape: BoxShape.circle, color: darkAccent),
-            child: Padding(
-              padding: const EdgeInsets.all(padding8),
-              child: Icon(
-                member.image,
-                color: white,
-              ),
-            ),
-          ),
+          MemberIcon(member.image),
           Padding(
             padding: const EdgeInsets.only(left: padding8),
             child: Column(

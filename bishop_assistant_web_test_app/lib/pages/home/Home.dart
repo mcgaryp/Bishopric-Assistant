@@ -31,22 +31,11 @@ class Home extends StatelessWidget {
     )
   ];
 
-  final List<Widget> membersList = [
-    MemberCard(Member.bishopExample),
-    MemberCard(Member.counselor1Example),
-    MemberCard(Member.counselor2Example),
-    MemberCard(Member.wardClerkExample),
-    MemberCard(Member.assistantWardClerkExample),
-    MemberCard(Member.wardExecutiveSecretaryExample),
-    MemberCard(Member.wardAssistantExecutiveSecretaryExample)
-  ];
-
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout(
-      mobile: HomeMobile(eventsList, assignmentsList, membersList),
-      desktop: HomeWeb(eventsList, assignmentsList, membersList),
-      tablet: HomeMobile(eventsList, assignmentsList, membersList),
+      mobile: HomeMobile(eventsList, assignmentsList, Member.exampleMemberCardList),
+      tablet: HomeWeb(eventsList, assignmentsList, Member.exampleMemberCardList),
     );
   }
 }

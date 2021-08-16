@@ -19,8 +19,8 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DarkPage(inputs: [
-      InputField(hint: username),
-      InputField(hint: password),
+      InputField(username),
+      InputField(password, isPassword: true),
     ], buttons: [
       MyButton(
           label: login,

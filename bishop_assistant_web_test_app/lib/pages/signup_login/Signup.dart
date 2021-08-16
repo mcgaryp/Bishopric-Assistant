@@ -20,15 +20,15 @@ class Signup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DarkPage(inputs: [
-      InputField(hint: firstname),
-      InputField(hint: lastname),
-      InputField(hint: email),
-      InputField(hint: phone),
-      InputField(hint: password),
-      InputField(hint: confirmPassword),
+      InputField(firstname),
+      InputField(lastname),
+      InputField(email),
+      InputField(phone),
+      InputField(password, isPassword: true),
+      InputField(confirmPassword, isPassword: true),
       FirebaseDropDown(
           collectionPath: Collections.roles, document: RolesDoc(), hint: role),
-      InputField(hint: nameOfOrganization),
+      InputField(nameOfOrganization),
     ], buttons: [
       MyButton(label: signup, onPressed: () => Navigator.pop(context))
     ]);

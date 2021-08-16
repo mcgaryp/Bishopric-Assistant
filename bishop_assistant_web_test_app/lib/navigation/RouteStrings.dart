@@ -1,7 +1,9 @@
 import 'package:bishop_assistant_web_test_app/MyFirebaseApp.dart';
-import 'package:bishop_assistant_web_test_app/pages/AssignmentPage.dart';
-import 'package:bishop_assistant_web_test_app/pages/OrganizationPage.dart';
-import 'package:bishop_assistant_web_test_app/pages/ProfilePage.dart';
+import 'package:bishop_assistant_web_test_app/pages/assignment/AssignmentPage.dart';
+import 'package:bishop_assistant_web_test_app/pages/organization/OrganizationPage.dart';
+import 'package:bishop_assistant_web_test_app/pages/profile/ProfilePage.dart';
+import 'package:bishop_assistant_web_test_app/pages/assignment/CreateAssignmentMobile.dart';
+import 'package:bishop_assistant_web_test_app/pages/event/CreateEventMobile.dart';
 import 'package:bishop_assistant_web_test_app/pages/event/EventPage.dart';
 import 'package:bishop_assistant_web_test_app/pages/footer/Legal.dart';
 import 'package:bishop_assistant_web_test_app/pages/footer/Privacy.dart';
@@ -11,7 +13,8 @@ import 'package:bishop_assistant_web_test_app/pages/recover_password/Pin.dart';
 import 'package:bishop_assistant_web_test_app/pages/recover_password/RequestPasswordReset.dart';
 import 'package:bishop_assistant_web_test_app/pages/signup_login/Login.dart';
 import 'package:bishop_assistant_web_test_app/pages/signup_login/Signup.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:bishop_assistant_web_test_app/widgets/cards/CreateEvent.dart';
+import 'package:flutter/material.dart';
 
 ///
 /// RouteStrings.dart
@@ -34,7 +37,7 @@ const String rProfile = "/profile";
 const String rLegal = "/legal";
 const String rPrivacy = "/privacy";
 const String rAddEvent = "/events/create";
-const String rAddAssignment = "/assignments/create";
+const String rAddAssignment = "/organization/create";
 
 final Map<String, Widget Function(BuildContext)> routes = {
   "/": (context) => MyFirebaseApp(),
@@ -50,6 +53,7 @@ final Map<String, Widget Function(BuildContext)> routes = {
   rProfile: (context) => ProfilePage(),
   rLegal: (context) => Legal(),
   rPrivacy: (context) => Privacy(),
-  // rAddEvent: (context) => ,
-  // rAddAssignment: (context) => ,
+  rAddEvent: (context) => CreateEventMobile(),
+  rAddAssignment: (context) => CreateAssignmentMobile(),
+  // rMemberDetails: (context) =>
 };

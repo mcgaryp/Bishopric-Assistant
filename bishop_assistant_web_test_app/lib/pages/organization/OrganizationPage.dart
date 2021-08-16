@@ -1,4 +1,7 @@
+import 'package:bishop_assistant_web_test_app/pages/organization/OrganizationMobile.dart';
+import 'package:bishop_assistant_web_test_app/pages/organization/OrganizationWeb.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 ///
 /// OrganizationPage.dart
@@ -13,6 +16,7 @@ class OrganizationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return ScreenTypeLayout(
+        mobile: OrganizationMobile(), tablet: OrganizationWeb());
   }
 }

@@ -19,15 +19,8 @@ import 'package:intl/intl.dart';
 /// Copyright 2021 porter. All rights reserved.
 ///
 
-class CreateEvent extends StatefulWidget {
+class CreateEvent extends StatelessWidget {
   const CreateEvent({Key? key}) : super(key: key);
-
-  @override
-  _CreateEventState createState() => _CreateEventState();
-}
-
-class _CreateEventState extends State<CreateEvent> {
-  var _selectedMembers = [];
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +29,7 @@ class _CreateEventState extends State<CreateEvent> {
         eventName,
         hint: eventNameHint,
       ),
+      // TODO: Create a date time special component
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -71,10 +65,12 @@ class _CreateEventState extends State<CreateEvent> {
       FormInputField(
         agenda,
         hint: agendaHint,
+        maxLines: true,
       ),
       FormInputField(
         notes,
         hint: notesHint,
+        maxLines: true,
       ),
       RowToggle(notifyAssignee),
       RowToggle(notifyInterviewee),

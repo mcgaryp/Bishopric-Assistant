@@ -21,7 +21,7 @@ class HomeWeb extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LightPage(children: [
+    return LightPage.web([
       WebContentSnapShot(title: events, children: eventsList),
       WebContentSnapShot(title: assignments, children: assignmentsList),
       WebContentSnapShot(

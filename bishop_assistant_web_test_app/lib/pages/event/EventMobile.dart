@@ -21,20 +21,15 @@ class EventMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LightPage(
-      child: Stack(
-        children: [
-          MobileContentSnapShot([
-            Section(events, [
-              EventCard(Meeting.example),
-              EventCard(Interview.example),
-              EventCard(Meeting.example),
-              EventCard(Interview.example),
-            ])
-          ]),
-          FloatingNavigationButton(rAddEvent)
-        ],
-      ),
+    return LightPage.mobileAction(MobileContentSnapShot([
+        Section(events, [
+          EventCard(Meeting.example),
+          EventCard(Interview.example),
+          EventCard(Meeting.example),
+          EventCard(Interview.example),
+        ])
+      ]),
+      rAddEvent
     );
   }
 }

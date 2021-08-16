@@ -49,3 +49,5 @@ const String notifyAssignee = "Notify Assignee";
 const String notifyInterviewee = "Notify Interviewee";
 const String notifyWhen = "Hours to notify before event";
 const String eventType = "Event Type";
+const String createAssignment = "Create Assignment";
+const String memberDetails = "Member Details";

@@ -1,3 +1,5 @@
+import 'package:bishop_assistant_web_test_app/pages/ComingSoon.dart';
+import 'package:bishop_assistant_web_test_app/widgets/page_support/light_page/LightPage.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -13,6 +15,6 @@ class Privacy extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return LightPage.both(ComingSoon());
   }
 }

@@ -1,3 +1,4 @@
+import 'package:bishop_assistant_web_test_app/pages/event/EventPage.dart';
 import 'package:bishop_assistant_web_test_app/pages/signup_login/Login.dart';
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:firebase_core/firebase_core.dart';

@@ -12,8 +12,9 @@ import 'package:flutter/material.dart';
 
 class InputField extends StatefulWidget {
   final String hint;
+  final bool isPassword;
 
-  const InputField({required this.hint, Key? key}) : super(key: key);
+  const InputField(this.hint, {this.isPassword = false, Key? key}) : super(key: key);
 
   @override
   _InputFieldState createState() => _InputFieldState();
@@ -31,6 +32,7 @@ class _InputFieldState extends State<InputField> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: padding16),
           child: TextField(
+            obscureText: widget.isPassword,
             controller: _controller,
             decoration: InputDecoration(
               border: InputBorder.none,

@@ -23,9 +23,6 @@ class FloatingNavigationButton extends StatelessWidget {
         child: FloatingActionButton(
             backgroundColor: lightAccent,
             splashColor: Colors.transparent,
-            hoverColor: Colors.transparent,
-            focusColor: Colors.transparent,
-            foregroundColor: Colors.transparent,
             onPressed: () => _navigate(context),
             child: Icon(Icons.add, color: white, size: 55)),
       ),

@@ -1,10 +1,12 @@
 import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
+import 'package:bishop_assistant_web_test_app/navigation/FloatingNavigationButton.dart';
 import 'package:bishop_assistant_web_test_app/navigation/MobileNavigationButton.dart';
 import 'package:bishop_assistant_web_test_app/navigation/RouteStrings.dart';
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/MemberAccountDrawerHeader.dart';
+import 'package:bishop_assistant_web_test_app/widgets/page_support/Mobile.dart';
 import 'package:bishop_assistant_web_test_app/widgets/title/MyTitle.dart';
 import 'package:flutter/material.dart';
 
@@ -19,9 +21,11 @@ import '../Content.dart';
 ///
 
 class LightPageMobile extends StatelessWidget {
-  final Widget child;
+  final Mobile child;
   final List<Widget> footer;
-  const LightPageMobile(this.child, this.footer, {Key? key}) : super(key: key);
+  final bool hasButton;
+  final String path;
+  const LightPageMobile(this.child, this.footer, {this.path = "", this.hasButton = false, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +38,10 @@ class LightPageMobile extends StatelessWidget {
       MobileNavigationButton(organization, rOrganization),
     ];
 
+    Widget body = hasButton ? Stack(children: [
+      child, FloatingNavigationButton(path)
+    ]) : child;
+
     return Scaffold(
       backgroundColor: white,
       drawer: Drawer(child: ListView(children: actions)),
@@ -45,7 +53,7 @@ class LightPageMobile extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(
               top: padding8, left: padding8, right: padding8),
-          child: child,
+          child: body,
         ),
       ),
       persistentFooterButtons: footer,

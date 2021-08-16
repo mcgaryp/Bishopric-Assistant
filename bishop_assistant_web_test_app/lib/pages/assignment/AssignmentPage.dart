@@ -1,4 +1,7 @@
+import 'package:bishop_assistant_web_test_app/pages/assignment/AssignmentMobile.dart';
+import 'package:bishop_assistant_web_test_app/pages/assignment/AssignmentWeb.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 ///
 /// AssignmentPage.dart
@@ -13,6 +16,7 @@ class AssignmentPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return ScreenTypeLayout(
+        mobile: AssignmentMobile(), tablet: AssignmentWeb());
   }
 }

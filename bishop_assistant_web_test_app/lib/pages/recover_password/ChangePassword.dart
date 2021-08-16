@@ -19,8 +19,8 @@ class ChangePassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DarkPage(inputs: [
-      InputField(hint: password),
-      InputField(hint: confirmPassword),
+      InputField(password, isPassword: true),
+      InputField(confirmPassword, isPassword: true),
     ], buttons: [
       MyButton(
           label: requestReset,

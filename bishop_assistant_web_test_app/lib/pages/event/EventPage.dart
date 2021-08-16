@@ -17,6 +17,6 @@ class EventPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout(
-        mobile: EventMobile(), desktop: EventWeb(), tablet: EventWeb());
+        mobile: EventMobile(), tablet: EventWeb());
   }
 }

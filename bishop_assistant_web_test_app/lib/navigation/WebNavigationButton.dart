@@ -4,7 +4,7 @@ import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
 import 'package:flutter/material.dart';
 
 ///
-/// NavigationButton.dart
+/// WebNavigationButton.dart
 /// bishop_assistant_web_test_app
 ///
 /// Created by Porter McGary on 8/13/21

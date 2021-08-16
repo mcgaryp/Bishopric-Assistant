@@ -19,7 +19,7 @@ class RequestPasswordReset extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DarkPage(inputs: [
-      InputField(hint: email + " or " + phone)
+      InputField(email + " or " + phone)
     ], buttons: [
       MyButton(
           label: requestReset,

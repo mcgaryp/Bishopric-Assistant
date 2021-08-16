@@ -19,7 +19,7 @@ class Pin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DarkPage(inputs: [
-      InputField(hint: pin),
+      InputField(pin),
     ], buttons: [
       MyButton(
           label: confirmPin,
