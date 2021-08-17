@@ -1,6 +1,7 @@
 import 'package:bishop_assistant_web_test_app/database/DatabaseModel.dart';
 import 'package:bishop_assistant_web_test_app/database/models/EventType.dart';
 import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
+import 'package:bishop_assistant_web_test_app/widgets/cards/event_cards/EventCard.dart';
 
 ///
 /// Event.dart
@@ -21,40 +22,45 @@ abstract class Event extends DatabaseModel {
 
   Event(id, name, this.dateTime, this.eventType,
       {this.location,
-        this.notes,
-        this.assignees,
-        this.agenda,
-        this.interviewee})
+      this.notes,
+      this.assignees,
+      this.agenda,
+      this.interviewee})
       : super(id, name);
 }
 
 class Meeting extends Event {
-  Meeting(int id,
-      String name,
-      DateTime dateTime,
-      String agenda,
-      List<Member> assignees, {
-        String? place,
-        String? notes,
-      }) : super(id, name, dateTime, EventType.meeting,
-      location: place,
-      notes: notes,
-      agenda: agenda,
-      assignees: assignees);
+  static List<EventCard> meetingExampleCardList = [
+    EventCard(example1),
+    EventCard(example2),
+    EventCard(example3)
+  ];
+
+  Meeting(
+    int id,
+    String name,
+    DateTime dateTime,
+    String agenda,
+    List<Member> assignees, {
+    String? place,
+    String? notes,
+  }) : super(id, name, dateTime, EventType.meeting,
+            location: place,
+            notes: notes,
+            agenda: agenda,
+            assignees: assignees);
 
   static Meeting example1 = Meeting(-1, "Ward Counsel", DateTime.now(),
       _exampleAgenda, [Member.bishopExample, Member.counselor1Example],
       place: "Bishops office", notes: _exampleNote);
 
   static Meeting example2 =
-  Meeting(-1, "Bishopric", DateTime.now(), "TBD", Member.exampleMemberList);
+      Meeting(-1, "Bishopric", DateTime.now(), "TBD", Member.exampleMemberList);
   static Meeting example3 = Meeting(-1, "Sunday School Presidency",
       DateTime.now(), _exampleAgenda, [Member.counselor1Example],
       notes: "Focus on the teaching of new teachers");
 
-  static List<Meeting> meetingExampleList = [
-    example1, example2, example3
-  ];
+  static List<Meeting> meetingExampleList = [example1, example2, example3];
 
   static String _exampleNote =
       "It is a long established fact that a reader will be distracted by"
@@ -76,16 +82,17 @@ class Interview extends Event {
   Interview(int id, String name, DateTime dateTime, String interviewee,
       Member assignee, {String? notes})
       : super(id, name, dateTime, EventType.interview,
-      notes: notes, assignees: [assignee], interviewee: interviewee);
+            notes: notes, assignees: [assignee], interviewee: interviewee);
 
   static Interview example1 = Interview(-1, "Temple Interview", DateTime.now(),
       "John John", Member.counselor1Example);
 
-  static Interview example2 = Interview(
-      -1, "Temple Interview", DateTime.now(), "Member of the Ward",
-      Member.counselor1Example);
+  static Interview example2 = Interview(-1, "Temple Interview", DateTime.now(),
+      "Member of the Ward", Member.counselor1Example);
 
-  static List<Interview> interviewExampleList = [
-    example1, example2
+  static List<Interview> interviewExampleList = [example1, example2];
+  static List<EventCard> interviewExampleCardList = [
+    EventCard(example1),
+    EventCard(example2)
   ];
 }

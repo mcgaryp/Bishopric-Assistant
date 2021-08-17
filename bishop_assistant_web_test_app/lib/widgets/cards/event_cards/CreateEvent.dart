@@ -7,6 +7,7 @@ import 'package:bishop_assistant_web_test_app/widgets/FirebaseMultiSelectField.d
 import 'package:bishop_assistant_web_test_app/widgets/FormInputField.dart';
 import 'package:bishop_assistant_web_test_app/widgets/MyButton.dart';
 import 'package:bishop_assistant_web_test_app/widgets/RowToggle.dart';
+import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/CardDateTimeRow.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/MyCard.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -30,27 +31,7 @@ class CreateEvent extends StatelessWidget {
         hint: eventNameHint,
       ),
       // TODO: Create a date time special component
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Flexible(
-            child: FormInputField(
-              date,
-              hint: DateFormat.MMMMEEEEd().format(DateTime.now()),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: padding8),
-            child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: 100),
-              child: FormInputField(
-                time,
-                hint: DateFormat.jm().format(DateTime.now()),
-              ),
-            ),
-          ),
-        ],
-      ),
+      CardDateTimeRow(),
       FormInputField(
         location,
         hint: locationHint,

@@ -19,10 +19,14 @@ class EventWeb extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<EventCard> example = [];
+    example.addAll(Meeting.meetingExampleCardList);
+    example.addAll(Interview.interviewExampleCardList);
+
     return LightPage.web([
       WebContentSnapShot(
           title: events,
-          children: [EventCard(Meeting.example1), EventCard(Interview.example1)]),
+          children: example),
       WebContentSnapShot(title: createEvent, children: [CreateEvent()])
     ]);
   }

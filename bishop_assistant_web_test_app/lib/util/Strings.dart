@@ -55,3 +55,5 @@ const String edit = "Edit";
 const String currentAssignmentCount = "Current Assignment Count";
 const String currentEventCount = "Current Event Count";
 const String remove = "Remove";
+const String assignmentName = "Assignment Name";
+const String assignmentNameHint = "What is the name of this assignment";
