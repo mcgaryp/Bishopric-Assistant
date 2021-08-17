@@ -1,5 +1,6 @@
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
+import 'package:bishop_assistant_web_test_app/widgets/AutoText.dart';
 import 'package:bishop_assistant_web_test_app/widgets/MyButton.dart';
 import 'package:flutter/material.dart';
 
@@ -39,7 +40,7 @@ class CardActionButton extends StatelessWidget {
           child: Container(
               decoration: decor,
               child: Padding(
-                padding: const EdgeInsets.all(padding4),
+                padding: const EdgeInsets.all(padding8),
                 child: TextButton(onPressed: onPressed,
                     child: Text(label, style: buttonStyle)),
               )),
