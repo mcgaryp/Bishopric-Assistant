@@ -1,6 +1,6 @@
 import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
-import 'package:bishop_assistant_web_test_app/widgets/cards/MemberDetailsCard.dart';
+import 'package:bishop_assistant_web_test_app/widgets/cards/member_cards/MemberDetailsCard.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/WebContentSnapShot.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/light_page/LightPage.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +19,11 @@ class OrganizationWeb extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LightPage.web([
-      WebContentSnapShot(title: organization, children: Member.exampleMemberCardList),
-      WebContentSnapShot(title: memberDetails, children: [MemberDetailsCard(Member.bishopExample)])
+      WebContentSnapShot(
+          title: organization, children: Member.exampleMemberCardList),
+      WebContentSnapShot(
+          title: memberDetails,
+          children: [MemberDetailsCard(Member.bishopExample)])
     ]);
   }
 }

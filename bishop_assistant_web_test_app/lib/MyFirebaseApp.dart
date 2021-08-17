@@ -1,5 +1,5 @@
-import 'package:bishop_assistant_web_test_app/pages/event/EventPage.dart';
-import 'package:bishop_assistant_web_test_app/pages/signup_login/Login.dart';
+import 'package:bishop_assistant_web_test_app/pages/assignment/AssignmentPage.dart';
+import 'package:bishop_assistant_web_test_app/pages/organization/OrganizationPage.dart';
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -32,8 +32,8 @@ class MyFirebaseApp extends StatelessWidget {
 
             // Once complete, show your application
             if (snapshot.connectionState == ConnectionState.done) {
-              return Login(); // TODO: Replace
-              // return EventPage();
+              // return Login(); // TODO: Replace
+              return AssignmentPage();
             }
 
             // Otherwise, show something whilst waiting for initialization to complete

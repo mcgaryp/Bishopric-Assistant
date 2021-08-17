@@ -14,6 +14,7 @@ class MyButton extends StatelessWidget {
   final String label;
   final Function() onPressed;
   final MyButtonStyle style;
+
   const MyButton(
       {required this.label,
       required this.onPressed,
@@ -32,6 +33,10 @@ class MyButton extends StatelessWidget {
         break;
       case MyButtonStyle.text:
         decor = textButtonDecoration;
+        padding = padding8;
+        break;
+      case MyButtonStyle.error:
+        decor = errorDecoration;
         padding = padding8;
         break;
     }
@@ -57,4 +62,4 @@ class MyButton extends StatelessWidget {
   }
 }
 
-enum MyButtonStyle { primary, text }
+enum MyButtonStyle { primary, text, error }

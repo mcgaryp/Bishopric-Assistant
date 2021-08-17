@@ -4,7 +4,7 @@ import 'package:bishop_assistant_web_test_app/pages/home/HomeMobile.dart';
 import 'package:bishop_assistant_web_test_app/pages/home/HomeWeb.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/AssignmentCard.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/EventCard.dart';
-import 'package:bishop_assistant_web_test_app/widgets/cards/MemberCard.dart';
+import 'package:bishop_assistant_web_test_app/widgets/cards/member_cards/MemberCard.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 

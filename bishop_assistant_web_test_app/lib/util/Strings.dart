@@ -51,3 +51,7 @@ const String notifyWhen = "Hours to notify before event";
 const String eventType = "Event Type";
 const String createAssignment = "Create Assignment";
 const String memberDetails = "Member Details";
+const String edit = "Edit";
+const String currentAssignmentCount = "Current Assignment Count";
+const String currentEventCount = "Current Event Count";
+const String remove = "Remove";

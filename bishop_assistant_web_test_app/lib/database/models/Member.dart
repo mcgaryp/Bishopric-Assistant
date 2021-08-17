@@ -1,6 +1,6 @@
 import 'package:bishop_assistant_web_test_app/database/DatabaseModel.dart';
 import 'package:bishop_assistant_web_test_app/database/models/Role.dart';
-import 'package:bishop_assistant_web_test_app/widgets/cards/MemberCard.dart';
+import 'package:bishop_assistant_web_test_app/widgets/cards/member_cards/MemberCard.dart';
 import 'package:flutter/material.dart';
 
 ///

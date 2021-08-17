@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
 
+// TODO: Consolidate the Decor
 const BoxDecoration boxDecoration = BoxDecoration(
     borderRadius: borderRadius20, color: white, boxShadow: boxShadow);
 
@@ -22,12 +23,17 @@ const BoxDecoration contentSnapShotDecoration = BoxDecoration(
 const BoxDecoration darkContentDecoration = BoxDecoration(color: darkAccent);
 
 const BoxDecoration textButtonDecoration = BoxDecoration();
+const BoxDecoration errorDecoration = BoxDecoration(
+    color: error, borderRadius: borderRadius20, boxShadow: boxShadow);
 
 final BoxDecoration inputOnLightDecoration =
     BoxDecoration(borderRadius: borderRadius20, border: darkBorder);
 
 final BoxDecoration borderDecoration =
     BoxDecoration(border: Border.all(color: Colors.red));
+
+final ButtonStyle textButtonStyle =
+    ButtonStyle(overlayColor: MaterialStateProperty.all(Colors.transparent));
 
 const double padding4 = 4.0;
 const double padding8 = 8.0;

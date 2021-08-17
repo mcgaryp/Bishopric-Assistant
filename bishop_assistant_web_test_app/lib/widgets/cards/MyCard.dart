@@ -23,6 +23,7 @@ class MyCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(padding16),
           child: Column(
+            mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start, children: children),
         ),
       ),
