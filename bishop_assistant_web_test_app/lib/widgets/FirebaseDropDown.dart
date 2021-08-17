@@ -1,6 +1,6 @@
 import 'package:bishop_assistant_web_test_app/database/FirestoreHelper.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
-import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
+import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:bishop_assistant_web_test_app/util/DatabasePaths.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +18,7 @@ class FirebaseDropDown extends StatefulWidget {
   final Document document;
   final String hint;
   final bool isInput;
+
   const FirebaseDropDown(
       {required this.collectionPath,
       required this.document,
@@ -54,7 +55,7 @@ class _FirebaseDropDownState extends State<FirebaseDropDown> {
           top: widget.isInput ? 0 : padding16,
           bottom: widget.isInput ? padding8 : 0),
       child: Container(
-        decoration: widget.isInput ? inputOnLightDecoration : boxDecoration,
+        decoration: widget.isInput ? darkBorderBox : floatingLightBox,
         child: Padding(
           padding: const EdgeInsets.only(left: padding16, right: padding8),
           child: DropdownButton(
@@ -64,8 +65,8 @@ class _FirebaseDropDownState extends State<FirebaseDropDown> {
             onChanged: _onChanged,
             items: collection,
             icon: Icon(Icons.keyboard_arrow_down_rounded),
-            style: dropdownStyle,
-            hint: Text(widget.hint, style: hintStyle),
+            style: bodyDark,
+            hint: Text(widget.hint, style: captionLight),
           ),
         ),
       ),

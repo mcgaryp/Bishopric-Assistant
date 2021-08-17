@@ -16,6 +16,7 @@ class HomeMobile extends StatelessWidget {
   final List<Widget> eventsList;
   final List<Widget> assignmentsList;
   final List<Widget> membersList;
+
   const HomeMobile(this.eventsList, this.assignmentsList, this.membersList,
       {Key? key})
       : super(key: key);

@@ -24,7 +24,10 @@ class CreateAssignment extends StatelessWidget {
       FormInputField(assignmentName, hint: assignmentNameHint),
       CardDateTimeRow(),
       FirebaseDropDown(
-          collectionPath: Collections.members, document: MembersDoc(), isInput: true, hint: assignee),
+          collectionPath: Collections.members,
+          document: MembersDoc(),
+          isInput: true,
+          hint: assignee),
       FormInputField(notes, hint: notesHint, maxLines: true),
       MyButton(label: createAssignment, onPressed: () {})
     ]);

@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 
 class MyCard extends StatelessWidget {
   final List<Widget> children;
+
   const MyCard({required this.children, Key? key}) : super(key: key);
 
   @override
@@ -19,12 +20,13 @@ class MyCard extends StatelessWidget {
       padding: const EdgeInsets.only(
           bottom: padding8, left: padding8, right: padding8),
       child: Container(
-        decoration: boxDecoration,
+        decoration: floatingLightBox,
         child: Padding(
           padding: const EdgeInsets.all(padding16),
           child: Column(
-            mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start, children: children),
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: children),
         ),
       ),
     );

@@ -25,7 +25,10 @@ class LightPageMobile extends StatelessWidget {
   final List<Widget> footer;
   final bool hasButton;
   final String path;
-  const LightPageMobile(this.child, this.footer, {this.path = "", this.hasButton = false, Key? key}) : super(key: key);
+
+  const LightPageMobile(this.child, this.footer,
+      {this.path = "", this.hasButton = false, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,15 +41,15 @@ class LightPageMobile extends StatelessWidget {
       MobileNavigationButton(organization, rOrganization),
     ];
 
-    Widget body = hasButton ? Stack(children: [
-      child, FloatingNavigationButton(path)
-    ]) : child;
+    Widget body = hasButton
+        ? Stack(children: [child, FloatingNavigationButton(path)])
+        : child;
 
     return Scaffold(
-      backgroundColor: white,
+      backgroundColor: light,
       drawer: Drawer(child: ListView(children: actions)),
       appBar: AppBar(
-        backgroundColor: darkAccent,
+        backgroundColor: darkPrimary,
         title: MyTitle(),
       ),
       body: Content(

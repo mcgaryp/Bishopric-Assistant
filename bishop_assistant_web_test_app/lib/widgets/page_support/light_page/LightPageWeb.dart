@@ -1,5 +1,5 @@
-import 'package:bishop_assistant_web_test_app/navigation/WebNavigationButton.dart';
 import 'package:bishop_assistant_web_test_app/navigation/RouteStrings.dart';
+import 'package:bishop_assistant_web_test_app/navigation/WebNavigationButton.dart';
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
@@ -21,6 +21,7 @@ import '../Content.dart';
 class LightPageWeb extends StatelessWidget {
   final List<Web> children;
   final List<Widget> footer;
+
   const LightPageWeb(this.children, this.footer, {Key? key}) : super(key: key);
 
   @override
@@ -35,9 +36,9 @@ class LightPageWeb extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: white,
+      backgroundColor: light,
       appBar: AppBar(
-        backgroundColor: darkAccent,
+        backgroundColor: darkPrimary,
         leading: Logo(),
         centerTitle: false,
         title: Brand(isExpanded: false),

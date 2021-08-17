@@ -1,5 +1,4 @@
 import 'package:bishop_assistant_web_test_app/database/models/Event.dart';
-import 'package:bishop_assistant_web_test_app/navigation/FloatingNavigationButton.dart';
 import 'package:bishop_assistant_web_test_app/navigation/RouteStrings.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/Section.dart';
@@ -21,15 +20,15 @@ class EventMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LightPage.mobileAction(MobileContentSnapShot([
-        Section(events, [
-          EventCard(Meeting.example1),
-          EventCard(Interview.example1),
-          EventCard(Meeting.example1),
-          EventCard(Interview.example1),
-        ])
-      ]),
-      rAddEvent
-    );
+    return LightPage.mobileAction(
+        MobileContentSnapShot([
+          Section(events, [
+            EventCard(Meeting.example1),
+            EventCard(Interview.example1),
+            EventCard(Meeting.example1),
+            EventCard(Interview.example1),
+          ])
+        ]),
+        rAddEvent);
   }
 }

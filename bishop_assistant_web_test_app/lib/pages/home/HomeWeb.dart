@@ -15,6 +15,7 @@ class HomeWeb extends StatelessWidget {
   final List<Widget> eventsList;
   final List<Widget> assignmentsList;
   final List<Widget> membersList;
+
   const HomeWeb(this.eventsList, this.assignmentsList, this.membersList,
       {Key? key})
       : super(key: key);

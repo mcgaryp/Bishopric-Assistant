@@ -17,6 +17,6 @@ class OrganizationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout(
-        mobile: OrganizationMobile(), tablet: OrganizationWeb());
+        mobile: OrganizationMobile(), desktop: OrganizationWeb());
   }
 }

@@ -19,8 +19,9 @@ class AssignmentMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LightPage.mobileAction(MobileContentSnapShot([
-      Section(assignments, Assignment.assignmentExampleCardList)
-    ]), rAddAssignment);
+    return LightPage.mobileAction(
+        MobileContentSnapShot(
+            [Section(assignments, Assignment.assignmentExampleCardList)]),
+        rAddAssignment);
   }
 }

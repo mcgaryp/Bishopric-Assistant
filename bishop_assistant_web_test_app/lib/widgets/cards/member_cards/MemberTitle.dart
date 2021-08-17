@@ -1,6 +1,6 @@
 import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
-import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
+import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/member_cards/MemberIcon.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 
 class MemberTitle extends StatelessWidget {
   final Member member;
+
   const MemberTitle(this.member, {Key? key}) : super(key: key);
 
   @override
@@ -29,11 +30,11 @@ class MemberTitle extends StatelessWidget {
             children: [
               Text(
                 member.name,
-                style: subtitle2Style,
+                style: headlineDark,
               ),
               Text(
                 member.role.string,
-                style: captionStyle,
+                style: captionLight,
               )
             ],
           ),

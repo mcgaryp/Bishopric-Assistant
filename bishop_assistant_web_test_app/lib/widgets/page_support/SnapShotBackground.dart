@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 
 class SnapShotBackground extends StatelessWidget {
   final Widget child;
+
   const SnapShotBackground({required this.child, Key? key}) : super(key: key);
 
   @override
@@ -21,7 +22,7 @@ class SnapShotBackground extends StatelessWidget {
     return Padding(
       padding: padding,
       child: Container(
-        decoration: contentSnapShotDecoration,
+        decoration: floatingDarkPrimaryHalfBorderBox,
         child: Padding(padding: padding, child: child),
       ),
     );

@@ -31,7 +31,7 @@ class Home extends StatelessWidget {
     return ScreenTypeLayout(
       mobile: HomeMobile(eventsList, Assignment.assignmentExampleCardList,
           Member.exampleMemberCardList),
-      tablet: HomeWeb(eventsList, Assignment.assignmentExampleCardList,
+      desktop: HomeWeb(eventsList, Assignment.assignmentExampleCardList,
           Member.exampleMemberCardList),
     );
   }

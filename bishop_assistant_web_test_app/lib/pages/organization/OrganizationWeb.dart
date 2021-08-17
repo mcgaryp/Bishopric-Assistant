@@ -13,8 +13,15 @@ import 'package:flutter/material.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-class OrganizationWeb extends StatelessWidget {
+class OrganizationWeb extends StatefulWidget {
   const OrganizationWeb({Key? key}) : super(key: key);
+
+  @override
+  _OrganizationWebState createState() => _OrganizationWebState();
+}
+
+class _OrganizationWebState extends State<OrganizationWeb> {
+  Member selectedMember = Member.exampleMemberList[0];
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +29,13 @@ class OrganizationWeb extends StatelessWidget {
       WebContentSnapShot(
           title: organization, children: Member.exampleMemberCardList),
       WebContentSnapShot(
-          title: memberDetails,
-          children: [MemberDetailsCard(Member.bishopExample)])
+          title: memberDetails, children: [MemberDetailsCard(selectedMember)])
     ]);
+  }
+
+  void _selectNewMember(Member member) {
+    setState(() {
+      if (member != selectedMember) selectedMember = member;
+    });
   }
 }

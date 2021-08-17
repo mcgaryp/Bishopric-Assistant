@@ -1,5 +1,5 @@
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
-import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
+import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 class CardRow extends StatelessWidget {
   final String label;
   final String content;
+
   const CardRow(this.label, this.content, {Key? key}) : super(key: key);
 
   @override
@@ -23,8 +24,8 @@ class CardRow extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: bodyStyle),
-          Text(content, style: bodyStyle)
+          Text(label, style: bodyDark),
+          Text(content, style: bodyDark)
         ],
       ),
     );

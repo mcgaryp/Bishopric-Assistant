@@ -16,7 +16,7 @@ class Logo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Icon(
       Icons.accessibility_new_rounded,
-      color: white,
+      color: light,
       size: 40,
     );
   }

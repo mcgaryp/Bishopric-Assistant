@@ -1,6 +1,5 @@
-import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
-import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
+import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -35,16 +34,13 @@ class _FormInputFieldState extends State<FormInputField> {
         controller: _controller,
         maxLines: widget.maxLines ? null : 1,
         decoration: InputDecoration(
-            focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: lightAccent),
-                borderRadius: borderRadius20),
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: darkAccent),
-                borderRadius: borderRadius20),
+            focusedBorder: lightPrimaryInputBorder,
+            enabledBorder: darkPrimaryInputBorder,
+            errorBorder: errorRedInputBorder,
             hintText: widget.hint,
-            hintStyle: hintStyle,
+            hintStyle: captionLight,
             labelText: widget.label,
-            labelStyle: bodyStyle),
+            labelStyle: captionLight),
         onChanged: (String? value) {
           print('Value saved as "$value"');
         },

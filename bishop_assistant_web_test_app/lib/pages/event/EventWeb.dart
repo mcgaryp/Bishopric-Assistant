@@ -24,9 +24,7 @@ class EventWeb extends StatelessWidget {
     example.addAll(Interview.interviewExampleCardList);
 
     return LightPage.web([
-      WebContentSnapShot(
-          title: events,
-          children: example),
+      WebContentSnapShot(title: events, children: example),
       WebContentSnapShot(title: createEvent, children: [CreateEvent()])
     ]);
   }

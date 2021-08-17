@@ -10,15 +10,12 @@ import 'package:flutter/material.dart';
 ///
 
 final ThemeData theme = ThemeData(
-  backgroundColor: darkAccent,
-  buttonColor: lightAccent,
-  primaryColor: darkAccent,
-  accentColor: white,
-  errorColor: error,
-  cardColor: darkAccent,
-  highlightColor: lightAccent,
-  splashColor: darkAccent,
-  colorScheme: ColorScheme.light().copyWith(
-    primary: darkAccent
-  )
-);
+    backgroundColor: darkPrimary,
+    buttonColor: lightPrimary,
+    primaryColor: darkPrimary,
+    accentColor: light,
+    errorColor: errorRed,
+    cardColor: darkPrimary,
+    highlightColor: lightPrimary,
+    splashColor: darkPrimary,
+    colorScheme: ColorScheme.light().copyWith(primary: darkPrimary));

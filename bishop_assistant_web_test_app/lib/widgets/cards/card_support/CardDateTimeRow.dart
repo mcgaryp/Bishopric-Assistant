@@ -1,5 +1,5 @@
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
-import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
+import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/CardIconButton.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -28,7 +28,7 @@ class _CardDateTimeRowState extends State<CardDateTimeRow> {
     return Padding(
       padding: const EdgeInsets.only(bottom: padding8),
       child: Container(
-        decoration: inputOnLightDecoration,
+        decoration: darkBorderBox,
         child: Padding(
           padding: const EdgeInsets.all(padding8),
           child: Row(
@@ -36,10 +36,10 @@ class _CardDateTimeRowState extends State<CardDateTimeRow> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(DateFormat.MMMMEEEEd().format(selectedDate),
-                  style: bodyStyle),
+                  style: bodyDark),
               CardIconButton(Icons.calendar_today_outlined,
                   onPressed: () => _showDatePicker(context)),
-              Text(selectedTime.format(context), style: bodyStyle),
+              Text(selectedTime.format(context), style: bodyDark),
               CardIconButton(Icons.access_time,
                   onPressed: () => _showTimePicker(context))
               // InputDatePickerFormField(firstDate: DateTime.now(), lastDate: DateTime(2030))
@@ -59,14 +59,12 @@ class _CardDateTimeRowState extends State<CardDateTimeRow> {
       initialDate: initialDate,
       firstDate: firstDate,
       lastDate: lastDate,
-
     );
 
     if (pick != null && pick != selectedDate)
       setState(() {
-        selectedDate = DateTime(
-            pick.year, pick.month, pick.day, selectedTime.hour,
-            selectedTime.minute);
+        selectedDate = DateTime(pick.year, pick.month, pick.day,
+            selectedTime.hour, selectedTime.minute);
       });
   }
 
@@ -80,9 +78,8 @@ class _CardDateTimeRowState extends State<CardDateTimeRow> {
     if (pick != null && pick != selectedTime)
       setState(() {
         selectedTime = pick;
-        selectedDate = DateTime(
-            selectedDate.year, selectedDate.month, selectedDate.day,
-            selectedTime.hour, selectedTime.minute);
+        selectedDate = DateTime(selectedDate.year, selectedDate.month,
+            selectedDate.day, selectedTime.hour, selectedTime.minute);
       });
   }
 }

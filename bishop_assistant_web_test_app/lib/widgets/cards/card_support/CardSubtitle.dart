@@ -1,5 +1,5 @@
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
-import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
+import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -14,6 +14,7 @@ import 'package:intl/intl.dart';
 class CardSubtitle extends StatelessWidget {
   final DateTime dateTime;
   final String? location;
+
   const CardSubtitle(this.dateTime, {this.location, Key? key})
       : super(key: key);
 
@@ -28,13 +29,13 @@ class CardSubtitle extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Text(date, style: captionStyle),
-            Text(time, style: captionStyle),
+            Text(date, style: captionLight),
+            Text(time, style: captionLight),
           ]),
           if (location != null)
             Text(
               location!,
-              style: captionStyle,
+              style: captionLight,
             )
         ],
       ),

@@ -14,12 +14,13 @@ import 'package:sticky_headers/sticky_headers.dart';
 class Section extends StatelessWidget {
   final String title;
   final List<Widget> children;
+
   const Section(this.title, this.children, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return StickyHeader(
-        header: Container(color: darkAccent, child: RowTitle(title)),
+        header: Container(color: darkPrimary, child: RowTitle(title)),
         content: Column(children: children));
   }
 }

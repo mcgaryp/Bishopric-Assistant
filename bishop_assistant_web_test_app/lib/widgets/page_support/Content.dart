@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 
 class Content extends StatelessWidget {
   final Widget child;
+
   const Content({required this.child, Key? key}) : super(key: key);
 
   @override

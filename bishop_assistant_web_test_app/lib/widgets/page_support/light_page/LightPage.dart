@@ -51,11 +51,12 @@ class LightPage extends StatelessWidget {
     ];
 
     return ResponsiveBuilder(builder: (context, size) {
-
       switch (size.deviceScreenType) {
         case DeviceScreenType.mobile:
-          return LightPageMobile(child, footer, path: path, hasButton: _mobileButton);
         case DeviceScreenType.tablet:
+          return LightPageMobile(child, footer,
+              path: path, hasButton: _mobileButton);
+
         case DeviceScreenType.desktop:
           return LightPageWeb(children, footer);
         default:

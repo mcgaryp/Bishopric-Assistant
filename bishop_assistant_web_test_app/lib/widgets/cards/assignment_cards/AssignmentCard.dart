@@ -1,5 +1,5 @@
 import 'package:bishop_assistant_web_test_app/database/models/Assignment.dart';
-import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
+import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/CardSubtitle.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/CardTitle.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/MyCard.dart';
@@ -15,16 +15,15 @@ import 'package:flutter/material.dart';
 
 class AssignmentCard extends StatelessWidget {
   final Assignment assignment;
-  const AssignmentCard(this.assignment, {Key? key})
-      : super(key: key);
+
+  const AssignmentCard(this.assignment, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MyCard(children: [
       CardTitle(assignment.name),
       CardSubtitle(assignment.dateTime),
-      if (assignment.notes != null)
-        Text(assignment.notes!, style: bodyStyle)
+      if (assignment.notes != null) Text(assignment.notes!, style: bodyDark)
     ]);
   }
 }

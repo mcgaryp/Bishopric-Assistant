@@ -1,5 +1,5 @@
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
-import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
+import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:bishop_assistant_web_test_app/widgets/MyButton.dart';
 import 'package:flutter/material.dart';
 
@@ -26,13 +26,13 @@ class CardActionButton extends StatelessWidget {
 
     switch (style) {
       case MyButtonStyle.primary:
-        decor = primaryButtonDecoration;
+        decor = floatingLightPrimaryBox;
         break;
       case MyButtonStyle.text:
-        decor = textButtonDecoration;
+        decor = lightbox;
         break;
       case MyButtonStyle.error:
-        decor = errorDecoration;
+        decor = floatingErrorRedBox;
         break;
     }
 
@@ -44,10 +44,10 @@ class CardActionButton extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(padding8),
             child: TextButton(
-              style: textButtonStyle,
+                style: textButtonStyle,
                 onPressed: onPressed,
-                child: Text(label,
-                    style: buttonStyle, textAlign: TextAlign.center)),
+                child:
+                    Text(label, style: bodyLight, textAlign: TextAlign.center)),
           )),
     ));
   }

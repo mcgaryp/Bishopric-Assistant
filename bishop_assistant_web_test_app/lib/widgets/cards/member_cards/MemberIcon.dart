@@ -18,13 +18,12 @@ class MemberIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration:
-      BoxDecoration(shape: BoxShape.circle, color: darkAccent),
+      decoration: BoxDecoration(shape: BoxShape.circle, color: darkPrimary),
       child: Padding(
         padding: const EdgeInsets.all(padding8),
         child: Icon(
           icon,
-          color: white,
+          color: light,
         ),
       ),
     );

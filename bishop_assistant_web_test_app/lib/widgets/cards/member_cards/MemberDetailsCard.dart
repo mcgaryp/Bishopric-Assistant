@@ -30,12 +30,9 @@ class MemberDetailsCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          MemberTitle(member),
-          CardButton(edit, onPressed: () {})
-        ],
+        children: [MemberTitle(member), CardButton(edit, onPressed: () {})],
       ),
-      MyDivider(color: darkAccent),
+      MyDivider(color: darkPrimary),
       CardRow(email, member.email),
       CardRow(phone, member.phone),
       CardRow(currentAssignmentCount, "1"),

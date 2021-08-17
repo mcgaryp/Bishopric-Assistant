@@ -2,7 +2,7 @@ import 'package:bishop_assistant_web_test_app/database/DatabaseModel.dart';
 import 'package:bishop_assistant_web_test_app/database/FirestoreHelper.dart';
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
-import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
+import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:bishop_assistant_web_test_app/util/DatabasePaths.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +20,7 @@ class FirebaseMultiSelectField extends StatefulWidget {
   final String label;
   final Collections collectionPath;
   final Document document;
+
   const FirebaseMultiSelectField(this.label,
       {required this.collectionPath, required this.document, Key? key})
       : super(key: key);
@@ -50,41 +51,41 @@ class _FirebaseMultiSelectFieldState extends State<FirebaseMultiSelectField> {
     return Padding(
       padding: const EdgeInsets.only(bottom: padding8),
       child: Container(
-        decoration: inputOnLightDecoration,
+        decoration: darkBorderBox,
         child: Column(
           children: <Widget>[
             MultiSelectBottomSheetField(
               buttonIcon: Icon(
                 Icons.keyboard_arrow_down,
-                color: blackText,
+                color: darkPrimary,
               ),
-              decoration: textButtonDecoration,
-              selectedColor: darkAccent,
-              backgroundColor: darkAccent,
-              checkColor: white,
-              unselectedColor: white,
-              searchTextStyle: body2Style,
-              itemsTextStyle: body2Style,
-              selectedItemsTextStyle: body2Style,
+              decoration: lightbox,
+              selectedColor: darkPrimary,
+              backgroundColor: darkPrimary,
+              checkColor: light,
+              unselectedColor: light,
+              searchTextStyle: bodyLight,
+              itemsTextStyle: bodyLight,
+              selectedItemsTextStyle: bodyLight,
               listType: MultiSelectListType.LIST,
               searchable: true,
-              buttonText: Text(widget.label, style: bodyStyle),
-              title: Text(widget.label, style: body2Style),
+              buttonText: Text(widget.label, style: bodyLight),
+              title: Text(widget.label, style: bodyLight),
               items: _items,
               onConfirm: (values) {
                 _selected = values;
               },
               confirmText: Text(
                 "Confirm",
-                style: body2Style,
+                style: bodyLight,
               ),
               cancelText: Text(
                 "Cancel",
-                style: body2Style,
+                style: bodyLight,
               ),
-              searchHintStyle: body2Style,
-              closeSearchIcon: Icon(Icons.close, color: white),
-              searchIcon: Icon(Icons.search, color: white),
+              searchHintStyle: bodyLight,
+              closeSearchIcon: Icon(Icons.close, color: light),
+              searchIcon: Icon(Icons.search, color: light),
               chipDisplay: MultiSelectChipDisplay(
                 onTap: (value) {
                   setState(() {

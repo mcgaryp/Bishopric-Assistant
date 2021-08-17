@@ -2,9 +2,8 @@ import 'package:bishop_assistant_web_test_app/navigation/RouteStrings.dart';
 import 'package:bishop_assistant_web_test_app/navigation/WebNavigationButton.dart';
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
-import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
+import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/Web.dart';
 import 'package:bishop_assistant_web_test_app/widgets/title/Brand.dart';
 import 'package:bishop_assistant_web_test_app/widgets/title/Logo.dart';
 import 'package:flutter/material.dart';
@@ -25,19 +24,18 @@ class Error404Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: white,
-      appBar: AppBar(
-        backgroundColor: darkAccent,
-        leading: Logo(),
-        centerTitle: false,
-        title: Brand(isExpanded: false),
-        actions: [WebNavigationButton(label: home, path: rHome)],
-      ),
-      body: Content(
-        child: Padding(
-          padding: const EdgeInsets.all(padding8),
-          child: Text(page404, style: bodyStyle)
+        backgroundColor: light,
+        appBar: AppBar(
+          backgroundColor: darkPrimary,
+          leading: Logo(),
+          centerTitle: false,
+          title: Brand(isExpanded: false),
+          actions: [WebNavigationButton(label: home, path: rHome)],
         ),
-      ));
+        body: Content(
+          child: Padding(
+              padding: const EdgeInsets.all(padding8),
+              child: Text(page404, style: bodyDark)),
+        ));
   }
 }

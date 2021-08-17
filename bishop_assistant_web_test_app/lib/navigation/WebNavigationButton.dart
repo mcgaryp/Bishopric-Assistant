@@ -1,6 +1,6 @@
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
-import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
+import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -15,6 +15,7 @@ class WebNavigationButton extends StatelessWidget {
   final String? label;
   final IconData? icon;
   final String path;
+
   const WebNavigationButton(
       {this.label, this.icon, required this.path, Key? key})
       : super(key: key);
@@ -26,7 +27,7 @@ class WebNavigationButton extends StatelessWidget {
     if (icon != null)
       widget = IconButton(
         onPressed: () => _navigate(context),
-        icon: Icon(icon!, color: white),
+        icon: Icon(icon!, color: light),
         highlightColor: Colors.transparent,
         splashColor: Colors.transparent,
         focusColor: Colors.transparent,
@@ -36,7 +37,7 @@ class WebNavigationButton extends StatelessWidget {
 
     if (label != null)
       widget = TextButton(
-        child: Text(label!, style: buttonStyle),
+        child: Text(label!, style: bodyLight),
         onPressed: () => _navigate(context),
         style: ButtonStyle(
             overlayColor: MaterialStateProperty.all(Colors.transparent)),

@@ -2,7 +2,7 @@ import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
 import 'package:bishop_assistant_web_test_app/navigation/RouteStrings.dart';
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
-import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
+import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -15,13 +15,14 @@ import 'package:flutter/material.dart';
 
 class MemberDrawerHeader extends StatelessWidget {
   final Member member;
+
   const MemberDrawerHeader(this.member, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       constraints: BoxConstraints(maxHeight: 125),
-      decoration: darkContentDecoration,
+      decoration: darkPrimaryBox,
       child: Padding(
         padding: const EdgeInsets.all(padding16),
         child: TextButton(
@@ -38,12 +39,12 @@ class MemberDrawerHeader extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: padding8),
               child: Icon(
                 member.image,
-                color: white,
+                color: light,
                 size: 40,
               ),
             ),
-            Text("${member.firstName} ${member.lastName}", style: body2Style),
-            Text(member.email, style: caption2Style)
+            Text("${member.firstName} ${member.lastName}", style: bodyLight),
+            Text(member.email, style: captionDark)
           ]),
         ),
       ),

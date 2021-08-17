@@ -1,5 +1,5 @@
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
-import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
+import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -28,15 +28,15 @@ class MyButton extends StatelessWidget {
     double padding;
     switch (style) {
       case MyButtonStyle.primary:
-        decor = primaryButtonDecoration;
+        decor = floatingLightPrimaryBox;
         padding = padding16;
         break;
       case MyButtonStyle.text:
-        decor = textButtonDecoration;
+        decor = lightbox;
         padding = padding8;
         break;
       case MyButtonStyle.error:
-        decor = errorDecoration;
+        decor = floatingErrorRedBox;
         padding = padding8;
         break;
     }
@@ -55,7 +55,7 @@ class MyButton extends StatelessWidget {
                         MaterialStateProperty.all(Colors.transparent)),
                 child: Text(
                   label,
-                  style: buttonStyle,
+                  style: bodyLight,
                 )),
           )),
     );

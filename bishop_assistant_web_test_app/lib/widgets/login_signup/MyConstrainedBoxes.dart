@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 
 class MyConstrainedBox300 extends StatelessWidget {
   final List<Widget> children;
+
   const MyConstrainedBox300({required this.children, Key? key})
       : super(key: key);
 
@@ -24,6 +25,7 @@ class MyConstrainedBox300 extends StatelessWidget {
 
 class MyConstrainedBox200 extends StatelessWidget {
   final List<Widget> children;
+
   const MyConstrainedBox200({required this.children, Key? key})
       : super(key: key);
 
@@ -38,6 +40,7 @@ class MyConstrainedBox200 extends StatelessWidget {
 
 class MyConstrainedBox600 extends StatelessWidget {
   final List<Widget> children;
+
   const MyConstrainedBox600({required this.children, Key? key})
       : super(key: key);
 

@@ -1,7 +1,7 @@
 import 'package:bishop_assistant_web_test_app/database/models/Event.dart';
 import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
-import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
+import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/CardSubtitle.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/CardTitle.dart';
@@ -32,8 +32,8 @@ class EventCard extends StatelessWidget {
       agendaStuff = Padding(
         padding: const EdgeInsets.only(bottom: padding8),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(agenda + ":", style: title2Style),
-          Text(event.agenda!, style: bodyStyle),
+          Text(agenda + ":", style: smallTitle),
+          Text(event.agenda!, style: bodyDark),
         ]),
       );
     }
@@ -42,10 +42,10 @@ class EventCard extends StatelessWidget {
       noteStuff = Padding(
         padding: const EdgeInsets.only(bottom: padding8),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(notes + ":", style: title2Style),
+          Text(notes + ":", style: smallTitle),
           Text(
             event.notes!,
-            style: bodyStyle,
+            style: bodyDark,
             textAlign: TextAlign.justify,
           )
         ]),
@@ -59,14 +59,14 @@ class EventCard extends StatelessWidget {
       for (Member assignee in event.assignees!) {
         assigneeList.add(Text(
           "    ${assignee.firstName} ${assignee.lastName}",
-          style: bodyStyle,
+          style: bodyDark,
         ));
       }
       assigneeStuff = Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(amountOfAssignees + ":", style: title2Style),
+          Text(amountOfAssignees + ":", style: smallTitle),
           Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -78,8 +78,8 @@ class EventCard extends StatelessWidget {
     if (event.interviewee != null) {
       intervieweeStuff =
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Text(interviewee + ":", style: title2Style),
-        Text(event.interviewee!, style: bodyStyle)
+        Text(interviewee + ":", style: smallTitle),
+        Text(event.interviewee!, style: bodyDark)
       ]);
     }
 

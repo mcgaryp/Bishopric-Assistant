@@ -17,7 +17,7 @@ class MyFirebaseApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: darkAccent,
+      backgroundColor: darkPrimary,
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: FutureBuilder(

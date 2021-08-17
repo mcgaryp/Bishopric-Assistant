@@ -1,5 +1,4 @@
-import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
-import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
+import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:bishop_assistant_web_test_app/util/DatabasePaths.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/FirebaseDropDown.dart';
@@ -60,7 +59,7 @@ class CreateEvent extends StatelessWidget {
         children: [
           Text(
             notifyWhen,
-            style: bodyStyle,
+            style: bodyDark,
             maxLines: 2,
             softWrap: true,
           ),
@@ -73,7 +72,11 @@ class CreateEvent extends StatelessWidget {
           )
         ],
       ),
-      MyButton(label: createEvent, onPressed: () {/*TODO*/})
+      MyButton(
+          label: createEvent,
+          onPressed: () {
+            /*TODO*/
+          })
     ]);
   }
 }

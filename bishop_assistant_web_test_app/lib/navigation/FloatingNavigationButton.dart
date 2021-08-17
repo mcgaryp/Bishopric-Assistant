@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 
 class FloatingNavigationButton extends StatelessWidget {
   final String path;
+
   const FloatingNavigationButton(this.path, {Key? key}) : super(key: key);
 
   @override
@@ -21,10 +22,10 @@ class FloatingNavigationButton extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(bottom: padding8),
         child: FloatingActionButton(
-            backgroundColor: lightAccent,
+            backgroundColor: lightPrimary,
             splashColor: Colors.transparent,
             onPressed: () => _navigate(context),
-            child: Icon(Icons.add, color: white, size: 55)),
+            child: Icon(Icons.add, color: light, size: 55)),
       ),
     );
   }

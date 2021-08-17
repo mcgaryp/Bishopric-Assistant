@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
+import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -13,8 +13,9 @@ class AutoText extends StatelessWidget {
   final String data;
   final TextStyle style;
   final bool isExpanded;
+
   const AutoText(this.data,
-      {this.style = bodyStyle, this.isExpanded = true, Key? key})
+      {this.style = bodyDark, this.isExpanded = true, Key? key})
       : super(key: key);
 
   @override

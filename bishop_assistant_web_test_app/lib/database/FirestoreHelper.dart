@@ -88,57 +88,57 @@ class FirestoreHelper {
     return 0;
   }
 
-  // /// Constant items from database
-  // ///   - Roles
-  // ///   - Security
-  // ///   - Event Types
-  // late final List<Security> securities = _getSecurities();
-  // late final List<Role> roles;
-  // late final List<EventType> eventTypes;
-  //
-  // FirestoreHelper._privateConstructor() {
-  //   _setupDatabaseConstants();
-  // }
-  //
-  // static final FirestoreHelper _instance =
-  //     FirestoreHelper._privateConstructor();
-  //
-  // factory FirestoreHelper() {
-  //   return _instance;
-  // }
-  //
-  // void _setupDatabaseConstants() async {
-  //   securities = await _getSecurities();
-  //   roles = await _getRoles();
-  //   eventTypes = await _getEventTypes();
-  // }
-  //
-  // Future<List<Role>> _getRoles() async {
-  //   QuerySnapshot roles = await _firestore.collection(Collections.roles).get();
-  //
-  //   return roles.docs
-  //       .map((e) => Role(
-  //           id: int.parse(e.id),
-  //           name: e[RolesDoc.name],
-  //           security: securities[e[RolesDoc.security] - 1]))
-  //       .toList();
-  // }
-  //
-  // List<Security> _getSecurities() async {
-  //   QuerySnapshot securities =
-  //       await _firestore.collection(Collections.security).get();
-  //
-  //   return securities.docs
-  //       .map((e) => Security(id: int.parse(e.id), name: e[SecurityDoc.name]))
-  //       .toList();
-  // }
-  //
-  // Future<List<EventType>> _getEventTypes() async {
-  //   QuerySnapshot eventTypes =
-  //       await _firestore.collection(Collections.eventTypes).get();
-  //
-  //   return eventTypes.docs
-  //       .map((e) => EventType(id: int.parse(e.id), name: e[EventTypesDoc.name]))
-  //       .toList();
-  // }
+// /// Constant items from database
+// ///   - Roles
+// ///   - Security
+// ///   - Event Types
+// late final List<Security> securities = _getSecurities();
+// late final List<Role> roles;
+// late final List<EventType> eventTypes;
+//
+// FirestoreHelper._privateConstructor() {
+//   _setupDatabaseConstants();
+// }
+//
+// static final FirestoreHelper _instance =
+//     FirestoreHelper._privateConstructor();
+//
+// factory FirestoreHelper() {
+//   return _instance;
+// }
+//
+// void _setupDatabaseConstants() async {
+//   securities = await _getSecurities();
+//   roles = await _getRoles();
+//   eventTypes = await _getEventTypes();
+// }
+//
+// Future<List<Role>> _getRoles() async {
+//   QuerySnapshot roles = await _firestore.collection(Collections.roles).get();
+//
+//   return roles.docs
+//       .map((e) => Role(
+//           id: int.parse(e.id),
+//           name: e[RolesDoc.name],
+//           security: securities[e[RolesDoc.security] - 1]))
+//       .toList();
+// }
+//
+// List<Security> _getSecurities() async {
+//   QuerySnapshot securities =
+//       await _firestore.collection(Collections.security).get();
+//
+//   return securities.docs
+//       .map((e) => Security(id: int.parse(e.id), name: e[SecurityDoc.name]))
+//       .toList();
+// }
+//
+// Future<List<EventType>> _getEventTypes() async {
+//   QuerySnapshot eventTypes =
+//       await _firestore.collection(Collections.eventTypes).get();
+//
+//   return eventTypes.docs
+//       .map((e) => EventType(id: int.parse(e.id), name: e[EventTypesDoc.name]))
+//       .toList();
+// }
 }

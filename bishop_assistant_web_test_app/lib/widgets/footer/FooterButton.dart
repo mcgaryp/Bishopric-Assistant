@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
+import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 class FooterButton extends StatelessWidget {
   final String label;
   final String path;
+
   const FooterButton({required this.label, required this.path, Key? key})
       : super(key: key);
 
@@ -19,7 +20,7 @@ class FooterButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () => _navigate(context),
-      child: Text(label, style: labelStyle),
+      child: Text(label, style: bodyDark),
       style: ButtonStyle(
           overlayColor: MaterialStateProperty.all(Colors.transparent)),
     );

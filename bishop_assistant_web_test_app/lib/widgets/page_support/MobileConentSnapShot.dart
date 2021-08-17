@@ -13,11 +13,11 @@ import 'package:flutter/material.dart';
 
 class MobileContentSnapShot extends Mobile {
   final List<Section> children;
+
   const MobileContentSnapShot(this.children, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     return SnapShotBackground(child: ListView(children: children));
   }
 }

@@ -12,10 +12,13 @@ import 'package:flutter/material.dart';
 class CardIconButton extends StatelessWidget {
   final IconData icon;
   final Function() onPressed;
-  const CardIconButton(this.icon, {required this.onPressed, Key? key}) : super(key: key);
+
+  const CardIconButton(this.icon, {required this.onPressed, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(onPressed: onPressed, icon: Icon(icon, color: darkAccent));
+    return IconButton(
+        onPressed: onPressed, icon: Icon(icon, color: darkPrimary));
   }
 }

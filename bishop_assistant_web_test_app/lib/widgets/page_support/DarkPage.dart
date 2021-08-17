@@ -25,7 +25,7 @@ class DarkPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: darkAccent,
+        backgroundColor: darkPrimary,
         body: Content(
             child: SingleChildScrollView(
                 child: Padding(

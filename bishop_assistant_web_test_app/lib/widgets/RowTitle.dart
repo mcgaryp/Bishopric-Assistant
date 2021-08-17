@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
+import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:bishop_assistant_web_test_app/widgets/login_signup/MyDivider.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 
 class RowTitle extends StatelessWidget {
   final String label;
+
   const RowTitle(this.label, {Key? key}) : super(key: key);
 
   @override
@@ -20,7 +21,7 @@ class RowTitle extends StatelessWidget {
       children: [
         Align(
             alignment: Alignment.centerLeft,
-            child: Text(label, style: subtitleStyle)),
+            child: Text(label, style: headlineLight)),
         MyDivider()
       ],
     );

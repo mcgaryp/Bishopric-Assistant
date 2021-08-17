@@ -21,7 +21,8 @@ class AssignmentWeb extends StatelessWidget {
     return LightPage.web([
       WebContentSnapShot(
           title: assignments, children: Assignment.assignmentExampleCardList),
-      WebContentSnapShot(title: createAssignment, children: [CreateAssignment()])
+      WebContentSnapShot(
+          title: createAssignment, children: [CreateAssignment()])
     ]);
   }
 }

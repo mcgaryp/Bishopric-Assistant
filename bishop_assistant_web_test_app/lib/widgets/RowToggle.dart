@@ -1,5 +1,5 @@
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
-import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
+import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 
 class RowToggle extends StatefulWidget {
   final String label;
+
   const RowToggle(this.label, {Key? key}) : super(key: key);
 
   @override
@@ -24,9 +25,9 @@ class _RowToggleState extends State<RowToggle> {
   @override
   Widget build(BuildContext context) {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      Text(widget.label, style: bodyStyle),
+      Text(widget.label, style: bodyDark),
       Switch(
-          activeColor: darkAccent,
+          activeColor: darkPrimary,
           value: isOn,
           onChanged: (value) => setState(() => isOn = value))
     ]);

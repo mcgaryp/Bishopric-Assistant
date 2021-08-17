@@ -17,6 +17,6 @@ class AssignmentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout(
-        mobile: AssignmentMobile(), tablet: AssignmentWeb());
+        mobile: AssignmentMobile(), desktop: AssignmentWeb());
   }
 }

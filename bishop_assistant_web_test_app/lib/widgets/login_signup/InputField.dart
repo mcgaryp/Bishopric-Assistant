@@ -1,5 +1,5 @@
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
-import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
+import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -14,7 +14,8 @@ class InputField extends StatefulWidget {
   final String hint;
   final bool isPassword;
 
-  const InputField(this.hint, {this.isPassword = false, Key? key}) : super(key: key);
+  const InputField(this.hint, {this.isPassword = false, Key? key})
+      : super(key: key);
 
   @override
   _InputFieldState createState() => _InputFieldState();
@@ -28,7 +29,7 @@ class _InputFieldState extends State<InputField> {
     return Padding(
       padding: const EdgeInsets.only(top: padding16),
       child: Container(
-        decoration: boxDecoration,
+        decoration: floatingLightBox,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: padding16),
           child: TextField(
@@ -40,8 +41,8 @@ class _InputFieldState extends State<InputField> {
               errorBorder: InputBorder.none,
               disabledBorder: InputBorder.none,
               hintText: widget.hint,
-              hintStyle: hintStyle,
-              labelStyle: labelStyle,
+              hintStyle: captionLight,
+              labelStyle: bodyDark,
             ),
           ),
         ),

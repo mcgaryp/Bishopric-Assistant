@@ -1,6 +1,6 @@
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
-import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
+import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 class MobileNavigationButton extends StatelessWidget {
   final String label;
   final String path;
+
   const MobileNavigationButton(this.label, this.path, {Key? key})
       : super(key: key);
 
@@ -25,8 +26,8 @@ class MobileNavigationButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(label, style: darkButtonStyle),
-            Icon(Icons.arrow_forward_rounded, color: blackText)
+            Text(label, style: bodyDark),
+            Icon(Icons.arrow_forward_rounded, color: dark)
           ],
         ),
       ),

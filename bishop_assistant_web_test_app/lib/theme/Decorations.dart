@@ -10,43 +10,77 @@ import 'package:flutter/material.dart';
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
 
-// TODO: Consolidate the Decor
-const BoxDecoration boxDecoration = BoxDecoration(
-    borderRadius: borderRadius20, color: white, boxShadow: boxShadow);
+/// Floating Boxes
+const BoxDecoration floatingLightBox = BoxDecoration(
+    color: light, boxShadow: _boxShadow, borderRadius: _borderRadius20);
 
-const BoxDecoration primaryButtonDecoration = BoxDecoration(
-    borderRadius: borderRadius20, color: lightAccent, boxShadow: boxShadow);
+const BoxDecoration floatingLightPrimaryBox = BoxDecoration(
+    color: lightPrimary, boxShadow: _boxShadow, borderRadius: _borderRadius20);
 
-const BoxDecoration contentSnapShotDecoration = BoxDecoration(
-    borderRadius: borderRadiusTop20, color: darkAccent, boxShadow: boxShadow);
+const BoxDecoration floatingDarkPrimaryHalfBorderBox = BoxDecoration(
+    color: darkPrimary,
+    boxShadow: _boxShadow,
+    borderRadius: _borderRadiusTop20);
 
-const BoxDecoration darkContentDecoration = BoxDecoration(color: darkAccent);
+const BoxDecoration floatingErrorRedBox = BoxDecoration(
+    color: errorRed, boxShadow: _boxShadow, borderRadius: _borderRadius20);
 
-const BoxDecoration textButtonDecoration = BoxDecoration();
-const BoxDecoration errorDecoration = BoxDecoration(
-    color: error, borderRadius: borderRadius20, boxShadow: boxShadow);
+/// Flat Boxes
+const BoxDecoration darkPrimaryBox = BoxDecoration(color: darkPrimary);
 
-final BoxDecoration inputOnLightDecoration =
-    BoxDecoration(borderRadius: borderRadius20, border: darkBorder);
+const BoxDecoration lightbox = BoxDecoration(color: light);
 
-final BoxDecoration borderDecoration =
-    BoxDecoration(border: Border.all(color: Colors.red));
+/// Bordered Boxes
+const BoxDecoration darkBorderBox = BoxDecoration(
+    color: light, borderRadius: _borderRadius20, border: _darkBorder);
 
+const BoxDecoration errorRedBorderBox = BoxDecoration(
+    color: light, border: _errorRedBorder, borderRadius: _borderRadius20);
+
+/// ButtonStyles
 final ButtonStyle textButtonStyle =
     ButtonStyle(overlayColor: MaterialStateProperty.all(Colors.transparent));
 
+/// OutlineInputBorders
+const OutlineInputBorder lightPrimaryInputBorder = OutlineInputBorder(
+    borderSide: BorderSide(color: lightPrimary), borderRadius: _borderRadius20);
+
+const OutlineInputBorder darkPrimaryInputBorder = OutlineInputBorder(
+    borderSide: BorderSide(color: darkPrimary), borderRadius: _borderRadius20);
+
+const OutlineInputBorder errorRedInputBorder = OutlineInputBorder(
+    borderSide: BorderSide(color: errorRed), borderRadius: _borderRadius20);
+
+/// Paddings
 const double padding4 = 4.0;
 const double padding8 = 8.0;
 const double padding16 = 16.0;
 const double padding32 = 32.0;
 
-const double radius20 = 20.0;
-const BorderRadius borderRadius20 = BorderRadius.all(Radius.circular(radius20));
-const BorderRadius borderRadiusTop20 =
-    BorderRadius.vertical(top: Radius.circular(radius20));
+/// PRIVATE VARIABLES
+const double _radius20 = 20.0;
+const BorderRadius _borderRadius20 =
+    BorderRadius.all(Radius.circular(_radius20));
+const BorderRadius _borderRadiusTop20 =
+    BorderRadius.vertical(top: Radius.circular(_radius20));
 
-final Border darkBorder = Border.all(color: darkAccent);
+/// Border
+const Border _darkBorder = Border(
+    top: _darkBorderSide,
+    bottom: _darkBorderSide,
+    left: _darkBorderSide,
+    right: _darkBorderSide);
+const Border _errorRedBorder = Border(
+    top: _errorRedBorderSide,
+    bottom: _errorRedBorderSide,
+    left: _errorRedBorderSide,
+    right: _errorRedBorderSide);
 
-const List<BoxShadow> boxShadow = [
+/// Border Side
+const BorderSide _darkBorderSide = BorderSide(color: dark);
+const BorderSide _errorRedBorderSide = BorderSide(color: errorRed);
+
+/// Shadow
+const List<BoxShadow> _boxShadow = [
   BoxShadow(offset: Offset(2, 4), blurRadius: 4, spreadRadius: 3, color: shadow)
 ];
