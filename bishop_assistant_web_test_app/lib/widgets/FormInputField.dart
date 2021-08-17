@@ -15,7 +15,9 @@ class FormInputField extends StatefulWidget {
   final String label;
   final String hint;
   final bool maxLines;
-  const FormInputField(this.label, {this.hint = "", this.maxLines = false, Key? key})
+
+  const FormInputField(this.label,
+      {this.hint = "", this.maxLines = false, Key? key})
       : super(key: key);
 
   @override

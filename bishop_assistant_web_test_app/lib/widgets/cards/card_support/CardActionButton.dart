@@ -1,6 +1,5 @@
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:bishop_assistant_web_test_app/theme/Fonts.dart';
-import 'package:bishop_assistant_web_test_app/widgets/AutoText.dart';
 import 'package:bishop_assistant_web_test_app/widgets/MyButton.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +15,10 @@ class CardActionButton extends StatelessWidget {
   final String label;
   final Function() onPressed;
   final MyButtonStyle style;
-  const CardActionButton(this.label, {required this.onPressed, this.style = MyButtonStyle.primary, Key? key}) : super(key: key);
+
+  const CardActionButton(this.label,
+      {required this.onPressed, this.style = MyButtonStyle.primary, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +38,17 @@ class CardActionButton extends StatelessWidget {
 
     return Expanded(
         child: Padding(
-          padding: const EdgeInsets.all(padding8),
-          child: Container(
-              decoration: decor,
-              child: Padding(
-                padding: const EdgeInsets.all(padding8),
-                child: TextButton(onPressed: onPressed,
-                    child: Text(label, style: buttonStyle)),
-              )),
-        ));
+      padding: const EdgeInsets.all(padding8),
+      child: Container(
+          decoration: decor,
+          child: Padding(
+            padding: const EdgeInsets.all(padding8),
+            child: TextButton(
+              style: textButtonStyle,
+                onPressed: onPressed,
+                child: Text(label,
+                    style: buttonStyle, textAlign: TextAlign.center)),
+          )),
+    ));
   }
 }

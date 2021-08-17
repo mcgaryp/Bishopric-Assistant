@@ -15,4 +15,10 @@ final ThemeData theme = ThemeData(
   primaryColor: darkAccent,
   accentColor: white,
   errorColor: error,
+  cardColor: darkAccent,
+  highlightColor: lightAccent,
+  splashColor: darkAccent,
+  colorScheme: ColorScheme.light().copyWith(
+    primary: darkAccent
+  )
 );

@@ -30,7 +30,6 @@ class CreateEvent extends StatelessWidget {
         eventName,
         hint: eventNameHint,
       ),
-      // TODO: Create a date time special component
       CardDateTimeRow(),
       FormInputField(
         location,
