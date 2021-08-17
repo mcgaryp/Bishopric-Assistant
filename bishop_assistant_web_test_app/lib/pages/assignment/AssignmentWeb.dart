@@ -1,4 +1,6 @@
+import 'package:bishop_assistant_web_test_app/database/models/Assignment.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
+import 'package:bishop_assistant_web_test_app/widgets/cards/CreateAssignment.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/WebContentSnapShot.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/light_page/LightPage.dart';
 import 'package:flutter/material.dart';
@@ -17,12 +19,9 @@ class AssignmentWeb extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LightPage.web([
-      WebContentSnapShot(title: assignments, children: [
-
-      ]),
-      WebContentSnapShot(title: createAssignment, children: [
-
-      ])
+      WebContentSnapShot(
+          title: assignments, children: Assignment.assignmentExampleCardList),
+      WebContentSnapShot(title: createAssignment, children: [CreateAssignment()])
     ]);
   }
 }

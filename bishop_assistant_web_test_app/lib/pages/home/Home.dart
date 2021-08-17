@@ -1,10 +1,9 @@
+import 'package:bishop_assistant_web_test_app/database/models/Assignment.dart';
 import 'package:bishop_assistant_web_test_app/database/models/Event.dart';
 import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
 import 'package:bishop_assistant_web_test_app/pages/home/HomeMobile.dart';
 import 'package:bishop_assistant_web_test_app/pages/home/HomeWeb.dart';
-import 'package:bishop_assistant_web_test_app/widgets/cards/AssignmentCard.dart';
-import 'package:bishop_assistant_web_test_app/widgets/cards/EventCard.dart';
-import 'package:bishop_assistant_web_test_app/widgets/cards/member_cards/MemberCard.dart';
+import 'package:bishop_assistant_web_test_app/widgets/cards/event_cards/EventCard.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -19,23 +18,21 @@ import 'package:responsive_builder/responsive_builder.dart';
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
 
-  final List<Widget> eventsList = [
-    EventCard(Meeting.example),
-    EventCard(Interview.example),
-  ];
-
-  final List<Widget> assignmentsList = [
-    AssignmentCard(
-      title: "Set Appointment",
-      dateTime: DateTime.now(),
-    )
+  final List<EventCard> eventsList = [
+    EventCard(Meeting.example1),
+    EventCard(Meeting.example2),
+    EventCard(Interview.example1),
+    EventCard(Meeting.example3),
+    EventCard(Interview.example2)
   ];
 
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout(
-      mobile: HomeMobile(eventsList, assignmentsList, Member.exampleMemberCardList),
-      tablet: HomeWeb(eventsList, assignmentsList, Member.exampleMemberCardList),
+      mobile: HomeMobile(eventsList, Assignment.assignmentExampleCardList,
+          Member.exampleMemberCardList),
+      tablet: HomeWeb(eventsList, Assignment.assignmentExampleCardList,
+          Member.exampleMemberCardList),
     );
   }
 }

@@ -20,6 +20,16 @@ class Member extends DatabaseModel {
   late Role role = Role.counselor1;
   late int security;
 
+  static List<Member> exampleMemberList = [
+    bishopExample,
+    counselor1Example,
+    counselor2Example,
+    wardClerkExample,
+    assistantWardClerkExample,
+    wardExecutiveSecretaryExample,
+    wardAssistantExecutiveSecretaryExample
+  ];
+
   Member(
       {required id,
       required this.firstName,
@@ -34,7 +44,7 @@ class Member extends DatabaseModel {
   Member.model(int id, String name) : super(id, name);
 
   static Member bishopExample = Member(
-      id: 0,
+      id: -1,
       firstName: "John",
       lastName: "Doe",
       phone: "(576) 398-0987",
@@ -42,7 +52,7 @@ class Member extends DatabaseModel {
       role: Role.bishop,
       security: 1);
   static Member counselor1Example = Member(
-      id: 0,
+      id: -1,
       firstName: "Ben",
       lastName: "Dover",
       phone: "(208) 123-7895",
@@ -50,7 +60,7 @@ class Member extends DatabaseModel {
       role: Role.counselor1,
       security: 2);
   static Member counselor2Example = Member(
-      id: 0,
+      id: -1,
       firstName: "Jeff",
       lastName: "Bezos",
       phone: "(479) 684-9137",
@@ -58,7 +68,7 @@ class Member extends DatabaseModel {
       role: Role.counselor2,
       security: 2);
   static Member wardClerkExample = Member(
-      id: 0,
+      id: -1,
       firstName: "James",
       lastName: "Bucanon",
       phone: "(783) 167-6548",
@@ -66,7 +76,7 @@ class Member extends DatabaseModel {
       role: Role.wardClerk,
       security: 3);
   static Member assistantWardClerkExample = Member(
-      id: 0,
+      id: -1,
       firstName: "Jimmy",
       lastName: "Newtron",
       phone: "(794) 456-9321",
@@ -74,7 +84,7 @@ class Member extends DatabaseModel {
       role: Role.assistantWardClerk,
       security: 3);
   static Member wardExecutiveSecretaryExample = Member(
-      id: 0,
+      id: -1,
       firstName: "Lebron",
       lastName: "James",
       phone: "(852) 951-7531",
@@ -82,7 +92,7 @@ class Member extends DatabaseModel {
       role: Role.wardExecutiveSecretary,
       security: 3);
   static Member wardAssistantExecutiveSecretaryExample = Member(
-      id: 0,
+      id: -1,
       firstName: "Jimmy",
       lastName: "Falon",
       phone: "(741) 963-8520",

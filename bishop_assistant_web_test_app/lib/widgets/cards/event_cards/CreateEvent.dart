@@ -7,7 +7,7 @@ import 'package:bishop_assistant_web_test_app/widgets/FirebaseMultiSelectField.d
 import 'package:bishop_assistant_web_test_app/widgets/FormInputField.dart';
 import 'package:bishop_assistant_web_test_app/widgets/MyButton.dart';
 import 'package:bishop_assistant_web_test_app/widgets/RowToggle.dart';
-import 'package:bishop_assistant_web_test_app/widgets/cards/MyCard.dart';
+import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/MyCard.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

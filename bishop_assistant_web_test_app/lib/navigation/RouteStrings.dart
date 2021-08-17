@@ -13,7 +13,7 @@ import 'package:bishop_assistant_web_test_app/pages/recover_password/Pin.dart';
 import 'package:bishop_assistant_web_test_app/pages/recover_password/RequestPasswordReset.dart';
 import 'package:bishop_assistant_web_test_app/pages/signup_login/Login.dart';
 import 'package:bishop_assistant_web_test_app/pages/signup_login/Signup.dart';
-import 'package:bishop_assistant_web_test_app/widgets/cards/CreateEvent.dart';
+import 'package:bishop_assistant_web_test_app/widgets/cards/event_cards/CreateEvent.dart';
 import 'package:flutter/material.dart';
 
 ///

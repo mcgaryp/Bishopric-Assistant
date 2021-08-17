@@ -1,5 +1,5 @@
 import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
-import 'package:bishop_assistant_web_test_app/widgets/cards/MyCard.dart';
+import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/MyCard.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/member_cards/MemberTitle.dart';
 import 'package:flutter/material.dart';
 

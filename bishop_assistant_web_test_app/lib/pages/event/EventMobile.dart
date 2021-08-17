@@ -3,7 +3,7 @@ import 'package:bishop_assistant_web_test_app/navigation/FloatingNavigationButto
 import 'package:bishop_assistant_web_test_app/navigation/RouteStrings.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/Section.dart';
-import 'package:bishop_assistant_web_test_app/widgets/cards/EventCard.dart';
+import 'package:bishop_assistant_web_test_app/widgets/cards/event_cards/EventCard.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/MobileConentSnapShot.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/light_page/LightPage.dart';
 import 'package:flutter/material.dart';
@@ -23,10 +23,10 @@ class EventMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     return LightPage.mobileAction(MobileContentSnapShot([
         Section(events, [
-          EventCard(Meeting.example),
-          EventCard(Interview.example),
-          EventCard(Meeting.example),
-          EventCard(Interview.example),
+          EventCard(Meeting.example1),
+          EventCard(Interview.example1),
+          EventCard(Meeting.example1),
+          EventCard(Interview.example1),
         ])
       ]),
       rAddEvent

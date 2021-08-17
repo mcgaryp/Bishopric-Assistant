@@ -1,7 +1,7 @@
 import 'package:bishop_assistant_web_test_app/database/models/Event.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
-import 'package:bishop_assistant_web_test_app/widgets/cards/CreateEvent.dart';
-import 'package:bishop_assistant_web_test_app/widgets/cards/EventCard.dart';
+import 'package:bishop_assistant_web_test_app/widgets/cards/event_cards/CreateEvent.dart';
+import 'package:bishop_assistant_web_test_app/widgets/cards/event_cards/EventCard.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/WebContentSnapShot.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/light_page/LightPage.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +22,7 @@ class EventWeb extends StatelessWidget {
     return LightPage.web([
       WebContentSnapShot(
           title: events,
-          children: [EventCard(Meeting.example), EventCard(Interview.example)]),
+          children: [EventCard(Meeting.example1), EventCard(Interview.example1)]),
       WebContentSnapShot(title: createEvent, children: [CreateEvent()])
     ]);
   }
