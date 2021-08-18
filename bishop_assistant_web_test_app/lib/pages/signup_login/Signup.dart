@@ -1,8 +1,8 @@
 import 'package:bishop_assistant_web_test_app/util/DatabasePaths.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/FirebaseDropDown.dart';
+import 'package:bishop_assistant_web_test_app/widgets/InputField.dart';
 import 'package:bishop_assistant_web_test_app/widgets/MyButton.dart';
-import 'package:bishop_assistant_web_test_app/widgets/login_signup/InputField.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/DarkPage.dart';
 import 'package:flutter/material.dart';
 
@@ -20,15 +20,15 @@ class Signup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DarkPage(inputs: [
-      InputField(firstname),
-      InputField(lastname),
-      InputField(email),
-      InputField(phone),
-      InputField(password, isPassword: true),
-      InputField(confirmPassword, isPassword: true),
+      InputField.floating(firstname),
+      InputField.floating(lastname),
+      InputField.floating(email),
+      InputField.floating(phone),
+      InputField.floating(password, isPassword: true),
+      InputField.floating(confirmPassword, isPassword: true),
       FirebaseDropDown(
           collectionPath: Collections.roles, document: RolesDoc(), hint: role),
-      InputField(nameOfOrganization),
+      InputField.floating(nameOfOrganization),
     ], buttons: [
       MyButton(label: signup, onPressed: () => Navigator.pop(context))
     ]);

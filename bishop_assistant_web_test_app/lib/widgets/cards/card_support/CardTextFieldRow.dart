@@ -1,6 +1,6 @@
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
-import 'package:bishop_assistant_web_test_app/widgets/FormInputField.dart';
+import 'package:bishop_assistant_web_test_app/widgets/InputField.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -36,7 +36,7 @@ class CardTextFieldRow extends StatelessWidget {
         Flexible(
           child: Padding(
             padding: const EdgeInsets.only(left: padding8),
-            child: FormInputField(
+            child: InputField.border(
               secondLabel,
               hint: hint,
               formattingList: [FilteringTextInputFormatter.digitsOnly],

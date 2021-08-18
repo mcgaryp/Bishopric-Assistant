@@ -1,7 +1,7 @@
 import 'package:bishop_assistant_web_test_app/util/DatabasePaths.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/FirebaseDropDown.dart';
-import 'package:bishop_assistant_web_test_app/widgets/FormInputField.dart';
+import 'package:bishop_assistant_web_test_app/widgets/InputField.dart';
 import 'package:bishop_assistant_web_test_app/widgets/MyButton.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/CardDateTimeRow.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/MyCard.dart';
@@ -21,14 +21,14 @@ class CreateAssignment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MyCard(children: [
-      FormInputField(assignmentName, hint: assignmentNameHint),
+      InputField.border(assignmentName, hint: assignmentNameHint),
       CardDateTimeRow(),
       FirebaseDropDown(
           collectionPath: Collections.members,
           document: MembersDoc(),
           isInput: true,
           hint: assignee),
-      FormInputField(notes, hint: notesHint, maxLines: true),
+      InputField.border(notes, hint: notesHint, maxLines: true),
       MyButton(label: createAssignment, onPressed: () {})
     ]);
   }

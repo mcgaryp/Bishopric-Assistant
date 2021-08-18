@@ -1,7 +1,7 @@
 import 'package:bishop_assistant_web_test_app/navigation/RouteStrings.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
+import 'package:bishop_assistant_web_test_app/widgets/InputField.dart';
 import 'package:bishop_assistant_web_test_app/widgets/MyButton.dart';
-import 'package:bishop_assistant_web_test_app/widgets/login_signup/InputField.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/DarkPage.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +19,7 @@ class RequestPasswordReset extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DarkPage(inputs: [
-      InputField(email + " or " + phone)
+      InputField.floating(email + " or " + phone)
     ], buttons: [
       MyButton(
           label: requestReset,

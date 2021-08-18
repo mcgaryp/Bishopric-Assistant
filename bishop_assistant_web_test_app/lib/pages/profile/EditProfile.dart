@@ -3,7 +3,7 @@ import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
-import 'package:bishop_assistant_web_test_app/widgets/FormInputField.dart';
+import 'package:bishop_assistant_web_test_app/widgets/InputField.dart';
 import 'package:bishop_assistant_web_test_app/widgets/MyButton.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/member_cards/MemberIcon.dart';
 import 'package:bishop_assistant_web_test_app/widgets/login_signup/MyConstrainedBoxes.dart';
@@ -39,10 +39,10 @@ class EditProfile extends Mobile {
               padding: const EdgeInsets.symmetric(horizontal: padding8),
               child: Column(
                 children: [
-                  FormInputField(member.email),
-                  FormInputField(member.phone),
-                  FormInputField(password, isPassword: true),
-                  FormInputField(confirmPassword, isPassword: true),
+                  InputField.border(member.email),
+                  InputField.border(member.phone),
+                  InputField.border(password, isPassword: true),
+                  InputField.border(confirmPassword, isPassword: true),
                   MyButton(label: save, onPressed: () {})
                 ],
               ),

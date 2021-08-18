@@ -2,7 +2,7 @@ import 'package:bishop_assistant_web_test_app/util/DatabasePaths.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/FirebaseDropDown.dart';
 import 'package:bishop_assistant_web_test_app/widgets/FirebaseMultiSelectField.dart';
-import 'package:bishop_assistant_web_test_app/widgets/FormInputField.dart';
+import 'package:bishop_assistant_web_test_app/widgets/InputField.dart';
 import 'package:bishop_assistant_web_test_app/widgets/MyButton.dart';
 import 'package:bishop_assistant_web_test_app/widgets/RowToggle.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/CardDateTimeRow.dart';
@@ -25,12 +25,12 @@ class CreateEvent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MyCard(children: [
-      FormInputField(
+      InputField.border(
         eventName,
         hint: eventNameHint,
       ),
       CardDateTimeRow(),
-      FormInputField(
+      InputField.border(
         location,
         hint: locationHint,
       ),
@@ -41,12 +41,12 @@ class CreateEvent extends StatelessWidget {
           isInput: true),
       FirebaseMultiSelectField(assignees,
           collectionPath: Collections.members, document: MembersDoc()),
-      FormInputField(
+      InputField.border(
         agenda,
         hint: agendaHint,
         maxLines: true,
       ),
-      FormInputField(
+      InputField.border(
         notes,
         hint: notesHint,
         maxLines: true,
