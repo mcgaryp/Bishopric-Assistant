@@ -28,11 +28,11 @@ class LightPageWeb extends StatelessWidget {
   Widget build(BuildContext context) {
     // Action items
     final List<Widget> actions = [
-      WebNavigationButton(label: home, path: rHome),
-      WebNavigationButton(label: events, path: rEvents),
-      WebNavigationButton(label: assignments, path: rAssignments),
-      WebNavigationButton(label: organization, path: rOrganization),
-      WebNavigationButton(icon: Icons.person, path: rProfile),
+      WebNavigationButton.label(home, path: rHome),
+      WebNavigationButton.label(events, path: rEvents),
+      WebNavigationButton.label(assignments, path: rAssignments),
+      WebNavigationButton.label(organization, path: rOrganization),
+      WebNavigationButton.icon(Icons.person, path: rProfile),
     ];
 
     return Scaffold(

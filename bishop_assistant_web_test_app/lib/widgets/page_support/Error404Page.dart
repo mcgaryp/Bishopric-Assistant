@@ -29,7 +29,7 @@ class Error404Page extends StatelessWidget {
           leading: Logo(),
           centerTitle: false,
           title: Brand(isExpanded: false),
-          actions: [WebNavigationButton(label: home, path: rHome)],
+          actions: [WebNavigationButton.label(home, path: rHome)],
         ),
         body: Content(
           child: Error404(),

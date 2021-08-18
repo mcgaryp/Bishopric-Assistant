@@ -1,3 +1,4 @@
+import 'package:bishop_assistant_web_test_app/navigation/NavigationButton.dart';
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
@@ -11,12 +12,11 @@ import 'package:flutter/material.dart';
 /// Copyright 2021 porter. All rights reserved.
 ///
 
-class MobileNavigationButton extends StatelessWidget {
+class MobileNavigationButton extends NavigationButton {
   final String label;
-  final String path;
 
-  const MobileNavigationButton(this.label, this.path, {Key? key})
-      : super(key: key);
+  const MobileNavigationButton(this.label, String path, {Key? key})
+      : super(path, key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +31,8 @@ class MobileNavigationButton extends StatelessWidget {
           ],
         ),
       ),
-      onPressed: () => _navigate(context),
+      onPressed: () => navigate(context),
       style: textButtonStyle,
     );
-  }
-
-  void _navigate(BuildContext context) {
-    Navigator.pop(context);
-    Navigator.pushNamed(context, path);
   }
 }

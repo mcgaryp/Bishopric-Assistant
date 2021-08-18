@@ -1,3 +1,4 @@
+import 'package:bishop_assistant_web_test_app/navigation/NavigationButton.dart';
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +11,9 @@ import 'package:flutter/material.dart';
 /// Copyright 2021 porter. All rights reserved.
 ///
 
-class FloatingNavigationButton extends StatelessWidget {
-  final String path;
+class FloatingNavigationButton extends NavigationButton {
 
-  const FloatingNavigationButton(this.path, {Key? key}) : super(key: key);
+  const FloatingNavigationButton(String path, {Key? key}) : super(path, key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +24,9 @@ class FloatingNavigationButton extends StatelessWidget {
         child: FloatingActionButton(
             backgroundColor: lightPrimary,
             splashColor: Colors.transparent,
-            onPressed: () => _navigate(context),
+            onPressed: () => navigate(context),
             child: Icon(Icons.add, color: light, size: 55)),
       ),
     );
   }
-
-  void _navigate(BuildContext context) => Navigator.pushNamed(context, path);
 }
