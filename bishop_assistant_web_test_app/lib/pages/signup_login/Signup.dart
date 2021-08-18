@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
 
+// TODO: Add Firebase Input Possible
 class Signup extends StatelessWidget {
   const Signup({Key? key}) : super(key: key);
 
