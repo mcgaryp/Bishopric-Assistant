@@ -17,12 +17,14 @@ class FormInputField extends StatefulWidget {
   final bool maxLines;
   final List<TextInputFormatter> formattingList;
   final TextInputType? inputType;
+  final bool isPassword;
 
   const FormInputField(this.label,
       {this.hint = "",
       this.maxLines = false,
       this.formattingList = const [],
-        this.inputType,
+      this.inputType,
+      this.isPassword = false,
       Key? key})
       : super(key: key);
 
@@ -38,6 +40,7 @@ class _FormInputFieldState extends State<FormInputField> {
     return Padding(
       padding: const EdgeInsets.only(bottom: padding8),
       child: TextField(
+        obscureText: widget.isPassword,
         controller: _controller,
         maxLines: widget.maxLines ? null : 1,
         inputFormatters: widget.formattingList,

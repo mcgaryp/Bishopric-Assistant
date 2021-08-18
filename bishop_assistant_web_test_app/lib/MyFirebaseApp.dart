@@ -32,7 +32,7 @@ class MyFirebaseApp extends StatelessWidget {
             // Once complete, show your application
             if (snapshot.connectionState == ConnectionState.done) {
               return Login(); // TODO: Replace
-              // return CreateEventMobile();
+              // return ProfilePage();
             }
 
             // Otherwise, show something whilst waiting for initialization to complete

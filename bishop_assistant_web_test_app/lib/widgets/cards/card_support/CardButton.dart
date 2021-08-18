@@ -1,4 +1,5 @@
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
+import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -19,6 +20,8 @@ class CardButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-        onPressed: onPressed, child: Text(label), style: textButtonStyle);
+        onPressed: onPressed,
+        child: Text(label, style: bodyDark),
+        style: textButtonStyle);
   }
 }

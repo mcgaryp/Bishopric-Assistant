@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
 
+/// TODO: This is only slightly different from FormInputField... Maybe consider merging?
 class InputField extends StatefulWidget {
   final String hint;
   final bool isPassword;

@@ -32,8 +32,7 @@ class MobileNavigationButton extends StatelessWidget {
         ),
       ),
       onPressed: () => _navigate(context),
-      style: ButtonStyle(
-          overlayColor: MaterialStateProperty.all(Colors.transparent)),
+      style: textButtonStyle,
     );
   }
 

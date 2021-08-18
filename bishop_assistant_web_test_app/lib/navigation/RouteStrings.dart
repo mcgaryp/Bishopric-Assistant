@@ -7,6 +7,7 @@ import 'package:bishop_assistant_web_test_app/pages/footer/Legal.dart';
 import 'package:bishop_assistant_web_test_app/pages/footer/Privacy.dart';
 import 'package:bishop_assistant_web_test_app/pages/home/Home.dart';
 import 'package:bishop_assistant_web_test_app/pages/organization/OrganizationPage.dart';
+import 'package:bishop_assistant_web_test_app/pages/profile/EditProfilePage.dart';
 import 'package:bishop_assistant_web_test_app/pages/profile/ProfilePage.dart';
 import 'package:bishop_assistant_web_test_app/pages/recover_password/ChangePassword.dart';
 import 'package:bishop_assistant_web_test_app/pages/recover_password/Pin.dart';
@@ -38,6 +39,7 @@ const String rPrivacy = "/privacy";
 const String rAddEvent = "/events/create";
 const String rAddAssignment = "/organization/create";
 const String rMemberDetails = "/organization/member/details";
+const String rEditProfile = "/profile/edit";
 
 final Map<String, Widget Function(BuildContext)> routes = {
   "/": (context) => MyFirebaseApp(),
@@ -56,4 +58,5 @@ final Map<String, Widget Function(BuildContext)> routes = {
   rAddEvent: (context) => CreateEventMobile(),
   rAddAssignment: (context) => CreateAssignmentMobile(),
   // rMemberDetails: (context) => MemberDetails()
+  rEditProfile: (context) => EditProfilePage(),
 };

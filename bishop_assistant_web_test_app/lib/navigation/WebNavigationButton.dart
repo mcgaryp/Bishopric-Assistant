@@ -39,8 +39,7 @@ class WebNavigationButton extends StatelessWidget {
       widget = TextButton(
         child: Text(label!, style: bodyLight),
         onPressed: () => _navigate(context),
-        style: ButtonStyle(
-            overlayColor: MaterialStateProperty.all(Colors.transparent)),
+        style: textButtonStyle,
       );
 
     if (widget == null) throw ErrorDescription("Label and Icon were both null");

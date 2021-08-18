@@ -12,8 +12,9 @@ import 'package:flutter/material.dart';
 
 class MemberIcon extends StatelessWidget {
   final IconData icon;
+  final double size;
 
-  const MemberIcon(this.icon, {Key? key}) : super(key: key);
+  const MemberIcon(this.icon, {this.size = 30, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +25,7 @@ class MemberIcon extends StatelessWidget {
         child: Icon(
           icon,
           color: light,
+          size: size,
         ),
       ),
     );
