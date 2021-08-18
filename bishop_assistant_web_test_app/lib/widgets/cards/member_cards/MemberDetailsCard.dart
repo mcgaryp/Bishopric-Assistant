@@ -33,10 +33,10 @@ class MemberDetailsCard extends StatelessWidget {
         children: [MemberTitle(member), CardButton(edit, onPressed: () {})],
       ),
       MyDivider(color: darkPrimary),
-      CardRow(email, member.email),
-      CardRow(phone, member.phone),
-      CardRow(currentAssignmentCount, "1"),
-      CardRow(currentEventCount, "2"),
+      CardRow(email, content: member.email),
+      CardRow(phone, content: member.phone),
+      CardRow(currentAssignmentCount, content: "1"),
+      CardRow(currentEventCount, content: "2"),
       Row(
         mainAxisSize: MainAxisSize.max,
         children: [

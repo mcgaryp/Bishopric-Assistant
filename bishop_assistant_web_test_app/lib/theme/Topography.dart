@@ -15,45 +15,46 @@ import 'Colors.dart';
 ///    - titleLight
 ///    - titleDark
 ///    - smallTitle
-const TextStyle largeTitle = TextStyle(fontSize: 34, color: light);
-const TextStyle titleLight = TextStyle(fontSize: 28, color: light);
-const TextStyle titleDark = TextStyle(fontSize: 28, color: dark);
-const TextStyle smallTitle = TextStyle(fontSize: 20, color: dark);
+const TextStyle largeTitle = TextStyle(fontSize: 42, color: lightText);
+const TextStyle titleLight = TextStyle(fontSize: 32, color: lightText);
+const TextStyle titleDark = TextStyle(fontSize: 32, color: darkText);
+const TextStyle smallTitleLight = TextStyle(fontSize: 28, color: lightText, fontWeight: FontWeight.bold);
+const TextStyle smallTitleDark = TextStyle(fontSize: 28, color: darkText, fontWeight: FontWeight.bold);
 
 /// ## Headline
 ///    - headlineLight
 ///    - headlineDark
 const TextStyle headlineLight =
-    TextStyle(fontSize: 17, color: light, fontWeight: FontWeight.bold);
+    TextStyle(fontSize: 20, color: lightText, fontWeight: FontWeight.bold);
 const TextStyle headlineDark =
-    TextStyle(fontSize: 17, color: dark, fontWeight: FontWeight.bold);
-
-/// ## Body
-///    - body
-const TextStyle bodyLight = TextStyle(fontSize: 17, color: light);
-const TextStyle bodyDark = TextStyle(fontSize: 17, color: dark);
-
-/// ## Callout
-///    - calloutLight
-///    - calloutDark
-const TextStyle calloutLight = TextStyle(fontSize: 16, color: light);
-const TextStyle calloutDark = TextStyle(fontSize: 16, color: dark);
+    TextStyle(fontSize: 20, color: darkText, fontWeight: FontWeight.bold);
 
 /// ## Subhead
 ///    - subheadLight
 ///    - subheadDark
-const TextStyle subheadLight = TextStyle(fontSize: 15, color: light);
-const TextStyle subheadDark = TextStyle(fontSize: 15, color: dark);
+const TextStyle subheadLight = TextStyle(fontSize: 20, color: lightText);
+const TextStyle subheadDark = TextStyle(fontSize: 20, color: darkText);
+
+/// ## Body
+///    - body
+const TextStyle bodyLight = TextStyle(fontSize: 17, color: lightText);
+const TextStyle bodyDark = TextStyle(fontSize: 17, color: darkText);
+
+/// ## Callout
+///    - calloutLight
+///    - calloutDark
+const TextStyle calloutLight = TextStyle(fontSize: 16, color: lightText);
+const TextStyle calloutDark = TextStyle(fontSize: 16, color: darkText);
 
 /// ## Footnote
 ///    - footnoteLight
 ///    - footnoteDark
-const TextStyle footnoteLight = TextStyle(fontSize: 13, color: light);
-const TextStyle footnoteDark = TextStyle(fontSize: 13, color: dark);
+const TextStyle footnoteLight = TextStyle(fontSize: 11, color: lightSecondary);
+const TextStyle footnoteDark = TextStyle(fontSize: 11, color: darkSecondary);
 
 /// ## Caption
 ///    - captionLight
 ///    - captionDark
 ///    - caption
-const TextStyle captionLight = TextStyle(fontSize: 11, color: lightSecondary);
-const TextStyle captionDark = TextStyle(fontSize: 11, color: darkSecondary);
+const TextStyle captionLight = TextStyle(fontSize: 13, color: lightSecondary);
+const TextStyle captionDark = TextStyle(fontSize: 13, color: darkSecondary);

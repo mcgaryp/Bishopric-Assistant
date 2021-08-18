@@ -32,7 +32,7 @@ class MyButton extends StatelessWidget {
         padding = padding16;
         break;
       case MyButtonStyle.text:
-        decor = lightbox;
+        decor = invisibleBox;
         padding = padding8;
         break;
       case MyButtonStyle.error:

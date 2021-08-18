@@ -4,6 +4,8 @@ import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
+import 'package:bishop_assistant_web_test_app/widgets/page_support/Error404.dart';
+import 'package:bishop_assistant_web_test_app/widgets/page_support/Mobile.dart';
 import 'package:bishop_assistant_web_test_app/widgets/title/Brand.dart';
 import 'package:bishop_assistant_web_test_app/widgets/title/Logo.dart';
 import 'package:flutter/material.dart';
@@ -33,9 +35,7 @@ class Error404Page extends StatelessWidget {
           actions: [WebNavigationButton(label: home, path: rHome)],
         ),
         body: Content(
-          child: Padding(
-              padding: const EdgeInsets.all(padding8),
-              child: Text(page404, style: bodyDark)),
+          child: Error404(),
         ));
   }
 }

@@ -1,4 +1,3 @@
-import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:bishop_assistant_web_test_app/util/DatabasePaths.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/FirebaseDropDown.dart';
@@ -7,6 +6,7 @@ import 'package:bishop_assistant_web_test_app/widgets/FormInputField.dart';
 import 'package:bishop_assistant_web_test_app/widgets/MyButton.dart';
 import 'package:bishop_assistant_web_test_app/widgets/RowToggle.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/CardDateTimeRow.dart';
+import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/CardTextFieldRow.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/MyCard.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -53,25 +53,8 @@ class CreateEvent extends StatelessWidget {
       ),
       RowToggle(notifyAssignee),
       RowToggle(notifyInterviewee),
-      // TODO: Create a custom time input field
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            notifyWhen,
-            style: bodyDark,
-            maxLines: 2,
-            softWrap: true,
-          ),
-          ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: 100),
-            child: FormInputField(
-              time,
-              hint: DateFormat.j().format(DateTime.now()),
-            ),
-          )
-        ],
-      ),
+      CardTextFieldRow(notifyWhen,
+          secondLabel: hours, hint: DateFormat.j().format(DateTime.now())),
       MyButton(
           label: createEvent,
           onPressed: () {

@@ -1,5 +1,8 @@
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/Section.dart';
+import 'package:bishop_assistant_web_test_app/widgets/cards/assignment_cards/AssignmentCard.dart';
+import 'package:bishop_assistant_web_test_app/widgets/cards/event_cards/EventCard.dart';
+import 'package:bishop_assistant_web_test_app/widgets/cards/member_cards/MemberCard.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/MobileConentSnapShot.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/light_page/LightPage.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +16,9 @@ import 'package:flutter/material.dart';
 ///
 
 class HomeMobile extends StatelessWidget {
-  final List<Widget> eventsList;
-  final List<Widget> assignmentsList;
-  final List<Widget> membersList;
+  final List<EventCard> eventsList;
+  final List<AssignmentCard> assignmentsList;
+  final List<MemberCard> membersList;
 
   const HomeMobile(this.eventsList, this.assignmentsList, this.membersList,
       {Key? key})

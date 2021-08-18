@@ -21,7 +21,7 @@ class RowTitle extends StatelessWidget {
       children: [
         Align(
             alignment: Alignment.centerLeft,
-            child: Text(label, style: headlineLight)),
+            child: Text(label, style: smallTitleLight)),
         MyDivider()
       ],
     );

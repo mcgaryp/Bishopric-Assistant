@@ -27,8 +27,8 @@ const BoxDecoration floatingErrorRedBox = BoxDecoration(
 
 /// Flat Boxes
 const BoxDecoration darkPrimaryBox = BoxDecoration(color: darkPrimary);
-
 const BoxDecoration lightbox = BoxDecoration(color: light);
+const BoxDecoration invisibleBox = BoxDecoration();
 
 /// Bordered Boxes
 const BoxDecoration darkBorderBox = BoxDecoration(

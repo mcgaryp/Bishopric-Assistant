@@ -1,8 +1,8 @@
 import 'package:bishop_assistant_web_test_app/database/models/Event.dart';
 import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
-import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
+import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/CardColumn.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/CardSubtitle.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/CardTitle.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/MyCard.dart';
@@ -28,29 +28,11 @@ class EventCard extends StatelessWidget {
     Widget? intervieweeStuff;
     Widget? assigneeStuff;
 
-    if (event.agenda != null) {
-      agendaStuff = Padding(
-        padding: const EdgeInsets.only(bottom: padding8),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(agenda + ":", style: smallTitle),
-          Text(event.agenda!, style: bodyDark),
-        ]),
-      );
-    }
+    if (event.agenda != null)
+      agendaStuff = CardColumn(agenda, content: event.agenda!);
 
-    if (event.notes != null) {
-      noteStuff = Padding(
-        padding: const EdgeInsets.only(bottom: padding8),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(notes + ":", style: smallTitle),
-          Text(
-            event.notes!,
-            style: bodyDark,
-            textAlign: TextAlign.justify,
-          )
-        ]),
-      );
-    }
+    if (event.notes != null)
+      noteStuff = CardColumn(notes + ":", content: event.notes!);
 
     if (event.assignees != null) {
       List<Widget> assigneeList = [];
@@ -60,28 +42,28 @@ class EventCard extends StatelessWidget {
         assigneeList.add(Text(
           "    ${assignee.firstName} ${assignee.lastName}",
           style: bodyDark,
+          textAlign: TextAlign.right,
         ));
       }
       assigneeStuff = Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(amountOfAssignees + ":", style: smallTitle),
-          Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: assigneeList)
+          Text(amountOfAssignees + ":", style: subheadDark),
+          Expanded(
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: assigneeList),
+          )
         ],
       );
     }
 
-    if (event.interviewee != null) {
+    if (event.interviewee != null)
       intervieweeStuff =
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Text(interviewee + ":", style: smallTitle),
-        Text(event.interviewee!, style: bodyDark)
-      ]);
-    }
+          CardColumn(interviewee + ":", content: event.interviewee!);
 
     return MyCard(children: [
       CardTitle(event.name),

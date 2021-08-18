@@ -1,4 +1,5 @@
 import 'package:bishop_assistant_web_test_app/database/FirestoreHelper.dart';
+import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:bishop_assistant_web_test_app/util/DatabasePaths.dart';
@@ -64,9 +65,9 @@ class _FirebaseDropDownState extends State<FirebaseDropDown> {
             value: dropdownValue,
             onChanged: _onChanged,
             items: collection,
-            icon: Icon(Icons.keyboard_arrow_down_rounded),
+            icon: Icon(Icons.keyboard_arrow_down_rounded, color: darkText),
             style: bodyDark,
-            hint: Text(widget.hint, style: captionLight),
+            hint: Text(widget.hint, style: bodyDark),
           ),
         ),
       ),

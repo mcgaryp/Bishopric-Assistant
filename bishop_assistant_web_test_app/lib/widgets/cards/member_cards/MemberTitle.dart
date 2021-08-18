@@ -27,14 +27,20 @@ class MemberTitle extends StatelessWidget {
           padding: const EdgeInsets.only(left: padding8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
             children: [
               Text(
                 member.name,
-                style: headlineDark,
+                style: subheadDark,
               ),
-              Text(
-                member.role.string,
-                style: captionLight,
+              FittedBox(
+                fit: BoxFit.contain,
+                child: Text(
+                  member.role.string,
+                  style: footnoteLight,
+                  softWrap: true,
+                ),
               )
             ],
           ),

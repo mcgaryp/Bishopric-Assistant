@@ -32,3 +32,7 @@ const Color darkSecondary = Color.fromRGBO(251, 251, 255, 1);
 
 // ErrorRed
 const Color errorRed = Color.fromRGBO(231, 58, 35, 1);
+
+// Text Colors
+const Color darkText = Color.fromRGBO(7, 16, 19, 1);
+const Color lightText = light;

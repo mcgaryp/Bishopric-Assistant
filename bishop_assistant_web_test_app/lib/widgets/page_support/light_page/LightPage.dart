@@ -1,6 +1,7 @@
 import 'package:bishop_assistant_web_test_app/navigation/RouteStrings.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/footer/FooterButton.dart';
+import 'package:bishop_assistant_web_test_app/widgets/page_support/Error404.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/Error404Page.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/Mobile.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/Web.dart';
@@ -31,6 +32,7 @@ class LightPage extends StatelessWidget {
   LightPage.mobile(this.child, {Key? key}) : super(key: key) {
     _mobileButton = false;
     path = "";
+    children = [Error404()];
   }
 
   LightPage.web(this.children, {Key? key}) : super(key: key);

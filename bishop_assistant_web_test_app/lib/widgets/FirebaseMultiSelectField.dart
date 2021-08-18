@@ -57,9 +57,9 @@ class _FirebaseMultiSelectFieldState extends State<FirebaseMultiSelectField> {
             MultiSelectBottomSheetField(
               buttonIcon: Icon(
                 Icons.keyboard_arrow_down,
-                color: darkPrimary,
+                color: darkText,
               ),
-              decoration: lightbox,
+              decoration: invisibleBox,
               selectedColor: darkPrimary,
               backgroundColor: darkPrimary,
               checkColor: light,
@@ -69,7 +69,7 @@ class _FirebaseMultiSelectFieldState extends State<FirebaseMultiSelectField> {
               selectedItemsTextStyle: bodyLight,
               listType: MultiSelectListType.LIST,
               searchable: true,
-              buttonText: Text(widget.label, style: bodyLight),
+              buttonText: Text(widget.label, style: bodyDark),
               title: Text(widget.label, style: bodyLight),
               items: _items,
               onConfirm: (values) {

@@ -17,7 +17,7 @@ class Logo extends StatelessWidget {
     return Icon(
       Icons.accessibility_new_rounded,
       color: light,
-      size: 40,
+
     );
   }
 }

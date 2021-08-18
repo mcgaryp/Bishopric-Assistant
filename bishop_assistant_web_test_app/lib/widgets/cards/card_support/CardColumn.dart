@@ -3,29 +3,29 @@ import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:flutter/material.dart';
 
 ///
-/// CardRow.dart
+/// CardColumn.dart
 /// bishop_assistant_web_test_app
 ///
-/// Created by Po on 8/16/21
+/// Created by Po on 8/17/21
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-class CardRow extends StatelessWidget {
+class CardColumn extends StatelessWidget {
   final String label;
   final String content;
 
-  const CardRow(this.label, {required this.content, Key? key})
+  const CardColumn(this.label, {required this.content, Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: padding8),
-      child: Row(
+      child: Column(
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: bodyDark),
+          Text(label, style: subheadDark),
           Text(content, style: bodyDark)
         ],
       ),
