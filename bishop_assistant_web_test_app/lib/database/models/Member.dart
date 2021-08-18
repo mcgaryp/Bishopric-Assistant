@@ -20,16 +20,6 @@ class Member extends DatabaseModel {
   late Role role = Role.counselor1;
   late int security;
 
-  static List<Member> exampleMemberList = [
-    bishopExample,
-    counselor1Example,
-    counselor2Example,
-    wardClerkExample,
-    assistantWardClerkExample,
-    wardExecutiveSecretaryExample,
-    wardAssistantExecutiveSecretaryExample
-  ];
-
   Member(
       {required id,
       required this.firstName,
@@ -43,6 +33,7 @@ class Member extends DatabaseModel {
 
   Member.model(int id, String name) : super(id, name);
 
+  // region Static Members
   static Member bishopExample = Member(
       id: -1,
       firstName: "John",
@@ -100,6 +91,16 @@ class Member extends DatabaseModel {
       role: Role.assistantWardExecutiveSecretary,
       security: 3);
 
+  static List<Member> exampleMemberList = [
+    bishopExample,
+    counselor1Example,
+    counselor2Example,
+    wardClerkExample,
+    assistantWardClerkExample,
+    wardExecutiveSecretaryExample,
+    wardAssistantExecutiveSecretaryExample
+  ];
+
   static List<MemberCard> exampleMemberCardList = [
     MemberCard(Member.bishopExample),
     MemberCard(Member.counselor1Example),
@@ -109,6 +110,7 @@ class Member extends DatabaseModel {
     MemberCard(Member.wardExecutiveSecretaryExample),
     MemberCard(Member.wardAssistantExecutiveSecretaryExample)
   ];
+  //endregion
 }
 
 extension ParseToString on Role {

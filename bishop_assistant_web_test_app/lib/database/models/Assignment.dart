@@ -15,6 +15,12 @@ class Assignment extends DatabaseModel {
   late Member assignee;
   String? notes;
 
+  Assignment(id, name, this.dateTime, this.assignee, {this.notes})
+      : super(id, name);
+
+  Assignment.model(int id, String name) : super(id, name);
+
+  // region Static Members
   static Assignment example1 = Assignment(-1, "Set Appointment", DateTime.now(),
       Member.wardExecutiveSecretaryExample,
       notes: "Interview with Sister Bezos");
@@ -22,20 +28,12 @@ class Assignment extends DatabaseModel {
       DateTime.now(), Member.counselor2Example,
       notes: " - Get teachers called to serve on the third sunday");
   static Assignment example3 =
-      Assignment(-1, "Eat Burgers", DateTime.now(), Member.wardClerkExample);
+  Assignment(-1, "Eat Burgers", DateTime.now(), Member.wardClerkExample);
   static Assignment example4 = Assignment(
       -1, "Read Handbook", DateTime.now(), Member.counselor1Example,
       notes: "Read chapter 14");
   static Assignment example5 = Assignment(
       -1, "Add Receipts", DateTime.now(), Member.assistantWardClerkExample);
-
-  static List<AssignmentCard> assignmentExampleCardList = [
-    AssignmentCard(example1),
-    AssignmentCard(example2),
-    AssignmentCard(example3),
-    AssignmentCard(example4),
-    AssignmentCard(example5)
-  ];
 
   static List<Assignment> assignmentExampleList = [
     example1,
@@ -45,8 +43,12 @@ class Assignment extends DatabaseModel {
     example5
   ];
 
-  Assignment(id, name, this.dateTime, this.assignee, {this.notes})
-      : super(id, name);
-
-  Assignment.model(int id, String name) : super(id, name);
+  static List<AssignmentCard> assignmentExampleCardList = [
+    AssignmentCard(example1),
+    AssignmentCard(example2),
+    AssignmentCard(example3),
+    AssignmentCard(example4),
+    AssignmentCard(example5)
+  ];
+//endregion
 }

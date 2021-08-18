@@ -11,7 +11,7 @@ import 'package:bishop_assistant_web_test_app/util/DatabasePaths.dart';
 /// Copyright 2021 porter. All rights reserved.
 ///
 
-class DatabaseModel {
+abstract class DatabaseModel {
   final int id;
   final String name;
 

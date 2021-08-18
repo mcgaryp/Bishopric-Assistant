@@ -30,12 +30,6 @@ abstract class Event extends DatabaseModel {
 }
 
 class Meeting extends Event {
-  static List<EventCard> meetingExampleCardList = [
-    EventCard(example1),
-    EventCard(example2),
-    EventCard(example3)
-  ];
-
   Meeting(
     int id,
     String name,
@@ -50,6 +44,7 @@ class Meeting extends Event {
             agenda: agenda,
             assignees: assignees);
 
+  // region Static Members
   static Meeting example1 = Meeting(-1, "Ward Counsel", DateTime.now(),
       _exampleAgenda, [Member.bishopExample, Member.counselor1Example],
       place: "Bishops office", notes: _exampleNote);
@@ -61,6 +56,12 @@ class Meeting extends Event {
       notes: "Focus on the teaching of new teachers");
 
   static List<Meeting> meetingExampleList = [example1, example2, example3];
+
+  static List<EventCard> meetingExampleCardList = [
+    EventCard(example1),
+    EventCard(example2),
+    EventCard(example3)
+  ];
 
   static String _exampleNote =
       "It is a long established fact that a reader will be distracted by"
@@ -76,6 +77,7 @@ class Meeting extends Event {
       "and the like).";
 
   static String _exampleAgenda = " - paragraphs\n - words\n - bytes\n - lists";
+  // endregion
 }
 
 class Interview extends Event {
@@ -84,6 +86,7 @@ class Interview extends Event {
       : super(id, name, dateTime, EventType.interview,
             notes: notes, assignees: [assignee], interviewee: interviewee);
 
+  // region Static Members
   static Interview example1 = Interview(-1, "Temple Interview", DateTime.now(),
       "John John", Member.counselor1Example);
 
@@ -95,4 +98,5 @@ class Interview extends Event {
     EventCard(example1),
     EventCard(example2)
   ];
+  // endregion
 }
