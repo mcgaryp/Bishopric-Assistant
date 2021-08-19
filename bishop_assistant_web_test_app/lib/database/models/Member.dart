@@ -12,12 +12,12 @@ import 'package:flutter/material.dart';
 ///
 
 class Member extends DatabaseModel {
-  late String firstName = "Porter";
-  late String lastName = "McGary";
-  late String phone = "(479) 696-1637";
-  late String email = "portermcgary@gmail.com";
-  late IconData image = Icons.person;
-  late Role role = Role.counselor1;
+  late String firstName;
+  late String lastName;
+  late String phone;
+  late String email;
+  late IconData image;
+  late Role role;
   late int security;
 
   Member(
@@ -32,6 +32,13 @@ class Member extends DatabaseModel {
       : super(id, "$firstName $lastName");
 
   Member.model(int id, String name) : super(id, name);
+  Member.create({required this.firstName, required this.lastName,
+    required this.phone, required this.email,
+  }) : super(-1, "$firstName $lastName") {
+    role = Role.none;
+    image = Icons.person;
+    security = -1;
+  }
 
   // region Static Members
   static Member bishopExample = Member(
@@ -130,6 +137,8 @@ extension ParseToString on Role {
         return "Ward Executive Secretary";
       case Role.assistantWardExecutiveSecretary:
         return "Assistant Ward Executive Secretary";
+      case Role.none:
+        return "N/A";
     }
   }
 }

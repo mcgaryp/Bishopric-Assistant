@@ -9,6 +9,7 @@ import 'package:bishop_assistant_web_test_app/database/DatabaseModel.dart';
 ///
 
 enum Role {
+  none,
   bishop,
   counselor1,
   counselor2,

@@ -1,5 +1,9 @@
+import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
+import 'package:bishop_assistant_web_test_app/util/DatabasePaths.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 ///
 /// FirestoreHelper.dart
@@ -86,6 +90,55 @@ class FirestoreHelper {
       return -1;
     }
     return 0;
+  }
+
+  // TODO: Find out how to notify the user they are offline
+  static Future<void> createMember(Member member,
+      {required Function() onSuccess,
+      required Function(dynamic) onError}) async {
+    // Get the next member ID in the counters
+    DocumentSnapshot<Map<String, dynamic>> counterMap = await _firestore
+        .collection(Collections.util.string())
+        .doc(Util.counters)
+        .get();
+
+    Map<String, dynamic>? counterData = counterMap.data();
+
+    if (counterData == null)
+      throw Exception("Invalid data in Counter Collection");
+
+    int nextID = counterData[Util.utilFields.members];
+
+    // Add the member to the database
+    await _firestore
+        .collection(Collections.members.string())
+        .doc(nextID.toString())
+        .set({
+      "name": member.name,
+      MembersDoc.firstName: member.firstName,
+      MembersDoc.lastName: member.lastName,
+      MembersDoc.phone: member.phone,
+      MembersDoc.email: member.email,
+      MembersDoc.roleId: member.role.index,
+    }).then((value) {
+      // increase counter
+      counterData[Util.utilFields.members] += 1;
+      // set new value in counter
+      _firestore
+          .collection(Collections.util.string())
+          .doc(Util.counters)
+          .update(counterData)
+          .then((value) {
+        // notify of success
+        Fluttertoast.showToast(
+            msg: "Welcome ${member.name}", timeInSecForIosWeb: 2);
+        // activate callback
+        onSuccess();
+      });
+    }).catchError((error) {
+      // notify of failure
+      onError(error);
+    });
   }
 
 // /// Constant items from database

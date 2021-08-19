@@ -54,6 +54,9 @@ extension InstanceOfDatabaseModel on Collections {
       case Collections.security:
         throw Exception(
             "${this.string()} DatabaseModel class has not been implemented yet");
+      case Collections.util:
+        throw Exception(
+            "${this.string()} DatabaseModel class has not been implemented yet");
     }
   }
 }

@@ -22,7 +22,8 @@ enum Collections {
   organization_events,
   organization_members,
   roles,
-  security
+  security,
+  util
 }
 
 extension ParseToString on Collections {
@@ -86,3 +87,13 @@ class RolesDoc extends Document {
 }
 
 class SecurityDoc extends Document {}
+
+class Util {
+  static const String counters = "counters";
+  static const _UtilFields utilFields = _UtilFields();
+}
+
+class _UtilFields {
+  final String members = "members";
+  const _UtilFields();
+}
