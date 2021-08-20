@@ -19,9 +19,11 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DarkPage(inputs: [
+      // TODO: Add authentication username and password
       InputField.floating(username),
       InputField.floating(password, isPassword: true),
     ], buttons: [
+      // TODO: Create session with successful login before moving on to the home page
       MyButton(
           label: login,
           onPressed: () => Navigator.pushReplacementNamed(context, rHome)),

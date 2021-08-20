@@ -31,8 +31,10 @@ class MyFirebaseApp extends StatelessWidget {
 
             // Once complete, show your application
             if (snapshot.connectionState == ConnectionState.done) {
-              return Login(); // TODO: Replace
-              // return ProfilePage();
+              // TODO: Consider using the Home page as the starting point and
+              //    sending the user to login if there is not a current session
+              //    open to load their personal information
+              return Login();
             }
 
             // Otherwise, show something whilst waiting for initialization to complete
