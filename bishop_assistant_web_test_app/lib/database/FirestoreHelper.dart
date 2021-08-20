@@ -93,6 +93,7 @@ class FirestoreHelper {
   }
 
   // TODO: Find out how to notify the user they are offline
+  // TODO: Modify this so that it can be used to create a document in any collection
   static Future<void> createMember(Member member,
       {required Function() onSuccess,
       required Function(dynamic) onError}) async {
@@ -130,6 +131,7 @@ class FirestoreHelper {
           .update(counterData)
           .then((value) {
         // notify of success
+        // TODO: Change color to match theme
         Fluttertoast.showToast(
             msg: "Welcome ${member.name}", timeInSecForIosWeb: 2);
         // activate callback

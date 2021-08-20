@@ -32,8 +32,12 @@ class Member extends DatabaseModel {
       : super(id, "$firstName $lastName");
 
   Member.model(int id, String name) : super(id, name);
-  Member.create({required this.firstName, required this.lastName,
-    required this.phone, required this.email,
+
+  Member.create({
+    required this.firstName,
+    required this.lastName,
+    required this.phone,
+    required this.email,
   }) : super(-1, "$firstName $lastName") {
     role = Role.none;
     image = Icons.person;
@@ -117,10 +121,11 @@ class Member extends DatabaseModel {
     MemberCard(Member.wardExecutiveSecretaryExample),
     MemberCard(Member.wardAssistantExecutiveSecretaryExample)
   ];
-  //endregion
+//endregion
 }
 
-extension ParseToString on Role {
+// TODO: Solve a better way of using this
+extension ParseRolesToString on Role {
   String get string {
     switch (this) {
       case Role.bishop:
@@ -136,9 +141,30 @@ extension ParseToString on Role {
       case Role.wardExecutiveSecretary:
         return "Ward Executive Secretary";
       case Role.assistantWardExecutiveSecretary:
-        return "Assistant Ward Executive Secretary";
+        return "Ward Assistant Executive Secretary";
       case Role.none:
         return "N/A";
+    }
+  }
+
+  static Role roleFromString(String string) {
+    switch (string) {
+      case "Bishop":
+        return Role.bishop;
+      case "1st Counselor":
+        return Role.counselor1;
+      case "2nd Counselor":
+        return Role.counselor2;
+      case "Ward Clerk":
+        return Role.wardClerk;
+      case "Assistant Ward Clerk":
+        return Role.assistantWardClerk;
+      case "Ward Executive Secretary":
+        return Role.wardExecutiveSecretary;
+      case "Ward Assistant Executive Secretary":
+        return Role.assistantWardExecutiveSecretary;
+      default:
+        return Role.none;
     }
   }
 }

@@ -49,7 +49,8 @@ const OutlineInputBorder darkPrimaryInputBorder = OutlineInputBorder(
     borderSide: BorderSide(color: darkPrimary), borderRadius: _borderRadius20);
 
 const OutlineInputBorder errorRedInputBorder = OutlineInputBorder(
-    borderSide: BorderSide(color: errorRed), borderRadius: _borderRadius20);
+    borderSide: BorderSide(color: errorRed, width: 2),
+    borderRadius: _borderRadius20);
 
 /// Paddings
 const double padding4 = 4.0;

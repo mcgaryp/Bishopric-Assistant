@@ -18,8 +18,10 @@ import 'Colors.dart';
 const TextStyle largeTitle = TextStyle(fontSize: 42, color: lightText);
 const TextStyle titleLight = TextStyle(fontSize: 32, color: lightText);
 const TextStyle titleDark = TextStyle(fontSize: 32, color: darkText);
-const TextStyle smallTitleLight = TextStyle(fontSize: 28, color: lightText, fontWeight: FontWeight.bold);
-const TextStyle smallTitleDark = TextStyle(fontSize: 28, color: darkText, fontWeight: FontWeight.bold);
+const TextStyle smallTitleLight =
+    TextStyle(fontSize: 28, color: lightText, fontWeight: FontWeight.bold);
+const TextStyle smallTitleDark =
+    TextStyle(fontSize: 28, color: darkText, fontWeight: FontWeight.bold);
 
 /// ## Headline
 ///    - headlineLight
@@ -43,8 +45,8 @@ const TextStyle bodyDark = TextStyle(fontSize: 17, color: darkText);
 /// ## Callout
 ///    - calloutLight
 ///    - calloutDark
-const TextStyle calloutLight = TextStyle(fontSize: 16, color: lightText);
-const TextStyle calloutDark = TextStyle(fontSize: 16, color: darkText);
+const TextStyle calloutLight = TextStyle(fontSize: 14, color: lightText);
+const TextStyle calloutDark = TextStyle(fontSize: 14, color: darkText);
 
 /// ## Footnote
 ///    - footnoteLight

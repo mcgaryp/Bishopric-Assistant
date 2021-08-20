@@ -15,6 +15,7 @@ class InputField extends StatelessWidget {
   final String label;
   final String hint;
   final TextInputType? inputType;
+  final String? Function(String?)? validator;
   final List<TextInputFormatter> formattingList;
   final TextEditingController? controller;
   final bool maxLines;
@@ -28,6 +29,7 @@ class InputField extends StatelessWidget {
       this.inputType,
       this.isPassword = false,
       this.controller,
+      this.validator,
       Key? key})
       : super(key: key) {
     this._isFloating = false;
@@ -40,6 +42,7 @@ class InputField extends StatelessWidget {
       this.inputType,
       this.isPassword = false,
       this.controller,
+      this.validator,
       Key? key})
       : super(key: key) {
     this._isFloating = true;
@@ -49,30 +52,35 @@ class InputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(bottom: _isFloating ? padding16 : padding8),
-      child: Container(
-        decoration: _isFloating ? floatingLightBox : null,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: _isFloating ? padding8 : 0),
-          child: TextField(
-            controller: controller,
-            obscureText: isPassword,
-            maxLines: maxLines ? null : 1,
-            inputFormatters: formattingList,
-            keyboardType: inputType,
-            decoration: _isFloating ? _floating() : _border(),
-            // onChanged: onChange,
+      child: Stack(
+        children: [
+          Container(
+              height: 48, decoration: _isFloating ? floatingLightBox : null),
+          Container(
+            child: TextFormField(
+              controller: controller,
+              obscureText: isPassword,
+              maxLines: maxLines ? null : 1,
+              inputFormatters: formattingList,
+              keyboardType: inputType,
+              decoration: _isFloating ? _floating() : _border(),
+              validator: validator,
+              // onChanged: onChange,
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
 
   InputDecoration _floating() {
     return InputDecoration(
+      contentPadding: EdgeInsets.symmetric(horizontal: padding16),
       border: InputBorder.none,
       enabledBorder: InputBorder.none,
-      errorBorder: InputBorder.none,
+      errorBorder: errorRedInputBorder,
       disabledBorder: InputBorder.none,
+      errorStyle: calloutLight,
       hintText: hint,
       hintStyle: captionLight,
       labelStyle: bodyDark,

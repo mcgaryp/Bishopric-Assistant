@@ -6,6 +6,7 @@ import 'package:bishop_assistant_web_test_app/widgets/login_signup/MyDivider.dar
 import 'package:bishop_assistant_web_test_app/widgets/page_support/Content.dart';
 import 'package:bishop_assistant_web_test_app/widgets/title/MyTitle.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 ///
 /// DarkPage.dart
@@ -18,8 +19,13 @@ import 'package:flutter/material.dart';
 class DarkPage extends StatelessWidget {
   final List<Widget> inputs;
   final List<Widget> buttons;
+  final bool showSpinner;
 
-  const DarkPage({required this.inputs, required this.buttons, Key? key})
+  const DarkPage(
+      {required this.inputs,
+      required this.buttons,
+      this.showSpinner = false,
+      Key? key})
       : super(key: key);
 
   @override
@@ -38,7 +44,9 @@ class DarkPage extends StatelessWidget {
                           MyConstrainedBox300(
                             children: inputs,
                           ),
-                          MySpacer(),
+                          showSpinner
+                              ? SpinKitCircle(color: light)
+                              : MySpacer(),
                           MyConstrainedBox200(children: buttons)
                         ])))));
   }
