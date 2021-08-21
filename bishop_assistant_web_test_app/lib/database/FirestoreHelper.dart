@@ -153,15 +153,14 @@ class FirestoreHelper {
     for (QueryDocumentSnapshot snap in list) {
       if (snap[MembersDoc.email] == username) {
         return Member(
-            id: int.parse(snap.id),
-            firstName: snap[MembersDoc.firstName],
-            lastName: snap[MembersDoc.lastName],
-            phone: snap[MembersDoc.phone],
-            email: snap[MembersDoc.email],
-            password: snap[MembersDoc.password],
-            role: ParseRolesToString.roleFromInt(snap[MembersDoc.roleId]),
-            // TODO: Security need updated to display
-            security: -1);
+          id: int.parse(snap.id),
+          firstName: snap[MembersDoc.firstName],
+          lastName: snap[MembersDoc.lastName],
+          phone: snap[MembersDoc.phone],
+          email: snap[MembersDoc.email],
+          password: snap[MembersDoc.password],
+          role: ParseRolesToString.roleFromInt(snap[MembersDoc.roleId]),
+        );
       }
     }
 

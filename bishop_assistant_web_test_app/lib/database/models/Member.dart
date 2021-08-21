@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 /// Copyright 2021 porter. All rights reserved.
 ///
 
+// TODO: Comment
 class Member extends DatabaseModel {
   late String firstName;
   late String lastName;
@@ -19,8 +20,6 @@ class Member extends DatabaseModel {
   late String password;
   late IconData image;
   late Role role;
-  late int roleInt;
-  late int security;
 
   Member(
       {required id,
@@ -30,7 +29,6 @@ class Member extends DatabaseModel {
       required this.email,
       this.image = Icons.person,
       required this.role,
-      required this.security,
       this.password = ""})
       : super(id, "$firstName $lastName");
 
@@ -45,7 +43,6 @@ class Member extends DatabaseModel {
     required this.role,
   }) : super(-1, "$firstName $lastName") {
     image = Icons.person;
-    security = -1;
   }
 
   // region Static Members
@@ -55,56 +52,49 @@ class Member extends DatabaseModel {
       lastName: "Doe",
       phone: "(576) 398-0987",
       email: "john@doe.com",
-      role: Role.bishop,
-      security: 1);
+      role: Role.bishop);
   static Member counselor1Example = Member(
       id: -1,
       firstName: "Ben",
       lastName: "Dover",
       phone: "(208) 123-7895",
       email: "ben@dover.com",
-      role: Role.counselor1,
-      security: 2);
+      role: Role.counselor1);
   static Member counselor2Example = Member(
       id: -1,
       firstName: "Jeff",
       lastName: "Bezos",
       phone: "(479) 684-9137",
       email: "jeff@amazon.com",
-      role: Role.counselor2,
-      security: 2);
+      role: Role.counselor2);
   static Member wardClerkExample = Member(
       id: -1,
       firstName: "James",
       lastName: "Bucanon",
       phone: "(783) 167-6548",
       email: "james@western.com",
-      role: Role.wardClerk,
-      security: 3);
+      role: Role.wardClerk);
   static Member assistantWardClerkExample = Member(
       id: -1,
       firstName: "Jimmy",
       lastName: "Newtron",
       phone: "(794) 456-9321",
       email: "new@science.com",
-      role: Role.assistantWardClerk,
-      security: 3);
+      role: Role.assistantWardClerk);
   static Member wardExecutiveSecretaryExample = Member(
       id: -1,
       firstName: "Lebron",
       lastName: "James",
       phone: "(852) 951-7531",
       email: "just@basket.net",
-      role: Role.wardExecutiveSecretary,
-      security: 3);
+      role: Role.wardExecutiveSecretary);
   static Member wardAssistantExecutiveSecretaryExample = Member(
       id: -1,
       firstName: "Jimmy",
       lastName: "Falon",
       phone: "(741) 963-8520",
       email: "just2funny@laugh.com",
-      role: Role.assistantWardExecutiveSecretary,
-      security: 3);
+      role: Role.assistantWardExecutiveSecretary);
 
   static List<Member> exampleMemberList = [
     bishopExample,

@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
 
+// TODO: Comments
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
 
@@ -40,55 +41,77 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return DarkPage(showSpinner: _isWaiting, inputs: [
-      InputField.floating(username, controller: usernameControl, errorMsg: _errorMsg),
+      // Username Field
+      InputField.floating(username,
+          controller: usernameControl, errorMsg: _errorMsg),
+      // Password Field
       InputField.floating(password,
           isPassword: true, controller: passwordControl, errorMsg: _errorMsg),
     ], buttons: [
-      // TODO: Create session with successful login before moving on to the home page
-      MyButton(label: login, onPressed: _validatePassword),
-      MyButton(
-          label: signup,
-          onPressed: () => Navigator.pushNamed(context, rSignup)),
-      MyButton(
-        label: forgot,
-        onPressed: () => Navigator.pushNamed(context, rPasswordRequest),
-        style: MyButtonStyle.text,
+      // Prevent the user from clicking one to many times
+      AbsorbPointer(
+        absorbing: _isWaiting,
+        child: Column(
+          children: [
+            // Login Button
+            MyButton(label: login, onPressed: _validatePassword),
+            // Sign Up Button
+            MyButton(
+                label: signup,
+                onPressed: () => Navigator.pushNamed(context, rSignup)),
+            // Forgot Password button
+            MyButton(
+              label: forgot,
+              onPressed: () => Navigator.pushNamed(context, rPasswordRequest),
+              style: MyButtonStyle.text,
+            ),
+          ],
+        ),
       )
     ]);
   }
 
   // Validate the password and let the user know if there is an incorrect username or password
   Future<void> _validatePassword() async {
-    // Get encrypted Password from database
+    // Change the state to is waiting
     _setIsWaiting(true);
+
+    // incorrect password or user function
+    void incorrect() {
+      // Set the error message
+      _errorMsg = "Username or Password Incorrect";
+      // Switch off the spinner
+      _setIsWaiting(false);
+    }
+
+    // Get encrypted Password from database
     Member? member = await FirestoreHelper.findMember(usernameControl.text);
 
     // Member username not found
     if (member == null) {
-      _errorMsg = "Username or Password Incorrect";
-      _setIsWaiting(false);
-      return;
+      incorrect();
+      return; // Exit the function
     }
 
-    final String hashString = member.password;
+    // Get the hashed password
+    final String hashPassword = member.password;
 
     // Convert to normal
-    final h = Crypt(hashString);
+    final h = Crypt(hashPassword);
 
     // Password is incorrect
     if (!h.match(passwordControl.text)) {
-      _errorMsg = "Username or Password Incorrect";
-      _setIsWaiting(false);
+      incorrect();
       return;
     }
 
     // TODO: Create session of member information
 
-    // Turn off the spinner
-    _setIsWaiting(false);
-
     // Proceed to the login page
     Navigator.pushReplacementNamed(context, rHome);
+
+    // Turn off the spinner
+    _setIsWaiting(false);
   }
 
   // Set the private variable isWaiting
