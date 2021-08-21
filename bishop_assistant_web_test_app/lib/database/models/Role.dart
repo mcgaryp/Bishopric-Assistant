@@ -22,5 +22,5 @@ enum Role {
 
 // TODO: Should a class be used instead as a replacement for the enum above?
 class MemberRole extends DatabaseModel {
-  MemberRole.model(int id, String name) : super(id, name);
+  MemberRole.model(int id, String name) : super(id, name, {});
 }

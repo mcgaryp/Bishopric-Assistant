@@ -1,5 +1,6 @@
 import 'package:bishop_assistant_web_test_app/database/DatabaseModel.dart';
 import 'package:bishop_assistant_web_test_app/database/models/Role.dart';
+import 'package:bishop_assistant_web_test_app/util/DatabasePaths.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/member_cards/MemberCard.dart';
 import 'package:flutter/material.dart';
 
@@ -30,9 +31,17 @@ class Member extends DatabaseModel {
       this.image = Icons.person,
       required this.role,
       this.password = ""})
-      : super(id, "$firstName $lastName");
+      : super(id, "$firstName $lastName", {
+          "name": "$firstName $lastName",
+          MembersDoc.firstName: firstName,
+          MembersDoc.lastName: lastName,
+          MembersDoc.phone: phone,
+          MembersDoc.email: email,
+          MembersDoc.roleId: role.index,
+          MembersDoc.password: password
+        });
 
-  Member.model(int id, String name) : super(id, name);
+  Member.model(int id, String name) : super(id, name, {});
 
   Member.create({
     required this.firstName,
@@ -41,7 +50,15 @@ class Member extends DatabaseModel {
     required this.email,
     required this.password,
     required this.role,
-  }) : super(-1, "$firstName $lastName") {
+  }) : super(-1, "$firstName $lastName", {
+          "name": "$firstName $lastName",
+          MembersDoc.firstName: firstName,
+          MembersDoc.lastName: lastName,
+          MembersDoc.phone: phone,
+          MembersDoc.email: email,
+          MembersDoc.roleId: role.index,
+          MembersDoc.password: password
+        }) {
     image = Icons.person;
   }
 
@@ -163,7 +180,7 @@ extension ParseRolesToString on Role {
   }
 
   static roleFromInt(int role) {
-    switch(role) {
+    switch (role) {
       case 0:
         return Role.none;
       case 1:

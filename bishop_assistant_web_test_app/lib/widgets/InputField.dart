@@ -96,6 +96,7 @@ class InputField extends StatelessWidget {
         focusedBorder: lightPrimaryInputBorder,
         enabledBorder: darkPrimaryInputBorder,
         errorBorder: errorRedInputBorder,
+        disabledBorder: InputBorder.none,
         hintText: hint,
         hintStyle: captionLight,
         labelText: label,

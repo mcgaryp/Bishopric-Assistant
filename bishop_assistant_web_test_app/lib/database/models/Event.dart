@@ -1,6 +1,7 @@
 import 'package:bishop_assistant_web_test_app/database/DatabaseModel.dart';
 import 'package:bishop_assistant_web_test_app/database/models/EventType.dart';
 import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
+import 'package:bishop_assistant_web_test_app/util/DatabasePaths.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/event_cards/EventCard.dart';
 
 ///
@@ -26,7 +27,16 @@ abstract class Event extends DatabaseModel {
       this.assignees,
       this.agenda,
       this.interviewee})
-      : super(id, name);
+      : super(id, name, {
+          "name": name,
+          EventsDoc.place: location,
+          EventsDoc.notes: notes,
+          EventsDoc.agenda: agenda,
+          EventsDoc.date: dateTime,
+          EventsDoc.eventType: eventType,
+          EventsDoc.interviewee: interviewee,
+          // TOD): Assignee(s)
+        });
 }
 
 class Meeting extends Event {
@@ -77,7 +87,7 @@ class Meeting extends Event {
       "and the like).";
 
   static String _exampleAgenda = " - paragraphs\n - words\n - bytes\n - lists";
-  // endregion
+// endregion
 }
 
 class Interview extends Event {
@@ -98,5 +108,5 @@ class Interview extends Event {
     EventCard(example1),
     EventCard(example2)
   ];
-  // endregion
+// endregion
 }

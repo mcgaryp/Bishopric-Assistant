@@ -1,5 +1,6 @@
 import 'package:bishop_assistant_web_test_app/database/DatabaseModel.dart';
 import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
+import 'package:bishop_assistant_web_test_app/util/DatabasePaths.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/assignment_cards/AssignmentCard.dart';
 
 ///
@@ -16,9 +17,14 @@ class Assignment extends DatabaseModel {
   String? notes;
 
   Assignment(id, name, this.dateTime, this.assignee, {this.notes})
-      : super(id, name);
+      : super(id, name, {
+          "name": name,
+          AssignmentsDoc.dueDate: dateTime,
+          AssignmentsDoc.notes: notes,
+          // TODO: assignee
+        });
 
-  Assignment.model(int id, String name) : super(id, name);
+  Assignment.model(int id, String name) : super(id, name, {});
 
   // region Static Members
   static Assignment example1 = Assignment(-1, "Set Appointment", DateTime.now(),
@@ -28,7 +34,7 @@ class Assignment extends DatabaseModel {
       DateTime.now(), Member.counselor2Example,
       notes: " - Get teachers called to serve on the third sunday");
   static Assignment example3 =
-  Assignment(-1, "Eat Burgers", DateTime.now(), Member.wardClerkExample);
+      Assignment(-1, "Eat Burgers", DateTime.now(), Member.wardClerkExample);
   static Assignment example4 = Assignment(
       -1, "Read Handbook", DateTime.now(), Member.counselor1Example,
       notes: "Read chapter 14");

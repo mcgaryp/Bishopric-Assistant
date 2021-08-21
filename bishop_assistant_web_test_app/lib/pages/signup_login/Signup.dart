@@ -3,6 +3,7 @@ import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
 import 'package:bishop_assistant_web_test_app/database/models/Role.dart';
 import 'package:bishop_assistant_web_test_app/util/DatabasePaths.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
+import 'package:bishop_assistant_web_test_app/util/Validators.dart';
 import 'package:bishop_assistant_web_test_app/widgets/FirebaseDropDown.dart';
 import 'package:bishop_assistant_web_test_app/widgets/InputField.dart';
 import 'package:bishop_assistant_web_test_app/widgets/MyButton.dart';
@@ -76,7 +77,7 @@ class _SignupState extends State<Signup> {
             InputField.floating(phone,
                 controller: phoneControl,
                 formattingList: [filter],
-                validator: _standardValidation),
+                validator: Validators.standard),
             InputField.floating(password,
                 isPassword: true,
                 controller: passwordControl,
@@ -94,7 +95,7 @@ class _SignupState extends State<Signup> {
             if (_selectedRole != null)
               if (_selectedRole == Role.bishop)
                 InputField.floating(nameOfOrganization,
-                    validator: _standardValidation),
+                    validator: Validators.standard),
           ],
         ),
       ),
@@ -111,23 +112,26 @@ class _SignupState extends State<Signup> {
               if (_formKey.currentState!.validate()) {
                 // Password encryption
                 String hashPassword =
-                Crypt.sha256(passwordControl.text, salt: "bishopric")
-                    .toString();
+                    Crypt.sha256(passwordControl.text, salt: "bishopric")
+                        .toString();
 
-                // TODO: Map role to proper ID
                 Member member = Member.create(
-                    firstName: fNameControl.text,
-                    lastName: lNameControl.text,
-                    phone: phoneControl.text,
-                    email: emailControl.text,
-                    password: hashPassword,
-                    role: _selectedRole!,
+                  firstName: fNameControl.text,
+                  lastName: lNameControl.text,
+                  phone: phoneControl.text,
+                  email: emailControl.text,
+                  password: hashPassword,
+                  role: _selectedRole!,
                 );
 
+                // TODO: If organization role is not null or empty then create organization
+
                 // create the member
-                FirestoreHelper.createMember(member,
-                    onError: (error) => _setIsWaiting(false),
-                    onSuccess: () {
+                FirestoreHelper.addDocument(Collections.members,
+                    doc: MembersDoc(),
+                    model: member,
+                    error: (error) => _setIsWaiting(false),
+                    success: () {
                       _setIsWaiting(false);
                       Navigator.pop(context);
                     });
@@ -151,7 +155,7 @@ class _SignupState extends State<Signup> {
   // - Names do not have whitespace at the end or start of them
   // - Name should start with a capital letter
   String? _verifyName(String? text) {
-    String? returnValue = _standardValidation(text);
+    String? returnValue = Validators.standard(text);
 
     if (text != null) {
       RegExp regExp = RegExp(
@@ -173,7 +177,7 @@ class _SignupState extends State<Signup> {
   // - Emails must have something after the .
   // Send a verification email on create
   String? _verifyEmail(String? text) {
-    String? returnValue = _standardValidation(text);
+    String? returnValue = Validators.standard(text);
 
     if (text != null) {
       RegExp regExp = RegExp(
@@ -194,7 +198,7 @@ class _SignupState extends State<Signup> {
   // - Must have at least one number
   // - Must have at least one symbol
   String? _password(String? text) {
-    String? returnValue = _standardValidation(text);
+    String? returnValue = Validators.standard(text);
 
     if (text != null) {
       RegExp minimum = RegExp(
@@ -221,7 +225,7 @@ class _SignupState extends State<Signup> {
   // - Standard
   // - Must match password text
   String? _confirmPassword(String? text) {
-    String? returnValue = _standardValidation(text);
+    String? returnValue = Validators.standard(text);
 
     if (text != null) if (text != passwordControl.text)
       return "Passwords do not match";
@@ -229,20 +233,9 @@ class _SignupState extends State<Signup> {
     return returnValue;
   }
 
-  // Validation should always contain
-  String? _standardValidation(String? text) {
-    if (text == null || text.isEmpty) return "Field cannot be empty";
-
-    if (text.startsWith(" ") || text.endsWith(" "))
-      return "Field cannot start or end with WhiteSpace";
-
-    return null;
-  }
-
   // Validate Role
   // - Role may not be empty
   String? _validateRole(role) {
-    print("Role: $role");
     if (role == null) return "Select a role";
 
     return null;

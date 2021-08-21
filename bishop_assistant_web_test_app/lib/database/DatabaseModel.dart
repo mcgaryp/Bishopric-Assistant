@@ -14,8 +14,9 @@ import 'package:bishop_assistant_web_test_app/util/DatabasePaths.dart';
 abstract class DatabaseModel {
   final int id;
   final String name;
+  final Map<String, dynamic> map;
 
-  DatabaseModel(this.id, this.name);
+  DatabaseModel(this.id, this.name, this.map);
 }
 
 extension InstanceOfDatabaseModel on Collections {

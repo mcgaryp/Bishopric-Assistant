@@ -72,7 +72,7 @@ class _FirebaseDropDownState extends State<FirebaseDropDown> {
             items: collection,
             icon: Icon(Icons.keyboard_arrow_down_rounded, color: darkText),
             style: bodyDark,
-            hint: Text(widget.hint, style: bodyDark),
+            // hint: Text(widget.hint, style: bodyDark),
           ),
         ],
       ),
@@ -125,7 +125,7 @@ class _FirebaseDropDownState extends State<FirebaseDropDown> {
       enabledBorder: darkPrimaryInputBorder,
       errorBorder: errorRedInputBorder,
       hintText: widget.hint,
-      hintStyle: captionLight,
+      hintStyle: bodyDark,
       // labelText: widget.label,
       // labelStyle: bodyDark
     );

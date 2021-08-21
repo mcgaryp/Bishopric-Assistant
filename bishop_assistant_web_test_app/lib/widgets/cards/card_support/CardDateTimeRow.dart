@@ -16,7 +16,9 @@ import 'package:responsive_builder/responsive_builder.dart';
 ///
 
 class CardDateTimeRow extends StatefulWidget {
-  const CardDateTimeRow({Key? key}) : super(key: key);
+  final Function(DateTime) onChange;
+
+  const CardDateTimeRow(this.onChange, {Key? key}) : super(key: key);
 
   @override
   _CardDateTimeRowState createState() => _CardDateTimeRowState();
@@ -89,11 +91,13 @@ class _CardDateTimeRowState extends State<CardDateTimeRow> {
       lastDate: lastDate,
     );
 
-    if (pick != null && pick != selectedDate)
+    if (pick != null && pick != selectedDate) {
       setState(() {
         selectedDate = DateTime(pick.year, pick.month, pick.day,
             selectedTime.hour, selectedTime.minute);
+        widget.onChange(selectedDate);
       });
+    }
   }
 
   void _showTimePicker(BuildContext context) async {
@@ -103,11 +107,13 @@ class _CardDateTimeRowState extends State<CardDateTimeRow> {
         initialTime: initialTime,
         initialEntryMode: TimePickerEntryMode.input);
 
-    if (pick != null && pick != selectedTime)
+    if (pick != null && pick != selectedTime) {
       setState(() {
         selectedTime = pick;
         selectedDate = DateTime(selectedDate.year, selectedDate.month,
             selectedDate.day, selectedTime.hour, selectedTime.minute);
+        widget.onChange(selectedDate);
       });
+    }
   }
 }

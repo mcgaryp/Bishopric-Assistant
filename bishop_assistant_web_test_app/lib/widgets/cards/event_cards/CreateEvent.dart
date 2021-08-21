@@ -19,17 +19,26 @@ import 'package:intl/intl.dart';
 /// Copyright 2021 porter. All rights reserved.
 ///
 
-class CreateEvent extends StatelessWidget {
+class CreateEvent extends StatefulWidget {
   const CreateEvent({Key? key}) : super(key: key);
+
+  @override
+  _CreateEventState createState() => _CreateEventState();
+}
+
+class _CreateEventState extends State<CreateEvent> {
+
+  DateTime _selectedDateTime = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
     return MyCard(children: [
+      // TODO: Add validation to items
       InputField.border(
         eventName,
         hint: eventNameHint,
       ),
-      CardDateTimeRow(),
+      CardDateTimeRow(_onDateTimeChange),
       InputField.border(
         location,
         hint: locationHint,
@@ -61,5 +70,11 @@ class CreateEvent extends StatelessWidget {
             /*TODO*/
           })
     ]);
+  }
+
+  _onDateTimeChange(DateTime time) {
+    setState(() {
+      _selectedDateTime = time;
+    });
   }
 }

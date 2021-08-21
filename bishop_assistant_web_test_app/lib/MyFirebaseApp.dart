@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/pages/signup_login/Login.dart';
+import 'package:bishop_assistant_web_test_app/pages/assignment/AssignmentPage.dart';
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +34,8 @@ class MyFirebaseApp extends StatelessWidget {
               // TODO: Consider using the Home page as the starting point and
               //    sending the user to login if there is not a current session
               //    open to load their personal information
-              return Login();
+              // return Login(
+              return AssignmentPage();
             }
 
             // Otherwise, show something whilst waiting for initialization to complete

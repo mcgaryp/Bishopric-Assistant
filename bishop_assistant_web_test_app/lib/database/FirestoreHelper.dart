@@ -1,3 +1,4 @@
+import 'package:bishop_assistant_web_test_app/database/DatabaseModel.dart';
 import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
 import 'package:bishop_assistant_web_test_app/util/DatabasePaths.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -94,6 +95,7 @@ class FirestoreHelper {
 
   // TODO: Find out how to notify the user they are offline
   // TODO: Modify this so that it can be used to create a document in any collection
+  @Deprecated("Use Add Document instead")
   static Future<void> createMember(Member member,
       {required Function() onSuccess,
       required Function(dynamic) onError}) async {
@@ -134,7 +136,7 @@ class FirestoreHelper {
         // notify of success
         // TODO: Change color to match theme
         Fluttertoast.showToast(
-            msg: "Welcome ${member.name}", timeInSecForIosWeb: 2);
+            msg: "Welcome ${member.name}", timeInSecForIosWeb: 4);
         // activate callback
         onSuccess();
       });
@@ -142,6 +144,58 @@ class FirestoreHelper {
       // notify of failure
       onError(error);
     });
+  }
+
+  // TODO: Comment
+  // Used to add a document to the database
+  static Future<void> addDocument(Collections collectionPath,
+      {required Document doc,
+      required DatabaseModel model,
+      required Function(dynamic) error,
+      required Function() success}) async {
+    try {
+      // Get next ID from Database
+      Map<String, dynamic> counterMap = await _getNextID();
+      int nextID = counterMap[collectionPath.string()];
+
+      // add the item to the database
+      await _firestore
+          .collection(collectionPath.string())
+          .doc(nextID.toString())
+          .set(model.map)
+          .then((value) {
+        // increase counter
+        counterMap[collectionPath.string()] += 1;
+
+        // set new value in counter
+        _firestore
+            .collection(Collections.util.string())
+            .doc(Util.counters)
+            .update(counterMap)
+            .then((value) {
+          // activate callback
+          success();
+        });
+      }).catchError(error);
+    } catch (e) {
+      error(e);
+    }
+  }
+
+  // TODO: Comment
+  static Future<Map<String, dynamic>> _getNextID() async {
+    // Get the next ID from the counters
+    DocumentSnapshot<Map<String, dynamic>> counterMap = await _firestore
+        .collection(Collections.util.string())
+        .doc(Util.counters)
+        .get();
+
+    Map<String, dynamic>? counterData = counterMap.data();
+
+    if (counterData == null)
+      throw Exception("Invalid data in Counter Collection");
+
+    return counterData;
   }
 
   // Find Member uses a username to find the account of a member
