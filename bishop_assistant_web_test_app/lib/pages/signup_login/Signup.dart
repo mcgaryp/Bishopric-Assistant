@@ -7,6 +7,7 @@ import 'package:bishop_assistant_web_test_app/widgets/FirebaseDropDown.dart';
 import 'package:bishop_assistant_web_test_app/widgets/InputField.dart';
 import 'package:bishop_assistant_web_test_app/widgets/MyButton.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/DarkPage.dart';
+import 'package:crypt/crypt.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
@@ -88,7 +89,8 @@ class _SignupState extends State<Signup> {
                 collectionPath: Collections.roles,
                 document: RolesDoc(),
                 hint: role,
-                onchange: _roleChange),
+                onchange: _roleChange,
+                validator: _validateRole),
             if (_selectedRole != null)
               if (_selectedRole == Role.bishop)
                 InputField.floating(nameOfOrganization,
@@ -106,15 +108,21 @@ class _SignupState extends State<Signup> {
               _setIsWaiting(true);
 
               // Verify information in form
-              if (_selectedRole != null && _formKey.currentState!.validate()) {
-                // TODO: Password encryption
-                // TODO: Save password
+              if (_formKey.currentState!.validate()) {
+                // Password encryption
+                String hashPassword =
+                Crypt.sha256(passwordControl.text, salt: "bishopric")
+                    .toString();
+
                 // TODO: Map role to proper ID
                 Member member = Member.create(
                     firstName: fNameControl.text,
                     lastName: lNameControl.text,
                     phone: phoneControl.text,
-                    email: emailControl.text);
+                    email: emailControl.text,
+                    password: hashPassword,
+                    role: _selectedRole!,
+                );
 
                 // create the member
                 FirestoreHelper.createMember(member,
@@ -231,9 +239,84 @@ class _SignupState extends State<Signup> {
     return null;
   }
 
-  _roleChange(selectedRole) {
+  // Validate Role
+  // - Role may not be empty
+  String? _validateRole(role) {
+    print("Role: $role");
+    if (role == null) return "Select a role";
+
+    return null;
+  }
+
+  // Update the role to what ever has been selected
+  void _roleChange(selectedRole) {
     setState(() {
       _selectedRole = ParseRolesToString.roleFromString(selectedRole);
     });
+  }
+
+  // TODO: Remove
+  void _testCrypt() {
+    // Creating crypt strings
+    //
+    // For example, when someone updates their password, generate a crypt hash
+    // string from it and save the crypt hash string in a database. Never store
+    // the plaintext password.
+
+    // Default rounds and random salt generated
+    final c1 = Crypt.sha256('p@ssw0rd');
+
+    // Random salt generated
+    final c2 = Crypt.sha256('p@ssw0rd', rounds: 10000);
+
+    // Default rounds
+    final c3 = Crypt.sha256('p@ssw0rd', salt: 'abcdefghijklmnop');
+
+    // No defaults used
+    final c4 =
+    Crypt.sha256('p@ssw0rd', rounds: 10000, salt: 'abcdefghijklmnop');
+
+    // SHA-512
+    final d1 = Crypt.sha512('p@ssw0rd');
+
+    print(c1);
+    print(c2);
+    print(c3);
+    print(c4);
+    print(d1);
+
+    // Note: the crypt strings that have randomly generated salts will produce
+    // different values every time the program runs. The crypt strings that uses
+    // fixed salts, will always produce the same values.
+
+    // Comparing a value to a crypt hash
+    //
+    // For example, the crypt hash string is stored in a database. When someone
+    // tries to sign in, it is retrieved from the database and compared to the
+    // password they have entered. If match returns true, they have provided the
+    // original value that was used to create the crypt hash string.
+
+    for (final hashString in [
+      r'$5$zQUCjEzs9jnrRdCK$dbo1i9WjQjbUwOC4JCRAZHpfd31Dh676vI0L6w0dZw1',
+      c1.toString(),
+      c2.toString(),
+      c3.toString(),
+      c4.toString(),
+      d1.toString(),
+    ]) {
+      // Parse the crypt string: this extracts the type, rounds and salt
+      final h = Crypt(hashString);
+
+      final correctValue = 'p@ssw0rd';
+      final wrongValue = '123456';
+
+      if (!h.match(correctValue)) {
+        print('Error: unexpected non-match: $correctValue');
+      }
+
+      if (h.match(wrongValue)) {
+        print('Error: unexpected match: $wrongValue');
+      }
+    }
   }
 }

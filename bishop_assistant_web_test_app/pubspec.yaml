@@ -30,6 +30,7 @@ dependencies:
   multi_select_flutter: ^4.0.0
   fluttertoast: ^8.0.8
   mask_text_input_formatter: ^2.0.0
+  crypt: ^4.0.1
 
   # Firebase
   firebase_core: ^1.4.0

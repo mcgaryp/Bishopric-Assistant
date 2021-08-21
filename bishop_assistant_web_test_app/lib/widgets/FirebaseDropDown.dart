@@ -14,20 +14,22 @@ import 'package:flutter/material.dart';
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
 
+// Turn into a similar widget as the InputField.dart
 class FirebaseDropDown extends StatefulWidget {
   final Collections collectionPath;
   final Document document;
   final String hint;
   final bool isInput;
+  final String? Function(dynamic)? validator;
   final void Function(dynamic)? onchange;
 
-  const FirebaseDropDown(
-      {required this.collectionPath,
-      required this.document,
-      this.hint = "",
-      this.isInput = false,
-      this.onchange,
-      Key? key})
+  const FirebaseDropDown({required this.collectionPath,
+    required this.document,
+    this.hint = "",
+    this.isInput = false,
+    this.onchange,
+    this.validator,
+    Key? key})
       : super(key: key);
 
   @override
@@ -55,13 +57,16 @@ class _FirebaseDropDownState extends State<FirebaseDropDown> {
   build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(bottom: widget.isInput ? padding8 : padding16),
-      child: Container(
-        decoration: widget.isInput ? darkBorderBox : floatingLightBox,
-        child: Padding(
-          padding: const EdgeInsets.only(left: padding16, right: padding8),
-          child: DropdownButton(
+      child: Stack(
+        children: [
+          Container(
+            height: 48,
+            decoration: widget.isInput ? null : floatingLightBox,
+          ),
+          DropdownButtonFormField(
+            decoration: widget.isInput ? _border() : _floating(),
             isExpanded: true,
-            underline: Container(),
+            validator: widget.validator,
             value: dropdownValue,
             onChanged: _onChanged,
             items: collection,
@@ -69,7 +74,7 @@ class _FirebaseDropDownState extends State<FirebaseDropDown> {
             style: bodyDark,
             hint: Text(widget.hint, style: bodyDark),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -85,17 +90,44 @@ class _FirebaseDropDownState extends State<FirebaseDropDown> {
 
   Future<void> _getMenuItems() async {
     final snapshot =
-        await FirestoreHelper.reference(widget.collectionPath.string()).get();
+    await FirestoreHelper.reference(widget.collectionPath.string()).get();
     List<QueryDocumentSnapshot> data = FirestoreHelper.listQuerySnap(snapshot);
 
     if (this.mounted) {
       setState(() {
         collection = data
-            .map<DropdownMenuItem>((e) => DropdownMenuItem(
+            .map<DropdownMenuItem>((e) =>
+            DropdownMenuItem(
                 value: e[widget.document.name],
                 child: Text(e[widget.document.name])))
             .toList();
       });
     }
+  }
+
+  InputDecoration _floating() {
+    return InputDecoration(
+      contentPadding: EdgeInsets.symmetric(horizontal: padding16),
+      border: InputBorder.none,
+      enabledBorder: InputBorder.none,
+      errorBorder: errorRedInputBorder,
+      disabledBorder: InputBorder.none,
+      errorStyle: calloutLight,
+      hintText: widget.hint,
+      hintStyle: captionLight,
+      labelStyle: bodyDark,
+    );
+  }
+
+  InputDecoration _border() {
+    return InputDecoration(
+      focusedBorder: lightPrimaryInputBorder,
+      enabledBorder: darkPrimaryInputBorder,
+      errorBorder: errorRedInputBorder,
+      hintText: widget.hint,
+      hintStyle: captionLight,
+      // labelText: widget.label,
+      // labelStyle: bodyDark
+    );
   }
 }

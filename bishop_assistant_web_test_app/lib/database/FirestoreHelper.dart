@@ -121,6 +121,7 @@ class FirestoreHelper {
       MembersDoc.phone: member.phone,
       MembersDoc.email: member.email,
       MembersDoc.roleId: member.role.index,
+      MembersDoc.password: member.password
     }).then((value) {
       // increase counter
       counterData[Util.utilFields.members] += 1;
@@ -141,6 +142,30 @@ class FirestoreHelper {
       // notify of failure
       onError(error);
     });
+  }
+
+  // Find Member uses a username to find the account of a member
+  static Future<Member?> findMember(String username) async {
+    final QuerySnapshot snapshot =
+        await _firestore.collection(Collections.members.string()).get();
+    final List<QueryDocumentSnapshot> list = listQuerySnap(snapshot);
+
+    for (QueryDocumentSnapshot snap in list) {
+      if (snap[MembersDoc.email] == username) {
+        return Member(
+            id: int.parse(snap.id),
+            firstName: snap[MembersDoc.firstName],
+            lastName: snap[MembersDoc.lastName],
+            phone: snap[MembersDoc.phone],
+            email: snap[MembersDoc.email],
+            password: snap[MembersDoc.password],
+            role: ParseRolesToString.roleFromInt(snap[MembersDoc.roleId]),
+            // TODO: Security need updated to display
+            security: -1);
+      }
+    }
+
+    return null;
   }
 
 // /// Constant items from database

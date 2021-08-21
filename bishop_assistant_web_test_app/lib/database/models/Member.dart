@@ -16,8 +16,10 @@ class Member extends DatabaseModel {
   late String lastName;
   late String phone;
   late String email;
+  late String password;
   late IconData image;
   late Role role;
+  late int roleInt;
   late int security;
 
   Member(
@@ -28,7 +30,8 @@ class Member extends DatabaseModel {
       required this.email,
       this.image = Icons.person,
       required this.role,
-      required this.security})
+      required this.security,
+      this.password = ""})
       : super(id, "$firstName $lastName");
 
   Member.model(int id, String name) : super(id, name);
@@ -38,8 +41,9 @@ class Member extends DatabaseModel {
     required this.lastName,
     required this.phone,
     required this.email,
+    required this.password,
+    required this.role,
   }) : super(-1, "$firstName $lastName") {
-    role = Role.none;
     image = Icons.person;
     security = -1;
   }
@@ -165,6 +169,27 @@ extension ParseRolesToString on Role {
         return Role.assistantWardExecutiveSecretary;
       default:
         return Role.none;
+    }
+  }
+
+  static roleFromInt(int role) {
+    switch(role) {
+      case 0:
+        return Role.none;
+      case 1:
+        return Role.bishop;
+      case 2:
+        return Role.counselor1;
+      case 3:
+        return Role.counselor2;
+      case 4:
+        return Role.wardClerk;
+      case 5:
+        return Role.assistantWardClerk;
+      case 6:
+        return Role.wardExecutiveSecretary;
+      case 7:
+        return Role.assistantWardExecutiveSecretary;
     }
   }
 }

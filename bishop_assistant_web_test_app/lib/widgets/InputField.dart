@@ -14,6 +14,7 @@ import 'package:flutter/services.dart';
 class InputField extends StatelessWidget {
   final String label;
   final String hint;
+  final String? errorMsg;
   final TextInputType? inputType;
   final String? Function(String?)? validator;
   final List<TextInputFormatter> formattingList;
@@ -30,6 +31,7 @@ class InputField extends StatelessWidget {
       this.isPassword = false,
       this.controller,
       this.validator,
+        this.errorMsg,
       Key? key})
       : super(key: key) {
     this._isFloating = false;
@@ -43,6 +45,7 @@ class InputField extends StatelessWidget {
       this.isPassword = false,
       this.controller,
       this.validator,
+        this.errorMsg,
       Key? key})
       : super(key: key) {
     this._isFloating = true;
@@ -84,6 +87,7 @@ class InputField extends StatelessWidget {
       hintText: hint,
       hintStyle: captionLight,
       labelStyle: bodyDark,
+      errorText: errorMsg
     );
   }
 
