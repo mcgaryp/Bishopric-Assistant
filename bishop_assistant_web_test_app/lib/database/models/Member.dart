@@ -165,27 +165,6 @@ extension ParseRolesToString on Role {
     }
   }
 
-  static Role roleFromString(String string) {
-    switch (string) {
-      case "Bishop":
-        return Role.bishop;
-      case "1st Counselor":
-        return Role.counselor1;
-      case "2nd Counselor":
-        return Role.counselor2;
-      case "Ward Clerk":
-        return Role.wardClerk;
-      case "Assistant Ward Clerk":
-        return Role.assistantWardClerk;
-      case "Ward Executive Secretary":
-        return Role.wardExecutiveSecretary;
-      case "Ward Assistant Executive Secretary":
-        return Role.assistantWardExecutiveSecretary;
-      default:
-        return Role.none;
-    }
-  }
-
   static roleFromInt(int role) {
     switch (role) {
       case 0:
