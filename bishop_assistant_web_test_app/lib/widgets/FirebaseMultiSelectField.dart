@@ -20,9 +20,15 @@ class FirebaseMultiSelectField extends StatefulWidget {
   final String label;
   final Collections collectionPath;
   final Document document;
+  final String? Function(List<Object?>?)? validator;
+  final Function(List) onChange;
 
   const FirebaseMultiSelectField(this.label,
-      {required this.collectionPath, required this.document, Key? key})
+      {required this.collectionPath,
+      required this.document,
+      required this.onChange,
+      this.validator,
+      Key? key})
       : super(key: key);
 
   @override
@@ -55,6 +61,8 @@ class _FirebaseMultiSelectFieldState extends State<FirebaseMultiSelectField> {
         child: Column(
           children: <Widget>[
             MultiSelectBottomSheetField(
+              validator: widget.validator,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               buttonIcon: Icon(
                 Icons.keyboard_arrow_down,
                 color: darkText,
@@ -74,6 +82,7 @@ class _FirebaseMultiSelectFieldState extends State<FirebaseMultiSelectField> {
               items: _items,
               onConfirm: (values) {
                 _selected = values;
+                widget.onChange(_selected);
               },
               confirmText: Text(
                 "Confirm",

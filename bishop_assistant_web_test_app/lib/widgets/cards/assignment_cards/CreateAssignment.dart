@@ -83,8 +83,7 @@ class _CreateAssignmentState extends State<CreateAssignment> {
                     notes: notesControl.text);
 
                 // Add assignment to database
-                // TODO: Assignee to the Assignment
-                // TODO: Return the ID of the new document?
+                // TODO: Return the ID of the new document? Do I need to return anything?
                 FirestoreHelper.addDocument(Collections.assignments,
                     doc: AssignmentsDoc(), model: assignment, error: (error) {
                   Fluttertoast.showToast(
@@ -95,6 +94,11 @@ class _CreateAssignmentState extends State<CreateAssignment> {
                       msg: "${assignment.name} Created", timeInSecForIosWeb: 2);
                   _setIsWaiting(false);
                 });
+
+                // TODO: Tie assignment to organization
+
+                // TODO: Tie assignment to assignee
+
               } else
                 _setIsWaiting(false);
             }),

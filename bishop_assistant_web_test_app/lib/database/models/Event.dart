@@ -20,24 +20,28 @@ abstract class Event extends DatabaseModel {
   String? agenda;
   String? interviewee;
   List<Member>? assignees;
+  Map<String, dynamic> map;
 
   Event(id, name, this.dateTime, this.eventType,
       {this.location,
       this.notes,
       this.assignees,
       this.agenda,
-      this.interviewee})
-      : super(id, name, {
-          "name": name,
-          EventsDoc.place: location,
-          EventsDoc.notes: notes,
-          EventsDoc.agenda: agenda,
-          EventsDoc.date: dateTime,
-          EventsDoc.eventType: eventType,
-          EventsDoc.interviewee: interviewee,
-          // TOD): Assignee(s)
-        });
+      this.interviewee,
+      required this.map})
+      : super(id, name, map);
 }
+
+// {
+// "name": name,
+// EventsDoc.place: location,
+// EventsDoc.notes: notes,
+// EventsDoc.agenda: agenda,
+// EventsDoc.date: dateTime,
+// EventsDoc.eventType: eventType.index,
+// EventsDoc.interviewee: interviewee,
+// // TOD0: Assignee(s)
+// }
 
 class Meeting extends Event {
   Meeting(
@@ -52,7 +56,15 @@ class Meeting extends Event {
             location: place,
             notes: notes,
             agenda: agenda,
-            assignees: assignees);
+            assignees: assignees,
+            map: {
+              "name": name,
+              EventsDoc.date: dateTime,
+              EventsDoc.agenda: agenda,
+              EventsDoc.place: place,
+              EventsDoc.notes: notes,
+              EventsDoc.eventType: EventType.meeting.index,
+            });
 
   // region Static Members
   static Meeting example1 = Meeting(-1, "Ward Counsel", DateTime.now(),
@@ -92,9 +104,19 @@ class Meeting extends Event {
 
 class Interview extends Event {
   Interview(int id, String name, DateTime dateTime, String interviewee,
-      Member assignee, {String? notes})
+      Member assignee,
+      {String? notes})
       : super(id, name, dateTime, EventType.interview,
-            notes: notes, assignees: [assignee], interviewee: interviewee);
+            notes: notes,
+            assignees: [assignee],
+            interviewee: interviewee,
+            map: {
+              "name": name,
+              EventsDoc.date: dateTime,
+              EventsDoc.notes: notes,
+              EventsDoc.interviewee: interviewee,
+              EventsDoc.eventType: EventType.interview.index,
+            });
 
   // region Static Members
   static Interview example1 = Interview(-1, "Temple Interview", DateTime.now(),
@@ -109,4 +131,17 @@ class Interview extends Event {
     EventCard(example2)
   ];
 // endregion
+}
+
+extension ParseEventType on EventType {
+  static EventType fromString(String string) {
+    switch (string) {
+      case "Interview":
+        return EventType.interview;
+      case "Meeting":
+        return EventType.meeting;
+      default:
+        return EventType.none;
+    }
+  }
 }

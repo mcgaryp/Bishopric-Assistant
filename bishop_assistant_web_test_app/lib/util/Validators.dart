@@ -7,9 +7,10 @@
 ///
 
 class Validators {
+  // Validate DropDown Menu
+  // - Cannot be empty
   static String? validateDropDown(dynamic item) {
     if (item == null) return "Must select one";
-
     return null;
   }
 
@@ -23,5 +24,12 @@ class Validators {
       return "Field cannot start or end with WhiteSpace";
 
     return null;
+  }
+
+  // Validate a MultiSelect Field
+  // - Cannot be empty
+  static String? validateMultiSelect(List<Object?>? list) {
+    if (list == null || list.isEmpty)
+      return "Must select at least 1";
   }
 }

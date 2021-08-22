@@ -6,4 +6,4 @@
 /// Copyright 2021 porter. All rights reserved.
 ///
 
-enum EventType { interview, meeting }
+enum EventType { none, interview, meeting }
