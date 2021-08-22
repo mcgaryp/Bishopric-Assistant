@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
 
-// Turn into a similar widget as the InputField.dart
+// TODO: Comment
 class FirebaseDropDown extends StatefulWidget {
   final Collections collectionPath;
   final String hint;
@@ -36,9 +36,9 @@ class FirebaseDropDown extends StatefulWidget {
 }
 
 class _FirebaseDropDownState extends State<FirebaseDropDown> {
-  String? dropdownValue;
-  List<DropdownMenuItem> collection = [
-    DropdownMenuItem(value: "", child: Text(""))
+  int? dropdownValue;
+  List<DropdownMenuItem<int>> collection = [
+    DropdownMenuItem<int>(value: -1, child: Text(""))
   ];
 
   @override
@@ -89,14 +89,14 @@ class _FirebaseDropDownState extends State<FirebaseDropDown> {
 
   Future<void> _getMenuItems() async {
     final snapshot =
-        await FirestoreHelper.reference(widget.collectionPath.string()).get();
+        await FirestoreHelper.reference(widget.collectionPath.string).get();
     List<QueryDocumentSnapshot> data = FirestoreHelper.listQuerySnap(snapshot);
 
     if (this.mounted) {
       setState(() {
         collection = data
-            .map<DropdownMenuItem>((e) => DropdownMenuItem(
-                value: e[FirestoreDocument.namePath],
+            .map<DropdownMenuItem<int>>((e) => DropdownMenuItem<int>(
+                value: int.parse(e.id),
                 child: Text(e[FirestoreDocument.namePath])))
             .toList();
       });

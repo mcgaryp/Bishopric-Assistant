@@ -13,4 +13,7 @@ class Organization extends FirestoreDocument {
     int id,
     String name,
   ) : super(id, name, {FirestoreDocument.namePath: name});
+
+  Organization.create(String name)
+      : super(-1, name, {FirestoreDocument.namePath: name});
 }

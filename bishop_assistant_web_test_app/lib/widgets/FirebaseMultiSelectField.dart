@@ -108,7 +108,7 @@ class _FirebaseMultiSelectFieldState extends State<FirebaseMultiSelectField> {
 
   Future<void> _getMenuItems() async {
     final snapshot =
-        await FirestoreHelper.reference(widget.collectionPath.string()).get();
+        await FirestoreHelper.reference(widget.collectionPath.string).get();
     List<QueryDocumentSnapshot> data = FirestoreHelper.listQuerySnap(snapshot);
 
     if (this.mounted) {

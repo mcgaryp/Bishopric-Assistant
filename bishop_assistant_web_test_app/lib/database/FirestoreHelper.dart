@@ -24,16 +24,25 @@ import 'package:flutter/material.dart';
 //      - Stream
 //      - Collection
 //      - Document
+// APPROVED vs NOT APPROVED
+//  - Approved methods are good to stay around
+//  - Not Approved methods need either work put into them and will change or should be removed
 // TODO: Comment
 class FirestoreHelper {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  /// APPROVED
+  static Future<QuerySnapshot> getCollection(String path) =>
+      _firestore.collection(path).get();
+
   /// Return a Stream<QuerySnapshot> of a collection. Automatically Updates when
   ///  database changes
+  // TODO: NOT APPROVED
   static Stream<QuerySnapshot> stream(String path) =>
       _firestore.collection(path).snapshots();
 
   /// Return a List of Document Snapshots
+  // TODO: NOT APPROVED
   static List<DocumentSnapshot> listDocSnap(
       AsyncSnapshot<QuerySnapshot> snapshot) {
     if (snapshot.hasError) {
@@ -52,10 +61,12 @@ class FirestoreHelper {
   }
 
   /// Return CollectionReference that will not automatically update with database
+  /// APPROVED
   static CollectionReference reference(String path) =>
       _firestore.collection(path);
 
   /// Return a List of Query Document Snapshots
+  // TODO: NOT APPROVED
   static List<QueryDocumentSnapshot> listAsyncQuerySnap(
       AsyncSnapshot<QuerySnapshot> snapshot) {
     if (snapshot.hasError) {
@@ -74,6 +85,7 @@ class FirestoreHelper {
   }
 
   /// Return a List of Query Document Snapshots
+  /// APPROVED
   static List<QueryDocumentSnapshot> listQuerySnap(QuerySnapshot snapshot) {
     var data = snapshot.docs;
     data.sort(sortQueryById);
@@ -81,6 +93,7 @@ class FirestoreHelper {
   }
 
   /// Sort DocumentSnapshots by ID
+  // TODO: NOT APPROVED
   static int sortDocById(DocumentSnapshot a, DocumentSnapshot b) {
     int aInt = int.parse(a.id);
     int bInt = int.parse(b.id);
@@ -93,6 +106,7 @@ class FirestoreHelper {
   }
 
   /// Sort QueryDocumentSnapshot by ID
+  /// APPROVED
   static int sortQueryById(QueryDocumentSnapshot a, QueryDocumentSnapshot b) {
     int aInt = int.parse(a.id);
     int bInt = int.parse(b.id);
@@ -106,27 +120,28 @@ class FirestoreHelper {
 
   // TODO: Comment
   // Used to add a document to the database
+  /// APPROVED
   static void addDocument(Collections path,
       {required Document doc,
-      required Null Function(dynamic) error,
-      required Null Function(int) success}) async {
+      required Function(dynamic) error,
+      required Function(int) success}) async {
     try {
       // Get next ID from Database
       Map<String, dynamic> counterMap = await _getNextID();
-      int nextID = counterMap[path.string()];
+      int nextID = counterMap[path.string];
 
       // add the item to the database
       await _firestore
-          .collection(path.string())
+          .collection(path.string)
           .doc(nextID.toString())
           .set(doc.map)
           .then((value) {
         // increase counter
-        counterMap[path.string()] += 1;
+        counterMap[path.string] += 1;
 
         // set new value in counter
         _firestore
-            .collection(Collections.util.string())
+            .collection(Collections.util.string)
             .doc(Util.counters)
             .update(counterMap)
             .then((value) {
@@ -140,10 +155,11 @@ class FirestoreHelper {
   }
 
   // TODO: Comment
+  /// APPROVED
   static Future<Map<String, dynamic>> _getNextID() async {
     // Get the next ID from the counters
     DocumentSnapshot<Map<String, dynamic>> counterMap = await _firestore
-        .collection(Collections.util.string())
+        .collection(Collections.util.string)
         .doc(Util.counters)
         .get();
 
@@ -157,9 +173,10 @@ class FirestoreHelper {
 
   // Find Member uses a username to find the account of a member
   // TODO: Should this be a more general way?
+  // TODO: NOT APPROVED
   static Future<Member?> findMember(String username) async {
     final QuerySnapshot snapshot =
-        await _firestore.collection(Collections.members.string()).get();
+        await _firestore.collection(Collections.members.string).get();
     final List<QueryDocumentSnapshot> list = listQuerySnap(snapshot);
 
     for (QueryDocumentSnapshot snap in list) {

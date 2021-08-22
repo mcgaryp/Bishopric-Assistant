@@ -4,6 +4,7 @@ import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
 import 'package:bishop_assistant_web_test_app/database/models/Organization.dart';
 import 'package:bishop_assistant_web_test_app/database/models/OrganizationMembers.dart';
 import 'package:bishop_assistant_web_test_app/database/models/Role.dart';
+import 'package:bishop_assistant_web_test_app/util/MyToast.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
 import 'package:bishop_assistant_web_test_app/util/Validators.dart';
 import 'package:bishop_assistant_web_test_app/widgets/FirebaseDropDown.dart';
@@ -51,6 +52,8 @@ class _SignupState extends State<Signup> {
 
   // Is the Widget waiting for a callback function to complete
   bool _isWaiting = false;
+
+  Member? member;
 
   @override
   void dispose() {
@@ -104,60 +107,7 @@ class _SignupState extends State<Signup> {
     ], buttons: [
       AbsorbPointer(
         absorbing: _isWaiting,
-        child: MyButton(
-            label: signup,
-            onPressed: () async {
-              /// prevent the user from pressing the button more than once while backend thinks
-              _setIsWaiting(true);
-
-              /// Verify information in form
-              if (_formKey.currentState!.validate()) {
-                /// Password encryption
-                String hashPassword =
-                    Crypt.sha256(passwordControl.text, salt: "bishopric")
-                        .toString();
-
-                /// Create member model
-                Member member = Member.create(
-                  firstName: fNameControl.text,
-                  lastName: lNameControl.text,
-                  phone: phoneControl.text,
-                  email: emailControl.text,
-                  password: hashPassword,
-                  role: _selectedRole!,
-                );
-
-                /// Create the member in database
-                FirestoreHelper.addDocument(Collections.members,
-                    doc: member,
-                    error: (error) => _setIsWaiting(false),
-                    success: (memberID) {
-                      /// Create organization
-                      if (organizationControl.text.isNotEmpty) {
-                        /// Add organization to the database
-                        FirestoreHelper.addDocument(Collections.organizations,
-                            doc: Organization(-1, organizationControl.text),
-                            error: (error) => _setIsWaiting(false),
-                            success: (organizationID) {
-                              /// Tie organization and member together
-                              FirestoreHelper.addDocument(
-                                  Collections.organization_members,
-                                  doc: OrganizationMembers(
-                                      memberID, organizationID),
-                                  error: (error) => _setIsWaiting(false),
-                                  success: (organizationMemberID) {
-                                    _setIsWaiting(false);
-                                    Navigator.pop(context);
-                                  });
-                            });
-                      } else {
-                        _setIsWaiting(false);
-                        Navigator.pop(context);
-                      }
-                    });
-              } else
-                _setIsWaiting(false);
-            }),
+        child: MyButton(label: signup, onPressed: _onPress),
       )
     ]);
   }
@@ -261,7 +211,66 @@ class _SignupState extends State<Signup> {
   /// Update the role to what ever has been selected
   void _roleChange(selectedRole) {
     setState(() {
-      _selectedRole = ParseRolesToString.roleFromString(selectedRole);
+      _selectedRole = ParseRolesToString.roleFromInt(selectedRole);
     });
+  }
+
+  /// When the button is pressed then
+  _onPress() async {
+    // prevent the user from pressing the button more than once while backend thinks
+    _setIsWaiting(true);
+
+    // Verify information in form
+    if (_formKey.currentState!.validate()) {
+      // Password encryption
+      String hashPassword =
+          Crypt.sha256(passwordControl.text, salt: "bishopric").toString();
+
+      // Create member model
+      Member member = Member.create(
+        firstName: fNameControl.text,
+        lastName: lNameControl.text,
+        phone: phoneControl.text,
+        email: emailControl.text,
+        password: hashPassword,
+        role: _selectedRole!,
+      );
+
+      // Create the member in database
+      FirestoreHelper.addDocument(Collections.members,
+          doc: member, error: _error, success: (int memberID) {
+        // Create organization
+        if (organizationControl.text.isNotEmpty) {
+          // Add organization to the database
+          FirestoreHelper.addDocument(Collections.organizations,
+              doc: Organization.create(organizationControl.text),
+              error: _error, success: (int organizationID) {
+            // Tie organization and member together
+            FirestoreHelper.addDocument(Collections.organization_members,
+                doc: OrganizationMembers(memberID, organizationID),
+                error: (error) => _setIsWaiting(false),
+                success: (organizationMemberID) {
+                  _successEnd(member);
+                });
+          });
+        } else {
+          _successEnd(member);
+        }
+      });
+    } else
+      _setIsWaiting(false);
+  }
+
+  /// Should the process succeed
+  void _successEnd(Member member) {
+    MyToast.toastSuccess("Welcome ${member.name}!");
+    _setIsWaiting(false);
+    Navigator.pop(context);
+  }
+
+  /// Should the process fail notify the user
+  void _error(error) {
+    MyToast.toastError(error);
+    _setIsWaiting(false);
   }
 }

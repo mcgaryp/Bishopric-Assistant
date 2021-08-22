@@ -40,7 +40,10 @@ enum Collections {
 }
 
 extension ParseToString on Collections {
-  String string() => this.toString().split('.').last;
+
+  String get string {
+    return this.toString().split('.').last;
+  }
 }
 
 // TODO: Replace
