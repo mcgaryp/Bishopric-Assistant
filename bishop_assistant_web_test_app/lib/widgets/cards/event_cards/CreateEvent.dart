@@ -137,7 +137,8 @@ class _CreateEventState extends State<CreateEvent> {
                     nameControl.text,
                     _selectedDateTime,
                     intervieweeControl.text,
-                    Member.bishopExample, // TODO: Solve _selectedAssignees, should not be included in init, create separate init
+                    Member
+                        .bishopExample, // TODO: Solve _selectedAssignees, should not be included in init, create separate init
                     notes: notesControl.text,
                   );
                 } else {
@@ -146,7 +147,9 @@ class _CreateEventState extends State<CreateEvent> {
                       nameControl.text,
                       _selectedDateTime,
                       agendaControl.text,
-                      [Member.bishopExample], // TODO: Solve _selectedAssignees, should not be included in init, create separate init
+                      [
+                        Member.bishopExample
+                      ], // TODO: Solve _selectedAssignees, should not be included in init, create separate init
                       place: locationControl.text,
                       notes: notesControl.text);
                 }
