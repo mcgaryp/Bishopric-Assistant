@@ -1,6 +1,5 @@
-import 'package:bishop_assistant_web_test_app/database/DatabaseModel.dart';
+import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
 import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
-import 'package:bishop_assistant_web_test_app/util/DatabasePaths.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/assignment_cards/AssignmentCard.dart';
 
 ///
@@ -11,16 +10,19 @@ import 'package:bishop_assistant_web_test_app/widgets/cards/assignment_cards/Ass
 /// Copyright 2021 porter. All rights reserved.
 ///
 
-class Assignment extends DatabaseModel {
+class Assignment extends FirestoreDocument {
+  static const String dueDatePath = "due_date";
+  static const String notePath = "notes";
+
   late DateTime dateTime;
   late Member assignee;
   String? notes;
 
   Assignment(id, name, this.dateTime, this.assignee, {this.notes})
       : super(id, name, {
-          "name": name,
-          AssignmentsDoc.dueDate: dateTime,
-          AssignmentsDoc.notes: notes,
+          FirestoreDocument.namePath: name,
+          dueDatePath: dateTime,
+          notePath: notes,
         });
 
   Assignment.model(int id, String name) : super(id, name, {});

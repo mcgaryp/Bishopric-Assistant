@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/database/DatabaseModel.dart';
+import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
 
 ///
 /// Role.dart
@@ -22,6 +22,6 @@ enum Role {
 }
 
 // TODO: Should a class be used instead as a replacement for the enum above?
-class MemberRole extends DatabaseModel {
+class MemberRole extends FirestoreDocument {
   MemberRole.model(int id, String name) : super(id, name, {});
 }

@@ -1,9 +1,8 @@
-import 'package:bishop_assistant_web_test_app/database/DatabaseModel.dart';
+import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
 import 'package:bishop_assistant_web_test_app/database/FirestoreHelper.dart';
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
-import 'package:bishop_assistant_web_test_app/util/DatabasePaths.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
@@ -19,13 +18,11 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 class FirebaseMultiSelectField extends StatefulWidget {
   final String label;
   final Collections collectionPath;
-  final Document document;
   final String? Function(List<Object?>?)? validator;
   final Function(List) onChange;
 
   const FirebaseMultiSelectField(this.label,
       {required this.collectionPath,
-      required this.document,
       required this.onChange,
       this.validator,
       Key? key})
@@ -37,7 +34,7 @@ class FirebaseMultiSelectField extends StatefulWidget {
 }
 
 class _FirebaseMultiSelectFieldState extends State<FirebaseMultiSelectField> {
-  List<MultiSelectItem<DatabaseModel>> _items = [];
+  List<MultiSelectItem<FirestoreDocument>> _items = [];
 
   var _selected = [];
 
@@ -117,15 +114,15 @@ class _FirebaseMultiSelectFieldState extends State<FirebaseMultiSelectField> {
     if (this.mounted) {
       setState(() {
         // Convert Data to Database model
-        List<DatabaseModel> models = data
-            .map<DatabaseModel>((snap) => widget.collectionPath
-                .instance(int.parse(snap.id), snap[widget.document.name]))
+        List<FirestoreDocument> models = data
+            .map<FirestoreDocument>((snap) => FirestoreDocument.instance(
+                int.parse(snap.id), snap[FirestoreDocument.namePath]))
             .toList();
 
         // Save model as a list of MultiSelectItem
         _items = models
-            .map<MultiSelectItem<DatabaseModel>>(
-                (model) => MultiSelectItem<DatabaseModel>(model, model.name))
+            .map<MultiSelectItem<FirestoreDocument>>((model) =>
+                MultiSelectItem<FirestoreDocument>(model, model.name))
             .toList();
       });
     }

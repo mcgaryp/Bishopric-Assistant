@@ -1,7 +1,7 @@
+import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
 import 'package:bishop_assistant_web_test_app/database/FirestoreHelper.dart';
 import 'package:bishop_assistant_web_test_app/database/models/Assignment.dart';
 import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
-import 'package:bishop_assistant_web_test_app/util/DatabasePaths.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
 import 'package:bishop_assistant_web_test_app/util/Validators.dart';
 import 'package:bishop_assistant_web_test_app/widgets/FirebaseDropDown.dart';
@@ -35,6 +35,7 @@ class _CreateAssignmentState extends State<CreateAssignment> {
   TextEditingController notesControl = TextEditingController();
 
   bool _isWaiting = false;
+
   // TODO: Use as the member ID?
   String? _selectedMember;
   DateTime _selectedDateTime = DateTime.now();
@@ -54,7 +55,6 @@ class _CreateAssignmentState extends State<CreateAssignment> {
             CardDateTimeRow(_onDateTimeUpdate),
             FirebaseDropDown(
               collectionPath: Collections.members,
-              document: MembersDoc(),
               isInput: true,
               hint: assignee,
               onchange: _onChange,
@@ -85,11 +85,11 @@ class _CreateAssignmentState extends State<CreateAssignment> {
                 // Add assignment to database
                 // TODO: Return the ID of the new document? Do I need to return anything?
                 FirestoreHelper.addDocument(Collections.assignments,
-                    doc: AssignmentsDoc(), model: assignment, error: (error) {
+                    doc: assignment, error: (error) {
                   Fluttertoast.showToast(
                       msg: error.toString(), timeInSecForIosWeb: 5);
                   _setIsWaiting(false);
-                }, success: () {
+                }, success: (id) {
                   Fluttertoast.showToast(
                       msg: "${assignment.name} Created", timeInSecForIosWeb: 2);
                   _setIsWaiting(false);

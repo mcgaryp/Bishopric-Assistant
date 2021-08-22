@@ -1,8 +1,8 @@
+import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
 import 'package:bishop_assistant_web_test_app/database/FirestoreHelper.dart';
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
-import 'package:bishop_assistant_web_test_app/util/DatabasePaths.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -17,19 +17,18 @@ import 'package:flutter/material.dart';
 // Turn into a similar widget as the InputField.dart
 class FirebaseDropDown extends StatefulWidget {
   final Collections collectionPath;
-  final Document document;
   final String hint;
   final bool isInput;
   final String? Function(dynamic)? validator;
   final void Function(dynamic)? onchange;
 
-  const FirebaseDropDown({required this.collectionPath,
-    required this.document,
-    this.hint = "",
-    this.isInput = false,
-    this.onchange,
-    this.validator,
-    Key? key})
+  const FirebaseDropDown(
+      {required this.collectionPath,
+      this.hint = "",
+      this.isInput = false,
+      this.onchange,
+      this.validator,
+      Key? key})
       : super(key: key);
 
   @override
@@ -90,16 +89,15 @@ class _FirebaseDropDownState extends State<FirebaseDropDown> {
 
   Future<void> _getMenuItems() async {
     final snapshot =
-    await FirestoreHelper.reference(widget.collectionPath.string()).get();
+        await FirestoreHelper.reference(widget.collectionPath.string()).get();
     List<QueryDocumentSnapshot> data = FirestoreHelper.listQuerySnap(snapshot);
 
     if (this.mounted) {
       setState(() {
         collection = data
-            .map<DropdownMenuItem>((e) =>
-            DropdownMenuItem(
-                value: e[widget.document.name],
-                child: Text(e[widget.document.name])))
+            .map<DropdownMenuItem>((e) => DropdownMenuItem(
+                value: e[FirestoreDocument.namePath],
+                child: Text(e[FirestoreDocument.namePath])))
             .toList();
       });
     }

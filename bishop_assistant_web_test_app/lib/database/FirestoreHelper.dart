@@ -1,10 +1,8 @@
-import 'package:bishop_assistant_web_test_app/database/DatabaseModel.dart';
+import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
 import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
-import 'package:bishop_assistant_web_test_app/util/DatabasePaths.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 ///
 /// FirestoreHelper.dart
@@ -106,76 +104,25 @@ class FirestoreHelper {
     return 0;
   }
 
-  @Deprecated("Use Add Document instead")
-  static Future<void> createMember(Member member,
-      {required Function() onSuccess,
-      required Function(dynamic) onError}) async {
-    // Get the next member ID in the counters
-    DocumentSnapshot<Map<String, dynamic>> counterMap = await _firestore
-        .collection(Collections.util.string())
-        .doc(Util.counters)
-        .get();
-
-    Map<String, dynamic>? counterData = counterMap.data();
-
-    if (counterData == null)
-      throw Exception("Invalid data in Counter Collection");
-
-    int nextID = counterData[Util.utilFields.members];
-
-    // Add the member to the database
-    await _firestore
-        .collection(Collections.members.string())
-        .doc(nextID.toString())
-        .set({
-      "name": member.name,
-      MembersDoc.firstName: member.firstName,
-      MembersDoc.lastName: member.lastName,
-      MembersDoc.phone: member.phone,
-      MembersDoc.email: member.email,
-      MembersDoc.roleId: member.role.index,
-      MembersDoc.password: member.password
-    }).then((value) {
-      // increase counter
-      counterData[Util.utilFields.members] += 1;
-      // set new value in counter
-      _firestore
-          .collection(Collections.util.string())
-          .doc(Util.counters)
-          .update(counterData)
-          .then((value) {
-        // notify of success
-        Fluttertoast.showToast(
-            msg: "Welcome ${member.name}", timeInSecForIosWeb: 4);
-        // activate callback
-        onSuccess();
-      });
-    }).catchError((error) {
-      // notify of failure
-      onError(error);
-    });
-  }
-
   // TODO: Comment
   // Used to add a document to the database
-  static Future<void> addDocument(Collections collectionPath,
+  static void addDocument(Collections path,
       {required Document doc,
-      required DatabaseModel model,
-      required Function(dynamic) error,
-      required Function() success}) async {
+      required Null Function(dynamic) error,
+      required Null Function(int) success}) async {
     try {
       // Get next ID from Database
       Map<String, dynamic> counterMap = await _getNextID();
-      int nextID = counterMap[collectionPath.string()];
+      int nextID = counterMap[path.string()];
 
       // add the item to the database
       await _firestore
-          .collection(collectionPath.string())
+          .collection(path.string())
           .doc(nextID.toString())
-          .set(model.map)
+          .set(doc.map)
           .then((value) {
         // increase counter
-        counterMap[collectionPath.string()] += 1;
+        counterMap[path.string()] += 1;
 
         // set new value in counter
         _firestore
@@ -184,7 +131,7 @@ class FirestoreHelper {
             .update(counterMap)
             .then((value) {
           // activate callback
-          success();
+          success(nextID);
         });
       }).catchError(error);
     } catch (e) {
@@ -216,15 +163,15 @@ class FirestoreHelper {
     final List<QueryDocumentSnapshot> list = listQuerySnap(snapshot);
 
     for (QueryDocumentSnapshot snap in list) {
-      if (snap[MembersDoc.email] == username) {
+      if (snap[Member.emailPath] == username) {
         return Member(
           id: int.parse(snap.id),
-          firstName: snap[MembersDoc.firstName],
-          lastName: snap[MembersDoc.lastName],
-          phone: snap[MembersDoc.phone],
-          email: snap[MembersDoc.email],
-          password: snap[MembersDoc.password],
-          role: ParseRolesToString.roleFromInt(snap[MembersDoc.roleId]),
+          firstName: snap[Member.firstNamePath],
+          lastName: snap[Member.lastNamePath],
+          phone: snap[Member.phonePath],
+          email: snap[Member.emailPath],
+          password: snap[Member.passwordPath],
+          role: ParseRolesToString.roleFromInt(snap[Member.roleIdPath]),
         );
       }
     }

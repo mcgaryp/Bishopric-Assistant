@@ -1,7 +1,9 @@
+import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
 import 'package:bishop_assistant_web_test_app/database/FirestoreHelper.dart';
 import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
+import 'package:bishop_assistant_web_test_app/database/models/Organization.dart';
+import 'package:bishop_assistant_web_test_app/database/models/OrganizationMembers.dart';
 import 'package:bishop_assistant_web_test_app/database/models/Role.dart';
-import 'package:bishop_assistant_web_test_app/util/DatabasePaths.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
 import 'package:bishop_assistant_web_test_app/util/Validators.dart';
 import 'package:bishop_assistant_web_test_app/widgets/FirebaseDropDown.dart';
@@ -20,7 +22,6 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
 
-// TODO: Comments
 class Signup extends StatefulWidget {
   const Signup({Key? key}) : super(key: key);
 
@@ -29,26 +30,27 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
+  // Key used to
   final _formKey = GlobalKey<FormState>();
 
+  // TextEditingControllers
   TextEditingController fNameControl = TextEditingController();
   TextEditingController lNameControl = TextEditingController();
   TextEditingController emailControl = TextEditingController();
   TextEditingController phoneControl = TextEditingController();
   TextEditingController passwordControl = TextEditingController();
   TextEditingController confirmControl = TextEditingController();
+  TextEditingController organizationControl = TextEditingController();
 
+  // Format the number
   MaskTextInputFormatter filter = MaskTextInputFormatter(
       mask: "(###) ###-####", filter: {"#": RegExp(r'\d')});
 
+  // Selected user role
   Role? _selectedRole;
 
+  // Is the Widget waiting for a callback function to complete
   bool _isWaiting = false;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   void dispose() {
@@ -88,14 +90,14 @@ class _SignupState extends State<Signup> {
                 validator: _confirmPassword),
             FirebaseDropDown(
                 collectionPath: Collections.roles,
-                document: RolesDoc(),
                 hint: role,
                 onchange: _roleChange,
                 validator: _validateRole),
             if (_selectedRole != null)
               if (_selectedRole == Role.bishop)
                 InputField.floating(nameOfOrganization,
-                    validator: Validators.standard),
+                    validator: Validators.standard,
+                    controller: organizationControl),
           ],
         ),
       ),
@@ -105,16 +107,17 @@ class _SignupState extends State<Signup> {
         child: MyButton(
             label: signup,
             onPressed: () async {
-              // prevent the user from pressing the button more than once while backend thinks
+              /// prevent the user from pressing the button more than once while backend thinks
               _setIsWaiting(true);
 
-              // Verify information in form
+              /// Verify information in form
               if (_formKey.currentState!.validate()) {
-                // Password encryption
+                /// Password encryption
                 String hashPassword =
                     Crypt.sha256(passwordControl.text, salt: "bishopric")
                         .toString();
 
+                /// Create member model
                 Member member = Member.create(
                   firstName: fNameControl.text,
                   lastName: lNameControl.text,
@@ -124,36 +127,52 @@ class _SignupState extends State<Signup> {
                   role: _selectedRole!,
                 );
 
-                // TODO: If organization role is not null or empty then create organization
-
-                // create the member
+                /// Create the member in database
                 FirestoreHelper.addDocument(Collections.members,
-                    doc: MembersDoc(),
-                    model: member,
+                    doc: member,
                     error: (error) => _setIsWaiting(false),
-                    success: () {
-                      _setIsWaiting(false);
-                      Navigator.pop(context);
+                    success: (memberID) {
+                      /// Create organization
+                      if (organizationControl.text.isNotEmpty) {
+                        /// Add organization to the database
+                        FirestoreHelper.addDocument(Collections.organizations,
+                            doc: Organization(-1, organizationControl.text),
+                            error: (error) => _setIsWaiting(false),
+                            success: (organizationID) {
+                              /// Tie organization and member together
+                              FirestoreHelper.addDocument(
+                                  Collections.organization_members,
+                                  doc: OrganizationMembers(
+                                      memberID, organizationID),
+                                  error: (error) => _setIsWaiting(false),
+                                  success: (organizationMemberID) {
+                                    _setIsWaiting(false);
+                                    Navigator.pop(context);
+                                  });
+                            });
+                      } else {
+                        _setIsWaiting(false);
+                        Navigator.pop(context);
+                      }
                     });
               } else
                 _setIsWaiting(false);
             }),
-      ) //Navigator.pop(context))
+      )
     ]);
   }
 
+  /// Updates the isWaiting variable
   _setIsWaiting(bool val) {
     setState(() {
       _isWaiting = val;
     });
   }
 
-  // Verify Names
-  // - Names ar made of letters not numbers or symbols
-  // - Names are not empty Strings
-  // - Names do not have a limit to how many letters are in them
-  // - Names do not have whitespace at the end or start of them
-  // - Name should start with a capital letter
+  /// Verify Names
+  /// - Names do not have a limit to how many letters are in them
+  /// - Names do not have whitespace at the end or start of them
+  /// - Name should start with a capital letter
   String? _verifyName(String? text) {
     String? returnValue = Validators.standard(text);
 
@@ -170,12 +189,12 @@ class _SignupState extends State<Signup> {
     return returnValue;
   }
 
-  // Verify email
-  // - Emails must have an @
-  // - Emails must have something before the @
-  // - Emails must have something after the @ along with a . following that
-  // - Emails must have something after the .
-  // Send a verification email on create
+  /// Verify email
+  /// - Emails must have an @
+  /// - Emails must have something before the @
+  /// - Emails must have something after the @ along with a . following that
+  /// - Emails must have something after the .
+  /// Send a verification email on create
   String? _verifyEmail(String? text) {
     String? returnValue = Validators.standard(text);
 
@@ -193,10 +212,10 @@ class _SignupState extends State<Signup> {
     return returnValue;
   }
 
-  // Password Validation
-  // - Must be at least 8 characters
-  // - Must have at least one number
-  // - Must have at least one symbol
+  /// Password Validation
+  /// - Must be at least 8 characters
+  /// - Must have at least one number
+  /// - Must have at least one symbol
   String? _password(String? text) {
     String? returnValue = Validators.standard(text);
 
@@ -221,9 +240,9 @@ class _SignupState extends State<Signup> {
     return returnValue;
   }
 
-  // Verify Confirming Password
-  // - Standard
-  // - Must match password text
+  /// Verify Confirming Password
+  /// - Standard
+  /// - Must match password text
   String? _confirmPassword(String? text) {
     String? returnValue = Validators.standard(text);
 
@@ -233,15 +252,13 @@ class _SignupState extends State<Signup> {
     return returnValue;
   }
 
-  // Validate Role
-  // - Role may not be empty
+  /// Validate Role
+  /// - Role may not be empty
   String? _validateRole(role) {
     if (role == null) return "Select a role";
-
-    return null;
   }
 
-  // Update the role to what ever has been selected
+  /// Update the role to what ever has been selected
   void _roleChange(selectedRole) {
     setState(() {
       _selectedRole = ParseRolesToString.roleFromString(selectedRole);

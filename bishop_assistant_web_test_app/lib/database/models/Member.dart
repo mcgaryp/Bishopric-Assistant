@@ -1,6 +1,5 @@
-import 'package:bishop_assistant_web_test_app/database/DatabaseModel.dart';
+import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
 import 'package:bishop_assistant_web_test_app/database/models/Role.dart';
-import 'package:bishop_assistant_web_test_app/util/DatabasePaths.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/member_cards/MemberCard.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +12,14 @@ import 'package:flutter/material.dart';
 ///
 
 // TODO: Comment
-class Member extends DatabaseModel {
+class Member extends FirestoreDocument {
+  static const String emailPath = "email";
+  static const String firstNamePath = "first_name";
+  static const String lastNamePath = "last_name";
+  static const String passwordPath = "password";
+  static const String phonePath = "phone";
+  static const String roleIdPath = "role_id";
+
   late String firstName;
   late String lastName;
   late String phone;
@@ -32,17 +38,18 @@ class Member extends DatabaseModel {
       required this.role,
       this.password = ""})
       : super(id, "$firstName $lastName", {
-          "name": "$firstName $lastName",
-          MembersDoc.firstName: firstName,
-          MembersDoc.lastName: lastName,
-          MembersDoc.phone: phone,
-          MembersDoc.email: email,
-          MembersDoc.roleId: role.index,
-          MembersDoc.password: password
+          FirestoreDocument.namePath: "$firstName $lastName",
+          Member.firstNamePath: firstName,
+          Member.lastNamePath: lastName,
+          Member.phonePath: phone,
+          Member.emailPath: email,
+          Member.roleIdPath: role.index,
+          Member.passwordPath: password
         });
 
-  Member.model(int id, String name) : super(id, name, {});
+  Member.instance() : super(-1, "", {});
 
+  // @Deprecated("Use Member")
   Member.create({
     required this.firstName,
     required this.lastName,
@@ -51,13 +58,13 @@ class Member extends DatabaseModel {
     required this.password,
     required this.role,
   }) : super(-1, "$firstName $lastName", {
-          "name": "$firstName $lastName",
-          MembersDoc.firstName: firstName,
-          MembersDoc.lastName: lastName,
-          MembersDoc.phone: phone,
-          MembersDoc.email: email,
-          MembersDoc.roleId: role.index,
-          MembersDoc.password: password
+          FirestoreDocument.namePath: "$firstName $lastName",
+          Member.firstNamePath: firstName,
+          Member.lastNamePath: lastName,
+          Member.phonePath: phone,
+          Member.emailPath: email,
+          Member.roleIdPath: role.index,
+          Member.passwordPath: password
         }) {
     image = Icons.person;
   }

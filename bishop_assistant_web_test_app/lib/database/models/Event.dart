@@ -1,7 +1,6 @@
-import 'package:bishop_assistant_web_test_app/database/DatabaseModel.dart';
+import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
 import 'package:bishop_assistant_web_test_app/database/models/EventType.dart';
 import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
-import 'package:bishop_assistant_web_test_app/util/DatabasePaths.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/event_cards/EventCard.dart';
 
 ///
@@ -12,7 +11,14 @@ import 'package:bishop_assistant_web_test_app/widgets/cards/event_cards/EventCar
 /// Copyright 2021 porter. All rights reserved.
 ///
 
-abstract class Event extends DatabaseModel {
+abstract class Event extends FirestoreDocument {
+  static const String agendaPath = "agenda";
+  static const String dateTimePath = "date";
+  static const String eventTypePath = "event_type";
+  static const String intervieweePath = "interviewee";
+  static const String notesPath = "notes";
+  static const String locationPath = "location";
+
   late EventType eventType;
   late DateTime dateTime;
   String? location;
@@ -20,7 +26,6 @@ abstract class Event extends DatabaseModel {
   String? agenda;
   String? interviewee;
   List<Member>? assignees;
-  Map<String, dynamic> map;
 
   Event(id, name, this.dateTime, this.eventType,
       {this.location,
@@ -28,20 +33,9 @@ abstract class Event extends DatabaseModel {
       this.assignees,
       this.agenda,
       this.interviewee,
-      required this.map})
+      required Map<String, dynamic> map})
       : super(id, name, map);
 }
-
-// {
-// "name": name,
-// EventsDoc.place: location,
-// EventsDoc.notes: notes,
-// EventsDoc.agenda: agenda,
-// EventsDoc.date: dateTime,
-// EventsDoc.eventType: eventType.index,
-// EventsDoc.interviewee: interviewee,
-// // TOD0: Assignee(s)
-// }
 
 class Meeting extends Event {
   Meeting(
@@ -50,26 +44,26 @@ class Meeting extends Event {
     DateTime dateTime,
     String agenda,
     List<Member> assignees, {
-    String? place,
+    String? location,
     String? notes,
   }) : super(id, name, dateTime, EventType.meeting,
-            location: place,
+            location: location,
             notes: notes,
             agenda: agenda,
             assignees: assignees,
             map: {
-              "name": name,
-              EventsDoc.date: dateTime,
-              EventsDoc.agenda: agenda,
-              EventsDoc.place: place,
-              EventsDoc.notes: notes,
-              EventsDoc.eventType: EventType.meeting.index,
+              FirestoreDocument.namePath: name,
+              Event.dateTimePath: dateTime,
+              Event.agendaPath: agenda,
+              Event.locationPath: location,
+              Event.notesPath: notes,
+              Event.eventTypePath: EventType.meeting.index,
             });
 
   // region Static Members
   static Meeting example1 = Meeting(-1, "Ward Counsel", DateTime.now(),
       _exampleAgenda, [Member.bishopExample, Member.counselor1Example],
-      place: "Bishops office", notes: _exampleNote);
+      location: "Bishops office", notes: _exampleNote);
 
   static Meeting example2 =
       Meeting(-1, "Bishopric", DateTime.now(), "TBD", Member.exampleMemberList);
@@ -111,11 +105,11 @@ class Interview extends Event {
             assignees: [assignee],
             interviewee: interviewee,
             map: {
-              "name": name,
-              EventsDoc.date: dateTime,
-              EventsDoc.notes: notes,
-              EventsDoc.interviewee: interviewee,
-              EventsDoc.eventType: EventType.interview.index,
+              FirestoreDocument.namePath: name,
+              Event.dateTimePath: dateTime,
+              Event.notesPath: notes,
+              Event.intervieweePath: interviewee,
+              Event.eventTypePath: EventType.interview.index,
             });
 
   // region Static Members

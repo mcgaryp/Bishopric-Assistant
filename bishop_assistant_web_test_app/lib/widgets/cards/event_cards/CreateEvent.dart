@@ -1,8 +1,8 @@
+import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
 import 'package:bishop_assistant_web_test_app/database/FirestoreHelper.dart';
 import 'package:bishop_assistant_web_test_app/database/models/Event.dart';
 import 'package:bishop_assistant_web_test_app/database/models/EventType.dart';
 import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
-import 'package:bishop_assistant_web_test_app/util/DatabasePaths.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
 import 'package:bishop_assistant_web_test_app/util/Validators.dart';
 import 'package:bishop_assistant_web_test_app/widgets/FirebaseDropDown.dart';
@@ -40,6 +40,7 @@ class _CreateEventState extends State<CreateEvent> {
   TextEditingController intervieweeControl = TextEditingController();
 
   DateTime _selectedDateTime = DateTime.now();
+
   // TODO: What should assigneeList and assignee look like?
   List _selectedAssignees = [];
   String _selectedAssignee = "";
@@ -71,11 +72,18 @@ class _CreateEventState extends State<CreateEvent> {
             FirebaseDropDown(
               hint: eventType,
               collectionPath: Collections.event_types,
-              document: EventTypesDoc(),
               isInput: true,
               onchange: _onEventTypeChange,
               validator: Validators.validateDropDown,
             ),
+            if (_selectedEventType == EventType.interview)
+              FirebaseDropDown(
+                hint: assignee,
+                collectionPath: Collections.members,
+                isInput: true,
+                onchange: _onAssigneeChange,
+                validator: Validators.validateDropDown,
+              ),
             if (_selectedEventType == EventType.interview)
               InputField.border(
                 interviewee,
@@ -83,19 +91,9 @@ class _CreateEventState extends State<CreateEvent> {
                 controller: intervieweeControl,
                 validator: Validators.standard,
               ),
-            if (_selectedEventType == EventType.interview)
-              FirebaseDropDown(
-                hint: assignee,
-                collectionPath: Collections.members,
-                document: MembersDoc(),
-                isInput: true,
-                onchange: _onAssigneeChange,
-                validator: Validators.validateDropDown,
-              ),
             if (_selectedEventType == EventType.meeting)
               FirebaseMultiSelectField(assignees,
                   collectionPath: Collections.members,
-                  document: MembersDoc(),
                   onChange: _onAssigneesChange,
                   validator: Validators.validateMultiSelect),
             if (_selectedEventType == EventType.meeting)
@@ -137,30 +135,25 @@ class _CreateEventState extends State<CreateEvent> {
                     nameControl.text,
                     _selectedDateTime,
                     intervieweeControl.text,
-                    Member
-                        .bishopExample, // TODO: Solve _selectedAssignees, should not be included in init, create separate init
+                    Member.bishopExample,
+                    // TODO: Solve _selectedAssignees, should not be included in init, create separate init
                     notes: notesControl.text,
                   );
                 } else {
-                  event = Meeting(
-                      -1,
-                      nameControl.text,
-                      _selectedDateTime,
-                      agendaControl.text,
-                      [
-                        Member.bishopExample
-                      ], // TODO: Solve _selectedAssignees, should not be included in init, create separate init
-                      place: locationControl.text,
+                  event = Meeting(-1, nameControl.text, _selectedDateTime,
+                      agendaControl.text, [Member.bishopExample],
+                      // TODO: Solve _selectedAssignees, should not be included in init, create separate init
+                      location: locationControl.text,
                       notes: notesControl.text);
                 }
 
                 // Add Event object to the database
                 // TODO: Return the event ID for line 161
-                FirestoreHelper.addDocument(Collections.events,
-                    doc: EventsDoc(), model: event, error: (error) {
+                FirestoreHelper.addDocument(Collections.events, doc: event,
+                    error: (error) {
                   Fluttertoast.showToast(msg: error.toString());
                   _setIsWaiting(false);
-                }, success: () {
+                }, success: (id) {
                   Fluttertoast.showToast(msg: "${event.name} Created");
                   _setIsWaiting(false);
                 });
