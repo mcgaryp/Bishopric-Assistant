@@ -21,7 +21,6 @@ class Assignment extends DatabaseModel {
           "name": name,
           AssignmentsDoc.dueDate: dateTime,
           AssignmentsDoc.notes: notes,
-          // TODO: assignee
         });
 
   Assignment.model(int id, String name) : super(id, name, {});

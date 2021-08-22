@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 /// Copyright 2021 porter. All rights reserved.
 ///
 
+// TODO: Comment
 // TODO: Complete Page on Mock up
 class Privacy extends StatelessWidget {
   const Privacy({Key? key}) : super(key: key);

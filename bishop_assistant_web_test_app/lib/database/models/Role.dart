@@ -8,6 +8,7 @@ import 'package:bishop_assistant_web_test_app/database/DatabaseModel.dart';
 /// Copyright 2021 porter. All rights reserved.
 ///
 
+// TODO: Comment
 // TODO: Is there a smarter way to look at and evaluate this data from the database?
 enum Role {
   none,

@@ -14,6 +14,19 @@ import 'package:fluttertoast/fluttertoast.dart';
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
 
+// TODO: Find out how to notify the user they are offline
+// TODO: Define either in a readme or in this file what different Firebase Objects are and do
+//    Running list of items to document from Firebase
+//      - Snapshot
+//        - QuerySnapshot
+//        - AsyncSnapShot
+//        - QueryDocumentSnapshot
+//        - DocumentSnapshot
+//        -
+//      - Stream
+//      - Collection
+//      - Document
+// TODO: Comment
 class FirestoreHelper {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -93,8 +106,6 @@ class FirestoreHelper {
     return 0;
   }
 
-  // TODO: Find out how to notify the user they are offline
-  // TODO: Modify this so that it can be used to create a document in any collection
   @Deprecated("Use Add Document instead")
   static Future<void> createMember(Member member,
       {required Function() onSuccess,
@@ -134,7 +145,6 @@ class FirestoreHelper {
           .update(counterData)
           .then((value) {
         // notify of success
-        // TODO: Change color to match theme
         Fluttertoast.showToast(
             msg: "Welcome ${member.name}", timeInSecForIosWeb: 4);
         // activate callback
@@ -199,6 +209,7 @@ class FirestoreHelper {
   }
 
   // Find Member uses a username to find the account of a member
+  // TODO: Should this be a more general way?
   static Future<Member?> findMember(String username) async {
     final QuerySnapshot snapshot =
         await _firestore.collection(Collections.members.string()).get();

@@ -1,5 +1,6 @@
 import 'package:bishop_assistant_web_test_app/pages/event/EventPage.dart';
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
+import 'package:bishop_assistant_web_test_app/widgets/page_support/Error404Page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,7 @@ import 'package:flutter/material.dart';
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
 
+// TODO: Comment
 class MyFirebaseApp extends StatelessWidget {
   const MyFirebaseApp({Key? key}) : super(key: key);
 
@@ -26,15 +28,13 @@ class MyFirebaseApp extends StatelessWidget {
           builder: (BuildContext context, AsyncSnapshot<FirebaseApp> snapshot) {
             // Check for errors
             if (snapshot.hasError) {
-              return SomethingWentWrong();
+              return Error404Page();
             }
 
             // Once complete, show your application
             if (snapshot.connectionState == ConnectionState.done) {
-              // TODO: Consider using the Home page as the starting point and
-              //    sending the user to login if there is not a current session
-              //    open to load their personal information
-              // return Login(
+              // TODO: Consider using the Home page as the starting point and sending the user to login if there is not a current session open to load their personal information
+              // return Login();
               return EventPage();
             }
 
@@ -47,15 +47,8 @@ class MyFirebaseApp extends StatelessWidget {
   }
 }
 
-class SomethingWentWrong extends StatelessWidget {
-  const SomethingWentWrong({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(child: Center(child: Text("SOME wrong THING!!")));
-  }
-}
-
+// TODO: Implement this as a page with a spinner
+// TODO: Standardize a custom spinner component
 class Loading extends StatelessWidget {
   const Loading({Key? key}) : super(key: key);
 
