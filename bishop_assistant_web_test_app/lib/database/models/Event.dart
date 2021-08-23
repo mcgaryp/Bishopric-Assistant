@@ -60,6 +60,27 @@ class Meeting extends Event {
               Event.eventTypePath: EventType.meeting.index,
             });
 
+  Meeting.create(
+    String name, {
+    required DateTime dateTime,
+    required String agenda,
+    required List<Member> assignees,
+    String? location,
+    String? notes,
+  }) : super(-1, name, dateTime, EventType.meeting,
+            location: location,
+            notes: notes,
+            agenda: agenda,
+            assignees: assignees,
+            map: {
+              FirestoreDocument.namePath: name,
+              Event.dateTimePath: dateTime,
+              Event.agendaPath: agenda,
+              Event.locationPath: location,
+              Event.notesPath: notes,
+              Event.eventTypePath: EventType.meeting.index,
+            });
+
   // region Static Members
   static Meeting example1 = Meeting(-1, "Ward Counsel", DateTime.now(),
       _exampleAgenda, [Member.bishopExample, Member.counselor1Example],
@@ -112,6 +133,23 @@ class Interview extends Event {
               Event.eventTypePath: EventType.interview.index,
             });
 
+  Interview.create(String name,
+      {required DateTime dateTime,
+      required String interviewee,
+      required Member assignee,
+      String? notes})
+      : super(-1, name, dateTime, EventType.interview,
+            notes: notes,
+            assignees: [assignee],
+            interviewee: interviewee,
+            map: {
+              FirestoreDocument.namePath: name,
+              Event.dateTimePath: dateTime,
+              Event.notesPath: notes,
+              Event.intervieweePath: interviewee,
+              Event.eventTypePath: EventType.interview.index,
+            });
+
   // region Static Members
   static Interview example1 = Interview(-1, "Temple Interview", DateTime.now(),
       "John John", Member.counselor1Example);
@@ -128,11 +166,23 @@ class Interview extends Event {
 }
 
 extension ParseEventType on EventType {
+  @Deprecated("Use fromID")
   static EventType fromString(String string) {
     switch (string) {
       case "Interview":
         return EventType.interview;
       case "Meeting":
+        return EventType.meeting;
+      default:
+        return EventType.none;
+    }
+  }
+
+  static EventType fromID(int eventID) {
+    switch(eventID) {
+      case 1:
+        return EventType.interview;
+      case 2:
         return EventType.meeting;
       default:
         return EventType.none;

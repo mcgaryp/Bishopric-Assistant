@@ -3,6 +3,9 @@ import 'package:bishop_assistant_web_test_app/database/FirestoreHelper.dart';
 import 'package:bishop_assistant_web_test_app/database/models/Event.dart';
 import 'package:bishop_assistant_web_test_app/database/models/EventType.dart';
 import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
+import 'package:bishop_assistant_web_test_app/database/models/MemberEvents.dart';
+import 'package:bishop_assistant_web_test_app/database/models/OrganizationEvents.dart';
+import 'package:bishop_assistant_web_test_app/util/MyToast.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
 import 'package:bishop_assistant_web_test_app/util/Validators.dart';
 import 'package:bishop_assistant_web_test_app/widgets/FirebaseDropDown.dart';
@@ -12,7 +15,6 @@ import 'package:bishop_assistant_web_test_app/widgets/MyButton.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/CardDateTimeRow.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/MyCard.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 ///
 /// CreateEvent.dart
@@ -41,13 +43,14 @@ class _CreateEventState extends State<CreateEvent> {
 
   DateTime _selectedDateTime = DateTime.now();
 
-  // TODO: What should assigneeList and assignee look like?
-  List _selectedAssignees = [];
-  String _selectedAssignee = "";
+  List<Member> _selectedAssignees = [];
 
   bool _isWaiting = false;
 
   EventType _selectedEventType = EventType.none;
+
+  int numberOfAssignees = -1;
+  int counter = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -130,38 +133,40 @@ class _CreateEventState extends State<CreateEvent> {
                 // Create Even Object
                 Event event;
                 if (_selectedEventType == EventType.interview) {
-                  event = Interview(
-                    -1,
+                  event = Interview.create(
                     nameControl.text,
-                    _selectedDateTime,
-                    intervieweeControl.text,
-                    Member.bishopExample,
-                    // TODO: Solve _selectedAssignees, should not be included in init, create separate init
+                    dateTime: _selectedDateTime,
+                    interviewee: intervieweeControl.text,
+                    assignee: _selectedAssignees.first,
                     notes: notesControl.text,
                   );
                 } else {
-                  event = Meeting(-1, nameControl.text, _selectedDateTime,
-                      agendaControl.text, [Member.bishopExample],
-                      // TODO: Solve _selectedAssignees, should not be included in init, create separate init
+                  event = Meeting.create(nameControl.text,
+                      dateTime: _selectedDateTime,
+                      agenda: agendaControl.text,
+                      assignees: _selectedAssignees,
                       location: locationControl.text,
                       notes: notesControl.text);
                 }
 
                 // Add Event object to the database
-                // TODO: Return the event ID for line 161
-                FirestoreHelper.addDocument(Collections.events, doc: event,
-                    error: (error) {
-                  Fluttertoast.showToast(msg: error.toString());
-                  _setIsWaiting(false);
-                }, success: (id) {
-                  Fluttertoast.showToast(msg: "${event.name} Created");
-                  _setIsWaiting(false);
+                FirestoreHelper.addDocument(Collections.events,
+                    doc: event, error: _error, success: (eventID) async {
+                  // Tie the Event to the organization
+                  int organizationID =
+                      await OrganizationEvents.findOrganizationID(eventID);
+                  FirestoreHelper.addDocument(Collections.organization_events,
+                      doc: OrganizationEvents(eventID, organizationID),
+                      error: _error, success: (organizationEventID) async {
+                    // Tie the Event to the assignees
+                    for (Member member in _selectedAssignees) {
+                      await FirestoreHelper.addDocument(Collections.member_events,
+                          doc: MemberEvents(member.id, organizationEventID),
+                          error: _error,
+                          success: _success);
+                    }
+                  });
                 });
-
-                // TODO: Tie the Event to the organization
-
-                // TODO: Tie the Event to the assignees
-
               } else
                 _setIsWaiting(false);
             }),
@@ -184,23 +189,49 @@ class _CreateEventState extends State<CreateEvent> {
   }
 
   // Updates the List of Assigned members
-  void _onAssigneesChange(List list) {
+  Future<void> _onAssigneesChange(list) async {
+    _setIsWaiting(true);
+    List<Member> assignees = [];
+
+    for (FirestoreDocument document in list) {
+      Member member = await Member.find(document.id);
+      assignees.add(member);
+    }
+
     setState(() {
-      _selectedAssignees = list;
+      _selectedAssignees = assignees;
+      _isWaiting = false;
     });
   }
 
   // Updates the assigned member
-  void _onAssigneeChange(name) {
+  Future<void> _onAssigneeChange(int memberID) async {
+    _setIsWaiting(true);
+    Member member = await Member.find(memberID);
+
     setState(() {
-      _selectedAssignee = name;
+      _selectedAssignees = [member];
+      _isWaiting = false;
     });
   }
 
   // TODO: Return event Type ID, this sort of already does this.
-  void _onEventTypeChange(eventType) {
+  void _onEventTypeChange(int eventType) {
     setState(() {
-      _selectedEventType = ParseEventType.fromString(eventType);
+      _selectedEventType = ParseEventType.fromID(eventType);
     });
+  }
+
+  void _error(error) {
+    MyToast.toastError(error.toString());
+    _setIsWaiting(false);
+  }
+
+  void _success(_) {
+    counter += 1;
+    if (counter == _selectedAssignees.length) {
+      MyToast.toastSuccess("Created ${nameControl.text}");
+      _setIsWaiting(false);
+    }
   }
 }

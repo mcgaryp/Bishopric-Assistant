@@ -127,7 +127,7 @@ class FirestoreHelper {
   // TODO: Comment
   // Used to add a document to the database
   /// APPROVED
-  static void addDocument(Collections path,
+  static Future<void> addDocument(Collections path,
       {required Document doc,
       required Function(dynamic) error,
       required Function(int) success}) async {
