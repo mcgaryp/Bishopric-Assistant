@@ -59,3 +59,4 @@ const String assignmentName = "Assignment Name";
 const String assignmentNameHint = "What is the name of this assignment";
 const String save = "Save";
 const String intervieweeHint = "Name of the person to be interviewed";
+const String created = "Created ";

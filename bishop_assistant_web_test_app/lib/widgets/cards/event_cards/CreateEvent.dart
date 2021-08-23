@@ -24,7 +24,7 @@ import 'package:flutter/material.dart';
 /// Copyright 2021 porter. All rights reserved.
 ///
 
-// TODO: Comments
+/// Properly creates an event and stores it in the database
 class CreateEvent extends StatefulWidget {
   const CreateEvent({Key? key}) : super(key: key);
 
@@ -33,24 +33,24 @@ class CreateEvent extends StatefulWidget {
 }
 
 class _CreateEventState extends State<CreateEvent> {
+  // Global Key for the form
   final _formKey = GlobalKey<FormState>();
 
+  // Text Editing Controllers
   TextEditingController nameControl = TextEditingController();
   TextEditingController locationControl = TextEditingController();
   TextEditingController agendaControl = TextEditingController();
   TextEditingController notesControl = TextEditingController();
   TextEditingController intervieweeControl = TextEditingController();
 
+  // Specific fields for events
   DateTime _selectedDateTime = DateTime.now();
-
   List<Member> _selectedAssignees = [];
-
-  bool _isWaiting = false;
-
   EventType _selectedEventType = EventType.none;
 
-  int numberOfAssignees = -1;
-  int counter = 0;
+  // Util to establish proper state management of widget
+  bool _isWaiting = false;
+  int _counter = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -123,88 +123,45 @@ class _CreateEventState extends State<CreateEvent> {
       //     secondLabel: hours, hint: DateFormat.j().format(DateTime.now())),
       AbsorbPointer(
         absorbing: _isWaiting,
-        child: MyButton(
-            label: createEvent,
-            onPressed: () {
-              _setIsWaiting(true);
-
-              // Validate form
-              if (_formKey.currentState!.validate()) {
-                // Create Even Object
-                Event event;
-                if (_selectedEventType == EventType.interview) {
-                  event = Interview.create(
-                    nameControl.text,
-                    dateTime: _selectedDateTime,
-                    interviewee: intervieweeControl.text,
-                    assignee: _selectedAssignees.first,
-                    notes: notesControl.text,
-                  );
-                } else {
-                  event = Meeting.create(nameControl.text,
-                      dateTime: _selectedDateTime,
-                      agenda: agendaControl.text,
-                      assignees: _selectedAssignees,
-                      location: locationControl.text,
-                      notes: notesControl.text);
-                }
-
-                // Add Event object to the database
-                FirestoreHelper.addDocument(Collections.events,
-                    doc: event, error: _error, success: (eventID) async {
-                  // Tie the Event to the organization
-                  int organizationID =
-                      await OrganizationEvents.findOrganizationID(eventID);
-                  FirestoreHelper.addDocument(Collections.organization_events,
-                      doc: OrganizationEvents(eventID, organizationID),
-                      error: _error, success: (organizationEventID) async {
-                    // Tie the Event to the assignees
-                    for (Member member in _selectedAssignees) {
-                      await FirestoreHelper.addDocument(Collections.member_events,
-                          doc: MemberEvents(member.id, organizationEventID),
-                          error: _error,
-                          success: _success);
-                    }
-                  });
-                });
-              } else
-                _setIsWaiting(false);
-            }),
+        child: MyButton(label: createEvent, onPressed: _onPress),
       )
     ]);
   }
 
-  // Updates the selected time and date
+  /// Updates the selected time and date
   void _onDateTimeChange(DateTime time) {
     setState(() {
       _selectedDateTime = time;
     });
   }
 
-  // Updates the state of the Waiting variable
+  /// Updates the state of the Waiting variable
   void _setIsWaiting(bool val) {
     setState(() {
       _isWaiting = val;
     });
   }
 
-  // Updates the List of Assigned members
+  /// Updates the List of Assigned members
   Future<void> _onAssigneesChange(list) async {
+    // Prevent user from selecting the create button
     _setIsWaiting(true);
     List<Member> assignees = [];
 
+    // Create the list of members
     for (FirestoreDocument document in list) {
       Member member = await Member.find(document.id);
       assignees.add(member);
     }
 
+    // Set the variables and allow users to interact with create button
     setState(() {
       _selectedAssignees = assignees;
       _isWaiting = false;
     });
   }
 
-  // Updates the assigned member
+  /// Updates the assigned member
   Future<void> _onAssigneeChange(int memberID) async {
     _setIsWaiting(true);
     Member member = await Member.find(memberID);
@@ -215,22 +172,71 @@ class _CreateEventState extends State<CreateEvent> {
     });
   }
 
-  // TODO: Return event Type ID, this sort of already does this.
+  /// Updates the event type
   void _onEventTypeChange(int eventType) {
     setState(() {
       _selectedEventType = ParseEventType.fromID(eventType);
     });
   }
 
+  /// When the create button is pressed add the information to the database
+  void _onPress() {
+    _setIsWaiting(true);
+
+    // Validate form
+    if (_formKey.currentState!.validate()) {
+      // Create Even Object
+      Event event;
+      if (_selectedEventType == EventType.interview) {
+        event = Interview.create(
+          nameControl.text,
+          dateTime: _selectedDateTime,
+          interviewee: intervieweeControl.text,
+          assignee: _selectedAssignees.first,
+          notes: notesControl.text,
+        );
+      } else {
+        event = Meeting.create(nameControl.text,
+            dateTime: _selectedDateTime,
+            agenda: agendaControl.text,
+            assignees: _selectedAssignees,
+            location: locationControl.text,
+            notes: notesControl.text);
+      }
+
+      // Add Event object to the database
+      FirestoreHelper.addDocument(Collections.events, doc: event, error: _error,
+          success: (eventID) async {
+        // Tie the Event to the organization
+        int organizationID =
+            await OrganizationEvents.findOrganizationID(eventID);
+        FirestoreHelper.addDocument(Collections.organization_events,
+            doc: OrganizationEvents(eventID, organizationID),
+            error: _error, success: (organizationEventID) async {
+          // Tie the Event to the assignees
+          for (Member member in _selectedAssignees) {
+            await FirestoreHelper.addDocument(Collections.member_events,
+                doc: MemberEvents(member.id, organizationEventID),
+                error: _error,
+                success: _success);
+          }
+        });
+      });
+    } else
+      _setIsWaiting(false);
+  }
+
+  /// Displays an error when presented
   void _error(error) {
-    MyToast.toastError(error.toString());
+    MyToast.toastError(error);
     _setIsWaiting(false);
   }
 
+  /// Notifies the user that the event has been properly created
   void _success(_) {
-    counter += 1;
-    if (counter == _selectedAssignees.length) {
-      MyToast.toastSuccess("Created ${nameControl.text}");
+    _counter += 1;
+    if (_counter == _selectedAssignees.length) {
+      MyToast.toastSuccess(created + nameControl.text);
       _setIsWaiting(false);
     }
   }

@@ -160,8 +160,7 @@ class _CreateAssignmentState extends State<CreateAssignment> {
 
   /// Should the process be completed then notify the user
   void _success(int memberOrganizationAssignmentID) {
-    MyToast.toastSuccess(
-        "Created ${nameControl.text}");
+    MyToast.toastSuccess(created + nameControl.text);
     _setIsWaiting(false);
   }
 
