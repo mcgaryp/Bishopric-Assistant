@@ -31,9 +31,15 @@ import 'package:flutter/material.dart';
 class FirestoreHelper {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  /// TODO: Comment
   /// APPROVED
-  static Future<QuerySnapshot> getCollection(String path) =>
-      _firestore.collection(path).get();
+  static Future<QuerySnapshot> getCollection(Collections path) =>
+      _firestore.collection(path.string).get();
+
+  /// TODO: Comment
+  /// APPROVED
+  static Future<DocumentSnapshot> getDocument(Collections path, int memberID) =>
+      _firestore.collection(path.string).doc(memberID.toString()).get();
 
   /// Return a Stream<QuerySnapshot> of a collection. Automatically Updates when
   ///  database changes

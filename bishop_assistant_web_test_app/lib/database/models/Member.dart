@@ -1,6 +1,8 @@
 import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
+import 'package:bishop_assistant_web_test_app/database/FirestoreHelper.dart';
 import 'package:bishop_assistant_web_test_app/database/models/Role.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/member_cards/MemberCard.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -139,6 +141,19 @@ class Member extends FirestoreDocument {
     MemberCard(Member.wardExecutiveSecretaryExample),
     MemberCard(Member.wardAssistantExecutiveSecretaryExample)
   ];
+
+  static Future<Member> find(int memberID) async {
+    DocumentSnapshot memberData =
+        await FirestoreHelper.getDocument(Collections.members, memberID);
+    return Member(
+        id: memberID,
+        firstName: memberData[firstNamePath],
+        lastName: memberData[lastNamePath],
+        phone: memberData[phonePath],
+        email: memberData[emailPath],
+        role: Role.values[memberData[roleIdPath]],
+        password: memberData[passwordPath]);
+  }
 //endregion
 }
 

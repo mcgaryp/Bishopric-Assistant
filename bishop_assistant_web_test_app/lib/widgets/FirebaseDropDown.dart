@@ -4,6 +4,7 @@ import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -20,7 +21,7 @@ class FirebaseDropDown extends StatefulWidget {
   final String hint;
   final bool isInput;
   final String? Function(dynamic)? validator;
-  final void Function(dynamic)? onchange;
+  final void Function(int)? onchange;
 
   const FirebaseDropDown(
       {required this.collectionPath,
@@ -65,6 +66,7 @@ class _FirebaseDropDownState extends State<FirebaseDropDown> {
           DropdownButtonFormField(
             decoration: widget.isInput ? _border() : _floating(),
             isExpanded: true,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: widget.validator,
             value: dropdownValue,
             onChanged: _onChanged,

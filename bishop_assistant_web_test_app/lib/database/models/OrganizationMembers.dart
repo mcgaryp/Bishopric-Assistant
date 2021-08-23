@@ -20,7 +20,7 @@ class OrganizationMembers extends Document {
   // TODO: potentially use int?
   static Future<int> findOrganizationID(int memberID) async {
     QuerySnapshot collection = await FirestoreHelper.getCollection(
-        Collections.organization_members.string);
+        Collections.organization_members);
 
     for (QueryDocumentSnapshot document in collection.docs) {
       if (document[memberIDPath] == memberID)
@@ -33,7 +33,7 @@ class OrganizationMembers extends Document {
   // TODO: potentially use int?
   static Future<int> findMemberID(int organizationID) async {
     QuerySnapshot collection = await FirestoreHelper.getCollection(
-        Collections.organization_members.string);
+        Collections.organization_members);
 
     for (QueryDocumentSnapshot document in collection.docs) {
       if (document[organizationIDPath] == organizationID)

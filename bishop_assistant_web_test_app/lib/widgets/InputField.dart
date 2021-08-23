@@ -61,6 +61,7 @@ class InputField extends StatelessWidget {
               height: 48, decoration: _isFloating ? floatingLightBox : null),
           Container(
             child: TextFormField(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               controller: controller,
               obscureText: isPassword,
               maxLines: maxLines ? null : 1,

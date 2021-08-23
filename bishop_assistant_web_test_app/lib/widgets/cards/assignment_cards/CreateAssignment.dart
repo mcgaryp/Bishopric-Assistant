@@ -32,23 +32,23 @@ class CreateAssignment extends StatefulWidget {
 }
 
 class _CreateAssignmentState extends State<CreateAssignment> {
-  /// Used to identify the form
+  // Used to identify the form
   final _formKey = GlobalKey<FormState>();
 
-  /// Text editing controllers for form input
+  // Text editing controllers for form input
   TextEditingController nameControl = TextEditingController();
   TextEditingController notesControl = TextEditingController();
 
-  /// Is the widget waiting for a callback to complete
+  // Is the widget waiting for a callback to complete
   bool _isWaiting = false;
 
-  /// The assigned member to complete the Assignment
+  // The assigned member to complete the Assignment
   Member? _selectedMember;
 
-  /// Selected due date of the assignment
+  // Selected due date of the assignment
   DateTime _selectedDateTime = DateTime.now();
 
-  /// The assignment details
+  // The assignment details
   Assignment? assignment;
 
   @override
@@ -93,10 +93,11 @@ class _CreateAssignmentState extends State<CreateAssignment> {
     });
   }
 
-  /// Updates the selected assignee for the assigment
-  void _onAssigneeChange(memberName) {
+  /// Updates the selected assignee for the assignment
+  void _onAssigneeChange(int memberID) async {
+    Member member = await Member.find(memberID);
     setState(() {
-      _selectedMember = memberName;
+      _selectedMember = member;
     });
   }
 
@@ -119,8 +120,9 @@ class _CreateAssignmentState extends State<CreateAssignment> {
     // Validate form
     if (_formKey.currentState!.validate()) {
       // Create assignment
-      assignment = Assignment(
-          -1, nameControl.text, _selectedDateTime, _selectedMember!,
+      assignment = Assignment.create(nameControl.text,
+          dateTime: _selectedDateTime,
+          assignee: _selectedMember!,
           notes: notesControl.text);
 
       // Add assignment to database

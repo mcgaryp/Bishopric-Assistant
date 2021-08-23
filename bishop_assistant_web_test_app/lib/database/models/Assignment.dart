@@ -27,6 +27,15 @@ class Assignment extends FirestoreDocument {
 
   Assignment.model(int id, String name) : super(id, name, {});
 
+  /// Used to ONLY create new instances in the Database
+  Assignment.create(String name,
+      {required this.dateTime, required this.assignee, this.notes})
+      : super(-1, name, {
+          FirestoreDocument.namePath: name,
+          dueDatePath: dateTime,
+          notePath: notes,
+        });
+
   // region Static Members
   static Assignment example1 = Assignment(-1, "Set Appointment", DateTime.now(),
       Member.wardExecutiveSecretaryExample,
