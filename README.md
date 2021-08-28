@@ -96,6 +96,9 @@ Based on the following alternatives it would be wise to use Firebase Firestore a
     - Ward Counsel Member
 ``` -->
 # Functionalities
+## Schedule Talks and Speakers
+The Counselors of the bishopric can add and edit names and talk topics in a calendar for sacrament meeting
+
 ## User Accounts
 User accounts are essential. The account will be used to house the following information:  
 - **Name** First & Last
