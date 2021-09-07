@@ -21,8 +21,120 @@ Find the complete UI mock ups [@Framer.com Project](https://framer.com/projects/
 
 </details>
 
+<details><summary>
+
+# MVP (Minimum Viable Product)
+
+</summary>
+
+1. Account Creation
+   - First Name
+   - Last Name
+   - Email
+     - Username is the users email
+     - Not allowed to have the same username as someone else
+   - Phone Number
+     - Format to look like a phone number +1 (123) 456-4568
+   - Role
+     - Pulled from database once never again.
+   - Create Organization with a Name
+     - Option only is displayed if the bishop role is selected
+     - Cannot have the same name as another organization
+   - Password
+     - Does not show the password but instead black circles
+     - Must have a number or a symbol
+     - Must be at least 8 characters long
+   - Confirm Password
+     - Shows black circles like password
+     - Must match the password
+   - General Validation on all fields
+     - No empty Fields
+   - Saving Account
+     - After Validation is complete save the data to the database
+     - Return to the login page is successful
+     - Remain on the Sign up Page if an error occurred
+     - Inform the user of the error with a toast
+2. Login with created account
+   - Validate username
+     - Pull the list of users from the database (This only should happen once per login attempt)
+     - If the user is in the database then proceed to validate the password
+     - If the user is not in the database then terminate validation and inform the user that the password or username were incorrect
+   - Validate password
+     - Validate the password from the user given in the database
+     - If the password is confirmed, cache the users data in a session proceed to the Home Page
+     - If the password fails notify the user that the password or username were incorrect
+3. Join an organization
+   - If a user has not joined an organization prompt them to by showing a list of organizations that could be joined
+   - Organization Card
+     - Name of the organization 
+     - Name of the bishop of that organization
+     - Join organization button
+       - Add member to the organizations request list
+4. Pages
+   - Home
+     - View all the events, assignments, and members in the users organization
+   - Events
+     - Events can be either an interview or a meeting
+     - View all events in the users organization
+     1. Create an Event
+        - Name
+        - When (Day and time)
+          - Must be a future date
+        - Where (Location)
+        - Notes (Optional)
+        - Event Type (Interview or Meeting)
+        1. Create an Interview
+           - Only displays if the interview has been selected
+           - Who (Assigned to one person)
+           - Why (The person who persons being interviewed)
+        2. Create a Meeting
+           - Only displays if the meeting has been selected
+           - Who (Assigned to one or more persons)
+           - Why (Agenda of the meeting)
+             - If empty replace with "TBD"
+     2. Event Validation
+        - Only optional fields may remain empty
+     3. Save Event
+        - Validate
+        - Save model in database
+        - Connect to Organization
+        - Connect to assignee(s)
+   - Assignments
+     - View all assignments in the users organization
+     1. Create an Assignment
+        - Name
+        - When (Day and Time)
+          - Must be a future date
+        - Who (Assigned to one person)
+        - Notes (Optional)
+     2. Validation
+        - Only optional fields may remain empty
+     3. Save Assignment
+        - Validate
+        - Save model in database
+        - Connect to Organization
+        - Connect to assignee
+   - Organization
+     - View all the members in the users organization
+     1. Add a Member to organization
+        - Listen actively to changes in the request queue for members that want to join the organization
+        - List members that would like to join with option to add or deny request
+        - Notify member after request has been denied or accepted
+     2. Remove a Member from organization
+        - Delete Member from organization in database
+5. Analytics
+   - Want to know when some thing takes a long time, What is defined as a long time?
+   - Want to know when there is a bug, Bug Reporting?
+6. Tests
+   - Unit tests
+
+</details>
+<details><summary>
 
 # Data Model Structure
+
+</summary>
+
 ![Database Structure](./charts/Database_Structure.png)
 
 ## Firebase
@@ -95,7 +207,13 @@ Based on the following alternatives it would be wise to use Firebase Firestore a
     - Clerk
     - Ward Counsel Member
 ``` -->
+</details>
+<details><summary>
+
 # Functionalities
+
+</summary>
+
 ## Schedule Talks and Speakers
 The Counselors of the bishopric can add and edit names and talk topics in a calendar for sacrament meeting
 
@@ -269,11 +387,23 @@ Only the owner may edit the name or other information of the organization.
 <!--#### Branch Organization
 TODO: Not to be added at this time but here as a place holder for later down the road -->
 
+</details>
+<details><summary>
+
 # State Management
+
+</summary>
+
 Various state machines throughout the application
 ![Stae Management Images](./charts/State_Machines.png)
 
+</details>
+<details><summary>
+
 # Components
+
+</summary>
+
 ## Navigation
 Used to navigate from view/page to another.
 ### Web 
@@ -406,6 +536,8 @@ Members of Level 3 Clearance may recieve organization access request notificatio
 <img src= "https://via.placeholder.com/150/7192be/FFFFFF?text=7192BE">
 <img src= "https://via.placeholder.com/150/5370b9/FFFFFF?text=5370b9">
 <img src= "https://via.placeholder.com/150/A3A3A3/FFFFFF?text=A3A3A3">
+
+</details>
 
 # Image & Video Reference
 ![App Demo](./videos/Mobile_Demo.mov)
