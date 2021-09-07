@@ -34,13 +34,13 @@ enum Collections {
   organization_assignments,
   organization_events,
   organization_members,
+  organization_waiting_list,
   roles,
   security,
   util
 }
 
 extension ParseToString on Collections {
-
   String get string {
     return this.toString().split('.').last;
   }
