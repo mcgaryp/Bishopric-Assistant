@@ -9,18 +9,6 @@ Find the complete UI mock ups [@Framer.com Project](https://framer.com/projects/
 
 </details>
 
-<details><summary>Tasks to look into</summary>
-
-- [ ] [Kirtura](https://github.com/Kitura/Kitura)
-- [ ] [Vapor](https://github.com/vapor/vapor)
-    - [ ] [Leaf](https://github.com/vapor/leaf)
-- [ ] [Apple's Focus](https://swift.org/server/)
-- [ ] [RW Tutorial](https://www.raywenderlich.com/21799750-templating-vapor-applications-with-leaf)
-- [ ] [ADR](https://adr.github.io)
-- [ ] [ADL Example](https://adr.github.io/madr/docs/adr/)
-
-</details>
-
 <details><summary>
 
 # MVP (Minimum Viable Product)
@@ -136,6 +124,18 @@ Find the complete UI mock ups [@Framer.com Project](https://framer.com/projects/
 </summary>
 
 ![Database Structure](./charts/Database_Structure.png)
+
+<details><summary>Backends to look into</summary>
+
+- [ ] [Kirtura](https://github.com/Kitura/Kitura)
+- [ ] [Vapor](https://github.com/vapor/vapor)
+    - [ ] [Leaf](https://github.com/vapor/leaf)
+- [ ] [Apple's Focus](https://swift.org/server/)
+- [ ] [RW Tutorial](https://www.raywenderlich.com/21799750-templating-vapor-applications-with-leaf)
+- [ ] [ADR](https://adr.github.io)
+- [ ] [ADL Example](https://adr.github.io/madr/docs/adr/)
+
+</details>
 
 ## Firebase
 - According to [this article](https://stackoverflow.com/questions/41107699/using-same-firebase-app-with-web-and-mobile-app) a firebase project can be used as a backend to web applicaiton and mobile applications at the same time.
