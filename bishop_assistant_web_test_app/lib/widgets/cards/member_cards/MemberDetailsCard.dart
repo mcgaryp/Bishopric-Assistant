@@ -40,7 +40,7 @@ class MemberDetailsCard extends StatelessWidget {
       Row(
         mainAxisSize: MainAxisSize.max,
         children: [
-          CardActionButton(createAssignment, onPressed: () {}),
+          CardActionButton(createEvent, onPressed: () {}),
           CardActionButton(createAssignment, onPressed: () {}),
           CardActionButton(remove, onPressed: () {}, style: MyButtonStyle.error)
         ],
