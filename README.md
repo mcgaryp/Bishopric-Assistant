@@ -52,21 +52,21 @@ Based on the following alternatives it would be wise to use Firebase as it will 
     - Creates an organization
 
 - Level 2 Clearance: Level 3 Clearance, Level 4 Clearance
-    - Add/Remove Level 3 & 4 Clearance members
-    - Can view progress on assignment_domain of any members
-    - Can be scheduled interview events
+    - Add/Remove Level 3 & 4 Clearance member_domain
+    - Can view progress on assignment_domain of any member_domain
+    - Can be scheduled interview event_domain
 
 - Level 3 Clearance: Level 4 Clearance
-    - Add/Remove Level 2 & 4 Clearance members
-    - Create events
+    - Add/Remove Level 2 & 4 Clearance member_domain
+    - Create event_domain
     - Create assignment_domain
-    - Can cancel events
+    - Can cancel event_domain
 
 - Level 4 Clearance
-    - Can be scheduled meeting events
+    - Can be scheduled meeting event_domain
     - Can be scheduled assignment_domain
     - Can complete assignment_domain
-    - Can view assigned events
+    - Can view assigned event_domain
     - Can view assigned assignment_domain
 
 - Role
