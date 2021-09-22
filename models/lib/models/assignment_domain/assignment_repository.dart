@@ -1,4 +1,4 @@
-import 'package:models/models/assignments/assignment.dart';
+import 'package:models/models/assignment_domain/assignment.dart';
 import 'package:models/shared/repository.dart';
 
 ///

@@ -28,3 +28,8 @@ abstract class EventRepository extends Repository<Event> {
   /// [event] to save
   void store(Event event);
 }
+
+mixin Test {
+  final apple = 4;
+  void myApple();
+}

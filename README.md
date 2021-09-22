@@ -53,21 +53,21 @@ Based on the following alternatives it would be wise to use Firebase as it will 
 
 - Level 2 Clearance: Level 3 Clearance, Level 4 Clearance
     - Add/Remove Level 3 & 4 Clearance members
-    - Can view progress on assignments of any members
+    - Can view progress on assignment_domain of any members
     - Can be scheduled interview events
 
 - Level 3 Clearance: Level 4 Clearance
     - Add/Remove Level 2 & 4 Clearance members
     - Create events
-    - Create assignments
+    - Create assignment_domain
     - Can cancel events
 
 - Level 4 Clearance
     - Can be scheduled meeting events
-    - Can be scheduled assignments
-    - Can complete assignments
+    - Can be scheduled assignment_domain
+    - Can complete assignment_domain
     - Can view assigned events
-    - Can view assigned assignments
+    - Can view assigned assignment_domain
 
 - Role
     - Bishop
