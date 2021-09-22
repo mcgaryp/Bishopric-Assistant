@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 
+import 'uuid.dart';
+
+export 'uuid.dart';
+
 ///
 /// entity.dart
 /// bishopric-assistant
@@ -10,6 +14,9 @@ import 'package:flutter/cupertino.dart';
 
 /// An [Entity], as explained in the DDD book.
 abstract class Entity<T> {
+  final UUID id;
+  Entity(this.id);
+
   /// Entities compare by identity, not by attributes.
   ///
   /// The [other] entity.
