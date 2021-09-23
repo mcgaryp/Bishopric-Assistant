@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:models/models/organization_domain/organization_id.dart';
 import 'package:models/shared/entity.dart';
-import 'package:models/util/functions/functions.dart';
+import 'package:models/util/extensions/string_extensions.dart';
 
 import 'member.dart';
 import 'member_id.dart';
@@ -46,7 +46,7 @@ abstract class Organization extends Entity<Organization> {
   /// Setters
   ///
   /// [__name] private setter for name
-  set __name(String name) => _name = checkCapitalization(name);
+  set __name(String name) => _name = name.checkCapitalization;
 
   /// [__creator] private setter for the creator and initial member in the organization
   set __creator(User user) {

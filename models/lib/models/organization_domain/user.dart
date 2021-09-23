@@ -1,4 +1,4 @@
-import 'package:models/util/functions/functions.dart';
+import 'package:models/util/extensions/string_extensions.dart';
 
 ///
 /// user.dart
@@ -18,8 +18,8 @@ class User {
     this.__lastName = lastName;
   }
 
-  set __lastName(String name) => _lastName = checkCapitalization(name);
-  set __firstName(String name) => _firstName = checkCapitalization(name);
+  set __lastName(String name) => _lastName = name.checkCapitalization;
+  set __firstName(String name) => _firstName = name.checkCapitalization;
 
   String get name => "$firstName $lastName";
   String get firstName => _firstName;
