@@ -1,3 +1,5 @@
+import 'exceptions/negative_integer_error.dart';
+
 ///
 /// uuid.dart
 /// bishopric-assistant
@@ -8,9 +10,18 @@
 
 /// [UUID] forms a unique identity for an object
 abstract class UUID {
-  final int id;
+  late final int _id;
 
-  UUID(this.id);
+  UUID(int id) {
+    this.__id = id;
+  }
+
+  int get id => _id;
+
+  set __id(int id) {
+    if (id < 0) throw NegativeIntegerError();
+    this._id = id;
+  }
 
   // TODO: `create()` method which will create a random unique identifier
 }

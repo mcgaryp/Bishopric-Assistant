@@ -6,3 +6,4 @@
 /// Copyright 2021 Po. All rights reserved.
 ///
 export 'exceptions/empty_string_exception.dart';
+export 'exceptions/negative_integer_error.dart';

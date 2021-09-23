@@ -1,3 +1,6 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:models/models/organization_domain/member_id.dart';
+
 ///
 /// member_id_test.dart
 /// bishopric-assistant
@@ -6,9 +9,14 @@
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-class member_id_test {}
+class MemberIDTest {
+  static void checkMemberID() {
+    MemberID memberId = MemberID(9);
+    int result = memberId.id;
+    expect(result, 9);
+  }
+}
 
 main() {
-  // TODO: Implement
-  throw UnimplementedError();
+  test("Member ID Test", MemberIDTest.checkMemberID);
 }

@@ -5,9 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="99765baa-399f-478a-ab8c-6049cff60bfd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/models/lib/models/organization_domain/organization.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/lib/shared/uuid.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/shared/entity.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/shared/entity.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/lib/shared/exceptions/negative_integer_error.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/test/shared/exceptions/negative_integer_error_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/bishopric-assistant.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/bishopric-assistant.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/shared/exceptions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/shared/exceptions.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/shared/uuid.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/shared/uuid.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/test/models/organization_domain/member_id_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/test/models/organization_domain/member_id_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/test/models/organization_domain/organization_id_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/test/models/organization_domain/organization_id_test.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +23,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Dart Abstract File" />
-        <option value="Dart DataModel" />
         <option value="Dart File" />
+        <option value="Dart DataModel" />
+        <option value="Specification" />
+        <option value="Dart Test Case" />
       </list>
     </option>
   </component>
@@ -30,6 +37,14 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="1xFlzQ1g8CLYbuCg3J7l9wfDk0r" />
   <component name="ProjectLevelVcsManager">
@@ -43,8 +58,9 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/.idea" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Dart" />
+    <property name="settings.editor.selected.configurable" value="flutter.settings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
@@ -52,6 +68,8 @@
       <recent name="$PROJECT_DIR$/.idea" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/models/test/util" />
+      <recent name="$PROJECT_DIR$/models/lib/util/extensions" />
       <recent name="$PROJECT_DIR$/models/lib/shared/specification" />
     </key>
   </component>

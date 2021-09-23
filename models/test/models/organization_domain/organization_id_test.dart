@@ -1,3 +1,6 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:models/models/organization_domain/organization_id.dart';
+
 ///
 /// organization_id_test.dart
 /// bishopric-assistant
@@ -6,9 +9,19 @@
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-class organization_id_test {}
+class OrganizationIDTest {
+  static void checkOrganizationID() {
+    // Arrange
+    OrganizationID id = OrganizationID(9);
+    // Act
+    int result = id.id;
+    // Assert
+    expect(result, 9);
+  }
+}
 
 main() {
-  // TODO: Implement
-  throw UnimplementedError();
+  group("OrganizationID Test", () {
+    test("check the id sets right", OrganizationIDTest.checkOrganizationID);
+  });
 }
