@@ -1,0 +1,27 @@
+import 'package:models/util/functions/functions.dart';
+
+///
+/// user.dart
+/// bishopric-assistant
+///
+/// Created by Po on 9/22/21
+/// Copyright 2021 Po. All rights reserved.
+///
+
+/// [User] class includes the name, first, and last names of the user
+class User {
+  late String _firstName;
+  late String _lastName;
+
+  User({required String firstName, required String lastName}) {
+    this.__firstName = firstName;
+    this.__lastName = lastName;
+  }
+
+  set __lastName(String name) => _lastName = checkCapitalization(name);
+  set __firstName(String name) => _firstName = checkCapitalization(name);
+
+  String get name => "$firstName $lastName";
+  String get firstName => _firstName;
+  String get lastName => _lastName;
+}
