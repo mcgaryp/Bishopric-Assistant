@@ -1,3 +1,5 @@
+import 'package:models/models/member.dart';
+import 'package:models/models/organization.dart';
 import 'package:models/shared/repository.dart';
 
 import 'member.dart';
@@ -11,4 +13,7 @@ import 'member_id.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-mixin MemberRepository implements Repository<Member, MemberID> {}
+mixin MemberRepository implements Repository<Member, MemberID> {
+  @required
+  findAllMembersByOrganization(OrganizationID organizationID);
+}

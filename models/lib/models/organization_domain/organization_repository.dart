@@ -1,3 +1,5 @@
+import 'package:models/models/member.dart';
+import 'package:models/models/member_domain/member_id.dart';
 import 'package:models/shared/repository.dart';
 
 import 'organization.dart';
@@ -12,4 +14,7 @@ import 'organization_id.dart';
 ///
 
 mixin OrganizationRepository
-    implements Repository<Organization, OrganizationID> {}
+    implements Repository<Organization, OrganizationID> {
+  @required
+  Member findMember(MemberID id);
+}

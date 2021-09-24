@@ -12,8 +12,13 @@ import 'package:models/models/user.dart';
 ///
 
 mixin CreateOrganizationUseCase {
+  /// Creates a new organization
+  ///
+  /// [creatorId] id of the creator of the organization
+  /// [name] given to the new organization
+  /// returns a [ResultValue] if successful else [ResultError]
   @required
-  Future<Result> execute(UserID creatorId, String name);
+  Future<Result> execute({required UserID creatorId, required String name});
 }
 
 class DefaultCreateOrganizationUseCase implements CreateOrganizationUseCase {
@@ -24,7 +29,8 @@ class DefaultCreateOrganizationUseCase implements CreateOrganizationUseCase {
       this._userRepository, this._organizationRepository);
 
   @override
-  Future<Result> execute(UserID creatorId, String name) async {
+  Future<Result> execute(
+      {required UserID creatorId, required String name}) async {
     User creator = await _userRepository.find(creatorId);
     OrganizationID id = await _organizationRepository.generateNextId();
     Organization organization =

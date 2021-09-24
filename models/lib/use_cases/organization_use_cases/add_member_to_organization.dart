@@ -14,32 +14,40 @@ import 'package:models/models/user.dart';
 ///
 
 mixin AddMemberToOrganizationUseCase {
+  /// Adds a member to the organization
+  ///
+  /// [userID] id of the User being added to the organization
+  /// [accessorId] id of the member that is adding the user
+  /// Returns a [ResultValue] if successful and [ResultError] if not
   @required
-  Future<Result> execute(UserID userID, RoleID roleID,
-      OrganizationID organizationID);
+  Future<Result> execute(
+      {required MemberID accessorId,
+      required UserID userID,
+      required RoleID roleID});
 }
 
 class DefaultAddMemberToOrganizationUseCase
     implements AddMemberToOrganizationUseCase {
-
   UserRepository _userRepository;
   RoleRepository _roleRepository;
   MemberRepository _memberRepository;
 
-  DefaultAddMemberToOrganizationUseCase(this._userRepository,
-      this._roleRepository, this._memberRepository);
+  DefaultAddMemberToOrganizationUseCase(
+      this._userRepository, this._roleRepository, this._memberRepository);
 
-  /// Adds a member to the organization
-  ///
-  /// [UserID] id of the User being added to the organization
-  /// Returns a [ResultValue] if successful and [ResultError] if not
   @override
-  Future<Result> execute(UserID userID, RoleID roleID,
-      OrganizationID organizationID) async {
+  Future<Result> execute(
+      {required MemberID accessorId,
+      required UserID userID,
+      required RoleID roleID}) async {
+    Member accessor = await _memberRepository.find(accessorId);
+    if (accessor.role.securityClearance < SecurityClearance.level2)
+      return Result.error("Access to Add Member Denied.");
+
     User user = await _userRepository.find(userID);
     Role role = await _roleRepository.find(roleID);
-    Member member = Member(
-        role: role, user: user, organizationID: organizationID);
+    Member member =
+        Member(role: role, user: user, organizationID: accessor.organizationID);
     Result result = await _memberRepository.store(member);
     return result;
   }

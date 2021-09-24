@@ -1,4 +1,5 @@
 import 'package:models/models/member.dart';
+import 'package:models/models/organization.dart';
 import 'package:models/models/role.dart';
 
 ///
@@ -9,21 +10,39 @@ import 'package:models/models/role.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-mixin ChangeMemberRoleInOrganization {
+mixin ChangeMemberRoleInOrganizationUseCase {
+  /// Changes the role of a member in the organization
+  ///
+  /// [memberID] of the member whose role is changing
+  /// [accessorID] of the member whose changing the [memberID] role
+  /// [newRole] the new role of the [memberID]
+  /// Returns a [ResultValue] if successful else[ResultError]
   @required
-  Future<Result> execute(MemberID memberID, RoleID roleID);
+  Future<Result> execute({
+    required MemberID accessorId,
+    required MemberID memberID,
+    required RoleID roleID,
+  });
 }
 
-class DefaultChangeMemberRoleInOrganization
-    implements ChangeMemberRoleInOrganization {
+class DefaultChangeMemberRoleInOrganizationUseCase
+    implements ChangeMemberRoleInOrganizationUseCase {
   MemberRepository _memberRepository;
   RoleRepository _roleRepository;
 
-  DefaultChangeMemberRoleInOrganization(
+  DefaultChangeMemberRoleInOrganizationUseCase(
       this._memberRepository, this._roleRepository);
 
   @override
-  Future<Result> execute(MemberID memberID, RoleID roleID) async {
+  Future<Result> execute({
+    required MemberID accessorId,
+    required MemberID memberID,
+    required RoleID roleID,
+  }) async {
+    Member creator = await _memberRepository.find(accessorId);
+    if (creator.role.securityClearance < SecurityClearance.creator)
+      return Result.error("Access to Change Member Role Denied.");
+
     Role newRole = await _roleRepository.find(roleID);
     Member member = await _memberRepository.find(memberID);
     Member updatedMember = Member.newRole(role: newRole, member: member);

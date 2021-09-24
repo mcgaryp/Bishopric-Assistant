@@ -54,10 +54,8 @@ class Organization extends Entity<Organization> {
   /// [__creator] private setter for the creator and initial member in the organization
   set __creator(User user) {
     _creator = user;
-    Member member = Member(
-        user: creator,
-        role: Role(RoleID(9)) /*Role.creator*/, // TODO: Solve this dilemma
-        organizationID: id);
+    Member member =
+        Member(user: creator, role: Role.creator(), organizationID: id);
     _members = [member];
   }
 
