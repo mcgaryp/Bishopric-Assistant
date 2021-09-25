@@ -22,13 +22,10 @@ class Organization extends Entity<Organization> {
   final OrganizationID id;
 
   /// [_creator] the initial member and user of the organization
-  late User _creator;
+  late Member _creator;
 
   /// [_name] the name of the organization
   late String _name;
-
-  /// [_members] that are in the organization
-  late List<Member> _members;
 
   /// Constructor
   ///
@@ -53,18 +50,13 @@ class Organization extends Entity<Organization> {
 
   /// [__creator] private setter for the creator and initial member in the organization
   set __creator(User user) {
-    _creator = user;
-    Member member =
-        Member(user: creator, role: Role.creator(), organizationID: id);
-    _members = [member];
+    _creator = Member(user: user, role: Role.creator(), organizationID: id);
   }
 
   /// Getters
   String get name => _name;
 
-  User get creator => _creator;
-
-  List<Member> get members => _members;
+  Member get creator => _creator;
 
   @override
   bool sameIdentityAs(Organization other) {

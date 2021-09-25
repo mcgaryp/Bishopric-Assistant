@@ -10,17 +10,22 @@ export 'package:async/async.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-abstract class Repository<M, I> {
+// TODO: Answer the questions below
+// 1. Should the return values in the methods be futures?
+// 2. Should the return values in the methods be optionals? What happens if something fails?
+// 3. Should the return values in the methods be Result? What happens if something fails?
+// 4. Should any of these decisions be pushed to the class that inherits the Subclass of Repository?
+abstract class Repository<M, I, O> {
   /// [find] an M
   ///
   /// Returns an [M]
   /// @required
-  Future<M> find(I i);
+  Future<M?> find(I i);
 
   /// [findAll] M
   ///
   /// Returns a [List<M>]s
-  Future<List<M>> findAll();
+  Future<List<M>?> findAll(O o);
 
   /// [store] M
   ///

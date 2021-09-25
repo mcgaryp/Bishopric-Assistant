@@ -29,8 +29,8 @@ class DefaultRemoveMemberFromOrganizationUseCase
   @override
   Future<Result> execute(
       {required MemberID accessorId, required MemberID memberID}) async {
-    Member accessor = await _memberRepository.find(accessorId);
-    if (accessor.role.securityClearance < SecurityClearance.level1)
+    Member? accessor = await _memberRepository.find(accessorId);
+    if (accessor!.role.securityClearance < SecurityClearance.level1)
       return Result.error("Access to Remove Member Denied");
 
     Result result = await _memberRepository.remove(memberID);

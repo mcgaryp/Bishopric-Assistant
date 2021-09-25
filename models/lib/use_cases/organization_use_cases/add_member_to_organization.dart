@@ -40,14 +40,14 @@ class DefaultAddMemberToOrganizationUseCase
       {required MemberID accessorId,
       required UserID userID,
       required RoleID roleID}) async {
-    Member accessor = await _memberRepository.find(accessorId);
-    if (accessor.role.securityClearance < SecurityClearance.level2)
+    Member? accessor = await _memberRepository.find(accessorId);
+    if (accessor!.role.securityClearance < SecurityClearance.level2)
       return Result.error("Access to Add Member Denied.");
 
-    User user = await _userRepository.find(userID);
-    Role role = await _roleRepository.find(roleID);
-    Member member =
-        Member(role: role, user: user, organizationID: accessor.organizationID);
+    User? user = await _userRepository.find(userID);
+    Role? role = await _roleRepository.find(roleID);
+    Member member = Member(
+        role: role!, user: user!, organizationID: accessor!.organizationID);
     Result result = await _memberRepository.store(member);
     return result;
   }

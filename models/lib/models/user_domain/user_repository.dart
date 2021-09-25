@@ -11,4 +11,4 @@ import 'user_id.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-mixin UserRepository implements Repository<User, UserID> {}
+mixin UserRepository implements Repository<User, UserID, void> {}

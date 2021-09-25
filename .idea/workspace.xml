@@ -5,12 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="99765baa-399f-478a-ab8c-6049cff60bfd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/models/lib/models/role_domain/security_clearance.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/test/models/role_domain/role_id_test.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/test/models/role_domain/role_repository_test.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/test/models/role_domain/role_test.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/test/models/role_domain/security_clearance_test.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/member_domain/member_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/member_domain/member_repository.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/lib/models/organization_domain/organization.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/organization_domain/organization.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/role.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/role.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/role_domain/role.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/role_domain/role.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/organization_domain/organization_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/organization_domain/organization_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/role_domain/role_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/role_domain/role_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/user_domain/user_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/user_domain/user_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/shared/repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/shared/repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/use_cases/organization_use_cases/add_member_to_organization.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/use_cases/organization_use_cases/add_member_to_organization.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/lib/use_cases/organization_use_cases/change_member_role_in_organization.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/use_cases/organization_use_cases/change_member_role_in_organization.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/use_cases/organization_use_cases/change_organization_name.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/use_cases/organization_use_cases/change_organization_name.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/use_cases/organization_use_cases/create_organization.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/use_cases/organization_use_cases/create_organization.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/lib/use_cases/organization_use_cases/remove_member_from_organization.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/use_cases/organization_use_cases/remove_member_from_organization.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -24,11 +33,11 @@
         <option value="Dart File" />
         <option value="Dart DataModel" />
         <option value="Specification" />
-        <option value="Dart Test Case" />
         <option value="Dart Abstract File" />
-        <option value="Dart Use Case" />
         <option value="Dart Export" />
         <option value="Dart Data Model" />
+        <option value="Dart Use Case" />
+        <option value="Dart Test Case" />
       </list>
     </option>
   </component>

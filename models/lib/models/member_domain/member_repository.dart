@@ -13,7 +13,7 @@ import 'member_id.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-mixin MemberRepository implements Repository<Member, MemberID> {
+mixin MemberRepository implements Repository<Member, MemberID, OrganizationID> {
   @required
   findAllMembersByOrganization(OrganizationID organizationID);
 }

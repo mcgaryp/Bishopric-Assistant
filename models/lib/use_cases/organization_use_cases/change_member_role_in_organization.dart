@@ -39,13 +39,13 @@ class DefaultChangeMemberRoleInOrganizationUseCase
     required MemberID memberID,
     required RoleID roleID,
   }) async {
-    Member creator = await _memberRepository.find(accessorId);
-    if (creator.role.securityClearance < SecurityClearance.creator)
+    Member? creator = await _memberRepository.find(accessorId);
+    if (creator!.role.securityClearance < SecurityClearance.creator)
       return Result.error("Access to Change Member Role Denied.");
 
-    Role newRole = await _roleRepository.find(roleID);
-    Member member = await _memberRepository.find(memberID);
-    Member updatedMember = Member.newRole(role: newRole, member: member);
+    Role? newRole = await _roleRepository.find(roleID);
+    Member? member = await _memberRepository.find(memberID);
+    Member updatedMember = Member.newRole(role: newRole!, member: member!);
     Result result = await _memberRepository.update(updatedMember);
     return result;
   }

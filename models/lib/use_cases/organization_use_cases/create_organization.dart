@@ -31,10 +31,10 @@ class DefaultCreateOrganizationUseCase implements CreateOrganizationUseCase {
   @override
   Future<Result> execute(
       {required UserID creatorId, required String name}) async {
-    User creator = await _userRepository.find(creatorId);
+    User? creator = await _userRepository.find(creatorId);
     OrganizationID id = await _organizationRepository.generateNextId();
     Organization organization =
-        Organization(id: id, creator: creator, name: name);
+        Organization(id: id, creator: creator!, name: name);
     Result result = await _organizationRepository.store(organization);
 
     return result;

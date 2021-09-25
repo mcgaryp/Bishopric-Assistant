@@ -32,9 +32,9 @@ class DefaultChangeOrganizationNameUseCase
     if (accessor.role.securityClearance < SecurityClearance.creator)
       return Result.error("Access to Change Organization Name Denied.");
 
-    Organization organization =
+    Organization? organization =
         await _organizationRepository.find(accessor.organizationID);
-    Organization newOrganization = Organization.newName(organization, name);
+    Organization newOrganization = Organization.newName(organization!, name);
     Result result = await _organizationRepository.update(newOrganization);
     return result;
   }
