@@ -59,7 +59,7 @@ class StringExtensionTest {
     // Arrange
     String capitalized = "capitalized";
     // Act
-    String result = capitalized.checkCapitalization;
+    String result = capitalized.capitalize;
     // Assert
     expect(result, "Capitalized");
   }

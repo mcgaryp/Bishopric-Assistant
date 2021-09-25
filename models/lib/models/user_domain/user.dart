@@ -18,8 +18,8 @@ class User {
     this.__lastName = lastName;
   }
 
-  set __lastName(String name) => _lastName = name.checkCapitalization;
-  set __firstName(String name) => _firstName = name.checkCapitalization;
+  set __lastName(String name) => _lastName = name.capitalize;
+  set __firstName(String name) => _firstName = name.capitalize;
 
   String get name => "$firstName $lastName";
   String get firstName => _firstName;

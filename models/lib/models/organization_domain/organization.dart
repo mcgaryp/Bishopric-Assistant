@@ -46,7 +46,7 @@ class Organization extends Entity<Organization> {
   /// Setters
   ///
   /// [__name] private setter for name
-  set __name(String name) => _name = name.checkCapitalization;
+  set __name(String name) => _name = name.capitalize;
 
   /// [__creator] private setter for the creator and initial member in the organization
   set __creator(User user) {

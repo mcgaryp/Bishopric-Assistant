@@ -10,10 +10,16 @@ import 'package:models/shared/exceptions.dart';
 
 /// extension on [String] that includes methods that get specific properties
 extension MyString on String {
-  /// [capitalize]s the first letter of the word
+  /// [capitalize] handles the capitalization of a string
+  ///
+  /// Checks that the string is not null
+  /// Checks that the string is capitalized
+  /// Returns a capitalized String
   String get capitalize {
     if (this.isEmpty) throw EmptyString();
-    return this.substring(0, 1).toUpperCase() + this.substring(1);
+    if (this.isNotCapitalized)
+      return this.substring(0, 1).toUpperCase() + this.substring(1);
+    return this;
   }
 
   /// [isCapitalized] returns a true if the string is capitalized
@@ -28,7 +34,7 @@ extension MyString on String {
     return this[0].toUpperCase() != this[0];
   }
 
-  /// [checkCapitalization] returns a String if the string is capitalized
+  @Deprecated("Use `capitalize`")
   String get checkCapitalization {
     if (this.isEmpty) throw EmptyString();
     if (this.isNotCapitalized) return this.capitalize;
