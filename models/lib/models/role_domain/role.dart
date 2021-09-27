@@ -14,6 +14,7 @@ import 'security_clearance.dart';
 
 // TODO: Is this a [ValueObject] or an [Entity]
 class Role extends ValueObject<Role> {
+  @Deprecated("No longer used, Use name for idenfitier")
   late final RoleID id;
   late final String _name;
   late final SecurityClearance securityClearance;
@@ -36,7 +37,7 @@ class Role extends ValueObject<Role> {
 
   @override
   bool sameValueAs(Role other) {
-    return this.id == other.id;
+    return this.name == other.name;
   }
 
   @override

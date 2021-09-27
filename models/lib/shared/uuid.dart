@@ -9,6 +9,7 @@ import 'exceptions/negative_integer_error.dart';
 ///
 
 /// [UUID] forms a unique identity for an object
+/// TODO: transform the ID into a string
 abstract class UUID {
   late final int _id;
 

@@ -1,6 +1,6 @@
 import '../organization_domain/organization_id.dart';
-import '../role_domain/role.dart';
-import '../user_domain/user.dart';
+import '../role.dart';
+import '../user.dart';
 
 ///
 /// member.dart

@@ -13,6 +13,7 @@ import 'package:models/models/user.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
+/// TODO: Make the repo a use case repo
 class MockRoleRepository implements RoleRepository {
   static RoleID roleID(int i) => RoleID(i);
 
@@ -85,8 +86,8 @@ class MockRoleRepository implements RoleRepository {
 
 class RoleRepositoryTest {
   static MockRoleRepository repository = MockRoleRepository();
-
-  static void shouldReturnRole() async {
+  // TODO: Add Should_Expected_When_StateUnderTest as function names
+  static void shouldReturnRoleWhenValidID() async {
     // arrange
     RoleID id = RoleID(0);
     // act
@@ -95,7 +96,7 @@ class RoleRepositoryTest {
     expect(result!, repository.roles.first);
   }
 
-  static void shouldReturnNullRole() async {
+  static void shouldReturnNullRoleWhenInValidID() async {
     // arrange
     RoleID id = RoleID(-1);
     // act
@@ -104,7 +105,7 @@ class RoleRepositoryTest {
     expect(result, null);
   }
 
-  static void shouldReturnAllRoles() async {
+  static void shouldReturnAllRolesWhenValidOrganizationID() async {
     // arrange
     OrganizationID id = OrganizationID(1);
     // act
@@ -113,7 +114,7 @@ class RoleRepositoryTest {
     expect(results, repository.roles);
   }
 
-  static void shouldReturnNullInsteadOfRoles() async {
+  static void shouldReturnNullWhenInvalidOrganizationID() async {
     // arrange
     OrganizationID id = OrganizationID(-1);
     // act
@@ -124,13 +125,14 @@ class RoleRepositoryTest {
 }
 
 main() {
-  test("Role Repository Test", () {
-    test("finding a role with and ID", RoleRepositoryTest.shouldReturnRole);
+  group("Role Repository Test", () {
+    test("finding a role with and ID",
+        RoleRepositoryTest.shouldReturnRoleWhenValidID);
     test("finding a role with a fake ID",
-        RoleRepositoryTest.shouldReturnNullRole);
+        RoleRepositoryTest.shouldReturnNullRoleWhenInValidID);
     test("finding all roles in an organization",
-        RoleRepositoryTest.shouldReturnAllRoles);
+        RoleRepositoryTest.shouldReturnAllRolesWhenValidOrganizationID);
     test("finding all roles with a fake ID",
-        RoleRepositoryTest.shouldReturnNullInsteadOfRoles);
+        RoleRepositoryTest.shouldReturnNullWhenInvalidOrganizationID);
   });
 }
