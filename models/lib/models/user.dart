@@ -7,6 +7,10 @@
 ///
 export 'package:models/shared/dart_exports.dart';
 
+export 'user_domain/current_user.dart';
+export 'user_domain/generic_user.dart';
+export 'user_domain/member_user.dart';
+export 'user_domain/privileges.dart';
 export 'user_domain/user.dart';
 export 'user_domain/user_id.dart';
 export 'user_domain/user_repository.dart';

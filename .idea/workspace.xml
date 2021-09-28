@@ -5,26 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="99765baa-399f-478a-ab8c-6049cff60bfd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/models/lib/models/event_domain/event_factory.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/lib/models/event_domain/interview.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/lib/models/event_domain/meeting.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/lib/models/user_domain/current_user.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/lib/models/user_domain/generic_user.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/lib/models/user_domain/member_user.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/lib/models/user_domain/privileges.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/assignment_domain/assignment.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/assignment_domain/assignment.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/assignment_domain/assignment_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/assignment_domain/assignment_repository.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/event_domain/event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/event_domain/event.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/event_domain/event_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/event_domain/event_repository.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/member_domain/member_id.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/member_domain/member_id.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/member_domain/member_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/member_domain/member_repository.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/organization_domain/organization.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/organization_domain/organization.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/organization_domain/organization_id.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/organization_domain/organization_id.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/organization_domain/organization_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/organization_domain/organization_repository.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/role_domain/role.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/role_domain/role.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/role_domain/role_id.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/role_domain/role_id.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/role_domain/role_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/role_domain/role_repository.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/role_domain/security_clearance.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/role_domain/security_clearance.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/user.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/lib/models/user_domain/user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/user_domain/user.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/user_domain/user_id.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/user_domain/user_id.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/user_domain/user_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/user_domain/user_repository.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/lib/shared/uuid.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/shared/uuid.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/test/models/role_domain/role_repository_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/test/models/role_domain/role_repository_test.dart" afterDir="false" />
     </list>
@@ -51,7 +38,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="models-package" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -145,7 +132,21 @@
       <option name="project" value="LOCAL" />
       <updated>1632787269079</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Comments and TODOs added">
+      <created>1632788608207</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1632788608207</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Porter Initial Commit Branch">
+      <created>1632788873907</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1632788873907</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -165,6 +166,8 @@
     <MESSAGE value="Initial commit" />
     <MESSAGE value="Add Strings to UUID" />
     <MESSAGE value="Comments and TODOs added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Comments and TODOs added" />
+    <MESSAGE value="Porter Initial Commit Branch" />
+    <MESSAGE value="User initial definition stubbed" />
+    <option name="LAST_COMMIT_MESSAGE" value="User initial definition stubbed" />
   </component>
 </project>

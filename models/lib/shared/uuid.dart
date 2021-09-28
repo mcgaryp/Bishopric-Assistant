@@ -22,5 +22,11 @@ abstract class UUID {
     this._id = id;
   }
 
-  // TODO: `create()` method which will create a random unique identifier
+  @override
+  bool operator ==(Object object) {
+    UUID other = object as UUID;
+    return this.id == other.id;
+  }
+
+// TODO: `create()` method which will create a random unique identifier
 }

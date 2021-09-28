@@ -1,3 +1,6 @@
+import 'package:models/models/role.dart';
+import 'package:models/models/user.dart';
+import 'package:models/shared/entity.dart';
 import 'package:models/util/extensions/string_extensions.dart';
 
 ///
@@ -8,27 +11,83 @@ import 'package:models/util/extensions/string_extensions.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-/// [User] class includes the name, first, and last names of the user
-/// TODO: Define the factory users for Organization & Member
+/// [User] class creates the different types of users
 /// TODO: Comments
-class User {
+abstract class User extends Entity<User> {
+  final UserID id;
   late final String _firstName;
   late final String _lastName;
-  late final String _password;
-  late final String _username;
-  late final String _phone;
-  late final String _email;
 
-  User({required String firstName, required String lastName}) {
+  factory User.generic(
+      {required UserID id,
+      required String firstName,
+      required String lastName,
+      required String username,
+      required String password}) {
+    return GenericUser(
+        id: id,
+        firstName: firstName,
+        lastName: lastName,
+        username: username,
+        password: password);
+  }
+
+  factory User.member(
+      {required UserID id,
+      required firstName,
+      required lastName,
+      required String email,
+      required String phone,
+      required Role role}) {
+    return MemberUser(
+        id: id,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        phone: phone,
+        role: role);
+  }
+
+  factory User.current(
+      {required UserID id,
+      required firstName,
+      required lastName,
+      required String username,
+      required String password,
+      required String email,
+      required String phone,
+      required Role role,
+      required Privileges privileges}) {
+    return CurrentUser(
+        id: id,
+        firstName: firstName,
+        lastName: lastName,
+        username: username,
+        password: password,
+        email: email,
+        phone: phone,
+        role: role,
+        privileges: privileges);
+  }
+
+  User({required this.id, required String firstName, required String lastName})
+      : super(id) {
     this.__firstName = firstName;
     this.__lastName = lastName;
   }
 
   set __lastName(String name) => _lastName = name.capitalize;
+
   set __firstName(String name) => _firstName = name.capitalize;
 
   String get name => "$firstName $lastName";
+
   String get firstName => _firstName;
+
   String get lastName => _lastName;
-  String get email => _email;
+
+  @override
+  bool sameIdentityAs(User other) {
+    return this.id == other.id;
+  }
 }

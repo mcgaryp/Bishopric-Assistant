@@ -21,8 +21,12 @@ class MockRoleRepository implements RoleRepository {
 
   static OrganizationID organizationID(String index) => OrganizationID(index);
 
-  static User createUser(int index) =>
-      User(firstName: "User", lastName: "$index");
+  static User createUser(int index) => User.generic(
+      id: UserID(index.toString()),
+      firstName: "User",
+      lastName: "$index",
+      username: "",
+      password: "");
 
   static String organizationName(int index) => "Organization $index";
   static List<User> users = List.generate(5, (index) => createUser(index));
