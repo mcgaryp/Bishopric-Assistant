@@ -5,15 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="99765baa-399f-478a-ab8c-6049cff60bfd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/models/lib/models/user_domain/current_user.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/lib/models/user_domain/generic_user.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/lib/models/user_domain/member_user.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/lib/models/user_domain/privileges.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/test/mocks/mock_generic_user.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/test/models/models_test.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/test/models/user_domain/generic_user_test.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/test/models/user_domain/user_id_test.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/test/test.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/user.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/user_domain/generic_user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/user_domain/generic_user.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/lib/models/user_domain/user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/user_domain/user.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/user_domain/user_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/user_domain/user_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/shared/exceptions/empty_string_exception.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/shared/exceptions/empty_string_exception.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/shared/repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/shared/repository.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/lib/shared/uuid.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/shared/uuid.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/use_cases/organization_use_cases/add_member_to_organization.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/use_cases/organization_use_cases/add_member_to_organization.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/use_cases/organization_use_cases/create_organization.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/use_cases/organization_use_cases/create_organization.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/util/extensions/string_extensions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/util/extensions/string_extensions.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/test/models/role_domain/role_repository_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/test/models/role_domain/role_repository_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/test/models/user_domain/user_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/test/models/user_domain/user_test.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +39,7 @@
         <option value="Dart Test Case" />
         <option value="Dart Export" />
         <option value="Dart Data Model" />
+        <option value="Dart Test" />
         <option value="Dart File" />
       </list>
     </option>
@@ -80,25 +89,14 @@
       <recent name="$PROJECT_DIR$/models/test/util" />
     </key>
   </component>
-  <component name="RunManager" selected="Flutter Test.finding all roles in an organization">
-    <configuration name="finding all roles in an organization" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="finding all roles in an organization" />
-      <option name="testFile" value="$PROJECT_DIR$/models/test/models/role_domain/role_repository_test.dart" />
-      <method v="2" />
-    </configuration>
-    <configuration name="tests in role_id_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testFile" value="$PROJECT_DIR$/models/test/models/role_domain/role_id_test.dart" />
-      <method v="2" />
-    </configuration>
-    <configuration name="tests in role_repository_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testFile" value="$PROJECT_DIR$/models/test/models/role_domain/role_repository_test.dart" />
+  <component name="RunManager">
+    <configuration name="tests in test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testFile" value="$PROJECT_DIR$/models/test/test.dart" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Flutter Test.finding all roles in an organization" />
-        <item itemvalue="Flutter Test.tests in role_repository_test.dart" />
-        <item itemvalue="Flutter Test.tests in role_id_test.dart" />
+        <item itemvalue="Flutter Test.tests in test.dart" />
       </list>
     </recent_temporary>
   </component>
@@ -146,7 +144,14 @@
       <option name="project" value="LOCAL" />
       <updated>1632788873907</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="User initial definition stubbed">
+      <created>1632797598422</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1632797598422</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -168,6 +173,7 @@
     <MESSAGE value="Comments and TODOs added" />
     <MESSAGE value="Porter Initial Commit Branch" />
     <MESSAGE value="User initial definition stubbed" />
-    <option name="LAST_COMMIT_MESSAGE" value="User initial definition stubbed" />
+    <MESSAGE value="generic user tests and generic_user.dart created" />
+    <option name="LAST_COMMIT_MESSAGE" value="generic user tests and generic_user.dart created" />
   </component>
 </project>

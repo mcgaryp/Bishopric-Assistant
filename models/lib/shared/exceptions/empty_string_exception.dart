@@ -6,7 +6,7 @@
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-class EmptyString implements Exception {
+class EmptyStringError implements Exception {
   final String msg = "Empty String";
 
   @override

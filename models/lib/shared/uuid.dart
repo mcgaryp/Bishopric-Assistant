@@ -1,3 +1,5 @@
+import 'package:models/shared/exceptions.dart';
+
 ///
 /// uuid.dart
 /// bishopric-assistant
@@ -19,6 +21,7 @@ abstract class UUID {
   String get id => _id;
 
   set __id(String id) {
+    if (id.isEmpty) throw EmptyStringError();
     this._id = id;
   }
 

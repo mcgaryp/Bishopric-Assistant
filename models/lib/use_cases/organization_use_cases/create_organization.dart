@@ -35,7 +35,7 @@ class DefaultCreateOrganizationUseCase implements CreateOrganizationUseCase {
     OrganizationID id = await _organizationRepository.generateNextId();
     Organization organization =
         Organization(id: id, creator: creator!, name: name);
-    Result result = await _organizationRepository.store(organization);
+    Result result = await _organizationRepository.insert(organization);
 
     return result;
   }

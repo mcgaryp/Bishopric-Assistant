@@ -52,7 +52,7 @@ class DefaultAddMemberToOrganizationUseCase
         role: role!,
         user: user!,
         organizationID: accessor.organizationID);
-    Result result = await _memberRepository.store(member);
+    Result result = await _memberRepository.insert(member);
     return result;
   }
 }

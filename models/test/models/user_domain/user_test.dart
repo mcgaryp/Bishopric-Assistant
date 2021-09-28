@@ -1,3 +1,6 @@
+import 'generic_user_test.dart';
+import 'user_id_test.dart';
+
 ///
 /// user_test.dart
 /// bishopric-assistant
@@ -6,9 +9,9 @@
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-class user_test {}
+class UserTest {}
 
-main() {
-  // TODO: Implement
-  throw UnimplementedError();
+runUserTests() {
+  runUserIDTests();
+  runGenericUserTests();
 }

@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/models/role.dart';
 import 'package:models/models/user.dart';
+import 'package:models/shared/repository.dart';
 
 ///
 /// role_repository_test.dart
@@ -21,7 +22,7 @@ class MockRoleRepository implements RoleRepository {
 
   static OrganizationID organizationID(String index) => OrganizationID(index);
 
-  static User createUser(int index) => User.generic(
+  static User createUser(int index) => GenericUser(
       id: UserID(index.toString()),
       firstName: "User",
       lastName: "$index",
@@ -65,26 +66,26 @@ class MockRoleRepository implements RoleRepository {
   }
 
   @override
-  Future<RoleID> generateNextId() {
-    // TODO: implement generateNextId
+  Future<Result<RequestType>> insert(Role m) {
+    // TODO: implement insert
     throw UnimplementedError();
   }
 
   @override
-  Future<Result> remove(RoleID i) {
+  Future<Result<RequestType>> remove(RoleID i) {
     // TODO: implement remove
     throw UnimplementedError();
   }
 
   @override
-  Future<Result> store(Role m) {
-    // TODO: implement store
+  Future<Result<RequestType>> update(Role m) {
+    // TODO: implement update
     throw UnimplementedError();
   }
 
   @override
-  Future<Result> update(Role m) {
-    // TODO: implement update
+  Future<RoleID> generateNextId() {
+    // TODO: implement generateNextId
     throw UnimplementedError();
   }
 }
