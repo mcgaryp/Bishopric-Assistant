@@ -6,6 +6,8 @@
 /// Copyright 2021 Po. All rights reserved.
 ///
 
+/// TODO: Implement SecurityClearance, Refer to [ReadMe.md](models/README.md)
+/// TODO: Comments
 enum SecurityClearance { creator, level1, level2, level3, level4, level5 }
 
 extension Security on SecurityClearance {

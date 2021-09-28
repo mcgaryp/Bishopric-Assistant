@@ -2,9 +2,6 @@ import 'package:models/models/member.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/shared/repository.dart';
 
-import 'member.dart';
-import 'member_id.dart';
-
 ///
 /// member_repository.dart
 /// bishopric-assistant
@@ -13,7 +10,10 @@ import 'member_id.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
+/// TODO: Implement MemberRepository, Refer to [ReadMe.md](models/README.md)
+/// TODO: Comments
 mixin MemberRepository implements Repository<Member, MemberID, OrganizationID> {
   @required
-  findAllMembersByOrganization(OrganizationID organizationID);
+  Future<List<Member>?> findAllMembersByOrganization(
+      OrganizationID organizationID);
 }

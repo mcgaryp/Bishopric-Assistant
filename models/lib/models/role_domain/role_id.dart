@@ -8,6 +8,10 @@ import 'package:models/shared/entity.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
+/// TODO: Implement RoleID, Refer to [ReadMe.md](models/README.md)
+/// TODO: Comments
 class RoleID extends UUID {
   RoleID(String id) : super(id);
+
+  RoleID.creatorID() : super("Creator Role") {}
 }

@@ -1,8 +1,6 @@
 import 'package:models/models/organization.dart';
+import 'package:models/models/role.dart';
 import 'package:models/shared/repository.dart';
-
-import 'role.dart';
-import 'role_id.dart';
 
 ///
 /// role_repository.dart
@@ -12,4 +10,5 @@ import 'role_id.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
+/// TODO: Implement RoleRepository, Refer to [ReadMe.md](models/README.md)
 mixin RoleRepository implements Repository<Role, RoleID, OrganizationID> {}

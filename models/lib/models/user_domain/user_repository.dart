@@ -11,4 +11,6 @@ import 'user_id.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
+/// TODO: Implement UserRepository, Refer to [ReadMe.md](models/README.md)
+/// TODO: Comments
 mixin UserRepository implements Repository<User, UserID, void> {}

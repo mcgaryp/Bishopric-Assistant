@@ -15,6 +15,7 @@ import '../user.dart';
 ///
 
 // TODO: Remove late somehow
+/// TODO: Comments
 class Organization extends Entity<Organization> {
   /// Variables
   ///

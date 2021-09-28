@@ -2,6 +2,7 @@ import 'package:models/models/role.dart';
 import 'package:models/shared/value_object.dart';
 import 'package:models/util/extensions/extensions.dart';
 
+import 'role_id.dart';
 import 'security_clearance.dart';
 
 ///
@@ -12,19 +13,22 @@ import 'security_clearance.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-// TODO: Is this a [ValueObject] or an [Entity]
+/// TODO: Implement Role, Refer to [ReadMe.md](models/README.md)
+/// TODO: Comments
 class Role extends ValueObject<Role> {
-  @Deprecated("No longer used, Use name for idenfitier")
-  late final RoleID id;
+  final RoleID id;
   late final String _name;
   late final SecurityClearance securityClearance;
 
-  Role({required this.securityClearance, required String name})
+  Role(
+      {required this.id, required this.securityClearance, required String name})
       : super.decode({}) {
     __name = name;
   }
 
-  Role.creator() : super.decode({}) {
+  Role.creator()
+      : this.id = RoleID.creatorID(),
+        super.decode({}) {
     __name = "Creator";
     securityClearance = SecurityClearance.creator;
   }
@@ -32,6 +36,11 @@ class Role extends ValueObject<Role> {
   String get name => _name;
   set __name(String name) {
     _name = name.capitalize;
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return sameValueAs(other as Role);
   }
 
   @override

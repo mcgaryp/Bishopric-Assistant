@@ -5,29 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="99765baa-399f-478a-ab8c-6049cff60bfd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/lib/models/event_domain/event_factory.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/lib/models/event_domain/interview.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/lib/models/event_domain/meeting.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/assignment_domain/assignment_id.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/assignment_domain/assignment_id.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/event_domain/event_id.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/event_domain/event_id.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/member_domain/member.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/member_domain/member.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/assignment_domain/assignment.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/assignment_domain/assignment.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/assignment_domain/assignment_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/assignment_domain/assignment_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/event_domain/event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/event_domain/event.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/event_domain/event_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/event_domain/event_repository.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/lib/models/member_domain/member_id.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/member_domain/member_id.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/member_domain/member_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/member_domain/member_repository.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/lib/models/organization_domain/organization.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/organization_domain/organization.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/lib/models/organization_domain/organization_id.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/organization_domain/organization_id.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/lib/models/organization_domain/organization_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/organization_domain/organization_repository.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/lib/models/role_domain/role.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/role_domain/role.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/lib/models/role_domain/role_id.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/role_domain/role_id.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/role_domain/role_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/role_domain/role_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/role_domain/security_clearance.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/role_domain/security_clearance.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/user_domain/user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/user_domain/user.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/lib/models/user_domain/user_id.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/user_domain/user_id.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/shared/repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/shared/repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/user_domain/user_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/user_domain/user_repository.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/lib/shared/uuid.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/shared/uuid.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/use_cases/organization_use_cases/add_member_to_organization.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/use_cases/organization_use_cases/add_member_to_organization.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/use_cases/organization_use_cases/change_organization_name.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/use_cases/organization_use_cases/change_organization_name.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/test/models/organization_domain/member_id_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/test/models/member_domain/member_id_test.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/test/models/organization_domain/member_test.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/test/models/organization_domain/organization_id_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/test/models/organization_domain/organization_id_test.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/test/models/organization_domain/role_test.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/test/models/organization_domain/user_test.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/test/models/role_domain/role_id_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/test/models/role_domain/role_id_test.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/test/models/role_domain/role_repository_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/test/models/role_domain/role_repository_test.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,7 +37,6 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Dart File" />
         <option value="Dart DataModel" />
         <option value="Specification" />
         <option value="Dart Abstract File" />
@@ -47,6 +44,7 @@
         <option value="Dart Test Case" />
         <option value="Dart Export" />
         <option value="Dart Data Model" />
+        <option value="Dart File" />
       </list>
     </option>
   </component>
@@ -140,7 +138,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631923009598</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Add Strings to UUID">
+      <created>1632787269079</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1632787269079</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -159,6 +164,7 @@
     <MESSAGE value="idk" />
     <MESSAGE value="Initial commit" />
     <MESSAGE value="Add Strings to UUID" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Strings to UUID" />
+    <MESSAGE value="Comments and TODOs added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Comments and TODOs added" />
   </component>
 </project>

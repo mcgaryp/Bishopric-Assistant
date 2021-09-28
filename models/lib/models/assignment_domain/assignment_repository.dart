@@ -10,5 +10,6 @@ import 'package:models/shared/repository.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
+/// TODO: Implement AssignmentRepository, Refer to [ReadMe.md](models/README.md)
 mixin AssignmentRepository
     implements Repository<Assignment, AssignmentID, OrganizationID> {}

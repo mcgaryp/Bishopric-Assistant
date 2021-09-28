@@ -31,6 +31,7 @@ class MockRoleRepository implements RoleRepository {
   final List<Role> roles = List.generate(
       5,
       (index) => Role(
+          id: RoleID(index.toString()),
           name: name(index),
           securityClearance: SecurityClearance.values[index]));
   final List<Organization> organizations = List.generate(
@@ -43,7 +44,7 @@ class MockRoleRepository implements RoleRepository {
   @override
   Future<Role?> find(RoleID roleID) async {
     for (Role member in roles)
-      if (member.id == roleID) {
+      if (member == roleID) {
         Future.delayed(delay);
         return member;
       }
@@ -86,6 +87,7 @@ class MockRoleRepository implements RoleRepository {
 
 class RoleRepositoryTest {
   static MockRoleRepository repository = MockRoleRepository();
+
   // TODO: Add Should_Expected_When_StateUnderTest as function names
   static void shouldReturnRoleWhenValidID() async {
     // arrange

@@ -10,6 +10,7 @@ import 'package:models/util/extensions/string_extensions.dart';
 
 /// [User] class includes the name, first, and last names of the user
 /// TODO: Define the factory users for Organization & Member
+/// TODO: Comments
 class User {
   late String _firstName;
   late String _lastName;

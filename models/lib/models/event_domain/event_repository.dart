@@ -11,4 +11,5 @@ import '../event.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
+/// TODO: Implement EventRepository, Refer to [ReadMe.md](models/README.md)
 mixin EventRepository implements Repository<Event, EventID, OrganizationID> {}
