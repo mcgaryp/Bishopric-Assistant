@@ -12,12 +12,12 @@ import 'package:models/util/extensions/string_extensions.dart';
 /// TODO: Define the factory users for Organization & Member
 /// TODO: Comments
 class User {
-  late String _firstName;
-  late String _lastName;
-  late String password;
-  late String username;
-  late String phone;
-  late String email;
+  late final String _firstName;
+  late final String _lastName;
+  late final String _password;
+  late final String _username;
+  late final String _phone;
+  late final String _email;
 
   User({required String firstName, required String lastName}) {
     this.__firstName = firstName;
@@ -30,4 +30,5 @@ class User {
   String get name => "$firstName $lastName";
   String get firstName => _firstName;
   String get lastName => _lastName;
+  String get email => _email;
 }
