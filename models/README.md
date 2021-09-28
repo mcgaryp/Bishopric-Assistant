@@ -138,3 +138,11 @@ Models in a DDD
 ### Search
 - Must exist
 - Find by User ID
+
+### Types of Users
+1. User Used in Organization
+   - Any generic Application User. This 'user' has a first name, last name, name, username, password.
+2. MemberUser Used in Member
+   - Any Generic User. This user has a first name, last name, name, email, phone number, and role. Role may be modified by a Current Member who has Privilages.
+3. CurrentUser
+   - The user that is accessing the application. This user has a first name, last name, name, email, phone number, role, password, username, Privilages. All but role is modifyable.
