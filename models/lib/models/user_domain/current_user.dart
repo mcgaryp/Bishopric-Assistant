@@ -1,5 +1,6 @@
 import 'package:models/models/role.dart';
 import 'package:models/models/user.dart';
+import 'package:models/shared/exceptions.dart';
 
 ///
 /// current_user.dart
@@ -36,13 +37,25 @@ class CurrentUser extends User {
     this.role = role;
   }
 
-  set __phone(String phone) => _phone = phone;
+  set __phone(String phone) {
+    if (phone.isEmpty) throw EmptyStringError();
+    _phone = phone;
+  }
 
-  set __email(String email) => _email = email;
+  set __email(String email) {
+    if (email.isEmpty) throw EmptyStringError();
+    _email = email;
+  }
 
-  set __username(String username) => _username = username;
+  set __username(String username) {
+    if (username.isEmpty) throw EmptyStringError();
+    _username = username;
+  }
 
-  set __password(String password) => _password = password;
+  set __password(String password) {
+    if (password.isEmpty) throw EmptyStringError();
+    _password = password;
+  }
 
   String get password => _password;
 

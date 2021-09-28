@@ -1,4 +1,6 @@
+import 'current_user_test.dart';
 import 'generic_user_test.dart';
+import 'member_user_test.dart';
 import 'user_id_test.dart';
 
 ///
@@ -14,4 +16,6 @@ class UserTest {}
 runUserTests() {
   runUserIDTests();
   runGenericUserTests();
+  runMemberUserTests();
+  runCurrentUserTests();
 }

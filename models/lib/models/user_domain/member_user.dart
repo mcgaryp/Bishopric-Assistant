@@ -1,5 +1,6 @@
 import 'package:models/models/role.dart';
 import 'package:models/models/user.dart';
+import 'package:models/shared/exceptions.dart';
 
 ///
 /// member_user.dart
@@ -26,9 +27,15 @@ class MemberUser extends User {
     __phone = phone;
   }
 
-  set __phone(String phone) => _phone = phone;
+  set __phone(String phone) {
+    if (phone.isEmpty) throw EmptyStringError();
+    _phone = phone;
+  }
 
-  set __email(String email) => _email = email;
+  set __email(String email) {
+    if (email.isEmpty) throw EmptyStringError();
+    _email = email;
+  }
 
   String get email => _email;
 

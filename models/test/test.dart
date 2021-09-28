@@ -1,3 +1,5 @@
+import 'package:flutter_test/flutter_test.dart';
+
 import 'models/models_test.dart';
 
 ///
@@ -9,5 +11,7 @@ import 'models/models_test.dart';
 ///
 
 main() {
-  runModelsTests();
+  group("Model Tests", () {
+    runModelsTests();
+  });
 }

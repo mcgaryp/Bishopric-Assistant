@@ -1,3 +1,5 @@
+import 'package:flutter_test/flutter_test.dart';
+
 import 'user_domain/user_test.dart';
 
 ///
@@ -9,5 +11,7 @@ import 'user_domain/user_test.dart';
 ///
 
 runModelsTests() {
-  runUserTests();
+  group("User Tests", () {
+    runUserTests();
+  });
 }
