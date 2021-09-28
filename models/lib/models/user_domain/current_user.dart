@@ -10,6 +10,7 @@ import 'package:models/shared/exceptions.dart';
 /// Copyright 2021 porter. All rights reserved.
 ///
 
+@Deprecated("Use Accounts")
 class CurrentUser extends User {
   late final String _username;
   late final String _password;

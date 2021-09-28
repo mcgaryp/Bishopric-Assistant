@@ -11,4 +11,5 @@ import 'package:models/shared/repository.dart';
 ///
 
 /// TODO: Implement RoleRepository, Refer to [ReadMe.md](models/README.md)
+@Deprecated("No longer in use")
 mixin RoleRepository implements Repository<Role, RoleID, OrganizationID> {}

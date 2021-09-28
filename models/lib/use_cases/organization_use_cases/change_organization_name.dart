@@ -29,7 +29,7 @@ class DefaultChangeOrganizationNameUseCase
   Future<Result> execute(
       {required MemberID accessorId, required String name}) async {
     Member? accessor = await _organizationRepository.findMember(accessorId);
-    if (accessor!.role.securityClearance < SecurityClearance.creator)
+    if (accessor!.oldRole.securityClearance < SecurityClearance.creator)
       return Result.error("Access to Change Organization Name Denied.");
 
     Organization? organization =

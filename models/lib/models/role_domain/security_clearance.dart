@@ -8,6 +8,7 @@
 
 /// TODO: Implement SecurityClearance, Refer to [ReadMe.md](models/README.md)
 /// TODO: Comments
+@Deprecated("No longer in use")
 enum SecurityClearance { creator, level1, level2, level3, level4, level5 }
 
 extension Security on SecurityClearance {

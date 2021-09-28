@@ -9,10 +9,35 @@ import 'package:models/shared/value_object.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
+/// TODO: Comments
 enum Character { creator, maintainer, reporter, viewer }
 
 extension Characters on Character {
   String get string => this.toString();
+
+  operator <(Character rhs) {
+    return this.index < rhs.index;
+  }
+
+  operator <=(Character rhs) {
+    return this.index <= rhs.index;
+  }
+
+  operator >(Character rhs) {
+    return this.index > rhs.index;
+  }
+
+  operator >=(Character rhs) {
+    return this.index >= rhs.index;
+  }
+
+  operator +(Character rhs) {
+    return this.index + 1;
+  }
+
+  operator -(Character rhs) {
+    return this.index - 1;
+  }
 }
 
 class Role extends ValueObject<Role> {

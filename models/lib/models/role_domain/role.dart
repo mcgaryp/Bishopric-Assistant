@@ -15,6 +15,7 @@ import 'security_clearance.dart';
 
 /// TODO: Implement Role, Refer to [ReadMe.md](models/README.md)
 /// TODO: Comments
+@Deprecated("Use role from Accounts")
 class Role extends ValueObject<Role> {
   final RoleID id;
   late final String _name;

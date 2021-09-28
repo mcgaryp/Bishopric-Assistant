@@ -6,6 +6,7 @@
 /// Copyright 2021 porter. All rights reserved.
 ///
 
+@Deprecated("Use Accounts")
 class Privileges {
   final bool canChangeRoles;
   final bool canRemoveMembers;

@@ -30,7 +30,7 @@ class DefaultRemoveMemberFromOrganizationUseCase
   Future<Result> execute(
       {required MemberID accessorId, required MemberID memberID}) async {
     Member? accessor = await _memberRepository.find(accessorId);
-    if (accessor!.role.securityClearance < SecurityClearance.level1)
+    if (accessor!.oldRole.securityClearance < SecurityClearance.level1)
 
       /// TODO: Does this belong here?
       /// TODO: Make these more specific for logging purposes

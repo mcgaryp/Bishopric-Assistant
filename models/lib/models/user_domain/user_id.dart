@@ -10,6 +10,8 @@ import 'package:models/shared/entity.dart';
 
 /// TODO: Implement UserID, Refer to [ReadMe.md](models/README.md)
 /// TODO: Comments
+///
+@Deprecated("Use Accounts")
 class UserID extends UUID {
   UserID(String id) : super(id);
 }

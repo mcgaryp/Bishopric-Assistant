@@ -10,6 +10,7 @@ import 'package:models/shared/exceptions.dart';
 /// Copyright 2021 porter. All rights reserved.
 ///
 
+@Deprecated("Use Accounts")
 class MemberUser extends User {
   late final String _email;
   late final String _phone;

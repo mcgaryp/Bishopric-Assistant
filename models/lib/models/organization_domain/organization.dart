@@ -56,7 +56,7 @@ class Organization extends Entity<Organization> {
     _creator = Member(
         id: MemberID.creatorID(),
         user: user,
-        role: Role.creator(),
+        oldRole: Role.creator(),
         organizationID: id);
   }
 

@@ -12,6 +12,7 @@ import 'package:models/util/extensions/string_extensions.dart';
 
 /// [User] class creates the different types of users
 /// TODO: I feel like this is wrong... Brother Manley how do I solve this one?
+@Deprecated("Use Accounts")
 abstract class User extends Entity<User> {
   final UserID id;
   late final String _firstName;

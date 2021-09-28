@@ -14,4 +14,5 @@ import 'user_id.dart';
 /// TODO: Implement UserRepository, Refer to [ReadMe.md](models/README.md)
 /// [UserRepository] implements [Repository]. Interface should be implemented as
 /// an integration database class
+@Deprecated("Use Accounts")
 mixin UserRepository implements Repository<User, UserID, void> {}
