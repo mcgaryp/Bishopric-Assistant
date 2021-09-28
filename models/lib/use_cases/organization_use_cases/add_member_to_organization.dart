@@ -46,8 +46,12 @@ class DefaultAddMemberToOrganizationUseCase
 
     User? user = await _userRepository.find(userID);
     Role? role = await _roleRepository.find(roleID);
+    MemberID? memberId = await _memberRepository.generateNextId();
     Member member = Member(
-        role: role!, user: user!, organizationID: accessor.organizationID);
+        id: memberId,
+        role: role!,
+        user: user!,
+        organizationID: accessor.organizationID);
     Result result = await _memberRepository.store(member);
     return result;
   }

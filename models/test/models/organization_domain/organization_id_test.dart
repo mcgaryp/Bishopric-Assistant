@@ -12,11 +12,11 @@ import 'package:models/models/organization_domain/organization_id.dart';
 class OrganizationIDTest {
   static void checkOrganizationID() {
     // Arrange
-    OrganizationID id = OrganizationID(9);
+    OrganizationID id = OrganizationID("9");
     // Act
-    int result = id.id;
+    String result = id.id;
     // Assert
-    expect(result, 9);
+    expect(result, "9");
   }
 }
 

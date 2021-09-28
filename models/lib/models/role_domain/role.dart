@@ -19,13 +19,12 @@ class Role extends ValueObject<Role> {
   late final String _name;
   late final SecurityClearance securityClearance;
 
-  Role(this.id, {required this.securityClearance, required String name})
+  Role({required this.securityClearance, required String name})
       : super.decode({}) {
     __name = name;
   }
 
   Role.creator() : super.decode({}) {
-    id = RoleID(0);
     __name = "Creator";
     securityClearance = SecurityClearance.creator;
   }
@@ -42,6 +41,6 @@ class Role extends ValueObject<Role> {
 
   @override
   Map<String, dynamic> toJson() {
-    return {"id": id.id, "name": name, "securityID": securityClearance.index};
+    return {"name": name, "securityID": securityClearance.index};
   }
 }

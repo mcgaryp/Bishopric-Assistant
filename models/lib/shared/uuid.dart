@@ -1,5 +1,3 @@
-import 'exceptions/negative_integer_error.dart';
-
 ///
 /// uuid.dart
 /// bishopric-assistant
@@ -11,16 +9,15 @@ import 'exceptions/negative_integer_error.dart';
 /// [UUID] forms a unique identity for an object
 /// TODO: transform the ID into a string
 abstract class UUID {
-  late final int _id;
+  late final String _id;
 
-  UUID(int id) {
+  UUID(String id) {
     this.__id = id;
   }
 
-  int get id => _id;
+  String get id => _id;
 
-  set __id(int id) {
-    if (id < 0) throw NegativeIntegerError();
+  set __id(String id) {
     this._id = id;
   }
 

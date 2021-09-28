@@ -38,6 +38,7 @@ class Organization extends Entity<Organization> {
     __creator = creator;
   }
 
+  /// TODO: Comment
   Organization.newName(Organization organization, this._name)
       : this.id = organization.id,
         this._creator = organization.creator,
@@ -50,7 +51,12 @@ class Organization extends Entity<Organization> {
 
   /// [__creator] private setter for the creator and initial member in the organization
   set __creator(User user) {
-    _creator = Member(user: user, role: Role.creator(), organizationID: id);
+    // TODO: MemberID for a creator...
+    _creator = Member(
+        id: MemberID.creatorID(),
+        user: user,
+        role: Role.creator(),
+        organizationID: id);
   }
 
   /// Getters

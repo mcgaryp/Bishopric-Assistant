@@ -9,5 +9,7 @@ import 'package:models/shared/entity.dart';
 ///
 
 class MemberID extends UUID {
-  MemberID(int id) : super(id);
+  MemberID(String id) : super(id);
+
+  MemberID.creatorID() : super("Organization Creator");
 }

@@ -11,8 +11,8 @@ import 'package:models/models/member_domain/member_id.dart';
 
 class MemberIDTest {
   static void checkMemberID() {
-    MemberID memberId = MemberID(9);
-    int result = memberId.id;
+    MemberID memberId = MemberID("9");
+    String result = memberId.id;
     expect(result, 9);
   }
 }

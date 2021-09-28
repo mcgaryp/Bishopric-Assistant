@@ -16,5 +16,5 @@ import 'organization_id.dart';
 mixin OrganizationRepository
     implements Repository<Organization, OrganizationID, void> {
   @required
-  Member findMember(MemberID id);
+  Future<Member?> findMember(MemberID id);
 }

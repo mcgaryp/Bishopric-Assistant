@@ -10,13 +10,17 @@ import 'package:models/models/role.dart';
 ///
 
 class RoleIDTest {
-  static void idCheck() {
-    RoleID id = RoleID(19);
-    int result = id.id;
-    expect(result, 19);
+  static void shouldReturnIDWhenGivenValidID() {
+    // Arrange
+    RoleID id = RoleID("19");
+    // Act
+    String result = id.id;
+    // Assess
+    expect(result, "19");
   }
 }
 
 main() {
-  test("RoleID Test id is properly stored", RoleIDTest.idCheck);
+  test("RoleID Test id is properly stored",
+      RoleIDTest.shouldReturnIDWhenGivenValidID);
 }

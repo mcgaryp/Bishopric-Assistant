@@ -9,5 +9,5 @@ import 'package:models/shared/entity.dart';
 ///
 
 class AssignmentID extends UUID {
-  AssignmentID(int id) : super(id);
+  AssignmentID(String id) : super(id);
 }

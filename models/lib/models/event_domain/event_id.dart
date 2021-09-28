@@ -9,5 +9,5 @@ import 'package:models/shared/entity.dart';
 ///
 
 class EventID extends UUID {
-  EventID(int id) : super(id);
+  EventID(String id) : super(id);
 }

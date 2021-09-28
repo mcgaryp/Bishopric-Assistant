@@ -15,11 +15,11 @@ import 'package:models/models/user.dart';
 
 /// TODO: Make the repo a use case repo
 class MockRoleRepository implements RoleRepository {
-  static RoleID roleID(int i) => RoleID(i);
+  static RoleID roleID(String i) => RoleID(i);
 
   static String name(int i) => "Level $i member";
 
-  static OrganizationID organizationID(int index) => OrganizationID(index);
+  static OrganizationID organizationID(String index) => OrganizationID(index);
 
   static User createUser(int index) =>
       User(firstName: "User", lastName: "$index");
@@ -30,13 +30,13 @@ class MockRoleRepository implements RoleRepository {
   final Duration delay = Duration(seconds: 3);
   final List<Role> roles = List.generate(
       5,
-      (index) => Role(roleID(index),
+      (index) => Role(
           name: name(index),
           securityClearance: SecurityClearance.values[index]));
   final List<Organization> organizations = List.generate(
       5,
       (index) => Organization(
-          id: organizationID(index),
+          id: organizationID(index.toString()),
           name: organizationName(index),
           creator: users[index]));
 
@@ -89,7 +89,7 @@ class RoleRepositoryTest {
   // TODO: Add Should_Expected_When_StateUnderTest as function names
   static void shouldReturnRoleWhenValidID() async {
     // arrange
-    RoleID id = RoleID(0);
+    RoleID id = RoleID("0");
     // act
     Role? result = await repository.find(id);
     // assert
@@ -98,7 +98,7 @@ class RoleRepositoryTest {
 
   static void shouldReturnNullRoleWhenInValidID() async {
     // arrange
-    RoleID id = RoleID(-1);
+    RoleID id = RoleID("");
     // act
     Role? result = await repository.find(id);
     // assert
@@ -107,7 +107,7 @@ class RoleRepositoryTest {
 
   static void shouldReturnAllRolesWhenValidOrganizationID() async {
     // arrange
-    OrganizationID id = OrganizationID(1);
+    OrganizationID id = OrganizationID("1");
     // act
     List<Role>? results = await repository.findAll(id);
     // assert
@@ -116,7 +116,7 @@ class RoleRepositoryTest {
 
   static void shouldReturnNullWhenInvalidOrganizationID() async {
     // arrange
-    OrganizationID id = OrganizationID(-1);
+    OrganizationID id = OrganizationID("");
     // act
     List<Role>? results = await repository.findAll(id);
     // assert

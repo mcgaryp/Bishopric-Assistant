@@ -30,6 +30,7 @@ abstract class Repository<M, I, O> {
   /// [store] M
   ///
   /// Returns a [ValueResult] or an [ErrorResult]
+  /// TODO: Change to insert or combine with update?
   Future<Result> store(M m);
 
   /// [remove] M
