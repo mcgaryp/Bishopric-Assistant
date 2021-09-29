@@ -5,8 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="99765baa-399f-478a-ab8c-6049cff60bfd" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/models/lib/shared/foundation.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/lib/use_cases/member_use_cases.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/lib/use_cases/member_use_cases/view_assignments.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/lib/use_cases/organization_use_case.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/account_domain/account.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/account_domain/account.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/account_domain/contact.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/account_domain/contact.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/account_domain/credentials.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/account_domain/credentials.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/account_domain/name.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/account_domain/name.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/account_domain/role.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/account_domain/role.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/assignment_domain/assignment_id.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/assignment_domain/assignment_id.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/event_domain/event_id.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/event_domain/event_id.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/member.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/member.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/member_domain/member.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/member_domain/member.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/member_domain/member_id.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/member_domain/member_id.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/organization.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/organization.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/organization_domain/creator.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/organization_domain/creator.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/organization_domain/organization.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/organization_domain/organization.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/organization_domain/organization_id.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/organization_domain/organization_id.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/models/organization_domain/organization_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/organization_domain/organization_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/shared/dart_exports.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/shared/dart_foundation.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/shared/domain_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/shared/domain_driven_design_basics/domain_event.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/shared/entity.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/shared/domain_driven_design_basics/entity.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/shared/serializable.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/shared/domain_driven_design_basics/serializable.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/lib/shared/uuid.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/shared/uuid.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/shared/value_object.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/shared/domain_driven_design_basics/value_object.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/util/extensions/extensions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/util/extensions.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/util/util.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/util/util.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,12 +46,12 @@
         <option value="Dart DataModel" />
         <option value="Specification" />
         <option value="Dart Abstract File" />
-        <option value="Dart Use Case" />
         <option value="Dart Test" />
-        <option value="Dart Export" />
         <option value="Dart Test Case" />
         <option value="Dart File" />
         <option value="Dart Data Model" />
+        <option value="Dart Export" />
+        <option value="Dart Use Case" />
       </list>
     </option>
   </component>
@@ -67,11 +93,11 @@
       <recent name="$PROJECT_DIR$/.idea" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/models/lib/util" />
+      <recent name="$PROJECT_DIR$/models/lib/shared/domain_driven_design_basics" />
       <recent name="$PROJECT_DIR$/models/test/models/member_domain" />
       <recent name="$PROJECT_DIR$/models/lib/models/role_domain" />
       <recent name="$PROJECT_DIR$/models/lib/models/user_domain" />
-      <recent name="$PROJECT_DIR$/models/lib/models/member_domain" />
-      <recent name="$PROJECT_DIR$/models/test/util" />
     </key>
   </component>
   <component name="RunManager" selected="Flutter Test.Model Tests">
@@ -198,7 +224,14 @@
       <option name="project" value="LOCAL" />
       <updated>1632899237525</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Added equivalent operator overloads to all entities and value objects">
+      <created>1632899265328</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1632899265328</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -228,6 +261,7 @@
     <MESSAGE value="Reformated code with Dart FMT" />
     <MESSAGE value="Added permission_denied.dart to export and cleaned up imports" />
     <MESSAGE value="Added equivalent operator overloads to all entities and value objects" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added equivalent operator overloads to all entities and value objects" />
+    <MESSAGE value="Change up the import to be optimized" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change up the import to be optimized" />
   </component>
 </project>

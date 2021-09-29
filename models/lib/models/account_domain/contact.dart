@@ -1,5 +1,4 @@
-import 'package:models/shared/exceptions.dart';
-import 'package:models/shared/value_object.dart';
+import 'package:models/shared/foundation.dart';
 
 ///
 /// contact.dart

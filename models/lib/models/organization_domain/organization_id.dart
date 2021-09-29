@@ -1,4 +1,4 @@
-import 'package:models/shared/entity.dart';
+import 'package:models/shared/uuid.dart';
 
 ///
 /// organization_id.dart

@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 
-import 'uuid.dart';
+import '../uuid.dart';
 
-export 'uuid.dart';
+export '../uuid.dart';
 
 ///
 /// entity.dart

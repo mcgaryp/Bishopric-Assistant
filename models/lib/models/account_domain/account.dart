@@ -1,5 +1,5 @@
 import 'package:models/models/account.dart';
-import 'package:models/shared/entity.dart';
+import 'package:models/shared/foundation.dart';
 
 ///
 /// account.dart

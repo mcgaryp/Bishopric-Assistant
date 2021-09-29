@@ -1,6 +1,5 @@
 import 'package:models/models/organization.dart';
-import 'package:models/shared/entity.dart';
-import 'package:models/util/extensions/string_extensions.dart';
+import 'package:models/shared/foundation.dart';
 
 ///
 /// organization.dart

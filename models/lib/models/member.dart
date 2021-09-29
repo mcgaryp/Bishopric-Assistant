@@ -5,7 +5,7 @@
 /// Created by Po on 9/23/21
 /// Copyright 2021 Po. All rights reserved.
 ///
-export 'package:models/shared/dart_exports.dart';
+export 'package:models/shared/dart_foundation.dart';
 
 export 'account_domain/contact.dart';
 export 'account_domain/name.dart';
