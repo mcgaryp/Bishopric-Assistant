@@ -1,3 +1,5 @@
+import 'package:flutter_test/flutter_test.dart';
+
 ///
 /// member_test.dart
 /// bishopric-assistant
@@ -6,9 +8,8 @@
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-class member_test {}
+class MemberTest {}
 
-main() {
-  // TODO: Implement
-  throw UnimplementedError();
+runMemberTests() {
+  group("Member", () {});
 }

@@ -65,7 +65,7 @@ class StringExtensionTest {
   }
 }
 
-main() {
+runStringExtensionTests() {
   group("String Extension", () {
     test("should capitalize the first letter of the string",
         StringExtensionTest.shouldCapitalize);

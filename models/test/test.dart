@@ -1,6 +1,6 @@
-import 'package:flutter_test/flutter_test.dart';
-
 import 'models/models_test.dart';
+import 'shared/shared_test.dart';
+import 'util/util_test.dart';
 
 ///
 /// test.dart
@@ -11,7 +11,7 @@ import 'models/models_test.dart';
 ///
 
 main() {
-  group("Model Tests", () {
-    runModelsTests();
-  });
+  runModelsTests();
+  runSharedTests();
+  runUtilTests();
 }

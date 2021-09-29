@@ -10,9 +10,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 class AccountTest {}
 
-main() {
-  test("Implement", () {
-    // TODO: Implement
-    throw UnimplementedError();
-  });
+runAccountTests() {
+  test("Account", () {});
 }
