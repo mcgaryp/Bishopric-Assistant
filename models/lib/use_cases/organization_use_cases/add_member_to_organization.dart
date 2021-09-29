@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/member.dart';
 import 'package:models/shared/exceptions.dart';
-import 'package:models/shared/exceptions/permission_denied_error.dart';
 
 ///
 /// add_member_to_organization.dart

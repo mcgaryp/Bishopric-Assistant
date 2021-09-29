@@ -1,6 +1,5 @@
 import 'package:models/models/member.dart';
 import 'package:models/shared/exceptions.dart';
-import 'package:models/shared/exceptions/permission_denied_error.dart';
 
 ///
 /// remove_member_from_organization.dart

@@ -10,4 +10,5 @@ export 'exceptions/empty_string_error.dart';
 export 'exceptions/member_not_found_error.dart';
 export 'exceptions/negative_integer_error.dart';
 export 'exceptions/organization_not_found_error.dart';
+export 'exceptions/permission_denied_error.dart';
 export 'exceptions/unable_to_generate_id_error.dart';

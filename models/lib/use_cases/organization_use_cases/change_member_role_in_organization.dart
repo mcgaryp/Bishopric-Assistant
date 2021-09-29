@@ -1,6 +1,5 @@
 import 'package:models/models/member.dart';
 import 'package:models/shared/exceptions.dart';
-import 'package:models/shared/exceptions/permission_denied_error.dart';
 
 ///
 /// change_member_role_in_organization.dart
