@@ -61,4 +61,10 @@ class Organization extends Entity<Organization> {
   bool sameIdentityAs(Organization other) {
     return this.id == other.id;
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (other.runtimeType != Organization) return false;
+    return sameIdentityAs(other as Organization);
+  }
 }

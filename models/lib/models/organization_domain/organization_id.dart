@@ -12,4 +12,15 @@ import 'package:models/shared/entity.dart';
 /// TODO: Comment
 class OrganizationID extends UUID {
   OrganizationID(String id) : super(id);
+
+  @override
+  bool sameValueAs(UUID other) {
+    return other.id == this.id;
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (other.runtimeType != OrganizationID) return false;
+    return sameValueAs(other as OrganizationID);
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:models/shared/exceptions.dart';
+import 'package:models/shared/value_object.dart';
 
 ///
 /// uuid.dart
@@ -11,10 +12,12 @@ import 'package:models/shared/exceptions.dart';
 /// [UUID] forms a unique identity for an object
 /// TODO: transform the ID into a string
 /// TODO: Comments
-abstract class UUID {
+abstract class UUID extends ValueObject<UUID>{
   late final String _id;
 
-  UUID(String id) {
+  UUID(String id) : super.decode({
+    "id": id
+  }) {
     this.__id = id;
   }
 
@@ -24,6 +27,11 @@ abstract class UUID {
     if (id.isEmpty) throw EmptyStringError();
     this._id = id;
   }
+
+  @override
+  Map<String, dynamic> toJson() => {
+    "id": id,
+  };
 
   @override
   bool operator ==(Object object) {

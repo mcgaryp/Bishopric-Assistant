@@ -14,6 +14,11 @@ class AccountID extends UUID {
   @override
   bool operator ==(Object other) {
     if (other.runtimeType != AccountID) return false;
-    return this.id == (other as AccountID).id;
+    return sameValueAs(other as AccountID);
+  }
+
+  @override
+  bool sameValueAs(UUID other) {
+    return this.id == other.id;
   }
 }

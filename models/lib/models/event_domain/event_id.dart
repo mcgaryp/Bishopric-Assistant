@@ -10,4 +10,15 @@ import 'package:models/shared/entity.dart';
 
 class EventID extends UUID {
   EventID(String id) : super(id);
+
+  @override
+  bool sameValueAs(UUID other) {
+    return other.id == this.id;
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (other.runtimeType != EventID) return false;
+    return sameValueAs(other as EventID);
+  }
 }

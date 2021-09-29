@@ -23,4 +23,7 @@ abstract class Entity<T> {
   /// Returns `true` if the identities are the same, regardless of other attributes.
   @required
   bool sameIdentityAs(T other);
+
+  @required
+  bool operator ==(Object other);
 }
