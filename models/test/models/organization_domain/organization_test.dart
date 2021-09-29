@@ -1,3 +1,5 @@
+import 'package:flutter_test/flutter_test.dart';
+
 ///
 /// organization_test.dart
 /// bishopric-assistant
@@ -6,9 +8,8 @@
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-class organization_test {}
+class OrganizationTests {}
 
-main() {
-  // TODO: Implement
-  throw UnimplementedError();
+runOrganizationTests() {
+  group("Organization", () {});
 }

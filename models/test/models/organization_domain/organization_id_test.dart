@@ -20,8 +20,8 @@ class OrganizationIDTest {
   }
 }
 
-main() {
-  group("OrganizationID Test", () {
+runOrganizationIDTests() {
+  group("Organization ID", () {
     test("check the id sets right", OrganizationIDTest.checkOrganizationID);
   });
 }

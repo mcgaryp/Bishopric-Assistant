@@ -8,4 +8,4 @@
 
 class serializable_test {}
 
-main() {}
+runSerializableTests() {}

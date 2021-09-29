@@ -10,13 +10,15 @@ import 'package:models/models/member_domain/member_id.dart';
 ///
 
 class MemberIDTest {
-  static void checkMemberID() {
+  static void shouldReturnValidIDWhenValidID() {
     MemberID memberId = MemberID("9");
     String result = memberId.id;
     expect(result, 9);
   }
 }
 
-main() {
-  test("Member ID Test", MemberIDTest.checkMemberID);
+runMemberIDTests() {
+  group("Member ID", () {
+    test("should return valid ID", MemberIDTest.shouldReturnValidIDWhenValidID);
+  });
 }

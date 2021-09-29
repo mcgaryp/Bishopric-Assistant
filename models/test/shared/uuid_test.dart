@@ -8,4 +8,4 @@
 
 class uuid_test {}
 
-main() {}
+runUUIDTests() {}

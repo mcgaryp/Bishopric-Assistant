@@ -8,7 +8,7 @@
 export 'package:models/util/extensions.dart';
 
 export 'dart_foundation.dart';
-export 'domain_driven_design_basics/domain_event.dart';
-export 'domain_driven_design_basics/entity.dart';
-export 'domain_driven_design_basics/value_object.dart';
+export 'domain_driven_design/domain_event.dart';
+export 'domain_driven_design/entity.dart';
+export 'domain_driven_design/value_object.dart';
 export 'exceptions.dart';
