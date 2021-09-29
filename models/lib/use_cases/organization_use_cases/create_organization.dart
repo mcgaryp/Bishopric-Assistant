@@ -1,7 +1,8 @@
 import 'package:async/async.dart';
 import 'package:flutter/foundation.dart';
+import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
-import 'package:models/models/user.dart';
+import 'package:models/shared/exceptions.dart';
 
 ///
 /// create_organization.dart
@@ -18,25 +19,33 @@ mixin CreateOrganizationUseCase {
   /// [name] given to the new organization
   /// returns a [ResultValue] if successful else [ResultError]
   @required
-  Future<Result> execute({required UserID creatorId, required String name});
+  Future<Result> execute(
+      {required AccountID creatorId, required String name, String? anonymous});
 }
 
 class DefaultCreateOrganizationUseCase implements CreateOrganizationUseCase {
-  final UserRepository _userRepository;
+  final AccountRepository _accountRepository;
   final OrganizationRepository _organizationRepository;
 
   DefaultCreateOrganizationUseCase(
-      this._userRepository, this._organizationRepository);
+      this._accountRepository, this._organizationRepository);
 
   @override
   Future<Result> execute(
-      {required UserID creatorId, required String name}) async {
-    User? creator = await _userRepository.find(creatorId);
-    OrganizationID id = await _organizationRepository.generateNextId();
-    Organization organization =
-        Organization(id: id, creator: creator!, name: name);
-    Result result = await _organizationRepository.insert(organization);
+      {required AccountID creatorId,
+      required String name,
+      String? anonymous}) async {
+    Account? accessor = await _accountRepository.find(creatorId);
+    if (accessor == null) return Result.error(AccountNotFoundError());
+    OrganizationID? id = await _organizationRepository.generateNextId();
 
+    if (id == null)
+      return Result.error(UnableToGenerateIdError(forEntity: "Organization"));
+    Creator creator = Creator.fromAccount(accessor, anonymous: anonymous);
+    Organization organization =
+        Organization(id: id, name: name, creator: creator);
+
+    Result result = await _organizationRepository.insert(organization);
     return result;
   }
 }

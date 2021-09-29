@@ -1,8 +1,4 @@
-import 'package:models/models/accounts/account_id.dart';
-import 'package:models/models/accounts/contact.dart';
-import 'package:models/models/accounts/credentials.dart';
-import 'package:models/models/accounts/name.dart';
-import 'package:models/models/accounts/role.dart';
+import 'package:models/models/account.dart';
 import 'package:models/shared/entity.dart';
 
 ///
@@ -13,6 +9,7 @@ import 'package:models/shared/entity.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
+/// TODO: Does an account have a role?
 class Account extends Entity<Account> {
   final AccountID id;
   final Name name;
@@ -20,7 +17,12 @@ class Account extends Entity<Account> {
   final Credentials credentials;
   final Role role;
 
-  Account(this.id, this.name, this.contact, this.credentials, this.role)
+  Account(
+      {required this.id,
+      required this.name,
+      required this.contact,
+      required this.credentials,
+      required this.role})
       : super(id);
 
   @override

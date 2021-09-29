@@ -7,6 +7,8 @@
 ///
 export 'package:models/shared/dart_exports.dart';
 
+export 'account_domain/role.dart';
+export 'organization_domain/creator.dart';
 export 'organization_domain/organization.dart';
 export 'organization_domain/organization_id.dart';
 export 'organization_domain/organization_repository.dart';

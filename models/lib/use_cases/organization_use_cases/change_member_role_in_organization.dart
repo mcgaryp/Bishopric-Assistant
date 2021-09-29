@@ -1,6 +1,6 @@
 import 'package:models/models/member.dart';
-import 'package:models/models/organization.dart';
-import 'package:models/models/role.dart';
+import 'package:models/shared/exceptions.dart';
+import 'package:models/shared/exceptions/permission_denied_error.dart';
 
 ///
 /// change_member_role_in_organization.dart
@@ -19,33 +19,34 @@ mixin ChangeMemberRoleInOrganizationUseCase {
   /// Returns a [ResultValue] if successful else[ResultError]
   @required
   Future<Result> execute({
-    required MemberID accessorId,
+    required MemberID accessorID,
     required MemberID memberID,
-    required RoleID roleID,
+    required Role role,
   });
 }
 
 class DefaultChangeMemberRoleInOrganizationUseCase
     implements ChangeMemberRoleInOrganizationUseCase {
   MemberRepository _memberRepository;
-  RoleRepository _roleRepository;
 
-  DefaultChangeMemberRoleInOrganizationUseCase(
-      this._memberRepository, this._roleRepository);
+  DefaultChangeMemberRoleInOrganizationUseCase(this._memberRepository);
 
   @override
   Future<Result> execute({
-    required MemberID accessorId,
+    required MemberID accessorID,
     required MemberID memberID,
-    required RoleID roleID,
+    required Role role,
   }) async {
-    Member? creator = await _memberRepository.find(accessorId);
-    if (creator!.oldRole.securityClearance < SecurityClearance.creator)
-      return Result.error("Access to Change Member Role Denied.");
+    Member? accessor = await _memberRepository.find(accessorID);
+    if (accessor == null) return Result.error(MemberNotFoundError());
+    if (accessor.role.permissions < Permissions.maintainer)
+      return Result.error(PermissionDeniedError(
+          reason:
+              "Maintainer permissions required to change a Role of Organization Member"));
 
-    Role? newRole = await _roleRepository.find(roleID);
     Member? member = await _memberRepository.find(memberID);
-    Member updatedMember = Member.newRole(oldRole: newRole!, member: member!);
+    if (member == null) return Result.error(MemberNotFoundError());
+    Member updatedMember = Member.newRole(role: role, member: member);
     Result result = await _memberRepository.update(updatedMember);
     return result;
   }

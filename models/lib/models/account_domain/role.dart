@@ -10,41 +10,41 @@ import 'package:models/shared/value_object.dart';
 ///
 
 /// TODO: Comments
-enum Character { creator, maintainer, reporter, viewer }
+enum Permissions { creator, maintainer, reporter, viewer }
 
-extension Characters on Character {
+extension PermissionsExtension on Permissions {
   String get string => this.toString();
 
-  operator <(Character rhs) {
+  operator <(Permissions rhs) {
     return this.index < rhs.index;
   }
 
-  operator <=(Character rhs) {
+  operator <=(Permissions rhs) {
     return this.index <= rhs.index;
   }
 
-  operator >(Character rhs) {
+  operator >(Permissions rhs) {
     return this.index > rhs.index;
   }
 
-  operator >=(Character rhs) {
+  operator >=(Permissions rhs) {
     return this.index >= rhs.index;
   }
 
-  operator +(Character rhs) {
+  operator +(Permissions rhs) {
     return this.index + 1;
   }
 
-  operator -(Character rhs) {
+  operator -(Permissions rhs) {
     return this.index - 1;
   }
 }
 
 class Role extends ValueObject<Role> {
-  final Character character;
+  final Permissions permissions;
   late final String _anonymous;
 
-  Role(this.character, {required String anonymous}) : super.decode({}) {
+  Role(this.permissions, {required String anonymous}) : super.decode({}) {
     __anonymous = anonymous;
   }
 
@@ -57,7 +57,7 @@ class Role extends ValueObject<Role> {
 
   @override
   bool sameValueAs(Role other) {
-    return other.character == this.character &&
+    return other.permissions == this.permissions &&
         other.anonymous == this.anonymous;
   }
 
@@ -69,5 +69,5 @@ class Role extends ValueObject<Role> {
 
   @override
   Map<String, dynamic> toJson() =>
-      {"character": character.string, "anonymous": anonymous};
+      {"character": permissions.string, "anonymous": anonymous};
 }

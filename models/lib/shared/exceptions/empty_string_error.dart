@@ -1,5 +1,5 @@
 ///
-/// empty_string_exception.dart
+/// empty_string_error.dart
 /// bishopric-assistant
 ///
 /// Created by Po on 9/22/21

@@ -46,7 +46,7 @@ abstract class Repository<Entity, UUID, AlternativeUUID> {
   /// [generateNextId] for the M
   ///
   /// Returns a [UUID]
-  Future<UUID> generateNextId();
+  Future<UUID?> generateNextId();
 }
 
 // TODO: Turn into Exceptions?

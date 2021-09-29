@@ -1,7 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'user_domain/user_test.dart';
-
 ///
 /// models_test.dart
 /// bishopric-assistant
@@ -11,7 +9,5 @@ import 'user_domain/user_test.dart';
 ///
 
 runModelsTests() {
-  group("User Tests", () {
-    runUserTests();
-  });
+  group("", () {});
 }

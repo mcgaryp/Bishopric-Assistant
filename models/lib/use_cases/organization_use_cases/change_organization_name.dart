@@ -1,6 +1,7 @@
 import 'package:models/models/member.dart';
 import 'package:models/models/organization.dart';
-import 'package:models/models/role.dart';
+import 'package:models/shared/exceptions.dart';
+import 'package:models/shared/exceptions/permission_denied_error.dart';
 
 ///
 /// change_organization_name.dart
@@ -29,12 +30,15 @@ class DefaultChangeOrganizationNameUseCase
   Future<Result> execute(
       {required MemberID accessorId, required String name}) async {
     Member? accessor = await _organizationRepository.findMember(accessorId);
-    if (accessor!.oldRole.securityClearance < SecurityClearance.creator)
-      return Result.error("Access to Change Organization Name Denied.");
+    if (accessor == null) return Result.error(MemberNotFoundError());
+    if (accessor.role.permissions < Permissions.creator)
+      return Result.error(PermissionDeniedError(
+          reason: "Creator Permissions required to Change Organization Name"));
 
     Organization? organization =
         await _organizationRepository.find(accessor.organizationID);
-    Organization newOrganization = Organization.newName(organization!, name);
+    if (organization == null) return Result.error(OrganizationNotFoundError());
+    Organization newOrganization = Organization.newName(organization, name);
     Result result = await _organizationRepository.update(newOrganization);
     return result;
   }

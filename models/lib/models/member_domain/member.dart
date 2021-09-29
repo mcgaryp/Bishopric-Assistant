@@ -1,9 +1,5 @@
-import 'package:models/models/accounts/contact.dart';
-import 'package:models/models/accounts/role.dart';
+import 'package:models/models/member.dart';
 import 'package:models/shared/entity.dart';
-
-import '../organization_domain/organization_id.dart';
-import 'member_id.dart';
 
 ///
 /// member.dart
@@ -18,10 +14,12 @@ class Member extends Entity<Member> {
   final MemberID id;
   final Role role;
   final Contact contact;
+  final Name name;
   final OrganizationID organizationID;
 
   Member(
       {required this.id,
+      required this.name,
       required this.role,
       required this.contact,
       required this.organizationID})
@@ -29,6 +27,7 @@ class Member extends Entity<Member> {
 
   Member.newRole({required this.role, required Member member})
       : this.contact = member.contact,
+        this.name = member.name,
         this.id = member.id,
         this.organizationID = member.organizationID,
         super(member.id);
