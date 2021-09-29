@@ -4,49 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99765baa-399f-478a-ab8c-6049cff60bfd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/models/lib/models/account_domain/account_repository.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/lib/models/accounts.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/lib/models/organization_domain/creator.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/accounts/account.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/account_domain/account.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/accounts/account_id.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/account_domain/account_id.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/accounts/contact.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/account_domain/contact.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/accounts/credentials.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/account_domain/credentials.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/accounts/name.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/account_domain/name.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/accounts/role.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/account_domain/role.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/member.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/member.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/member_domain/member.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/member_domain/member.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/organization.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/organization.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/organization_domain/organization.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/models/organization_domain/organization.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/role.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/role_domain/role.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/role_domain/role_id.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/role_domain/role_repository.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/role_domain/security_clearance.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/user.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/user_domain/current_user.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/user_domain/generic_user.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/user_domain/member_user.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/user_domain/privileges.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/user_domain/user.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/user_domain/user_id.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/models/user_domain/user_repository.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/lib/use_cases/organization_use_cases/add_member_to_organization.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/use_cases/organization_use_cases/add_member_to_organization.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/test/mocks/mock_current_user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/test/mocks/mock_account.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/test/mocks/mock_generic_user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/test/mocks/mock_unauthenticated_account.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/test/mocks/mock_member_user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/test/mocks/mock_member.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/test/models/models_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/test/models/models_test.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/test/models/role_domain/role_id_test.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/test/models/role_domain/role_repository_test.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/test/models/role_domain/role_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/test/models/account_domain/account_test.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/test/models/role_domain/security_clearance_test.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/test/models/user_domain/current_user_test.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/test/models/user_domain/generic_user_test.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/test/models/user_domain/member_user_test.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/test/models/user_domain/user_id_test.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/test/models/user_domain/user_test.dart" beforeDir="false" />
-    </list>
+    <list default="true" id="99765baa-399f-478a-ab8c-6049cff60bfd" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -63,8 +21,8 @@
         <option value="Dart Test" />
         <option value="Dart Export" />
         <option value="Dart Test Case" />
-        <option value="Dart Data Model" />
         <option value="Dart File" />
+        <option value="Dart Data Model" />
       </list>
     </option>
   </component>
@@ -209,7 +167,14 @@
       <option name="project" value="LOCAL" />
       <updated>1632871906236</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Removal of Role Domain and User Domain and replaced with Account Domain">
+      <created>1632898205509</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1632898205509</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -235,6 +200,7 @@
     <MESSAGE value="Unit Tests for All Users completed" />
     <MESSAGE value="Create accounts domain that breaks up and will replace user domain. All other domains should depend on Accounts" />
     <MESSAGE value="Added deprecated to deprecated classes and created replacement classes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added deprecated to deprecated classes and created replacement classes" />
+    <MESSAGE value="Removal of Role Domain and User Domain and replaced with Account Domain" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removal of Role Domain and User Domain and replaced with Account Domain" />
   </component>
 </project>
