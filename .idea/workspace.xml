@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99765baa-399f-478a-ab8c-6049cff60bfd" name="Default Changelist" comment="" />
+    <list default="true" id="99765baa-399f-478a-ab8c-6049cff60bfd" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/lib/shared/uuid.dart" beforeDir="false" afterPath="$PROJECT_DIR$/models/lib/shared/uuid.dart" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -174,7 +177,28 @@
       <option name="project" value="LOCAL" />
       <updated>1632898205509</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Reformated code with Dart FMT">
+      <created>1632898269572</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1632898269572</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Added permission_denied.dart to export and cleaned up imports">
+      <created>1632898511329</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1632898511329</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Added equivalent operator overloads to all entities and value objects">
+      <created>1632899237525</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1632899237525</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -201,6 +225,9 @@
     <MESSAGE value="Create accounts domain that breaks up and will replace user domain. All other domains should depend on Accounts" />
     <MESSAGE value="Added deprecated to deprecated classes and created replacement classes" />
     <MESSAGE value="Removal of Role Domain and User Domain and replaced with Account Domain" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removal of Role Domain and User Domain and replaced with Account Domain" />
+    <MESSAGE value="Reformated code with Dart FMT" />
+    <MESSAGE value="Added permission_denied.dart to export and cleaned up imports" />
+    <MESSAGE value="Added equivalent operator overloads to all entities and value objects" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added equivalent operator overloads to all entities and value objects" />
   </component>
 </project>

@@ -12,12 +12,10 @@ import 'package:models/shared/value_object.dart';
 /// [UUID] forms a unique identity for an object
 /// TODO: transform the ID into a string
 /// TODO: Comments
-abstract class UUID extends ValueObject<UUID>{
+abstract class UUID extends ValueObject<UUID> {
   late final String _id;
 
-  UUID(String id) : super.decode({
-    "id": id
-  }) {
+  UUID(String id) : super.decode({"id": id}) {
     this.__id = id;
   }
 
@@ -30,8 +28,8 @@ abstract class UUID extends ValueObject<UUID>{
 
   @override
   Map<String, dynamic> toJson() => {
-    "id": id,
-  };
+        "id": id,
+      };
 
   @override
   bool operator ==(Object object) {
