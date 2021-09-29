@@ -1,10 +1,5 @@
-import 'package:models/shared/entity.dart';
-import 'package:models/util/extensions/string_extensions.dart';
-
-import '../member.dart';
-import '../organization.dart';
-import '../role.dart';
-import '../user.dart';
+import 'package:models/models/organization.dart';
+import 'package:models/shared/foundation.dart';
 
 ///
 /// organization.dart
@@ -23,7 +18,7 @@ class Organization extends Entity<Organization> {
   final OrganizationID id;
 
   /// [_creator] the initial member and user of the organization
-  late Member _creator;
+  late Creator _creator;
 
   /// [_name] the name of the organization
   late String _name;
@@ -33,7 +28,8 @@ class Organization extends Entity<Organization> {
   /// [id] of the organization
   /// [name] of the organization
   /// [creator] of the organization
-  Organization({required this.id, required String name, required User creator})
+  Organization(
+      {required this.id, required String name, required Creator creator})
       : super(id) {
     __name = name;
     __creator = creator;
@@ -51,22 +47,23 @@ class Organization extends Entity<Organization> {
   set __name(String name) => _name = name.capitalize;
 
   /// [__creator] private setter for the creator and initial member in the organization
-  set __creator(User user) {
-    // TODO: MemberID for a creator...
-    _creator = Member(
-        id: MemberID.creatorID(),
-        user: user,
-        role: Role.creator(),
-        organizationID: id);
+  set __creator(Creator creator) {
+    _creator = creator;
   }
 
   /// Getters
   String get name => _name;
 
-  Member get creator => _creator;
+  Creator get creator => _creator;
 
   @override
   bool sameIdentityAs(Organization other) {
     return this.id == other.id;
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (other.runtimeType != Organization) return false;
+    return sameIdentityAs(other as Organization);
   }
 }

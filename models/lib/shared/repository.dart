@@ -10,41 +10,60 @@ export 'package:async/async.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-// TODO: Answer the questions below
-// 1. Should the return values in the methods be futures?
-// 2. Should the return values in the methods be optionals? What happens if something fails?
-// 3. Should the return values in the methods be Result? What happens if something fails?
-// 4. Should any of these decisions be pushed to the class that inherits the Subclass of Repository?
-abstract class Repository<M, I, O> {
-  /// [find] an M
+/// [Repository] is a class that interfaces with a database of some kind
+/// Type [Entity] must be some form of Entity
+/// Type [UUID] must be some form of UUID
+/// Type [AlternativeUUID] must be some form of UUID that is not equivalent to [UUID]
+abstract class Repository<Entity, UUID, AlternativeUUID> {
+  /// [find] an [Entity] in the database
   ///
-  /// Returns an [M]
+  /// Returns an [Entity] Optional
   /// @required
-  Future<M?> find(I i);
+  Future<Entity?> find(UUID i);
 
   /// [findAll] M
   ///
-  /// Returns a [List<M>]s
-  Future<List<M>?> findAll(O o);
-
-  /// [store] M
   ///
-  /// Returns a [ValueResult] or an [ErrorResult]
-  /// TODO: Change to insert or combine with update?
-  Future<Result> store(M m);
+  /// Returns a [List<Entity>] Optionals
+  Future<List<Entity>?> findAll(AlternativeUUID o);
+
+  /// [insert] M
+  ///
+  /// This class inserts a new M into a database
+  /// Returns a [ValueResult] or an [ErrorResult] on a failure
+  Future<Result<RequestType>> insert(Entity m);
 
   /// [remove] M
   ///
   /// Returns a [ValueResult] or an [ErrorResult]
-  Future<Result> remove(I i);
+  Future<Result<RequestType>> remove(UUID i);
 
   /// [update] M
   ///
   /// Returns a [ValueResult] or an [ErrorResult]
-  Future<Result> update(M m);
+  Future<Result<RequestType>> update(Entity m);
 
   /// [generateNextId] for the M
   ///
-  /// Returns a [I]
-  Future<I> generateNextId();
+  /// Returns a [UUID]
+  Future<UUID?> generateNextId();
+}
+
+// TODO: Turn into Exceptions?
+enum RequestType {
+  continue100,
+  ok200,
+  badRequest400,
+  unauthorized401,
+  paymentRequired402,
+  forbidden403,
+  notFound404,
+  methodNotAllowed405,
+  notAcceptable406,
+  requestTimeout408,
+  conflict409,
+  gone410,
+  loginTimeout440,
+  noResponse444,
+  notImplemented501
 }

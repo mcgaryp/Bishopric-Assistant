@@ -1,9 +1,8 @@
 import 'package:async/async.dart';
 import 'package:flutter/foundation.dart';
+import 'package:models/models/account.dart';
 import 'package:models/models/member.dart';
-import 'package:models/models/organization.dart';
-import 'package:models/models/role.dart';
-import 'package:models/models/user.dart';
+import 'package:models/shared/exceptions.dart';
 
 ///
 /// add_member_to_organization.dart
@@ -22,37 +21,45 @@ mixin AddMemberToOrganizationUseCase {
   @required
   Future<Result> execute(
       {required MemberID accessorId,
-      required UserID userID,
-      required RoleID roleID});
+      required AccountID accountID,
+      required Role role});
 }
 
 class DefaultAddMemberToOrganizationUseCase
     implements AddMemberToOrganizationUseCase {
-  UserRepository _userRepository;
-  RoleRepository _roleRepository;
+  AccountRepository _accountRepository;
   MemberRepository _memberRepository;
 
   DefaultAddMemberToOrganizationUseCase(
-      this._userRepository, this._roleRepository, this._memberRepository);
+      this._accountRepository, this._memberRepository);
 
   @override
   Future<Result> execute(
       {required MemberID accessorId,
-      required UserID userID,
-      required RoleID roleID}) async {
+      required AccountID accountID,
+      required Role role}) async {
     Member? accessor = await _memberRepository.find(accessorId);
-    if (accessor!.role.securityClearance < SecurityClearance.level2)
-      return Result.error("Access to Add Member Denied.");
+    if (accessor == null) return Result.error(MemberNotFoundError());
+    if (accessor.role.permissions < Permissions.maintainer)
+      return Result.error(PermissionDeniedError(
+          reason:
+              "Maintainer permissions required to Add Members to Organization"));
 
-    User? user = await _userRepository.find(userID);
-    Role? role = await _roleRepository.find(roleID);
+    Account? account = await _accountRepository.find(accountID);
+    if (account == null) return Result.error(AccountNotFoundError());
+
     MemberID? memberId = await _memberRepository.generateNextId();
+    if (memberId == null)
+      return Result.error(UnableToGenerateIdError(forEntity: "Member"));
+
     Member member = Member(
         id: memberId,
-        role: role!,
-        user: user!,
+        name: account.name,
+        role: role,
+        contact: account.contact,
         organizationID: accessor.organizationID);
-    Result result = await _memberRepository.store(member);
+
+    Result result = await _memberRepository.insert(member);
     return result;
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 
-import 'uuid.dart';
+import '../uuid.dart';
 
-export 'uuid.dart';
+export '../uuid.dart';
 
 ///
 /// entity.dart
@@ -23,4 +23,7 @@ abstract class Entity<T> {
   /// Returns `true` if the identities are the same, regardless of other attributes.
   @required
   bool sameIdentityAs(T other);
+
+  @required
+  bool operator ==(Object other);
 }

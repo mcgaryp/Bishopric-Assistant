@@ -5,4 +5,4 @@
 /// Created by Po on 9/25/21
 /// Copyright 2021 Po. All rights reserved.
 ///
-export 'string_extensions.dart';
+export 'package:models/util/extensions/string_extensions.dart';

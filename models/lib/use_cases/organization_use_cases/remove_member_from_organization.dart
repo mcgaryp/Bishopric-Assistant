@@ -1,5 +1,5 @@
 import 'package:models/models/member.dart';
-import 'package:models/models/role.dart';
+import 'package:models/shared/exceptions.dart';
 
 ///
 /// remove_member_from_organization.dart
@@ -30,11 +30,11 @@ class DefaultRemoveMemberFromOrganizationUseCase
   Future<Result> execute(
       {required MemberID accessorId, required MemberID memberID}) async {
     Member? accessor = await _memberRepository.find(accessorId);
-    if (accessor!.role.securityClearance < SecurityClearance.level1)
-
-      /// TODO: Does this belong here?
-      /// TODO: Make these more specific for logging purposes
-      return Result.error("Access to Remove Member Denied");
+    if (accessor == null) return Result.error(MemberNotFoundError());
+    if (accessor.role.permissions < Permissions.maintainer)
+      return Result.error(PermissionDeniedError(
+          reason:
+              "Maintainer permissions required to Remove Members from an Organization"));
 
     Result result = await _memberRepository.remove(memberID);
     return result;

@@ -1,4 +1,4 @@
-import 'package:models/shared/entity.dart';
+import 'package:models/shared/uuid.dart';
 
 ///
 /// assignment_id.dart
@@ -10,4 +10,15 @@ import 'package:models/shared/entity.dart';
 
 class AssignmentID extends UUID {
   AssignmentID(String id) : super(id);
+
+  @override
+  bool sameValueAs(UUID other) {
+    return this.id == other.id;
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (other.runtimeType != AssignmentID) return false;
+    return sameValueAs(other as AssignmentID);
+  }
 }

@@ -1,9 +1,6 @@
 import 'package:models/models/member.dart';
-import 'package:models/models/member_domain/member_id.dart';
+import 'package:models/models/organization.dart';
 import 'package:models/shared/repository.dart';
-
-import 'organization.dart';
-import 'organization_id.dart';
 
 ///
 /// organization_repository.dart
