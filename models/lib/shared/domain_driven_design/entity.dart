@@ -13,6 +13,7 @@ export '../uuid.dart';
 ///
 
 /// An [Entity], as explained in the DDD book.
+// TODO: Force toJson, fromJson
 abstract class Entity<T> {
   final UUID id;
   Entity(this.id);

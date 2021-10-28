@@ -11,6 +11,7 @@ import 'package:flutter/foundation.dart';
 ///
 
 /// [Serializable] converts back and forth from JSON
+// TODO: Think about how decode is forced... Look at Account
 abstract class Serializable {
   /// Returns a [Serializable] Object from json Map Object
   ///

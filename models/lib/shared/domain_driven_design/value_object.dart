@@ -11,6 +11,7 @@ import 'serializable.dart';
 ///
 
 /// A [ValueObject], as described in the DDD book.
+// TODO: Rethink the decode and toJson forcing implementation
 abstract class ValueObject<T> extends Serializable {
   @required
   ValueObject.decode(Map<String, dynamic> json) : super.decode(json);
