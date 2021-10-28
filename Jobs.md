@@ -1,9 +1,18 @@
 ### Contributors Collaboration Efforts
-|Contributor|Story|Branch|Reviewed|Merged|App Version|
-|-----------|-----|------|--------|------|-----------|
-|Porter     |1.|porter/front-end-with-models|||0.0.2|
-|Johnathan  ||||||
-|Chandler   ||||||
+
+<details><summary>Table Details</summary>
+- Contributor - Developer who contributes to the project
+- Story - ID from the list below... This will eventually be moved to the issues and will be a link to the correct Issue
+- Branch - Name or link of the branch the work can be found on
+- Merge Request - link to the MR on GitLab
+- App Version - Version number of the app after story is merged into the parent branch
+</details>
+
+|Contributor|Story|Branch|Merged Request|App Version|
+|-----------|-----|------|--------------|-----------|
+|Porter     |1.|porter/front-end-with-models||0.0.2|
+|Johnathan  |||||
+|Chandler   |||||
 
 **Stories Backlog**
 1. As a user I want to create an account on the bishopric webpage so that I can sign and access the Application.
