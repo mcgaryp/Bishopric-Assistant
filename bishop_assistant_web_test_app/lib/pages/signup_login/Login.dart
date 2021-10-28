@@ -1,5 +1,5 @@
 import 'package:bishop_assistant_web_test_app/database/FirestoreHelper.dart';
-import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
+import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Member.dart';
 import 'package:bishop_assistant_web_test_app/navigation/RouteStrings.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/InputField.dart';
@@ -85,7 +85,7 @@ class _LoginState extends State<Login> {
     }
 
     // Get encrypted Password from database
-    Member? member = await FirestoreHelper.findMember(usernameControl.text);
+    Member? member = await OldFirestoreHelper.findMember(usernameControl.text);
 
     // Member username not found
     if (member == null) {

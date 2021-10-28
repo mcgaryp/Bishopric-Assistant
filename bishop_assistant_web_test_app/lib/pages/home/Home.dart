@@ -1,6 +1,6 @@
-import 'package:bishop_assistant_web_test_app/database/models/Assignment.dart';
-import 'package:bishop_assistant_web_test_app/database/models/Event.dart';
-import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
+import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Assignment.dart';
+import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Event.dart';
+import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Member.dart';
 import 'package:bishop_assistant_web_test_app/pages/home/HomeMobile.dart';
 import 'package:bishop_assistant_web_test_app/pages/home/HomeWeb.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/event_cards/EventCard.dart';

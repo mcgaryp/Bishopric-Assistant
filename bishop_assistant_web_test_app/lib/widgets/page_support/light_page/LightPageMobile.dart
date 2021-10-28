@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
+import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Member.dart';
 import 'package:bishop_assistant_web_test_app/navigation/FloatingNavigationButton.dart';
 import 'package:bishop_assistant_web_test_app/navigation/MobileNavigationButton.dart';
 import 'package:bishop_assistant_web_test_app/navigation/RouteStrings.dart';

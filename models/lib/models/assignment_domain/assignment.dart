@@ -6,5 +6,5 @@
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-/// TODO: Implement Assignment, Refer to [ReadMe.md](models/README.md)
+/// TODO: Implement Assignment, Refer to [ReadMe.md](old_models_deprecated/README.md)
 class Assignment {}

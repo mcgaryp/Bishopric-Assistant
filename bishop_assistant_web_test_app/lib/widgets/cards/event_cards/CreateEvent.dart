@@ -1,10 +1,10 @@
 import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
 import 'package:bishop_assistant_web_test_app/database/FirestoreHelper.dart';
-import 'package:bishop_assistant_web_test_app/database/models/Event.dart';
-import 'package:bishop_assistant_web_test_app/database/models/EventType.dart';
-import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
-import 'package:bishop_assistant_web_test_app/database/models/MemberEvents.dart';
-import 'package:bishop_assistant_web_test_app/database/models/OrganizationEvents.dart';
+import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Event.dart';
+import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/EventType.dart';
+import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Member.dart';
+import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/MemberEvents.dart';
+import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/OrganizationEvents.dart';
 import 'package:bishop_assistant_web_test_app/util/MyToast.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
 import 'package:bishop_assistant_web_test_app/util/Validators.dart';
@@ -205,17 +205,17 @@ class _CreateEventState extends State<CreateEvent> {
       }
 
       // Add Event object to the database
-      FirestoreHelper.addDocument(Collections.events, doc: event, error: _error,
+      OldFirestoreHelper.addDocument(Collections.events, doc: event, error: _error,
           success: (eventID) async {
         // Tie the Event to the organization
         int organizationID =
             await OrganizationEvents.findOrganizationID(eventID);
-        FirestoreHelper.addDocument(Collections.organization_events,
+        OldFirestoreHelper.addDocument(Collections.organization_events,
             doc: OrganizationEvents(eventID, organizationID),
             error: _error, success: (organizationEventID) async {
           // Tie the Event to the assignees
           for (Member member in _selectedAssignees) {
-            await FirestoreHelper.addDocument(Collections.member_events,
+            await OldFirestoreHelper.addDocument(Collections.member_events,
                 doc: MemberEvents(member.id, organizationEventID),
                 error: _error,
                 success: _success);

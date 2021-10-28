@@ -6,4 +6,4 @@
 /// Copyright 2021 porter. All rights reserved.
 ///
 
-/// TODO: Implement EventFactory, Refer to [ReadMe.md](models/README.md)
+/// TODO: Implement EventFactory, Refer to [ReadMe.md](old_models_deprecated/README.md)

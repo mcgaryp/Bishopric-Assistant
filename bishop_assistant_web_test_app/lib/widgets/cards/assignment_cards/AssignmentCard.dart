@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/database/models/Assignment.dart';
+import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Assignment.dart';
 import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/CardSubtitle.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/CardTitle.dart';

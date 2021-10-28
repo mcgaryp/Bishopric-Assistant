@@ -8,7 +8,7 @@ import 'package:models/shared/uuid.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-/// TODO: Implement OrganizationID, Refer to [ReadMe.md](models/README.md)
+/// TODO: Implement OrganizationID, Refer to [ReadMe.md](old_models_deprecated/README.md)
 /// TODO: Comment
 class OrganizationID extends UUID {
   OrganizationID(String id) : super(id);

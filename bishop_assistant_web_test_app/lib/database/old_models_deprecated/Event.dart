@@ -1,6 +1,6 @@
 import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
-import 'package:bishop_assistant_web_test_app/database/models/EventType.dart';
-import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
+import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/EventType.dart';
+import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Member.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/event_cards/EventCard.dart';
 
 ///
@@ -10,7 +10,7 @@ import 'package:bishop_assistant_web_test_app/widgets/cards/event_cards/EventCar
 /// Created by porter on 8/14/21
 /// Copyright 2021 porter. All rights reserved.
 ///
-
+@Deprecated("")
 abstract class Event extends FirestoreDocument {
   static const String agendaPath = "agenda";
   static const String dateTimePath = "date";
@@ -36,7 +36,7 @@ abstract class Event extends FirestoreDocument {
       required Map<String, dynamic> map})
       : super(id, name, map);
 }
-
+@Deprecated("")
 class Meeting extends Event {
   Meeting(
     int id,
@@ -116,7 +116,7 @@ class Meeting extends Event {
   static String _exampleAgenda = " - paragraphs\n - words\n - bytes\n - lists";
 // endregion
 }
-
+@Deprecated("")
 class Interview extends Event {
   Interview(int id, String name, DateTime dateTime, String interviewee,
       Member assignee,

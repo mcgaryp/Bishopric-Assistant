@@ -1,10 +1,10 @@
 import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
 import 'package:bishop_assistant_web_test_app/database/FirestoreHelper.dart';
-import 'package:bishop_assistant_web_test_app/database/models/Assignment.dart';
-import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
-import 'package:bishop_assistant_web_test_app/database/models/MemberAssignments.dart';
-import 'package:bishop_assistant_web_test_app/database/models/OrganizationAssignment.dart';
-import 'package:bishop_assistant_web_test_app/database/models/OrganizationMembers.dart';
+import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Assignment.dart';
+import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Member.dart';
+import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/MemberAssignments.dart';
+import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/OrganizationAssignment.dart';
+import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/OrganizationMembers.dart';
 import 'package:bishop_assistant_web_test_app/util/MyToast.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
 import 'package:bishop_assistant_web_test_app/util/Validators.dart';
@@ -126,7 +126,7 @@ class _CreateAssignmentState extends State<CreateAssignment> {
           notes: notesControl.text);
 
       // Add assignment to database
-      FirestoreHelper.addDocument(Collections.assignments,
+      OldFirestoreHelper.addDocument(Collections.assignments,
           doc: assignment!, error: _error, success: _tieOrganization);
     } else
       _setIsWaiting(false);
@@ -140,7 +140,7 @@ class _CreateAssignmentState extends State<CreateAssignment> {
         await OrganizationMembers.findOrganizationID(assignment!.assignee.id);
 
     // Tie assignment to organization
-    FirestoreHelper.addDocument(Collections.organization_assignments,
+    OldFirestoreHelper.addDocument(Collections.organization_assignments,
         doc: OrganizationAssignments(assignmentID, organizationID),
         error: _error,
         success: _tieAssignee);
@@ -152,7 +152,7 @@ class _CreateAssignmentState extends State<CreateAssignment> {
     int memberID = assignment!.assignee.id;
 
     // Tie assignment to assignee
-    FirestoreHelper.addDocument(Collections.member_assignments,
+    OldFirestoreHelper.addDocument(Collections.member_assignments,
         doc: MemberAssignments(memberID, organizationAssignmentID),
         error: _error,
         success: _success);

@@ -1,5 +1,5 @@
 import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
-import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
+import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Member.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +20,6 @@ import 'package:flutter/material.dart';
 //        - AsyncSnapShot
 //        - QueryDocumentSnapshot
 //        - DocumentSnapshot
-//        -
 //      - Stream
 //      - Collection
 //      - Document
@@ -28,7 +27,37 @@ import 'package:flutter/material.dart';
 //  - Approved methods are good to stay around
 //  - Not Approved methods need either work put into them and will change or should be removed
 // TODO: Comment
-class FirestoreHelper {
+
+abstract class FirestoreHelper {
+  static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  /// Once time accessors
+  static Future<DocumentSnapshot<Map<String, dynamic>>> getSingleDocument(
+          path, String id) =>
+      _firestore.collection(path.string).doc(id).get();
+
+  static Future<QuerySnapshot<Map<String, dynamic>>> getCollectionOfDocuments(
+          path) =>
+      _firestore.collection(path).get();
+
+  /// Realtime update accessors
+  static Stream<QuerySnapshot<Map<String, dynamic>>>
+      getCollectionOfDocumentsStreamed(path) =>
+          _firestore.collection(path).snapshots();
+
+  static Stream<DocumentSnapshot<Map<String, dynamic>>>
+      getSingleDocumentStreamed(path, String id) =>
+          _firestore.collection(path).doc(id).snapshots();
+}
+
+//                    ****   **   ******            ***                       //
+//                    ** **  **  ***  ***           ***                       //
+//                    **  ** **  **    **        **  *  **                    //
+//                    **   * **  ***  ***          ** **                      //
+//                    **    ***   ******            ***                       //
+
+@Deprecated("Use FirestoreHelper")
+abstract class OldFirestoreHelper {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   /// TODO: Comment

@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/database/models/Assignment.dart';
+import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Assignment.dart';
 import 'package:bishop_assistant_web_test_app/navigation/RouteStrings.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/Section.dart';

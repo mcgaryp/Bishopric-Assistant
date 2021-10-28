@@ -1,5 +1,5 @@
 import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
-import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
+import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Member.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/assignment_cards/AssignmentCard.dart';
 
 ///
@@ -10,6 +10,7 @@ import 'package:bishop_assistant_web_test_app/widgets/cards/assignment_cards/Ass
 /// Copyright 2021 porter. All rights reserved.
 ///
 
+@Deprecated("")
 class Assignment extends FirestoreDocument {
   static const String dueDatePath = "due_date";
   static const String notePath = "notes";

@@ -9,7 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 /// Created by Po on 8/22/21
 /// Copyright 2021 Po. All rights reserved.
 ///
-
+@Deprecated("")
 class OrganizationEvents extends Document {
   static const String eventIDPath = "event_id";
   static const String organizationIDPath = "organization_id";
@@ -19,7 +19,7 @@ class OrganizationEvents extends Document {
 
   // TODO: potentially use int?
   static Future<int> findOrganizationID(int eventID) async {
-    QuerySnapshot collection = await FirestoreHelper.getCollection(
+    QuerySnapshot collection = await OldFirestoreHelper.getCollection(
         Collections.organization_events);
 
     for (QueryDocumentSnapshot document in collection.docs) {
@@ -32,7 +32,7 @@ class OrganizationEvents extends Document {
 
   // TODO: potentially use int?
   static Future<int> findEventID(int organizationID) async {
-    QuerySnapshot collection = await FirestoreHelper.getCollection(
+    QuerySnapshot collection = await OldFirestoreHelper.getCollection(
         Collections.organization_events);
 
     for (QueryDocumentSnapshot document in collection.docs) {

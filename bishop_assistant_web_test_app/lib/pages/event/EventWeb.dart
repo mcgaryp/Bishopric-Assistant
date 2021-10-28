@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/database/models/Event.dart';
+import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Event.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/event_cards/CreateEvent.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/event_cards/EventCard.dart';

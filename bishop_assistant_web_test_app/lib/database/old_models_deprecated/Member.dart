@@ -1,6 +1,6 @@
 import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
 import 'package:bishop_assistant_web_test_app/database/FirestoreHelper.dart';
-import 'package:bishop_assistant_web_test_app/database/models/Role.dart';
+import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Role.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/member_cards/MemberCard.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 ///
 
 // TODO: Comment
+@Deprecated("")
 class Member extends FirestoreDocument {
   static const String emailPath = "email";
   static const String firstNamePath = "first_name";
@@ -144,7 +145,7 @@ class Member extends FirestoreDocument {
 
   static Future<Member> find(int memberID) async {
     DocumentSnapshot memberData =
-        await FirestoreHelper.getDocument(Collections.members, memberID);
+        await OldFirestoreHelper.getDocument(Collections.members, memberID);
     return Member(
         id: memberID,
         firstName: memberData[firstNamePath],

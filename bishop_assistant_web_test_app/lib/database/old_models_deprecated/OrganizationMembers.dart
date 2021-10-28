@@ -3,24 +3,24 @@ import 'package:bishop_assistant_web_test_app/database/FirestoreHelper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 ///
-/// OrganizationWaitingList.dart
+/// OrganizationMembers.dart
 /// bishop_assistant_web_test_app
 ///
-/// Created by porter on 9/7/21
-/// Copyright 2021 porter. All rights reserved.
+/// Created by Po on 8/22/21
+/// Copyright 2021 Po. All rights reserved.
 ///
-
-class OrganizationWaitingList extends Document {
+@Deprecated("")
+class OrganizationMembers extends Document {
   static const String memberIDPath = "member_id";
   static const String organizationIDPath = "organization_id";
 
-  OrganizationWaitingList(int memberID, int organizationID)
+  OrganizationMembers(int memberID, int organizationID)
       : super({memberIDPath: memberID, organizationIDPath: organizationID});
 
   // TODO: potentially use int?
   static Future<int> findOrganizationID(int memberID) async {
-    QuerySnapshot collection = await FirestoreHelper.getCollection(
-        Collections.organization_waiting_list);
+    QuerySnapshot collection = await OldFirestoreHelper.getCollection(
+        Collections.organization_members);
 
     for (QueryDocumentSnapshot document in collection.docs) {
       if (document[memberIDPath] == memberID)
@@ -32,8 +32,8 @@ class OrganizationWaitingList extends Document {
 
   // TODO: potentially use int?
   static Future<int> findMemberID(int organizationID) async {
-    QuerySnapshot collection = await FirestoreHelper.getCollection(
-        Collections.organization_waiting_list);
+    QuerySnapshot collection = await OldFirestoreHelper.getCollection(
+        Collections.organization_members);
 
     for (QueryDocumentSnapshot document in collection.docs) {
       if (document[organizationIDPath] == organizationID)

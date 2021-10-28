@@ -1,9 +1,9 @@
 import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
 import 'package:bishop_assistant_web_test_app/database/FirestoreHelper.dart';
-import 'package:bishop_assistant_web_test_app/database/models/Member.dart';
-import 'package:bishop_assistant_web_test_app/database/models/Organization.dart';
-import 'package:bishop_assistant_web_test_app/database/models/OrganizationMembers.dart';
-import 'package:bishop_assistant_web_test_app/database/models/Role.dart';
+import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Member.dart';
+import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Organization.dart';
+import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/OrganizationMembers.dart';
+import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Role.dart';
 import 'package:bishop_assistant_web_test_app/util/MyToast.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
 import 'package:bishop_assistant_web_test_app/util/Validators.dart';
@@ -237,16 +237,16 @@ class _SignupState extends State<Signup> {
       );
 
       // Create the member in database
-      FirestoreHelper.addDocument(Collections.members,
+      OldFirestoreHelper.addDocument(Collections.members,
           doc: member, error: _error, success: (int memberID) {
         // Create organization
         if (organizationControl.text.isNotEmpty) {
           // Add organization to the database
-          FirestoreHelper.addDocument(Collections.organizations,
+          OldFirestoreHelper.addDocument(Collections.organizations,
               doc: Organization.create(organizationControl.text),
               error: _error, success: (int organizationID) {
             // Tie organization and member together
-            FirestoreHelper.addDocument(Collections.organization_members,
+            OldFirestoreHelper.addDocument(Collections.organization_members,
                 doc: OrganizationMembers(memberID, organizationID),
                 error: (error) => _setIsWaiting(false),
                 success: (organizationMemberID) {

@@ -8,7 +8,7 @@ import 'package:models/shared/uuid.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-/// TODO: Implement MemberID, Refer to [ReadMe.md](models/README.md)
+/// TODO: Implement MemberID, Refer to [ReadMe.md](old_models_deprecated/README.md)
 /// TODO: Comments
 class MemberID extends UUID {
   MemberID(String id) : super(id);

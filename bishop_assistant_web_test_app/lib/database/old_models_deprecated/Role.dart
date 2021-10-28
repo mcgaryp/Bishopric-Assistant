@@ -10,6 +10,7 @@ import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
 
 // TODO: Comment
 // TODO: Is there a smarter way to look at and evaluate this data from the database?
+@Deprecated("")
 enum Role {
   none,
   bishop,

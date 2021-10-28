@@ -10,7 +10,7 @@ import 'package:models/shared/repository.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-/// TODO: Implement Event, Refer to [ReadMe.md](models/README.md)
+/// TODO: Implement Event, Refer to [ReadMe.md](old_models_deprecated/README.md)
 /// TODO: Comment
 mixin OrganizationRepository
     implements Repository<Organization, OrganizationID, void> {
