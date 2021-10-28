@@ -10,7 +10,7 @@
   - [ ] Provide the user a way to navigate back to the login page
   - [ ] Create sign up page that includes using the `CreateAccountUseCase`
   - [ ] Define insert, generateNextId, and findUserByUsername function in `AccountRepository`
-  - [X] Create an Account table in Firestore Database
+  - [ ] Create an Account table in Firestore Database
   - [ ] Handle return of error message or account
     - [ ] On error display error messages
     - [ ] Display a message to the user on success with their name in it. Navigate user to Login page.
