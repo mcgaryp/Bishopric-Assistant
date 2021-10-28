@@ -1,9 +1,9 @@
 ### Contributors Collaboration Efforts
-|Contributor|Working Files|Branch|Reviewed|Merged|
-|-----------|-------------|------|--------|------|
-|Porter     |accounts_domain/ |porter/models-package|||
-|Johnathan  |member_domain/ |jonathan/member||
-|Chandler   ||||
+|Contributor|Story|Branch|Reviewed|Merged|App Version|
+|-----------|-----|------|--------|------|-----------|
+|Porter     |1.|porter/front-end-with-models|||0.0.2|
+|Johnathan  ||||||
+|Chandler   ||||||
 
 **Stories Backlog**
 1. As a user I want to create an account on the bishopric webpage so that I can sign and access the Application.
