@@ -4,7 +4,7 @@ import 'package:models/models/account.dart';
 /// mock_account.dart
 /// bishopric-assistant
 ///
-/// Created by porter on 9/28/21
+/// Created by Po on 9/28/21
 /// Copyright 2021 porter. All rights reserved.
 ///
 
@@ -20,7 +20,6 @@ class MockAccount {
   static Contact mockContact = Contact(email: mockEmail, phone: mockPhone);
   static Credentials mockCredentials =
       Credentials(password: mockPassword, username: mockUsername);
-  static Role mockRole = Role(Permissions.creator, anonymous: "MockAccount");
 
   late Account account;
 
@@ -29,13 +28,12 @@ class MockAccount {
     Name? name,
     Contact? contact,
     Credentials? credentials,
-    Role? role,
   }) {
     account = Account(
-        id: id ?? mockId,
-        name: name ?? mockName,
-        contact: contact ?? mockContact,
-        credentials: credentials ?? mockCredentials,
-        role: role ?? mockRole);
+      id: id ?? mockId,
+      name: name ?? mockName,
+      contact: contact ?? mockContact,
+      credentials: credentials ?? mockCredentials,
+    );
   }
 }

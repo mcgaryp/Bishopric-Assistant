@@ -59,7 +59,7 @@ class DefaultAddMemberToOrganizationUseCase
         contact: account.contact,
         organizationID: accessor.organizationID);
 
-    Result result = await _memberRepository.insert(member);
-    return result;
+    if (await _memberRepository.insert(member)) return Result.value(true);
+    return Result.error(FailedToSaveError(forEntity: "Organization"));
   }
 }

@@ -10,7 +10,6 @@ import 'package:models/shared/exceptions.dart';
 ///
 
 /// [UUID] forms a unique identity for an object
-/// TODO: transform the ID into a string
 /// TODO: Comments
 abstract class UUID extends ValueObject<UUID> {
   late final String _id;
@@ -36,6 +35,4 @@ abstract class UUID extends ValueObject<UUID> {
     UUID other = object as UUID;
     return this.id == other.id;
   }
-
-// TODO: `create()` method which will create a random unique identifier
 }

@@ -46,7 +46,7 @@ class DefaultChangeMemberRoleInOrganizationUseCase
     Member? member = await _memberRepository.find(memberID);
     if (member == null) return Result.error(MemberNotFoundError());
     Member updatedMember = Member.newRole(role: role, member: member);
-    Result result = await _memberRepository.update(updatedMember);
-    return result;
+    if (await _memberRepository.update(updatedMember)) return Result.value(true);
+    return Result.error(FailedToSaveError(forEntity: "Organization"));
   }
 }

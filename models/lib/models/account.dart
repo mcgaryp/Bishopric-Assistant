@@ -11,4 +11,3 @@ export 'account_domain/account_repository.dart';
 export 'account_domain/contact.dart';
 export 'account_domain/credentials.dart';
 export 'account_domain/name.dart';
-export 'account_domain/role.dart';
