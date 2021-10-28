@@ -41,11 +41,15 @@ class DefaultCreateOrganizationUseCase implements CreateOrganizationUseCase {
 
     if (id == null)
       return Result.error(UnableToGenerateIdError(forEntity: "Organization"));
+
+    Organization? organizationFromBeyond = await _organizationRepository.find(id);
+    if (organizationFromBeyond != null) return Result.error(OrganizationAlreadyExistsError());
+
     Creator creator = Creator.fromAccount(accessor, anonymous: anonymous);
     Organization organization =
         Organization(id: id, name: name, creator: creator);
 
-    Result result = await _organizationRepository.insert(organization);
-    return result;
+    if (await _organizationRepository.insert(organization)) return Result.value(true);
+    return Result.error(FailedToSaveError(forEntity: "Organization"));
   }
 }

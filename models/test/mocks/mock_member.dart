@@ -4,7 +4,7 @@ import 'package:models/models/member.dart';
 /// mock_member.dart
 /// bishopric-assistant
 ///
-/// Created by porter on 9/28/21
+/// Created by Po on 9/28/21
 /// Copyright 2021 porter. All rights reserved.
 ///
 

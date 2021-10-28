@@ -9,4 +9,13 @@ import 'package:models/shared/repository.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-mixin AccountRepository implements Repository<Account, AccountID, void> {}
+/// [AccountRepository] is an interface specifically for interfacing with the
+///   [Account] backend
+mixin AccountRepository implements Repository<Account, AccountID, void> {
+  /// [findByUsername] uses a string username to find and return an optional
+  ///   [Account]
+  Future<Account?> findByUsername(String username);
+
+  /// [findByPhone] uses a string phone to find and return an optional [Account]
+  Future<Account?> findByPhone(String phone);
+}

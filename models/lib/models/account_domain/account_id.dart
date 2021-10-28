@@ -8,7 +8,10 @@ import 'package:models/shared/uuid.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
+/// [AccountID] is a unique identifier for any account that is specifically used
+///   with [Account]s
 class AccountID extends UUID {
+  /// Basic constructor takes in a ID as a String
   AccountID(String id) : super(id);
 
   @override

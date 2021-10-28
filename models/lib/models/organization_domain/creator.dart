@@ -1,4 +1,5 @@
 import 'package:models/models/account.dart';
+import 'package:models/models/organization.dart';
 import 'package:models/shared/foundation.dart';
 
 ///
@@ -9,6 +10,7 @@ import 'package:models/shared/foundation.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
+/// TODO: should this be a value object?
 class Creator extends Entity<Creator> {
   late final Name name;
   late final Role role;

@@ -13,7 +13,7 @@ class MemberIDTest {
   static void shouldReturnValidIDWhenValidID() {
     MemberID memberId = MemberID("9");
     String result = memberId.id;
-    expect(result, 9);
+    expect(result, "9");
   }
 }
 

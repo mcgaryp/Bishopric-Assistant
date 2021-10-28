@@ -1,6 +1,7 @@
 import 'package:async/async.dart';
 
 export 'package:async/async.dart';
+export 'package:async/src/result/result.dart';
 
 ///
 /// repository.dart
@@ -31,17 +32,17 @@ abstract class Repository<Entity, UUID, AlternativeUUID> {
   ///
   /// This class inserts a new M into a database
   /// Returns a [ValueResult] or an [ErrorResult] on a failure
-  Future<Result<RequestType>> insert(Entity m);
+  Future<bool> insert(Entity m);
 
   /// [remove] M
   ///
   /// Returns a [ValueResult] or an [ErrorResult]
-  Future<Result<RequestType>> remove(UUID i);
+  Future<Result<bool>> remove(UUID i);
 
   /// [update] M
   ///
   /// Returns a [ValueResult] or an [ErrorResult]
-  Future<Result<RequestType>> update(Entity m);
+  Future<bool> update(Entity m);
 
   /// [generateNextId] for the M
   ///

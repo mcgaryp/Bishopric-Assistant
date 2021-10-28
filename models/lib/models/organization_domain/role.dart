@@ -8,34 +8,26 @@ import 'package:models/shared/foundation.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-/// TODO: Comments
+/// Greater to Lesser
 enum Permissions { creator, maintainer, reporter, viewer }
 
 extension PermissionsExtension on Permissions {
   String get string => this.toString();
 
   operator <(Permissions rhs) {
-    return this.index < rhs.index;
-  }
-
-  operator <=(Permissions rhs) {
-    return this.index <= rhs.index;
-  }
-
-  operator >(Permissions rhs) {
     return this.index > rhs.index;
   }
 
-  operator >=(Permissions rhs) {
+  operator <=(Permissions rhs) {
     return this.index >= rhs.index;
   }
 
-  operator +(Permissions rhs) {
-    return this.index + 1;
+  operator >(Permissions rhs) {
+    return this.index < rhs.index;
   }
 
-  operator -(Permissions rhs) {
-    return this.index - 1;
+  operator >=(Permissions rhs) {
+    return this.index <= rhs.index;
   }
 }
 
