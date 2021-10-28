@@ -49,3 +49,6 @@
   - [ ] On the user profile Page a button to edit the contact information of the user account that gives the user access to change their 
       - [ ] On error display error
       - [ ] On success notify user of success and return the profile page back to normal
+8. As a developer I want an `Entity` to have `toJson` and `fromJson` methods so that the API works more fluidly with mapping.
+  - [ ] Look at `Account` as a reference to what these methods and constructors should look like for `Entity`
+  - [ ] Consider changing how `ValueObject` forces `decode` and `encode`
