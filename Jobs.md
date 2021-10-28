@@ -12,7 +12,7 @@
 
 |Contributor|Story|Branch|Merged Request|App Version|
 |-----------|-----|------|--------------|-----------|
-|Porter     |1.|porter/front-end-with-models|[17](https://gitlab.com/the-vikings/mjolnir/bishopric-assistant/-/merge_requests/17)|0.0.2|
+|Porter     |[1](#1)|porter/front-end-with-models|[17](https://gitlab.com/the-vikings/mjolnir/bishopric-assistant/-/merge_requests/17)|0.0.2|
 |Johnathan  |||||
 |Chandler   |||||
 
