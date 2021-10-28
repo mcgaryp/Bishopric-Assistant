@@ -1,11 +1,13 @@
 ### Contributors Collaboration Efforts
 
 <details><summary>Table Details</summary>
+
 - Contributor - Developer who contributes to the project
 - Story - ID from the list below... This will eventually be moved to the issues and will be a link to the correct Issue
 - Branch - Name or link of the branch the work can be found on
 - Merge Request - link to the MR on GitLab
 - App Version - Version number of the app after story is merged into the parent branch
+
 </details>
 
 |Contributor|Story|Branch|Merged Request|App Version|
