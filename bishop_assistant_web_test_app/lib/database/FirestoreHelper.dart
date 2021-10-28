@@ -3,6 +3,7 @@ import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Mem
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:models/shared/uuid.dart';
 
 ///
 /// FirestoreHelper.dart
@@ -26,35 +27,100 @@ import 'package:flutter/material.dart';
 // APPROVED vs NOT APPROVED
 //  - Approved methods are good to stay around
 //  - Not Approved methods need either work put into them and will change or should be removed
-// TODO: Comment
 
-abstract class FirestoreHelper {
+/// TODO Comment, Remove Deprecated class
+///
+/// URL to help with FireFlutter https://firebase.flutter.dev/docs/firestore/usage
+abstract class FirestoreHelper<T> {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   /// Once time accessors
   static Future<DocumentSnapshot<Map<String, dynamic>>> getSingleDocument(
-          path, String id) =>
-      _firestore.collection(path.string).doc(id).get();
+          FirestoreCollectionPath path, UUID uuid) =>
+      _firestore.collection(path.string).doc(uuid.id).get();
 
   static Future<QuerySnapshot<Map<String, dynamic>>> getCollectionOfDocuments(
-          path) =>
-      _firestore.collection(path).get();
+          FirestoreCollectionPath path) =>
+      _firestore.collection(path.string).get();
 
   /// Realtime update accessors
   static Stream<QuerySnapshot<Map<String, dynamic>>>
-      getCollectionOfDocumentsStreamed(path) =>
-          _firestore.collection(path).snapshots();
+      getCollectionOfDocumentsStreamed(FirestoreCollectionPath path) =>
+          _firestore.collection(path.string).snapshots();
 
   static Stream<DocumentSnapshot<Map<String, dynamic>>>
-      getSingleDocumentStreamed(path, String id) =>
-          _firestore.collection(path).doc(id).snapshots();
+      getSingleDocumentStreamed(FirestoreCollectionPath path, UUID uuid) =>
+          _firestore.collection(path.string).doc(uuid.id).snapshots();
+
+  /// TODO Comment
+  static Future<bool> addDocument(
+      FirestoreCollectionPath path, Map<String, Object?> map, UUID uuid) async {
+    bool result = true;
+
+    await _firestore
+        .collection(path.string)
+        .doc(uuid.id)
+        .set(map)
+        .onError<bool>((error, stackTrace) => result = false);
+
+    return result;
+  }
+
+  /// TODO: Comment
+  static Future<Map<String, dynamic>?> getNextID() async {
+    // Get the next ID from the counters
+    DocumentSnapshot<Map<String, dynamic>> counterMap = await _firestore
+        .collection(FirestoreCollectionPath.util.string)
+        .doc(Util.counters)
+        .get();
+
+    Map<String, dynamic>? counterData = counterMap.data();
+
+    return counterData;
+  }
+
+  /// TODO Comment
+  static Future<bool> incrementId(
+      FirestoreCollectionPath path, Map<String, dynamic> map) async {
+    Map<String, dynamic> counterMap = map;
+    // increase counter
+    counterMap[path.string] += 1;
+
+    bool result = true;
+
+    // set new value in counter
+    await _firestore
+        .collection(FirestoreCollectionPath.util.string)
+        .doc(Util.counters)
+        .update(counterMap)
+        .onError((error, stackTrace) {
+      result = false;
+      throw Exception("Error Incrementing $path: $error => $stackTrace");
+    });
+
+    return result;
+  }
 }
 
+enum FirestoreCollectionPath { accounts, util }
+
+extension FirestoreCollectionPathExtension on FirestoreCollectionPath {
+  String get string {
+    return this.toString().split('.').last;
+  }
+}
+
+class Util {
+  static const String counters = "counters";
+}
+
+//                                                  ***                       //
 //                    ****   **   ******            ***                       //
 //                    ** **  **  ***  ***           ***                       //
-//                    **  ** **  **    **        **  *  **                    //
+//                    **  ** **  **    **        **     **                    //
 //                    **   * **  ***  ***          ** **                      //
 //                    **    ***   ******            ***                       //
+//                                                   *                        //
 
 @Deprecated("Use FirestoreHelper")
 abstract class OldFirestoreHelper {
@@ -177,7 +243,7 @@ abstract class OldFirestoreHelper {
         // set new value in counter
         _firestore
             .collection(Collections.util.string)
-            .doc(Util.counters)
+            .doc(OldUtil.counters)
             .update(counterMap)
             .then((value) {
           // activate callback
@@ -195,7 +261,7 @@ abstract class OldFirestoreHelper {
     // Get the next ID from the counters
     DocumentSnapshot<Map<String, dynamic>> counterMap = await _firestore
         .collection(Collections.util.string)
-        .doc(Util.counters)
+        .doc(OldUtil.counters)
         .get();
 
     Map<String, dynamic>? counterData = counterMap.data();
@@ -230,58 +296,4 @@ abstract class OldFirestoreHelper {
 
     return null;
   }
-
-// /// Constant items from database
-// ///   - Roles
-// ///   - Security
-// ///   - Event Types
-// late final List<Security> securities = _getSecurities();
-// late final List<Role> roles;
-// late final List<EventType> eventTypes;
-//
-// FirestoreHelper._privateConstructor() {
-//   _setupDatabaseConstants();
-// }
-//
-// static final FirestoreHelper _instance =
-//     FirestoreHelper._privateConstructor();
-//
-// factory FirestoreHelper() {
-//   return _instance;
-// }
-//
-// void _setupDatabaseConstants() async {
-//   securities = await _getSecurities();
-//   roles = await _getRoles();
-//   eventTypes = await _getEventTypes();
-// }
-//
-// Future<List<Role>> _getRoles() async {
-//   QuerySnapshot roles = await _firestore.collection(Collections.roles).get();
-//
-//   return roles.docs
-//       .map((e) => Role(
-//           id: int.parse(e.id),
-//           name: e[RolesDoc.name],
-//           security: securities[e[RolesDoc.security] - 1]))
-//       .toList();
-// }
-//
-// List<Security> _getSecurities() async {
-//   QuerySnapshot securities =
-//       await _firestore.collection(Collections.security).get();
-//
-//   return securities.docs
-//       .map((e) => Security(id: int.parse(e.id), name: e[SecurityDoc.name]))
-//       .toList();
-// }
-//
-// Future<List<EventType>> _getEventTypes() async {
-//   QuerySnapshot eventTypes =
-//       await _firestore.collection(Collections.eventTypes).get();
-//
-//   return eventTypes.docs
-//       .map((e) => EventType(id: int.parse(e.id), name: e[EventTypesDoc.name]))
-//       .toList();
-// }
 }

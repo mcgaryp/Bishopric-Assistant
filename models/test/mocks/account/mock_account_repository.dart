@@ -40,16 +40,14 @@ class MockAccountRepository implements AccountRepository {
   Future<Account?> findByPhone(String phone) async {
     await Future.delayed(duration);
     for (Account account in accounts)
-      if (account.contact.phone == phone)
-        return account;
+      if (account.contact.phone == phone) return account;
   }
 
   @override
   Future<Account?> findByUsername(String username) async {
     await Future.delayed(duration);
     for (Account account in accounts)
-      if (account.credentials.username == username)
-        return account;
+      if (account.credentials.username == username) return account;
   }
 
   @override
@@ -95,5 +93,11 @@ class MockAccountRepository implements AccountRepository {
       return true;
     }
     return false;
+  }
+
+  @override
+  Future<Account?> findByEmail(String email) {
+    // TODO: implement findByEmail
+    throw UnimplementedError();
   }
 }

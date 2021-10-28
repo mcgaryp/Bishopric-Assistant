@@ -43,6 +43,7 @@ enum Collections {
   util
 }
 
+@Deprecated("")
 extension ParseToString on Collections {
   String get string {
     return this.toString().split('.').last;
@@ -57,6 +58,6 @@ class EventTypesDoc extends FirestoreDocument {
 
 // TODO: Do something with this, it's so far only used in the FirestoreHelper.dart file
 @Deprecated("")
-class Util {
+class OldUtil {
   static const String counters = "counters";
 }

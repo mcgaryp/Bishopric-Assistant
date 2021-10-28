@@ -5,7 +5,7 @@
 |Johnathan  |member_domain/ |jonathan/member||
 |Chandler   ||||
 
-Stories Backlog
+**Stories Backlog**
 1. As a user I want to create an account on the bishopric webpage so that I can sign and access the Application.
   - [ ] Provide the user a way to navigate back to the login page
   - [ ] Create sign up page that includes using the `CreateAccountUseCase`

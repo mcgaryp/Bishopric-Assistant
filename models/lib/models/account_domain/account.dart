@@ -33,6 +33,17 @@ class Account extends Entity<Account> {
     required this.credentials,
   }) : super(id);
 
+  Account.fromJson(AccountID id, Map<String, Object?> map)
+      : this(
+            id: id,
+            credentials: Credentials(
+                password: map['password']! as String,
+                username: map['username']! as String),
+            contact: Contact(
+                email: map['email']! as String, phone: map['phone']! as String),
+            name: Name(
+                first: map['first']! as String, last: map['last']! as String));
+
   /// [Account.newPassword(account, credentials)] is a copy constructor
   ///   specifically used to change the credentials of the account
   Account.newPassword(Account account, Credentials credentials)
@@ -50,6 +61,15 @@ class Account extends Entity<Account> {
         this.contact = contact,
         this.name = account.name,
         super(account.id);
+
+  Map<String, Object?> get toJson => {
+        'password': credentials.password,
+        'username': credentials.username,
+        'email': contact.email,
+        'phone': contact.phone,
+        'first': name.first,
+        'last': name.last
+      };
 
   @override
   bool sameIdentityAs(Account other) {

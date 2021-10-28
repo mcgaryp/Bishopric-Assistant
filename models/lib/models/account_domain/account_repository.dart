@@ -18,4 +18,7 @@ mixin AccountRepository implements Repository<Account, AccountID, void> {
 
   /// [findByPhone] uses a string phone to find and return an optional [Account]
   Future<Account?> findByPhone(String phone);
+
+  /// [findByPhone] uses a string phone to find and return an optional [Account]
+  Future<Account?> findByEmail(String email);
 }

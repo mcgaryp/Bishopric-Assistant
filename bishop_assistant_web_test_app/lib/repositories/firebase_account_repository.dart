@@ -1,5 +1,6 @@
 import 'package:async/src/result/result.dart';
 import 'package:bishop_assistant_web_test_app/database/FirestoreHelper.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:models/models/account.dart';
 
 ///
@@ -10,16 +11,32 @@ import 'package:models/models/account.dart';
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
 
-class FirebaseAccountRepository extends FirestoreHelper implements AccountRepository {
+class FirebaseAccountRepository extends FirestoreHelper
+    implements AccountRepository {
+  FirestoreCollectionPath _path = FirestoreCollectionPath.accounts;
+
   @override
-  Future<Account?> find(AccountID id) {
-    // TODO: implement find
-    throw UnimplementedError();
+  Future<Account?> find(AccountID id) async {
+    DocumentSnapshot<Map<String, dynamic>> snapshot =
+        await FirestoreHelper.getSingleDocument(_path, id);
+
+    Map<String, dynamic>? map = snapshot.data();
+
+    if (map == null) return null;
+
+    Account account = Account.fromJson(id, map);
+    return account;
   }
 
   @override
   Future<List<Account>?> findAll(void nil) {
     // TODO: implement findAll
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Account?> findByEmail(String email) {
+    // TODO: implement findByEmail
     throw UnimplementedError();
   }
 
@@ -36,15 +53,18 @@ class FirebaseAccountRepository extends FirestoreHelper implements AccountReposi
   }
 
   @override
-  Future<AccountID?> generateNextId() {
-    // TODO: implement generateNextId
-    throw UnimplementedError();
+  Future<AccountID?> generateNextId() async {
+    Map<String, dynamic>? snapshot = await FirestoreHelper.getNextID();
+    if (snapshot == null) return null;
+    AccountID accountID = AccountID(snapshot[_path]);
+    return accountID;
   }
 
   @override
-  Future<bool> insert(Account account) {
-    // TODO: implement insert
-    throw UnimplementedError();
+  Future<bool> insert(Account account) async {
+    bool result =
+        await FirestoreHelper.addDocument(_path, account.toJson, account.id);
+    return result;
   }
 
   @override
