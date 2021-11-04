@@ -15,7 +15,6 @@ import 'package:flutter/material.dart';
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
 
-// TODO: Comment
 class FirebaseDropDown extends StatefulWidget {
   final Collections collectionPath;
   final String hint;
@@ -92,7 +91,8 @@ class _FirebaseDropDownState extends State<FirebaseDropDown> {
   Future<void> _getMenuItems() async {
     final snapshot =
         await OldFirestoreHelper.reference(widget.collectionPath.string).get();
-    List<QueryDocumentSnapshot> data = OldFirestoreHelper.listQuerySnap(snapshot);
+    List<QueryDocumentSnapshot> data =
+        OldFirestoreHelper.listQuerySnap(snapshot);
 
     if (this.mounted) {
       setState(() {

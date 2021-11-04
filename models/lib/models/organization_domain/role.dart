@@ -40,7 +40,7 @@ class Role extends ValueObject<Role> {
   }
 
   set __anonymous(String anonymous) {
-    if (anonymous.isEmpty) throw EmptyStringError();
+    if (anonymous.isEmpty) throw EmptyStringError(forObject: "Role Anonymous");
     _anonymous = anonymous;
   }
 

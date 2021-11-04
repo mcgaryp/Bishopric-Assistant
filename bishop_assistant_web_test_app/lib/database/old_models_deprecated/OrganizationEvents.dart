@@ -17,23 +17,20 @@ class OrganizationEvents extends Document {
   OrganizationEvents(int eventID, int organizationID)
       : super({eventIDPath: eventID, organizationIDPath: organizationID});
 
-  // TODO: potentially use int?
   static Future<int> findOrganizationID(int eventID) async {
-    QuerySnapshot collection = await OldFirestoreHelper.getCollection(
-        Collections.organization_events);
+    QuerySnapshot collection =
+        await OldFirestoreHelper.getCollection(Collections.organization_events);
 
     for (QueryDocumentSnapshot document in collection.docs) {
-      if (document[eventIDPath] == eventID)
-        return document[organizationIDPath];
+      if (document[eventIDPath] == eventID) return document[organizationIDPath];
     }
 
     return -1;
   }
 
-  // TODO: potentially use int?
   static Future<int> findEventID(int organizationID) async {
-    QuerySnapshot collection = await OldFirestoreHelper.getCollection(
-        Collections.organization_events);
+    QuerySnapshot collection =
+        await OldFirestoreHelper.getCollection(Collections.organization_events);
 
     for (QueryDocumentSnapshot document in collection.docs) {
       if (document[organizationIDPath] == organizationID)

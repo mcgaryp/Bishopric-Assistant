@@ -1,19 +1,11 @@
-import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
-import 'package:bishop_assistant_web_test_app/database/FirestoreHelper.dart';
-import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Member.dart';
-import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Organization.dart';
-import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/OrganizationMembers.dart';
-import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Role.dart';
-import 'package:bishop_assistant_web_test_app/util/MyToast.dart';
-import 'package:bishop_assistant_web_test_app/util/Strings.dart';
-import 'package:bishop_assistant_web_test_app/util/Validators.dart';
-import 'package:bishop_assistant_web_test_app/widgets/FirebaseDropDown.dart';
-import 'package:bishop_assistant_web_test_app/widgets/InputField.dart';
-import 'package:bishop_assistant_web_test_app/widgets/MyButton.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/DarkPage.dart';
+import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/util/util.dart';
+import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:crypt/crypt.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:models/models/account.dart';
+import 'package:models/shared/dart_foundation.dart';
 
 ///
 /// Signup.dart
@@ -41,19 +33,14 @@ class _SignupState extends State<Signup> {
   TextEditingController phoneControl = TextEditingController();
   TextEditingController passwordControl = TextEditingController();
   TextEditingController confirmControl = TextEditingController();
-  TextEditingController organizationControl = TextEditingController();
+  TextEditingController usernameControl = TextEditingController();
 
   // Format the number
   MaskTextInputFormatter filter = MaskTextInputFormatter(
       mask: "(###) ###-####", filter: {"#": RegExp(r'\d')});
 
-  // Selected user role
-  Role? _selectedRole;
-
   // Is the Widget waiting for a callback function to complete
   bool _isWaiting = false;
-
-  Member? member;
 
   @override
   void dispose() {
@@ -64,6 +51,7 @@ class _SignupState extends State<Signup> {
     phoneControl.dispose();
     passwordControl.dispose();
     confirmControl.dispose();
+    usernameControl.dispose();
   }
 
   @override
@@ -74,33 +62,36 @@ class _SignupState extends State<Signup> {
         child: Column(
           children: [
             InputField.floating(firstname,
-                controller: fNameControl, validator: _verifyName),
+                controller: fNameControl,
+                validator: _verifyName,
+                onSubmit: _onSubmit),
             InputField.floating(lastname,
-                controller: lNameControl, validator: _verifyName),
+                controller: lNameControl,
+                validator: _verifyName,
+                onSubmit: _onSubmit),
             InputField.floating(email,
-                controller: emailControl, validator: _verifyEmail),
+                controller: emailControl,
+                validator: _verifyEmail,
+                onSubmit: _onSubmit),
             InputField.floating(phone,
                 controller: phoneControl,
                 formattingList: [filter],
-                validator: Validators.standard),
+                validator: Validators.standard,
+                onSubmit: _onSubmit),
+            InputField.floating(username,
+                controller: usernameControl,
+                validator: Validators.standard,
+                onSubmit: _onSubmit),
             InputField.floating(password,
                 isPassword: true,
                 controller: passwordControl,
-                validator: _password),
+                validator: _password,
+                onSubmit: _onSubmit),
             InputField.floating(confirmPassword,
                 isPassword: true,
                 controller: confirmControl,
-                validator: _confirmPassword),
-            FirebaseDropDown(
-                collectionPath: Collections.roles,
-                hint: role,
-                onchange: _roleChange,
-                validator: _validateRole),
-            if (_selectedRole != null)
-              if (_selectedRole == Role.bishop)
-                InputField.floating(nameOfOrganization,
-                    validator: Validators.standard,
-                    controller: organizationControl),
+                validator: _confirmPassword,
+                onSubmit: _onSubmit),
           ],
         ),
       ),
@@ -108,7 +99,15 @@ class _SignupState extends State<Signup> {
       AbsorbPointer(
         absorbing: _isWaiting,
         child: MyButton(label: signup, onPressed: _onPress),
-      )
+      ),
+      AbsorbPointer(
+        absorbing: _isWaiting,
+        child: MyButton(
+            label: login,
+            onPressed: () {
+              Navigator.pop(context);
+            }),
+      ),
     ]);
   }
 
@@ -202,21 +201,11 @@ class _SignupState extends State<Signup> {
     return returnValue;
   }
 
-  /// Validate Role
-  /// - Role may not be empty
-  String? _validateRole(role) {
-    if (role == null) return "Select a role";
-  }
-
-  /// Update the role to what ever has been selected
-  void _roleChange(selectedRole) {
-    setState(() {
-      _selectedRole = ParseRolesToString.roleFromInt(selectedRole);
-    });
-  }
+  /// When the enter button is pressed
+  void _onSubmit(String? string) => _onPress();
 
   /// When the button is pressed then
-  _onPress() async {
+  void _onPress() async {
     // prevent the user from pressing the button more than once while backend thinks
     _setIsWaiting(true);
 
@@ -226,44 +215,31 @@ class _SignupState extends State<Signup> {
       String hashPassword =
           Crypt.sha256(passwordControl.text, salt: "bishopric").toString();
 
-      // Create member model
-      Member member = Member.create(
-        firstName: fNameControl.text,
-        lastName: lNameControl.text,
-        phone: phoneControl.text,
-        email: emailControl.text,
-        password: hashPassword,
-        role: _selectedRole!,
-      );
+      try {
+        FirebaseAccountRepository _accountRepo = FirebaseAccountRepository();
 
-      // Create the member in database
-      OldFirestoreHelper.addDocument(Collections.members,
-          doc: member, error: _error, success: (int memberID) {
-        // Create organization
-        if (organizationControl.text.isNotEmpty) {
-          // Add organization to the database
-          OldFirestoreHelper.addDocument(Collections.organizations,
-              doc: Organization.create(organizationControl.text),
-              error: _error, success: (int organizationID) {
-            // Tie organization and member together
-            OldFirestoreHelper.addDocument(Collections.organization_members,
-                doc: OrganizationMembers(memberID, organizationID),
-                error: (error) => _setIsWaiting(false),
-                success: (organizationMemberID) {
-                  _successEnd(member);
-                });
-          });
-        } else {
-          _successEnd(member);
-        }
-      });
+        DefaultCreateAccountUseCase createAccount =
+            DefaultCreateAccountUseCase(_accountRepo);
+        Name name = Name(first: fNameControl.text, last: lNameControl.text);
+        Contact contact =
+            Contact(phone: phoneControl.text, email: emailControl.text);
+        Credentials credentials =
+            Credentials(username: usernameControl.text, password: hashPassword);
+        Result<Account> result = await createAccount.execute(
+            name: name, contact: contact, credentials: credentials);
+        if (result.isValue) _successEnd(result.asValue!.value);
+        if (result.isError) _error(result.asError!.error.toString());
+      } catch (e) {
+        _error(e.toString());
+        if (kDebugMode) print(e.toString());
+      }
     } else
       _setIsWaiting(false);
   }
 
   /// Should the process succeed
-  void _successEnd(Member member) {
-    MyToast.toastSuccess("Welcome ${member.name}!");
+  void _successEnd(Account account) {
+    MyToast.toastSuccess("Welcome ${account.name.name}!");
     _setIsWaiting(false);
     Navigator.pop(context);
   }

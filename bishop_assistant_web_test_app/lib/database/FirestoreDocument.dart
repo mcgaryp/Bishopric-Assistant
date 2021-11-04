@@ -6,7 +6,6 @@
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
 
-// TODO: Comments
 @Deprecated("")
 class FirestoreDocument extends Document {
   static const String namePath = 'name';
@@ -50,13 +49,11 @@ extension ParseToString on Collections {
   }
 }
 
-// TODO: Replace
 @Deprecated("")
 class EventTypesDoc extends FirestoreDocument {
   EventTypesDoc() : super(-1, "", {});
 }
 
-// TODO: Do something with this, it's so far only used in the FirestoreHelper.dart file
 @Deprecated("")
 class OldUtil {
   static const String counters = "counters";

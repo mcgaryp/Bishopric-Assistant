@@ -17,6 +17,7 @@ class InputField extends StatelessWidget {
   final String? errorMsg;
   final TextInputType? inputType;
   final String? Function(String?)? validator;
+  final void Function(String?)? onSubmit;
   final List<TextInputFormatter> formattingList;
   final TextEditingController? controller;
   final bool maxLines;
@@ -31,7 +32,8 @@ class InputField extends StatelessWidget {
       this.isPassword = false,
       this.controller,
       this.validator,
-        this.errorMsg,
+      this.errorMsg,
+      this.onSubmit,
       Key? key})
       : super(key: key) {
     this._isFloating = false;
@@ -45,7 +47,8 @@ class InputField extends StatelessWidget {
       this.isPassword = false,
       this.controller,
       this.validator,
-        this.errorMsg,
+      this.errorMsg,
+      this.onSubmit,
       Key? key})
       : super(key: key) {
     this._isFloating = true;
@@ -69,6 +72,7 @@ class InputField extends StatelessWidget {
               keyboardType: inputType,
               decoration: _isFloating ? _floating() : _border(),
               validator: validator,
+              onFieldSubmitted: onSubmit,
               // onChanged: onChange,
             ),
           ),
@@ -79,17 +83,16 @@ class InputField extends StatelessWidget {
 
   InputDecoration _floating() {
     return InputDecoration(
-      contentPadding: EdgeInsets.symmetric(horizontal: padding16),
-      border: InputBorder.none,
-      enabledBorder: InputBorder.none,
-      errorBorder: errorRedInputBorder,
-      disabledBorder: InputBorder.none,
-      errorStyle: calloutLight,
-      hintText: hint,
-      hintStyle: captionLight,
-      labelStyle: bodyDark,
-      errorText: errorMsg
-    );
+        contentPadding: EdgeInsets.symmetric(horizontal: padding16),
+        border: InputBorder.none,
+        enabledBorder: InputBorder.none,
+        errorBorder: errorRedInputBorder,
+        disabledBorder: InputBorder.none,
+        errorStyle: calloutLight,
+        hintText: hint,
+        hintStyle: captionLight,
+        labelStyle: bodyDark,
+        errorText: errorMsg);
   }
 
   InputDecoration _border() {

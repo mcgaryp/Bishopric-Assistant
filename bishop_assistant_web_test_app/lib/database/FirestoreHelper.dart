@@ -13,46 +13,49 @@ import 'package:models/shared/uuid.dart';
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
 
-// TODO: Find out how to notify the user they are offline
-// TODO: Define either in a readme or in this file what different Firebase Objects are and do
-//    Running list of items to document from Firebase
-//      - Snapshot
-//        - QuerySnapshot
-//        - AsyncSnapShot
-//        - QueryDocumentSnapshot
-//        - DocumentSnapshot
-//      - Stream
-//      - Collection
-//      - Document
-// APPROVED vs NOT APPROVED
-//  - Approved methods are good to stay around
-//  - Not Approved methods need either work put into them and will change or should be removed
+/// For reference to Firestore Documentation see this link
+/// https://pub.dev/documentation/cloud_firestore/latest/cloud_firestore/cloud_firestore-library.html)
 
-/// TODO Comment, Remove Deprecated class
+/// [FirestoreHelper] Is intended to abstract the Firestore from any other
+///   pieces in the software. This class retrieves from the database basic
+///   information that is returned in a generic form of Document or Mapping.
 ///
 /// URL to help with FireFlutter https://firebase.flutter.dev/docs/firestore/usage
 abstract class FirestoreHelper<T> {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  /// Once time accessors
+  /// Once time accessors: [getSingleDocument], [getCollectionOfDocuments]
+  ///
+  /// These accessors will pull once and only once form the database
+  /// [getSingleDocument] retrieves a single row from a specific table
   static Future<DocumentSnapshot<Map<String, dynamic>>> getSingleDocument(
           FirestoreCollectionPath path, UUID uuid) =>
       _firestore.collection(path.string).doc(uuid.id).get();
 
+  /// [getCollectionOfDocuments] retrieves a collection of rows from a single
+  /// table
   static Future<QuerySnapshot<Map<String, dynamic>>> getCollectionOfDocuments(
           FirestoreCollectionPath path) =>
       _firestore.collection(path.string).get();
 
-  /// Realtime update accessors
+  /// Realtime update accessors: [getCollectionOfDocumentsStreamed],
+  /// [getSingleDocumentStreamed]
+  ///
+  /// These accessors will push updates to the requester everytime a specific
+  /// row or table is changed
+  /// [getCollectionOfDocumentsStreamed] gives a new collection of rows from a
+  /// specific table everytime there is a change to the information in the table
   static Stream<QuerySnapshot<Map<String, dynamic>>>
       getCollectionOfDocumentsStreamed(FirestoreCollectionPath path) =>
           _firestore.collection(path.string).snapshots();
 
+  /// [getSingleDocumentStreamed] gives a new row every time there is a change
+  /// to that row
   static Stream<DocumentSnapshot<Map<String, dynamic>>>
       getSingleDocumentStreamed(FirestoreCollectionPath path, UUID uuid) =>
           _firestore.collection(path.string).doc(uuid.id).snapshots();
 
-  /// TODO Comment
+  /// [addDocument] to the database
   static Future<bool> addDocument(
       FirestoreCollectionPath path, Map<String, Object?> map, UUID uuid) async {
     bool result = true;
@@ -66,7 +69,7 @@ abstract class FirestoreHelper<T> {
     return result;
   }
 
-  /// TODO: Comment
+  /// [getNextID] pulls the next id from the database for a specific table
   static Future<Map<String, dynamic>?> getNextID() async {
     // Get the next ID from the counters
     DocumentSnapshot<Map<String, dynamic>> counterMap = await _firestore
@@ -75,11 +78,10 @@ abstract class FirestoreHelper<T> {
         .get();
 
     Map<String, dynamic>? counterData = counterMap.data();
-
     return counterData;
   }
 
-  /// TODO Comment
+  /// [incrementId] increments a given id in the database for a specific table
   static Future<bool> incrementId(
       FirestoreCollectionPath path, Map<String, dynamic> map) async {
     Map<String, dynamic> counterMap = map;
@@ -102,14 +104,19 @@ abstract class FirestoreHelper<T> {
   }
 }
 
+/// [FirestoreCollectionPath] paths to specific tables in the database
 enum FirestoreCollectionPath { accounts, util }
 
+/// [FirestoreCollectionPathExtension] adds additional getters, functions to the
+/// [FirestoreCollectionPath] enum
 extension FirestoreCollectionPathExtension on FirestoreCollectionPath {
-  String get string {
-    return this.toString().split('.').last;
-  }
+  /// [string] turns the enum into a string value exactly the way it is spelt in
+  /// the enum
+  String get string => this.toString().split('.').last;
 }
 
+/// [Util] is a helper class to access the one table in the database that holds
+/// the id and other utilities in the database
 class Util {
   static const String counters = "counters";
 }
@@ -126,24 +133,20 @@ class Util {
 abstract class OldFirestoreHelper {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  /// TODO: Comment
   /// APPROVED
   static Future<QuerySnapshot> getCollection(Collections path) =>
       _firestore.collection(path.string).get();
 
-  /// TODO: Comment
   /// APPROVED
   static Future<DocumentSnapshot> getDocument(Collections path, int memberID) =>
       _firestore.collection(path.string).doc(memberID.toString()).get();
 
   /// Return a Stream<QuerySnapshot> of a collection. Automatically Updates when
   ///  database changes
-  // TODO: NOT APPROVED
   static Stream<QuerySnapshot> stream(String path) =>
       _firestore.collection(path).snapshots();
 
   /// Return a List of Document Snapshots
-  // TODO: NOT APPROVED
   static List<DocumentSnapshot> listDocSnap(
       AsyncSnapshot<QuerySnapshot> snapshot) {
     if (snapshot.hasError) {
@@ -167,7 +170,6 @@ abstract class OldFirestoreHelper {
       _firestore.collection(path);
 
   /// Return a List of Query Document Snapshots
-  // TODO: NOT APPROVED
   static List<QueryDocumentSnapshot> listAsyncQuerySnap(
       AsyncSnapshot<QuerySnapshot> snapshot) {
     if (snapshot.hasError) {
@@ -194,7 +196,6 @@ abstract class OldFirestoreHelper {
   }
 
   /// Sort DocumentSnapshots by ID
-  // TODO: NOT APPROVED
   static int sortDocById(DocumentSnapshot a, DocumentSnapshot b) {
     int aInt = int.parse(a.id);
     int bInt = int.parse(b.id);
@@ -219,7 +220,6 @@ abstract class OldFirestoreHelper {
     return 0;
   }
 
-  // TODO: Comment
   // Used to add a document to the database
   /// APPROVED
   static Future<void> addDocument(Collections path,
@@ -255,7 +255,6 @@ abstract class OldFirestoreHelper {
     }
   }
 
-  // TODO: Comment
   /// APPROVED
   static Future<Map<String, dynamic>> _getNextID() async {
     // Get the next ID from the counters
@@ -273,8 +272,6 @@ abstract class OldFirestoreHelper {
   }
 
   // Find Member uses a username to find the account of a member
-  // TODO: Should this be a more general way?
-  // TODO: NOT APPROVED
   static Future<Member?> findMember(String username) async {
     final QuerySnapshot snapshot =
         await _firestore.collection(Collections.members.string).get();

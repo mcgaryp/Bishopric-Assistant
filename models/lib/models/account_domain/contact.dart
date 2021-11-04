@@ -28,13 +28,13 @@ class Contact extends ValueObject<Contact> {
 
   /// [__email] setter to ensure that the email is not empty string
   set __email(String email) {
-    if (email.isEmpty) throw EmptyStringError();
+    if (email.isEmpty) throw EmptyStringError(forObject: "Contact Email");
     _email = email;
   }
 
   /// [__phone] setter to ensure that the phone number is not an empty string
   set __phone(String phone) {
-    if (phone.isEmpty) throw EmptyStringError();
+    if (phone.isEmpty) throw EmptyStringError(forObject: "Contact Phone");
     _phone = phone;
   }
 

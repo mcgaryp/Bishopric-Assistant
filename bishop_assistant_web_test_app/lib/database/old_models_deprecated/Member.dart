@@ -13,7 +13,6 @@ import 'package:flutter/material.dart';
 /// Copyright 2021 porter. All rights reserved.
 ///
 
-// TODO: Comment
 @Deprecated("")
 class Member extends FirestoreDocument {
   static const String emailPath = "email";
@@ -158,7 +157,6 @@ class Member extends FirestoreDocument {
 //endregion
 }
 
-// TODO: Solve a better way of using this
 extension ParseRolesToString on Role {
   String get string {
     switch (this) {

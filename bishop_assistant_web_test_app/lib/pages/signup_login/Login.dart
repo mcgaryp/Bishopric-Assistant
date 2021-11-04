@@ -16,7 +16,6 @@ import 'package:flutter/material.dart';
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
 
-// TODO: Comments
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
 
@@ -104,8 +103,6 @@ class _LoginState extends State<Login> {
       incorrect();
       return;
     }
-
-    // TODO: Create session of member information
 
     // Proceed to the login page
     Navigator.pushReplacementNamed(context, rHome);

@@ -47,16 +47,27 @@ class FirebaseAccountRepository extends FirestoreHelper
   }
 
   @override
-  Future<Account?> findByUsername(String username) {
-    // TODO: implement findByUsername
-    throw UnimplementedError();
+  Future<Account?> findByUsername(String username) async {
+    QuerySnapshot<Map<String, dynamic>> snapshot =
+        await FirestoreHelper.getCollectionOfDocuments(_path);
+    for (QueryDocumentSnapshot<Map<String, dynamic>> map in snapshot.docs) {
+      if (map.get('username') == username)
+        return Account.fromJson(AccountID(map.id), map.data());
+    }
   }
 
   @override
   Future<AccountID?> generateNextId() async {
     Map<String, dynamic>? snapshot = await FirestoreHelper.getNextID();
     if (snapshot == null) return null;
-    AccountID accountID = AccountID(snapshot[_path]);
+    String id = snapshot[_path.string].toString();
+    if (id.isEmpty) return null;
+    AccountID accountID = AccountID(id);
+
+    snapshot[_path.string] += 1;
+    bool success = await FirestoreHelper.incrementId(_path, snapshot);
+    if (!success) return null;
+
     return accountID;
   }
 
@@ -64,6 +75,7 @@ class FirebaseAccountRepository extends FirestoreHelper
   Future<bool> insert(Account account) async {
     bool result =
         await FirestoreHelper.addDocument(_path, account.toJson, account.id);
+
     return result;
   }
 
