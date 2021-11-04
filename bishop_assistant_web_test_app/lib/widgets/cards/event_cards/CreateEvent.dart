@@ -116,7 +116,6 @@ class _CreateEventState extends State<CreateEvent> {
           ],
         ),
       ),
-      // TODO: Implement Notifications and Alerts to support 78 to 81
       // RowToggle(notifyAssignee),
       // RowToggle(notifyInterviewee),
       // CardTextFieldRow(notifyWhen,
@@ -205,8 +204,8 @@ class _CreateEventState extends State<CreateEvent> {
       }
 
       // Add Event object to the database
-      OldFirestoreHelper.addDocument(Collections.events, doc: event, error: _error,
-          success: (eventID) async {
+      OldFirestoreHelper.addDocument(Collections.events,
+          doc: event, error: _error, success: (eventID) async {
         // Tie the Event to the organization
         int organizationID =
             await OrganizationEvents.findOrganizationID(eventID);

@@ -135,7 +135,6 @@ class _CreateAssignmentState extends State<CreateAssignment> {
   /// Ties the organization to the assignment
   Future<void> _tieOrganization(int assignmentID) async {
     // Get organizationID from assignee
-    // TODO: potentially get this value from the session variable?
     int organizationID =
         await OrganizationMembers.findOrganizationID(assignment!.assignee.id);
 

@@ -9,7 +9,10 @@ import 'package:bishop_assistant_web_test_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-void main() {
+import 'repository_tests/firebase_account_repository_test.dart';
+import 'signup_tests/sign_up_page_test.dart';
+
+void exampleTest() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(App());
@@ -26,4 +29,9 @@ void main() {
     expect(find.text('0'), findsNothing);
     expect(find.text('1'), findsOneWidget);
   });
+}
+
+void main() {
+  runFirebaseAccountRepositoryTests();
+  runSignUpPageTests();
 }

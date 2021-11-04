@@ -1,4 +1,3 @@
-import 'package:bishop_assistant_web_test_app/pages/event/EventPage.dart';
 import 'package:bishop_assistant_web_test_app/pages/signup_login/Login.dart';
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/Error404Page.dart';
@@ -13,7 +12,8 @@ import 'package:flutter/material.dart';
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
 
-// TODO: Comment
+/// [MyFirebaseApp] is the entry point for the application. Without this the
+/// firebase will not function right and the application will result in an error
 class MyFirebaseApp extends StatelessWidget {
   const MyFirebaseApp({Key? key}) : super(key: key);
 
@@ -49,7 +49,6 @@ class MyFirebaseApp extends StatelessWidget {
 }
 
 // TODO: Implement this as a page with a spinner
-// TODO: Standardize a custom spinner component
 class Loading extends StatelessWidget {
   const Loading({Key? key}) : super(key: key);
 

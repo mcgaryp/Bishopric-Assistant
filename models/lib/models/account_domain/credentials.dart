@@ -29,14 +29,16 @@ class Credentials extends ValueObject<Credentials> {
   ///   empty
   /// TODO: Ensure password is hashed
   set __password(String password) {
-    if (password.isEmpty) throw EmptyStringError();
+    if (password.isEmpty)
+      throw EmptyStringError(forObject: "Credentials Password");
     _password = password;
   }
 
   /// [__username] private setter to ensure the [_username] is not an empty
   ///   string
   set __username(String username) {
-    if (username.isEmpty) throw EmptyStringError();
+    if (username.isEmpty)
+      throw EmptyStringError(forObject: "Credentials Username");
     _username = username;
   }
 

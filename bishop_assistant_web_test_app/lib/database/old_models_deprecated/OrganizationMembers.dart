@@ -17,7 +17,6 @@ class OrganizationMembers extends Document {
   OrganizationMembers(int memberID, int organizationID)
       : super({memberIDPath: memberID, organizationIDPath: organizationID});
 
-  // TODO: potentially use int?
   static Future<int> findOrganizationID(int memberID) async {
     QuerySnapshot collection = await OldFirestoreHelper.getCollection(
         Collections.organization_members);
@@ -30,7 +29,6 @@ class OrganizationMembers extends Document {
     return -1;
   }
 
-  // TODO: potentially use int?
   static Future<int> findMemberID(int organizationID) async {
     QuerySnapshot collection = await OldFirestoreHelper.getCollection(
         Collections.organization_members);

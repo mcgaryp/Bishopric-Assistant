@@ -21,7 +21,7 @@ abstract class UUID extends ValueObject<UUID> {
   String get id => _id;
 
   set __id(String id) {
-    if (id.isEmpty) throw EmptyStringError();
+    if (id.isEmpty) throw EmptyStringError(forObject: "UUID");
     this._id = id;
   }
 

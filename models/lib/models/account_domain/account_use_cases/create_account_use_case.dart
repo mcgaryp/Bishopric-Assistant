@@ -36,19 +36,24 @@ class DefaultCreateAccountUseCase implements CreateAccountUseCase {
       {required Name name,
       required Contact contact,
       required Credentials credentials}) async {
-    if (await _accountRepository.findByUsername(credentials.username) != null)
-      return Result.error(AccountAlreadyExistsError());
+    try {
+      if (await _accountRepository.findByUsername(credentials.username) != null)
+        return Result.error(AccountAlreadyExistsError());
 
-    AccountID? id = await _accountRepository.generateNextId();
+      AccountID? id = await _accountRepository.generateNextId();
 
-    if (id == null)
-      return Result.error(UnableToGenerateIdError(forEntity: _entity));
+      if (id == null)
+        return Result.error(UnableToGenerateIdError(forEntity: _entity));
 
-    Account account =
-        Account(id: id, name: name, contact: contact, credentials: credentials);
+      Account account = Account(
+          id: id, name: name, contact: contact, credentials: credentials);
 
-    if (await _accountRepository.insert(account)) return Result.value(account);
+      if (await _accountRepository.insert(account))
+        return Result.value(account);
 
-    return Result.error(FailedToSaveError(forEntity: _entity));
+      return Result.error(FailedToSaveError(forEntity: _entity));
+    } catch (error) {
+      throw error;
+    }
   }
 }

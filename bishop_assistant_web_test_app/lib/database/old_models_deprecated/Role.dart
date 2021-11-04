@@ -8,8 +8,6 @@ import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
 /// Copyright 2021 porter. All rights reserved.
 ///
 
-// TODO: Comment
-// TODO: Is there a smarter way to look at and evaluate this data from the database?
 @Deprecated("")
 enum Role {
   none,
@@ -22,7 +20,6 @@ enum Role {
   assistantWardExecutiveSecretary
 }
 
-// TODO: Should a class be used instead as a replacement for the enum above?
 class MemberRole extends FirestoreDocument {
   MemberRole.model(int id, String name) : super(id, name, {});
 }

@@ -10,8 +10,6 @@ import 'package:flutter/material.dart';
 /// Copyright 2021 porter. All rights reserved.
 ///
 
-// TODO: Comment
-// TODO: Complete Page on Mock up
 class Legal extends StatelessWidget {
   const Legal({Key? key}) : super(key: key);
 
