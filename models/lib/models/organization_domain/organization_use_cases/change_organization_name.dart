@@ -1,4 +1,3 @@
-import 'package:models/models/member.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/shared/exceptions.dart';
 

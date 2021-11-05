@@ -1,4 +1,4 @@
-import 'package:models/models/member.dart';
+import 'package:models/models/organization.dart';
 import 'package:models/shared/exceptions.dart';
 
 ///
@@ -26,9 +26,9 @@ mixin ChangeMemberRoleInOrganizationUseCase {
 
 class DefaultChangeMemberRoleInOrganizationUseCase
     implements ChangeMemberRoleInOrganizationUseCase {
-  MemberRepository _memberRepository;
+  final OrganizationRepository _repository;
 
-  DefaultChangeMemberRoleInOrganizationUseCase(this._memberRepository);
+  DefaultChangeMemberRoleInOrganizationUseCase(this._repository);
 
   @override
   Future<Result> execute({
@@ -36,17 +36,18 @@ class DefaultChangeMemberRoleInOrganizationUseCase
     required MemberID memberID,
     required Role role,
   }) async {
-    Member? accessor = await _memberRepository.find(accessorID);
+    Member? accessor = await _repository.findMember(accessorID);
     if (accessor == null) return Result.error(MemberNotFoundError());
     if (accessor.role.permissions < Permissions.maintainer)
       return Result.error(PermissionDeniedError(
           reason:
               "Maintainer permissions required to change a Role of Organization Member"));
 
-    Member? member = await _memberRepository.find(memberID);
+    Member? member = await _repository.findMember(memberID);
     if (member == null) return Result.error(MemberNotFoundError());
     Member updatedMember = Member.newRole(role: role, member: member);
-    if (await _memberRepository.update(updatedMember)) return Result.value(true);
+    if (await _repository.updateMember(updatedMember))
+      return Result.value(true);
     return Result.error(FailedToSaveError(forEntity: "Organization"));
   }
 }

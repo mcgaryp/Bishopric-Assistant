@@ -1,4 +1,4 @@
-import 'package:models/models/member.dart';
+import 'package:models/models/organization.dart';
 import 'package:models/shared/exceptions.dart';
 
 ///
@@ -22,21 +22,21 @@ mixin RemoveMemberFromOrganizationUseCase {
 
 class DefaultRemoveMemberFromOrganizationUseCase
     implements RemoveMemberFromOrganizationUseCase {
-  MemberRepository _memberRepository;
+  final OrganizationRepository _repository;
 
-  DefaultRemoveMemberFromOrganizationUseCase(this._memberRepository);
+  DefaultRemoveMemberFromOrganizationUseCase(this._repository);
 
   @override
   Future<Result<bool>> execute(
       {required MemberID accessorId, required MemberID memberID}) async {
-    Member? accessor = await _memberRepository.find(accessorId);
+    Member? accessor = await _repository.findMember(accessorId);
     if (accessor == null) return Result.error(MemberNotFoundError());
     if (accessor.role.permissions < Permissions.maintainer)
       return Result.error(PermissionDeniedError(
           reason:
               "Maintainer permissions required to Remove Members from an Organization"));
 
-    Result<bool> result = await _memberRepository.remove(memberID);
+    Result<bool> result = await _repository.removeMember(memberID);
     if (result.isValue) return Result.value(true);
     return result;
   }

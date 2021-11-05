@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:models/models/member_domain/member_id.dart';
+import 'package:models/models/organization_domain/member_id.dart';
 
 ///
 /// member_id_test.dart

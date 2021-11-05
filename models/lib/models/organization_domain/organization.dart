@@ -9,7 +9,7 @@ import 'package:models/shared/foundation.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-// TODO: Remove late somehow
+/// TODO: Remove late somehow
 /// TODO: Comments
 class Organization extends Entity<Organization> {
   /// Variables
@@ -18,27 +18,25 @@ class Organization extends Entity<Organization> {
   final OrganizationID id;
 
   /// [_creator] the initial member and user of the organization
-  late Creator _creator;
+  final Creator creator;
 
   /// [_name] the name of the organization
-  late String _name;
+  late final String _name;
 
   /// Constructor
   ///
   /// [id] of the organization
   /// [name] of the organization
   /// [creator] of the organization
-  Organization(
-      {required this.id, required String name, required Creator creator})
+  Organization({required this.id, required String name, required this.creator})
       : super(id) {
     __name = name;
-    __creator = creator;
   }
 
-  /// TODO: Comment
+  /// Copy constructor to create a new name
   Organization.newName(Organization organization, this._name)
       : this.id = organization.id,
-        this._creator = organization.creator,
+        this.creator = organization.creator,
         super(organization.id);
 
   /// Setters
@@ -46,15 +44,8 @@ class Organization extends Entity<Organization> {
   /// [__name] private setter for name
   set __name(String name) => _name = name.capitalize;
 
-  /// [__creator] private setter for the creator and initial member in the organization
-  set __creator(Creator creator) {
-    _creator = creator;
-  }
-
   /// Getters
   String get name => _name;
-
-  Creator get creator => _creator;
 
   @override
   bool sameIdentityAs(Organization other) {
