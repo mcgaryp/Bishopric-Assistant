@@ -61,4 +61,9 @@ class Credentials extends ValueObject<Credentials> {
 
   @override
   Map<String, dynamic> toJson() => {"password": password, "username": username};
+
+  @override
+  String toString() {
+    return username;
+  }
 }

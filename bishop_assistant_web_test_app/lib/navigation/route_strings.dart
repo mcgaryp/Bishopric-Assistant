@@ -1,23 +1,23 @@
-import 'package:bishop_assistant_web_test_app/MyFirebaseApp.dart';
+import 'package:bishop_assistant_web_test_app/my_firebase_app.dart';
 import 'package:bishop_assistant_web_test_app/pages/assignment/AssignmentPage.dart';
 import 'package:bishop_assistant_web_test_app/pages/assignment/CreateAssignmentMobile.dart';
 import 'package:bishop_assistant_web_test_app/pages/event/CreateEventMobile.dart';
 import 'package:bishop_assistant_web_test_app/pages/event/EventPage.dart';
 import 'package:bishop_assistant_web_test_app/pages/footer/Legal.dart';
 import 'package:bishop_assistant_web_test_app/pages/footer/Privacy.dart';
-import 'package:bishop_assistant_web_test_app/pages/home/Home.dart';
+import 'package:bishop_assistant_web_test_app/pages/home/home_page.dart';
 import 'package:bishop_assistant_web_test_app/pages/organization/OrganizationPage.dart';
 import 'package:bishop_assistant_web_test_app/pages/profile/EditProfilePage.dart';
 import 'package:bishop_assistant_web_test_app/pages/profile/ProfilePage.dart';
 import 'package:bishop_assistant_web_test_app/pages/recover_password/ChangePassword.dart';
 import 'package:bishop_assistant_web_test_app/pages/recover_password/Pin.dart';
 import 'package:bishop_assistant_web_test_app/pages/recover_password/RequestPasswordReset.dart';
-import 'package:bishop_assistant_web_test_app/pages/signup_login/Login.dart';
-import 'package:bishop_assistant_web_test_app/pages/signup_login/sign_up.dart';
+import 'package:bishop_assistant_web_test_app/pages/signup_login/login_page.dart';
+import 'package:bishop_assistant_web_test_app/pages/signup_login/sign_up_page.dart';
 import 'package:flutter/material.dart';
 
 ///
-/// RouteStrings.dart
+/// route_strings.dart
 /// bishop_assistant_web_test_app
 ///
 /// Created by Porter McGary on 8/13/21
@@ -43,9 +43,9 @@ const String rEditProfile = "/profile/edit";
 
 final Map<String, Widget Function(BuildContext)> routes = {
   "/": (context) => MyFirebaseApp(),
-  rHome: (context) => Home(),
-  rLogin: (context) => Login(),
-  rSignup: (context) => Signup(),
+  rHome: (context) => HomePage(),
+  rLogin: (context) => LoginPage(),
+  rSignup: (context) => SignupPage(),
   rPasswordRequest: (context) => RequestPasswordReset(),
   rPIN: (context) => Pin(),
   rChangePassword: (context) => ChangePassword(),

@@ -53,4 +53,9 @@ class Name extends ValueObject<Name> {
   @override
   Map<String, dynamic> toJson() =>
       {"first": first, "last": last, "name": "$first $last"};
+
+  @override
+  String toString() {
+    return name;
+  }
 }

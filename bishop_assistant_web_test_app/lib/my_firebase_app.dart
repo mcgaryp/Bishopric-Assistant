@@ -1,11 +1,11 @@
-import 'package:bishop_assistant_web_test_app/pages/signup_login/Login.dart';
+import 'package:bishop_assistant_web_test_app/pages/signup_login/login_page.dart';
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/Error404Page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 ///
-/// MyFirebaseApp.dart
+/// my_firebase_app.dart
 /// bishop_assistant_web_test_app
 ///
 /// Created by Porter McGary on 8/13/21
@@ -34,9 +34,7 @@ class MyFirebaseApp extends StatelessWidget {
 
             // Once complete, show your application
             if (snapshot.connectionState == ConnectionState.done) {
-              // TODO: Consider using the Home page as the starting point and sending the user to login if there is not a current session open to load their personal information
-              return Login();
-              // return EventPage();
+              return LoginPage();
             }
 
             // Otherwise, show something whilst waiting for initialization to complete

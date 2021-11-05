@@ -10,4 +10,7 @@ export 'account_use_cases/change_contact_use_case.dart';
 export 'account_use_cases/change_password_use_case.dart';
 export 'account_use_cases/create_account_use_case.dart';
 export 'account_use_cases/delete_account_use_case.dart';
+export 'account_use_cases/is_logged_in_use_case.dart';
+export 'account_use_cases/login_use_case.dart';
+export 'account_use_cases/logout_use_case.dart';
 export 'account_use_cases/recover_account_use_case.dart';

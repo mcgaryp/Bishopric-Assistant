@@ -1,7 +1,8 @@
-import 'package:async/src/result/result.dart';
 import 'package:bishop_assistant_web_test_app/database/FirestoreHelper.dart';
+import 'package:bishop_assistant_web_test_app/database/shared_preferences_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:models/models/account.dart';
+import 'package:models/shared/foundation.dart';
 
 ///
 /// firebase_account_repository.dart
@@ -14,6 +15,8 @@ import 'package:models/models/account.dart';
 class FirebaseAccountRepository extends FirestoreHelper
     implements AccountRepository {
   FirestoreCollectionPath _path = FirestoreCollectionPath.accounts;
+  String _loginKey = "loginStatus";
+  String _accountKey = "accountInfo";
 
   @override
   Future<Account?> find(AccountID id) async {
@@ -89,5 +92,47 @@ class FirebaseAccountRepository extends FirestoreHelper
   Future<bool> update(Account account) {
     // TODO: implement update
     throw UnimplementedError();
+  }
+
+  @override
+  Future<LoginStatus> getLoginStatus() async {
+    String? status = await SharedPreferencesHelper.find(_loginKey);
+    switch (status) {
+      case "loggedOut":
+        return LoginStatus.loggedOut;
+      case "loggedIn":
+        return LoginStatus.loggedIn;
+      default:
+        return LoginStatus.unknown;
+    }
+  }
+
+  @override
+  Future<bool> login() async {
+    return await SharedPreferencesHelper.insert(
+        _loginKey, LoginStatus.loggedIn.string);
+  }
+
+  @override
+  Future<bool> logout() async {
+    return await SharedPreferencesHelper.insert(
+        _loginKey, LoginStatus.loggedOut.string);
+  }
+
+  @override
+  Future<Account> getCache() async {
+    Map<String, dynamic> map =
+        await SharedPreferencesHelper.findMap(_accountKey);
+    AccountID id = AccountID(map["id"]);
+    Account account = Account.fromJson(id, map);
+    return account;
+  }
+
+  @override
+  Future<bool> cache(Account account) async {
+    String value = account.toJsonWithId.toString();
+    bool isSuccessful =
+        await SharedPreferencesHelper.insert(_accountKey, value);
+    return isSuccessful;
   }
 }

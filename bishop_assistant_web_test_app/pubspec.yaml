@@ -31,6 +31,7 @@ dependencies:
   fluttertoast: ^8.0.8
   mask_text_input_formatter: ^2.0.0
   crypt: ^4.0.1
+  shared_preferences: ^2.0.8
 
   # Firebase
   firebase_core: ^1.8.0
