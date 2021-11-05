@@ -6,9 +6,9 @@
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-class empty_string_exception_test {}
+class EmptyStringExceptionTest {}
 
-main() {
+runEmptyStringExceptionTest() {
   // TODO: Implement
   throw UnimplementedError();
 }

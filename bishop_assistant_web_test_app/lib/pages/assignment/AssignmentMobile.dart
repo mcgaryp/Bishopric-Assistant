@@ -1,5 +1,5 @@
 import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Assignment.dart';
-import 'package:bishop_assistant_web_test_app/navigation/RouteStrings.dart';
+import 'package:bishop_assistant_web_test_app/navigation/route_strings.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/Section.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/MobileConentSnapShot.dart';

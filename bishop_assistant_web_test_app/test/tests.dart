@@ -9,8 +9,13 @@ import 'package:bishop_assistant_web_test_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'home_page_tests/find_organization_page_test.dart';
+import 'home_page_tests/home_page_mobile_test.dart';
+import 'home_page_tests/home_page_test.dart';
+import 'home_page_tests/home_page_web_test.dart';
+import 'login_page_tests/login_page_test.dart';
 import 'repository_tests/firebase_account_repository_test.dart';
-import 'signup_tests/sign_up_page_test.dart';
+import 'sign_up_tests/sign_up_page_test.dart';
 
 void exampleTest() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
@@ -34,4 +39,11 @@ void exampleTest() {
 void main() {
   runFirebaseAccountRepositoryTests();
   runSignUpPageTests();
+  runLoginPageTests();
+  group("Home Page Tests", () {
+    runHomePageTests();
+    runHomePageMobileTests();
+    runHomePageWebTests();
+    runFindOrganizationPageTests();
+  });
 }

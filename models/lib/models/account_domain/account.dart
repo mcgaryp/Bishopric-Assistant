@@ -71,6 +71,12 @@ class Account extends Entity<Account> {
         'last': name.last
       };
 
+  Map<String, Object?> get toJsonWithId {
+    Map<String, Object?> map = toJson;
+    map["id"] = id;
+    return map;
+  }
+
   @override
   bool sameIdentityAs(Account other) {
     return other.id == this.id;
@@ -80,5 +86,14 @@ class Account extends Entity<Account> {
   bool operator ==(Object other) {
     if (other.runtimeType != Account) return false;
     return sameIdentityAs(other as Account);
+  }
+
+  @override
+  String toString() {
+    return """
+    Name: ${name.toString()}
+    Credentials: ${credentials.toString()}
+    Contact: ${contact.toString()}
+    """;
   }
 }

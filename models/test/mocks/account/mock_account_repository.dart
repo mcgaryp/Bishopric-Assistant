@@ -100,4 +100,34 @@ class MockAccountRepository implements AccountRepository {
     // TODO: implement findByEmail
     throw UnimplementedError();
   }
+
+  @override
+  Future<LoginStatus> getLoginStatus() {
+    // TODO: implement getLoginStatus
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> login() {
+    // TODO: implement login
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> logout() {
+    // TODO: implement logout
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Account> getCache() {
+    // TODO: implement getCache
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> cache(Account account) {
+    // TODO: implement cache
+    throw UnimplementedError();
+  }
 }

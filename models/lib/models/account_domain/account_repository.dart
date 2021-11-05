@@ -21,4 +21,18 @@ mixin AccountRepository implements Repository<Account, AccountID, void> {
 
   /// [findByPhone] uses a string phone to find and return an optional [Account]
   Future<Account?> findByEmail(String email);
+
+  /// [login] stores a value to mark the user as logged in
+  Future<bool> login();
+
+  /// [logout] stores a value to mark the user as logged out
+  Future<bool> logout();
+
+  /// [getLoginStatus] retrieves current status of the login state
+  Future<LoginStatus> getLoginStatus();
+
+  /// [getCache] retrieves the cache from storage
+  Future<Account> getCache();
+
+  Future<bool> cache(Account account);
 }

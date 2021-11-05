@@ -57,4 +57,9 @@ class Contact extends ValueObject<Contact> {
 
   @override
   Map<String, dynamic> toJson() => {"phone": phone, "email": email};
+
+  @override
+  String toString() {
+    return "$email $phone";
+  }
 }

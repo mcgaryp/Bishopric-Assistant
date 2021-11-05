@@ -1,5 +1,5 @@
-import 'package:bishop_assistant_web_test_app/navigation/RouteStrings.dart';
 import 'package:bishop_assistant_web_test_app/navigation/WebNavigationButton.dart';
+import 'package:bishop_assistant_web_test_app/navigation/route_strings.dart';
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:bishop_assistant_web_test_app/util/Strings.dart';

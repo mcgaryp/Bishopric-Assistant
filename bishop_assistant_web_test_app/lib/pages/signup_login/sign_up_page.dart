@@ -8,21 +8,21 @@ import 'package:models/models/account.dart';
 import 'package:models/shared/dart_foundation.dart';
 
 ///
-/// Signup.dart
+/// sign_up_page.dart
 /// bishop_assistant_web_test_app
 ///
 /// Created by Porter McGary on 8/13/21
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
 
-class Signup extends StatefulWidget {
-  const Signup({Key? key}) : super(key: key);
+class SignupPage extends StatefulWidget {
+  const SignupPage({Key? key}) : super(key: key);
 
   @override
-  _SignupState createState() => _SignupState();
+  _SignupPageState createState() => _SignupPageState();
 }
 
-class _SignupState extends State<Signup> {
+class _SignupPageState extends State<SignupPage> {
   // Key used to
   final _formKey = GlobalKey<FormState>();
 

@@ -8,7 +8,7 @@
 
 class NegativeIntegerErrorTest {}
 
-main() {
+runNegativeIntegerErrorTests() {
   // TODO: Implement
   throw UnimplementedError();
 }
