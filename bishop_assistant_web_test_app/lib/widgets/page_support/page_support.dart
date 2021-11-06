@@ -10,11 +10,11 @@ export 'package:flutter_spinkit/flutter_spinkit.dart';
 
 export 'Content.dart';
 export 'DarkPage.dart';
-export 'Error404.dart';
-export 'Error404Page.dart';
 export 'Mobile.dart';
 export 'MobileConentSnapShot.dart';
 export 'SnapShotBackground.dart';
 export 'Web.dart';
 export 'WebContentSnapShot.dart';
-export 'light_page/LightPage.dart';
+export 'error_404.dart';
+export 'error_404_page.dart';
+export 'light_page/light_page.dart';

@@ -83,5 +83,6 @@ const BorderSide _errorRedBorderSide = BorderSide(color: errorRed);
 
 /// Shadow
 const List<BoxShadow> _boxShadow = [
-  BoxShadow(offset: Offset(2, 4), blurRadius: 4, spreadRadius: 3, color: shadow)
+  BoxShadow(
+      offset: Offset(3, 5), blurRadius: 4, spreadRadius: -2, color: shadow)
 ];

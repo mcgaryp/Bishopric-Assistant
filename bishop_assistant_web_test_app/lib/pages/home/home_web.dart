@@ -1,10 +1,10 @@
-import 'package:bishop_assistant_web_test_app/util/Strings.dart';
+import 'package:bishop_assistant_web_test_app/util/strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/WebContentSnapShot.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/light_page/LightPage.dart';
+import 'package:bishop_assistant_web_test_app/widgets/page_support/light_page/light_page.dart';
 import 'package:flutter/material.dart';
 
 ///
-/// HomeWeb.dart
+/// home_web.dart
 /// bishop_assistant_web_test_app
 ///
 /// Created by porter on 8/13/21

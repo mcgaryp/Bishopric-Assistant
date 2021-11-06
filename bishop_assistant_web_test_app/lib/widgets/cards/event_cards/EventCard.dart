@@ -1,7 +1,7 @@
 import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Event.dart';
 import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Member.dart';
 import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
-import 'package:bishop_assistant_web_test_app/util/Strings.dart';
+import 'package:bishop_assistant_web_test_app/util/strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/CardColumn.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/CardSubtitle.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/CardTitle.dart';
@@ -38,7 +38,7 @@ class EventCard extends StatelessWidget {
       List<Widget> assigneeList = [];
       String amountOfAssignees =
           event.assignees!.length > 1 ? assignees : assignee;
-      for (Member assignee in event.assignees!) {
+      for (OldMember assignee in event.assignees!) {
         assigneeList.add(Text(
           "    ${assignee.firstName} ${assignee.lastName}",
           style: bodyDark,

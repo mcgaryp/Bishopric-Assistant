@@ -3,7 +3,7 @@ import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:flutter/material.dart';
 
 ///
-/// MyButton.dart
+/// my_button.dart
 /// bishop_assistant_web_test_app
 ///
 /// Created by Porter McGary on 8/13/21
@@ -25,7 +25,8 @@ class MyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BoxDecoration decor;
-    double padding;
+    double padding = padding16;
+    EdgeInsets topPadding = EdgeInsets.only(top: padding);
     switch (style) {
       case MyButtonStyle.primary:
         decor = floatingLightPrimaryBox;
@@ -39,10 +40,15 @@ class MyButton extends StatelessWidget {
         decor = floatingErrorRedBox;
         padding = padding8;
         break;
+      case MyButtonStyle.standard:
+        decor = floatingLightPrimaryBox;
+        padding = padding8;
+        topPadding = EdgeInsets.only(bottom: padding);
+        break;
     }
 
     return Padding(
-      padding: EdgeInsets.only(top: padding),
+      padding: topPadding,
       child: Container(
           constraints: BoxConstraints(minWidth: double.infinity),
           decoration: decor,
@@ -62,4 +68,4 @@ class MyButton extends StatelessWidget {
   }
 }
 
-enum MyButtonStyle { primary, text, error }
+enum MyButtonStyle { primary, text, error, standard }

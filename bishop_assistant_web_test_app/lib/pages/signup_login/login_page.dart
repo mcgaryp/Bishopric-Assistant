@@ -1,9 +1,9 @@
 import 'package:bishop_assistant_web_test_app/navigation/route_strings.dart';
 import 'package:bishop_assistant_web_test_app/repositories/firebase_account_repository.dart';
 import 'package:bishop_assistant_web_test_app/util/MyToast.dart';
-import 'package:bishop_assistant_web_test_app/util/Strings.dart';
+import 'package:bishop_assistant_web_test_app/util/strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/InputField.dart';
-import 'package:bishop_assistant_web_test_app/widgets/MyButton.dart';
+import 'package:bishop_assistant_web_test_app/widgets/my_button.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/DarkPage.dart';
 import 'package:crypt/crypt.dart';
 import 'package:flutter/foundation.dart';

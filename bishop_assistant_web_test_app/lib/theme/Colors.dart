@@ -11,12 +11,13 @@ import 'package:flutter/material.dart';
 /// Light Color Scheme
 // LightBackground
 const Color light = Color.fromRGBO(251, 251, 255, 1);
+const Color lightGrey = Color.fromRGBO(0, 0, 0, .1);
 
 // DarkBackground
 const Color dark = Color.fromRGBO(11, 83, 112, 1);
 
 // Shadows
-const Color shadow = Color.fromRGBO(0, 0, 0, 0.15);
+const Color shadow = Color.fromRGBO(0, 0, 0, 0.35);
 
 // LightPrimary
 const Color lightPrimary = Color.fromRGBO(113, 146, 190, 1);

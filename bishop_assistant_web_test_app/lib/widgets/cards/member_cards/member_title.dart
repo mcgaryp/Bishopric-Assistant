@@ -5,7 +5,7 @@ import 'package:bishop_assistant_web_test_app/widgets/cards/member_cards/MemberI
 import 'package:flutter/material.dart';
 
 ///
-/// MemberTitle.dart
+/// member_title.dart
 /// bishop_assistant_web_test_app
 ///
 /// Created by Po on 8/16/21
@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 ///
 
 class MemberTitle extends StatelessWidget {
-  final Member member;
+  final OldMember member;
 
   const MemberTitle(this.member, {Key? key}) : super(key: key);
 

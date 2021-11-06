@@ -1,5 +1,5 @@
 import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
-import 'package:bishop_assistant_web_test_app/database/FirestoreHelper.dart';
+import 'package:bishop_assistant_web_test_app/database/firestore_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 ///

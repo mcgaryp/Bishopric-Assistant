@@ -1,8 +1,8 @@
 import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Member.dart';
-import 'package:bishop_assistant_web_test_app/util/Strings.dart';
+import 'package:bishop_assistant_web_test_app/util/strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/Section.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/MobileConentSnapShot.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/light_page/LightPage.dart';
+import 'package:bishop_assistant_web_test_app/widgets/page_support/light_page/light_page.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -19,6 +19,6 @@ class OrganizationMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LightPage.mobile(MobileContentSnapShot(
-        [Section(organization, Member.exampleMemberCardList)]));
+        [Section(organization, OldMember.exampleMemberCardList)]));
   }
 }

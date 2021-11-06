@@ -1,6 +1,6 @@
 import 'package:bishop_assistant_web_test_app/pages/signup_login/login_page.dart';
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/Error404Page.dart';
+import 'package:bishop_assistant_web_test_app/widgets/page_support/error_404_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 

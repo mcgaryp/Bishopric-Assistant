@@ -7,6 +7,8 @@ import 'package:bishop_assistant_web_test_app/util/MyToast.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/event_cards/EventCard.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/page_support.dart';
 import 'package:models/models/account.dart';
+import 'package:models/models/member.dart';
+import 'package:models/models/organization.dart';
 import 'package:models/shared/foundation.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -30,6 +32,15 @@ class HomePage extends StatelessWidget {
     EventCard(Interview.example2)
   ];
 
+  static Organization tempOrganization = Organization(
+      id: OrganizationID("Temporary Organization"),
+      name: "Temporary Organization",
+      creator: Creator(
+          id: AccountID("Temporary Creator"),
+          name: Name(first: "Temporary", last: "Name")));
+
+  final List<Organization> lst = List.filled(20, tempOrganization);
+
   @override
   Widget build(BuildContext context) {
     // The status of the user needs to be checked to ensure they have
@@ -48,11 +59,12 @@ class HomePage extends StatelessWidget {
               mobile: HomeMobile(
                   eventsList,
                   Assignment.assignmentExampleCardList,
-                  Member.exampleMemberCardList),
+                  OldMember.exampleMemberCardList),
               desktop: HomeWeb(eventsList, Assignment.assignmentExampleCardList,
-                  Member.exampleMemberCardList),
+                  OldMember.exampleMemberCardList),
             );
-          return LightPage.both(FindOrganizationPage());
+          List<Organization> organizations = lst;
+          return FindOrganizationPage(organizations);
         }
 
         // Display any errors

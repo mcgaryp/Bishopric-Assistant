@@ -4,7 +4,7 @@ import 'package:bishop_assistant_web_test_app/navigation/route_strings.dart';
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
-import 'package:bishop_assistant_web_test_app/util/Strings.dart';
+import 'package:bishop_assistant_web_test_app/util/strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/CardRow.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/member_cards/MemberIcon.dart';
 import 'package:bishop_assistant_web_test_app/widgets/login_signup/MyConstrainedBoxes.dart';
@@ -21,7 +21,7 @@ import 'package:flutter/material.dart';
 ///
 
 class Profile extends Mobile {
-  final Member member;
+  final OldMember member;
 
   const Profile(this.member, {Key? key}) : super(key: key);
 

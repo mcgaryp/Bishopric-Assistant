@@ -1,19 +1,19 @@
 import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
-import 'package:bishop_assistant_web_test_app/database/FirestoreHelper.dart';
+import 'package:bishop_assistant_web_test_app/database/firestore_helper.dart';
 import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Event.dart';
 import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/EventType.dart';
 import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Member.dart';
 import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/MemberEvents.dart';
 import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/OrganizationEvents.dart';
 import 'package:bishop_assistant_web_test_app/util/MyToast.dart';
-import 'package:bishop_assistant_web_test_app/util/Strings.dart';
 import 'package:bishop_assistant_web_test_app/util/Validators.dart';
-import 'package:bishop_assistant_web_test_app/widgets/FirebaseDropDown.dart';
-import 'package:bishop_assistant_web_test_app/widgets/FirebaseMultiSelectField.dart';
+import 'package:bishop_assistant_web_test_app/util/strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/InputField.dart';
-import 'package:bishop_assistant_web_test_app/widgets/MyButton.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/CardDateTimeRow.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/MyCard.dart';
+import 'package:bishop_assistant_web_test_app/widgets/firebase_drop_down.dart';
+import 'package:bishop_assistant_web_test_app/widgets/firebase_multi_select_field.dart';
+import 'package:bishop_assistant_web_test_app/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -45,7 +45,7 @@ class _CreateEventState extends State<CreateEvent> {
 
   // Specific fields for events
   DateTime _selectedDateTime = DateTime.now();
-  List<Member> _selectedAssignees = [];
+  List<OldMember> _selectedAssignees = [];
   EventType _selectedEventType = EventType.none;
 
   // Util to establish proper state management of widget
@@ -145,11 +145,11 @@ class _CreateEventState extends State<CreateEvent> {
   Future<void> _onAssigneesChange(list) async {
     // Prevent user from selecting the create button
     _setIsWaiting(true);
-    List<Member> assignees = [];
+    List<OldMember> assignees = [];
 
     // Create the list of members
     for (FirestoreDocument document in list) {
-      Member member = await Member.find(document.id);
+      OldMember member = await OldMember.find(document.id);
       assignees.add(member);
     }
 
@@ -163,7 +163,7 @@ class _CreateEventState extends State<CreateEvent> {
   /// Updates the assigned member
   Future<void> _onAssigneeChange(int memberID) async {
     _setIsWaiting(true);
-    Member member = await Member.find(memberID);
+    OldMember member = await OldMember.find(memberID);
 
     setState(() {
       _selectedAssignees = [member];
@@ -213,7 +213,7 @@ class _CreateEventState extends State<CreateEvent> {
             doc: OrganizationEvents(eventID, organizationID),
             error: _error, success: (organizationEventID) async {
           // Tie the Event to the assignees
-          for (Member member in _selectedAssignees) {
+          for (OldMember member in _selectedAssignees) {
             await OldFirestoreHelper.addDocument(Collections.member_events,
                 doc: MemberEvents(member.id, organizationEventID),
                 error: _error,

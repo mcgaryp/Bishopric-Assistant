@@ -1,17 +1,17 @@
 import 'package:bishop_assistant_web_test_app/navigation/route_strings.dart';
-import 'package:bishop_assistant_web_test_app/util/Strings.dart';
+import 'package:bishop_assistant_web_test_app/util/strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/footer/FooterButton.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/Error404.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/Error404Page.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/Mobile.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/Web.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/light_page/LightPageMobile.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/light_page/LightPageWeb.dart';
+import 'package:bishop_assistant_web_test_app/widgets/page_support/error_404.dart';
+import 'package:bishop_assistant_web_test_app/widgets/page_support/error_404_page.dart';
+import 'package:bishop_assistant_web_test_app/widgets/page_support/light_page/light_page_mobile.dart';
+import 'package:bishop_assistant_web_test_app/widgets/page_support/light_page/light_page_web.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 ///
-/// LightPage.dart
+/// light_page.dart
 /// bishop_assistant_web_test_app
 ///
 /// Created by Porter McGary on 8/13/21

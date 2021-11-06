@@ -1,5 +1,5 @@
 ///
-/// Strings.dart
+/// strings.dart
 /// bishop_assistant_web_test_app
 ///
 /// Created by Porter McGary on 8/13/21
@@ -60,3 +60,7 @@ const String assignmentNameHint = "What is the name of this assignment";
 const String save = "Save";
 const String intervieweeHint = "Name of the person to be interviewed";
 const String created = "Created ";
+const String join = "Join";
+const String createOrganization = "Create Organization";
+const String organizationsStr = "Organizations";
+const String create = "Create";

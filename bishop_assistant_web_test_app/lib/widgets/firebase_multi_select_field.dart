@@ -1,5 +1,5 @@
 import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
-import 'package:bishop_assistant_web_test_app/database/FirestoreHelper.dart';
+import 'package:bishop_assistant_web_test_app/database/firestore_helper.dart';
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 ///
-/// FirebaseMultiSelectField.dart
+/// firebase_multi_select_field.dart
 /// bishop_assistant_web_test_app
 ///
 /// Created by porter on 8/14/21
@@ -109,7 +109,8 @@ class _FirebaseMultiSelectFieldState extends State<FirebaseMultiSelectField> {
   Future<void> _getMenuItems() async {
     final snapshot =
         await OldFirestoreHelper.reference(widget.collectionPath.string).get();
-    List<QueryDocumentSnapshot> data = OldFirestoreHelper.listQuerySnap(snapshot);
+    List<QueryDocumentSnapshot> data =
+        OldFirestoreHelper.listQuerySnap(snapshot);
 
     if (this.mounted) {
       setState(() {

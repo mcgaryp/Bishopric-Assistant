@@ -1,6 +1,6 @@
 import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Member.dart';
 import 'package:bishop_assistant_web_test_app/pages/profile/EditProfile.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/light_page/LightPage.dart';
+import 'package:bishop_assistant_web_test_app/widgets/page_support/light_page/light_page.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -16,6 +16,6 @@ class EditProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LightPage.both(EditProfile(Member.bishopExample));
+    return LightPage.both(EditProfile(OldMember.bishopExample));
   }
 }

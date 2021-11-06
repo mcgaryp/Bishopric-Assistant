@@ -4,8 +4,8 @@ import 'package:bishop_assistant_web_test_app/navigation/MobileNavigationButton.
 import 'package:bishop_assistant_web_test_app/navigation/route_strings.dart';
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
-import 'package:bishop_assistant_web_test_app/util/Strings.dart';
-import 'package:bishop_assistant_web_test_app/widgets/MemberAccountDrawerHeader.dart';
+import 'package:bishop_assistant_web_test_app/util/strings.dart';
+import 'package:bishop_assistant_web_test_app/widgets/member_account_drawer_header.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/Mobile.dart';
 import 'package:bishop_assistant_web_test_app/widgets/title/MyTitle.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 import '../Content.dart';
 
 ///
-/// LightPageMobile.dart
+/// light_page_mobile.dart
 /// bishop_assistant_web_test_app
 ///
 /// Created by porter on 8/13/21
@@ -34,7 +34,7 @@ class LightPageMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     // Action items
     final List<Widget> actions = [
-      MemberDrawerHeader(Member.bishopExample),
+      MemberDrawerHeader(OldMember.bishopExample),
       MobileNavigationButton(home, rHome),
       MobileNavigationButton(events, rEvents),
       MobileNavigationButton(assignments, rAssignments),
@@ -46,7 +46,7 @@ class LightPageMobile extends StatelessWidget {
         : child;
 
     return Scaffold(
-      backgroundColor: light,
+      backgroundColor: lightGrey,
       drawer: Drawer(child: ListView(children: actions)),
       appBar: AppBar(
         backgroundColor: darkPrimary,

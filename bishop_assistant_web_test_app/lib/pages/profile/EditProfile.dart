@@ -2,12 +2,12 @@ import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Mem
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
-import 'package:bishop_assistant_web_test_app/util/Strings.dart';
+import 'package:bishop_assistant_web_test_app/util/strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/InputField.dart';
-import 'package:bishop_assistant_web_test_app/widgets/MyButton.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/member_cards/MemberIcon.dart';
 import 'package:bishop_assistant_web_test_app/widgets/login_signup/MyConstrainedBoxes.dart';
 import 'package:bishop_assistant_web_test_app/widgets/login_signup/MyDivider.dart';
+import 'package:bishop_assistant_web_test_app/widgets/my_button.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/Mobile.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +20,7 @@ import 'package:flutter/material.dart';
 ///
 
 class EditProfile extends Mobile {
-  final Member member;
+  final OldMember member;
 
   const EditProfile(this.member, {Key? key}) : super(key: key);
 

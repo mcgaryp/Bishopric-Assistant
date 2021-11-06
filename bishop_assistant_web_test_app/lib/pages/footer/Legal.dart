@@ -1,5 +1,5 @@
 import 'package:bishop_assistant_web_test_app/pages/ComingSoon.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/light_page/LightPage.dart';
+import 'package:bishop_assistant_web_test_app/widgets/page_support/light_page/light_page.dart';
 import 'package:flutter/material.dart';
 
 ///

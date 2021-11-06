@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:models/shared/uuid.dart';
 
 ///
-/// FirestoreHelper.dart
+/// firestore_helper.dart
 /// bishop_assistant_web_test_app
 ///
 /// Created by Porter McGary on 8/8/2021
@@ -272,21 +272,21 @@ abstract class OldFirestoreHelper {
   }
 
   // Find Member uses a username to find the account of a member
-  static Future<Member?> findMember(String username) async {
+  static Future<OldMember?> findMember(String username) async {
     final QuerySnapshot snapshot =
         await _firestore.collection(Collections.members.string).get();
     final List<QueryDocumentSnapshot> list = listQuerySnap(snapshot);
 
     for (QueryDocumentSnapshot snap in list) {
-      if (snap[Member.emailPath] == username) {
-        return Member(
+      if (snap[OldMember.emailPath] == username) {
+        return OldMember(
           id: int.parse(snap.id),
-          firstName: snap[Member.firstNamePath],
-          lastName: snap[Member.lastNamePath],
-          phone: snap[Member.phonePath],
-          email: snap[Member.emailPath],
-          password: snap[Member.passwordPath],
-          role: ParseRolesToString.roleFromInt(snap[Member.roleIdPath]),
+          firstName: snap[OldMember.firstNamePath],
+          lastName: snap[OldMember.lastNamePath],
+          phone: snap[OldMember.phonePath],
+          email: snap[OldMember.emailPath],
+          password: snap[OldMember.passwordPath],
+          role: ParseRolesToString.roleFromInt(snap[OldMember.roleIdPath]),
         );
       }
     }

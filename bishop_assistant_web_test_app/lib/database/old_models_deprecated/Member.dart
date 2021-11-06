@@ -1,7 +1,7 @@
 import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
-import 'package:bishop_assistant_web_test_app/database/FirestoreHelper.dart';
+import 'package:bishop_assistant_web_test_app/database/firestore_helper.dart';
 import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Role.dart';
-import 'package:bishop_assistant_web_test_app/widgets/cards/member_cards/MemberCard.dart';
+import 'package:bishop_assistant_web_test_app/widgets/cards/member_cards/member_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 ///
 
 @Deprecated("")
-class Member extends FirestoreDocument {
+class OldMember extends FirestoreDocument {
   static const String emailPath = "email";
   static const String firstNamePath = "first_name";
   static const String lastNamePath = "last_name";
@@ -30,7 +30,7 @@ class Member extends FirestoreDocument {
   late IconData image;
   late Role role;
 
-  Member(
+  OldMember(
       {required id,
       required this.firstName,
       required this.lastName,
@@ -41,18 +41,18 @@ class Member extends FirestoreDocument {
       this.password = ""})
       : super(id, "$firstName $lastName", {
           FirestoreDocument.namePath: "$firstName $lastName",
-          Member.firstNamePath: firstName,
-          Member.lastNamePath: lastName,
-          Member.phonePath: phone,
-          Member.emailPath: email,
-          Member.roleIdPath: role.index,
-          Member.passwordPath: password
+          OldMember.firstNamePath: firstName,
+          OldMember.lastNamePath: lastName,
+          OldMember.phonePath: phone,
+          OldMember.emailPath: email,
+          OldMember.roleIdPath: role.index,
+          OldMember.passwordPath: password
         });
 
-  Member.instance() : super(-1, "", {});
+  OldMember.instance() : super(-1, "", {});
 
   // @Deprecated("Use Member")
-  Member.create({
+  OldMember.create({
     required this.firstName,
     required this.lastName,
     required this.phone,
@@ -61,60 +61,60 @@ class Member extends FirestoreDocument {
     required this.role,
   }) : super(-1, "$firstName $lastName", {
           FirestoreDocument.namePath: "$firstName $lastName",
-          Member.firstNamePath: firstName,
-          Member.lastNamePath: lastName,
-          Member.phonePath: phone,
-          Member.emailPath: email,
-          Member.roleIdPath: role.index,
-          Member.passwordPath: password
+          OldMember.firstNamePath: firstName,
+          OldMember.lastNamePath: lastName,
+          OldMember.phonePath: phone,
+          OldMember.emailPath: email,
+          OldMember.roleIdPath: role.index,
+          OldMember.passwordPath: password
         }) {
     image = Icons.person;
   }
 
   // region Static Members
-  static Member bishopExample = Member(
+  static OldMember bishopExample = OldMember(
       id: -1,
       firstName: "John",
       lastName: "Doe",
       phone: "(576) 398-0987",
       email: "john@doe.com",
       role: Role.bishop);
-  static Member counselor1Example = Member(
+  static OldMember counselor1Example = OldMember(
       id: -1,
       firstName: "Ben",
       lastName: "Dover",
       phone: "(208) 123-7895",
       email: "ben@dover.com",
       role: Role.counselor1);
-  static Member counselor2Example = Member(
+  static OldMember counselor2Example = OldMember(
       id: -1,
       firstName: "Jeff",
       lastName: "Bezos",
       phone: "(479) 684-9137",
       email: "jeff@amazon.com",
       role: Role.counselor2);
-  static Member wardClerkExample = Member(
+  static OldMember wardClerkExample = OldMember(
       id: -1,
       firstName: "James",
       lastName: "Bucanon",
       phone: "(783) 167-6548",
       email: "james@western.com",
       role: Role.wardClerk);
-  static Member assistantWardClerkExample = Member(
+  static OldMember assistantWardClerkExample = OldMember(
       id: -1,
       firstName: "Jimmy",
       lastName: "Newtron",
       phone: "(794) 456-9321",
       email: "new@science.com",
       role: Role.assistantWardClerk);
-  static Member wardExecutiveSecretaryExample = Member(
+  static OldMember wardExecutiveSecretaryExample = OldMember(
       id: -1,
       firstName: "Lebron",
       lastName: "James",
       phone: "(852) 951-7531",
       email: "just@basket.net",
       role: Role.wardExecutiveSecretary);
-  static Member wardAssistantExecutiveSecretaryExample = Member(
+  static OldMember wardAssistantExecutiveSecretaryExample = OldMember(
       id: -1,
       firstName: "Jimmy",
       lastName: "Falon",
@@ -122,7 +122,7 @@ class Member extends FirestoreDocument {
       email: "just2funny@laugh.com",
       role: Role.assistantWardExecutiveSecretary);
 
-  static List<Member> exampleMemberList = [
+  static List<OldMember> exampleMemberList = [
     bishopExample,
     counselor1Example,
     counselor2Example,
@@ -133,19 +133,19 @@ class Member extends FirestoreDocument {
   ];
 
   static List<MemberCard> exampleMemberCardList = [
-    MemberCard(Member.bishopExample),
-    MemberCard(Member.counselor1Example),
-    MemberCard(Member.counselor2Example),
-    MemberCard(Member.wardClerkExample),
-    MemberCard(Member.assistantWardClerkExample),
-    MemberCard(Member.wardExecutiveSecretaryExample),
-    MemberCard(Member.wardAssistantExecutiveSecretaryExample)
+    MemberCard(OldMember.bishopExample),
+    MemberCard(OldMember.counselor1Example),
+    MemberCard(OldMember.counselor2Example),
+    MemberCard(OldMember.wardClerkExample),
+    MemberCard(OldMember.assistantWardClerkExample),
+    MemberCard(OldMember.wardExecutiveSecretaryExample),
+    MemberCard(OldMember.wardAssistantExecutiveSecretaryExample)
   ];
 
-  static Future<Member> find(int memberID) async {
+  static Future<OldMember> find(int memberID) async {
     DocumentSnapshot memberData =
         await OldFirestoreHelper.getDocument(Collections.members, memberID);
-    return Member(
+    return OldMember(
         id: memberID,
         firstName: memberData[firstNamePath],
         lastName: memberData[lastNamePath],

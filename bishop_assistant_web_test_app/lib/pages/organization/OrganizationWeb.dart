@@ -1,8 +1,8 @@
 import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Member.dart';
-import 'package:bishop_assistant_web_test_app/util/Strings.dart';
-import 'package:bishop_assistant_web_test_app/widgets/cards/member_cards/MemberDetailsCard.dart';
+import 'package:bishop_assistant_web_test_app/util/strings.dart';
+import 'package:bishop_assistant_web_test_app/widgets/cards/member_cards/member_details_card.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/WebContentSnapShot.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/light_page/LightPage.dart';
+import 'package:bishop_assistant_web_test_app/widgets/page_support/light_page/light_page.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -21,19 +21,19 @@ class OrganizationWeb extends StatefulWidget {
 }
 
 class _OrganizationWebState extends State<OrganizationWeb> {
-  Member selectedMember = Member.exampleMemberList[0];
+  OldMember selectedMember = OldMember.exampleMemberList[0];
 
   @override
   Widget build(BuildContext context) {
     return LightPage.web([
       WebContentSnapShot(
-          title: organization, children: Member.exampleMemberCardList),
+          title: organization, children: OldMember.exampleMemberCardList),
       WebContentSnapShot(
           title: memberDetails, children: [MemberDetailsCard(selectedMember)])
     ]);
   }
 
-  void _selectNewMember(Member member) {
+  void _selectNewMember(OldMember member) {
     setState(() {
       if (member != selectedMember) selectedMember = member;
     });

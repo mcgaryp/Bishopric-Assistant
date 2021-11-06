@@ -1,18 +1,18 @@
 import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
-import 'package:bishop_assistant_web_test_app/database/FirestoreHelper.dart';
+import 'package:bishop_assistant_web_test_app/database/firestore_helper.dart';
 import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Assignment.dart';
 import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Member.dart';
 import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/MemberAssignments.dart';
 import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/OrganizationAssignment.dart';
 import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/OrganizationMembers.dart';
 import 'package:bishop_assistant_web_test_app/util/MyToast.dart';
-import 'package:bishop_assistant_web_test_app/util/Strings.dart';
 import 'package:bishop_assistant_web_test_app/util/Validators.dart';
-import 'package:bishop_assistant_web_test_app/widgets/FirebaseDropDown.dart';
+import 'package:bishop_assistant_web_test_app/util/strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/InputField.dart';
-import 'package:bishop_assistant_web_test_app/widgets/MyButton.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/CardDateTimeRow.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/MyCard.dart';
+import 'package:bishop_assistant_web_test_app/widgets/firebase_drop_down.dart';
+import 'package:bishop_assistant_web_test_app/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -43,7 +43,7 @@ class _CreateAssignmentState extends State<CreateAssignment> {
   bool _isWaiting = false;
 
   // The assigned member to complete the Assignment
-  Member? _selectedMember;
+  OldMember? _selectedMember;
 
   // Selected due date of the assignment
   DateTime _selectedDateTime = DateTime.now();
@@ -95,7 +95,7 @@ class _CreateAssignmentState extends State<CreateAssignment> {
 
   /// Updates the selected assignee for the assignment
   void _onAssigneeChange(int memberID) async {
-    Member member = await Member.find(memberID);
+    OldMember member = await OldMember.find(memberID);
     setState(() {
       _selectedMember = member;
     });

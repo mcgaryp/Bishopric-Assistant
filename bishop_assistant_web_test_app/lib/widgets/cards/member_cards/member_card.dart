@@ -1,10 +1,10 @@
 import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Member.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/MyCard.dart';
-import 'package:bishop_assistant_web_test_app/widgets/cards/member_cards/MemberTitle.dart';
+import 'package:bishop_assistant_web_test_app/widgets/cards/member_cards/member_title.dart';
 import 'package:flutter/material.dart';
 
 ///
-/// MemberCard.dart
+/// member_card.dart
 /// bishop_assistant_web_test_app
 ///
 /// Created by porter on 8/13/21
@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 ///
 
 class MemberCard extends StatelessWidget {
-  final Member member;
+  final OldMember member;
 
   const MemberCard(this.member, {Key? key}) : super(key: key);
 

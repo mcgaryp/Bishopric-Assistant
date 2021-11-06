@@ -8,12 +8,12 @@ import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 @Deprecated("")
-class Organization extends FirestoreDocument {
-  Organization(
+class OldOrganization extends FirestoreDocument {
+  OldOrganization(
     int id,
     String name,
   ) : super(id, name, {FirestoreDocument.namePath: name});
 
-  Organization.create(String name)
+  OldOrganization.create(String name)
       : super(-1, name, {FirestoreDocument.namePath: name});
 }

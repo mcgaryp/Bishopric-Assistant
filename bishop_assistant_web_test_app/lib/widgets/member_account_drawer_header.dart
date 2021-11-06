@@ -6,7 +6,7 @@ import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
 import 'package:flutter/material.dart';
 
 ///
-/// MemberAccountDrawerHeader.dart
+/// member_account_drawer_header.dart
 /// bishop_assistant_web_test_app
 ///
 /// Created by porter on 8/13/21
@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 ///
 
 class MemberDrawerHeader extends StatelessWidget {
-  final Member member;
+  final OldMember member;
 
   const MemberDrawerHeader(this.member, {Key? key}) : super(key: key);
 

@@ -16,7 +16,7 @@ class Assignment extends FirestoreDocument {
   static const String notePath = "notes";
 
   late DateTime dateTime;
-  late Member assignee;
+  late OldMember assignee;
   String? notes;
 
   Assignment(id, name, this.dateTime, this.assignee, {this.notes})
@@ -39,18 +39,18 @@ class Assignment extends FirestoreDocument {
 
   // region Static Members
   static Assignment example1 = Assignment(-1, "Set Appointment", DateTime.now(),
-      Member.wardExecutiveSecretaryExample,
+      OldMember.wardExecutiveSecretaryExample,
       notes: "Interview with Sister Bezos");
   static Assignment example2 = Assignment(-1, "Follow up on Sunday School",
-      DateTime.now(), Member.counselor2Example,
+      DateTime.now(), OldMember.counselor2Example,
       notes: " - Get teachers called to serve on the third sunday");
   static Assignment example3 =
-      Assignment(-1, "Eat Burgers", DateTime.now(), Member.wardClerkExample);
+      Assignment(-1, "Eat Burgers", DateTime.now(), OldMember.wardClerkExample);
   static Assignment example4 = Assignment(
-      -1, "Read Handbook", DateTime.now(), Member.counselor1Example,
+      -1, "Read Handbook", DateTime.now(), OldMember.counselor1Example,
       notes: "Read chapter 14");
   static Assignment example5 = Assignment(
-      -1, "Add Receipts", DateTime.now(), Member.assistantWardClerkExample);
+      -1, "Add Receipts", DateTime.now(), OldMember.assistantWardClerkExample);
 
   static List<Assignment> assignmentExampleList = [
     example1,

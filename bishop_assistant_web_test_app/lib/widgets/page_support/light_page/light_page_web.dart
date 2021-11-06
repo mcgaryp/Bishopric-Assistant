@@ -2,7 +2,7 @@ import 'package:bishop_assistant_web_test_app/navigation/WebNavigationButton.dar
 import 'package:bishop_assistant_web_test_app/navigation/route_strings.dart';
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
-import 'package:bishop_assistant_web_test_app/util/Strings.dart';
+import 'package:bishop_assistant_web_test_app/util/strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/Web.dart';
 import 'package:bishop_assistant_web_test_app/widgets/title/Brand.dart';
 import 'package:bishop_assistant_web_test_app/widgets/title/Logo.dart';
@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import '../Content.dart';
 
 ///
-/// LightPageWeb.dart
+/// light_page_web.dart
 /// bishop_assistant_web_test_app
 ///
 /// Created by porter on 8/13/21
@@ -36,7 +36,7 @@ class LightPageWeb extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: light,
+      backgroundColor: lightGrey,
       appBar: AppBar(
         backgroundColor: darkPrimary,
         leading: Logo(),

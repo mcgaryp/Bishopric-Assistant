@@ -25,7 +25,7 @@ abstract class Event extends FirestoreDocument {
   String? notes;
   String? agenda;
   String? interviewee;
-  List<Member>? assignees;
+  List<OldMember>? assignees;
 
   Event(id, name, this.dateTime, this.eventType,
       {this.location,
@@ -43,7 +43,7 @@ class Meeting extends Event {
     String name,
     DateTime dateTime,
     String agenda,
-    List<Member> assignees, {
+    List<OldMember> assignees, {
     String? location,
     String? notes,
   }) : super(id, name, dateTime, EventType.meeting,
@@ -64,7 +64,7 @@ class Meeting extends Event {
     String name, {
     required DateTime dateTime,
     required String agenda,
-    required List<Member> assignees,
+    required List<OldMember> assignees,
     String? location,
     String? notes,
   }) : super(-1, name, dateTime, EventType.meeting,
@@ -83,13 +83,13 @@ class Meeting extends Event {
 
   // region Static Members
   static Meeting example1 = Meeting(-1, "Ward Counsel", DateTime.now(),
-      _exampleAgenda, [Member.bishopExample, Member.counselor1Example],
+      _exampleAgenda, [OldMember.bishopExample, OldMember.counselor1Example],
       location: "Bishops office", notes: _exampleNote);
 
   static Meeting example2 =
-      Meeting(-1, "Bishopric", DateTime.now(), "TBD", Member.exampleMemberList);
+      Meeting(-1, "Bishopric", DateTime.now(), "TBD", OldMember.exampleMemberList);
   static Meeting example3 = Meeting(-1, "Sunday School Presidency",
-      DateTime.now(), _exampleAgenda, [Member.counselor1Example],
+      DateTime.now(), _exampleAgenda, [OldMember.counselor1Example],
       notes: "Focus on the teaching of new teachers");
 
   static List<Meeting> meetingExampleList = [example1, example2, example3];
@@ -119,7 +119,7 @@ class Meeting extends Event {
 @Deprecated("")
 class Interview extends Event {
   Interview(int id, String name, DateTime dateTime, String interviewee,
-      Member assignee,
+      OldMember assignee,
       {String? notes})
       : super(id, name, dateTime, EventType.interview,
             notes: notes,
@@ -136,7 +136,7 @@ class Interview extends Event {
   Interview.create(String name,
       {required DateTime dateTime,
       required String interviewee,
-      required Member assignee,
+      required OldMember assignee,
       String? notes})
       : super(-1, name, dateTime, EventType.interview,
             notes: notes,
@@ -152,10 +152,10 @@ class Interview extends Event {
 
   // region Static Members
   static Interview example1 = Interview(-1, "Temple Interview", DateTime.now(),
-      "John John", Member.counselor1Example);
+      "John John", OldMember.counselor1Example);
 
   static Interview example2 = Interview(-1, "Temple Interview", DateTime.now(),
-      "Member of the Ward", Member.counselor1Example);
+      "Member of the Ward", OldMember.counselor1Example);
 
   static List<Interview> interviewExampleList = [example1, example2];
   static List<EventCard> interviewExampleCardList = [

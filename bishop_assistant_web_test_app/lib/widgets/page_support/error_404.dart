@@ -1,10 +1,10 @@
 import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
-import 'package:bishop_assistant_web_test_app/util/Strings.dart';
+import 'package:bishop_assistant_web_test_app/util/strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/Mobile.dart';
 import 'package:flutter/material.dart';
 
 ///
-/// Error404.dart
+/// error_404.dart
 /// bishop_assistant_web_test_app
 ///
 /// Created by Po on 8/17/21

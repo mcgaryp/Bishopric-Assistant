@@ -1,10 +1,10 @@
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
-import 'package:bishop_assistant_web_test_app/widgets/MyButton.dart';
+import 'package:bishop_assistant_web_test_app/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 
 ///
-/// CardActionButton.dart
+/// card_action_button.dart
 /// bishop_assistant_web_test_app
 ///
 /// Created by Po on 8/16/21
@@ -26,6 +26,7 @@ class CardActionButton extends StatelessWidget {
 
     switch (style) {
       case MyButtonStyle.primary:
+      case MyButtonStyle.standard:
         decor = floatingLightPrimaryBox;
         break;
       case MyButtonStyle.text:
