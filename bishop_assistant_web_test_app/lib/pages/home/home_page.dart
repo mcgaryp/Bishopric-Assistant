@@ -4,7 +4,6 @@ import 'package:bishop_assistant_web_test_app/state/state_container.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/event_cards/EventCard.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/page_support.dart';
 import 'package:models/models/account.dart';
-import 'package:models/models/member.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/shared/foundation.dart';
 import 'package:responsive_builder/responsive_builder.dart';
