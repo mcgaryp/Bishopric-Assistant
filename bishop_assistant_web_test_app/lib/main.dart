@@ -1,4 +1,5 @@
 import 'package:bishop_assistant_web_test_app/navigation/route_strings.dart';
+import 'package:bishop_assistant_web_test_app/state/state_container.dart';
 import 'package:bishop_assistant_web_test_app/theme/ThemeData.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,7 @@ import 'package:flutter/material.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(App());
+  runApp(StateContainer(child: App()));
 }
 
 /// We are using a StatefulWidget such that we only create the [Future] once,
@@ -32,40 +33,3 @@ class _AppState extends State<App> {
     return MaterialApp(title: "Firestore Demo", theme: theme, routes: routes);
   }
 }
-
-/// CLASS updates AUTOMATICALLY when data is changed in the database
-// class UserInformation extends StatefulWidget {
-//   final Collections collectionPath;
-//   UserInformation({required this.collectionPath});
-//
-//   @override
-//   _UserInformationState createState() => _UserInformationState();
-// }
-//
-// class _UserInformationState extends State<UserInformation> {
-//   final Stream<QuerySnapshot> _usersStream =
-//       FirestoreHelper.stream(Collections.roles);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return StreamBuilder<QuerySnapshot>(
-//       stream: _usersStream,
-//       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-//         List<DocumentSnapshot> data = FirestoreHelper.listDocSnap(snapshot);
-//
-//         return ListView(
-//           children: data.map((DocumentSnapshot document) {
-//             Map<String, dynamic> data =
-//                 document.data()! as Map<String, dynamic>;
-//             return Row(
-//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                 children: [
-//                   Text(data['name']),
-//                   Text(data['security'].toString()),
-//                 ]);
-//           }).toList(),
-//         );
-//       },
-//     );
-//   }
-// }

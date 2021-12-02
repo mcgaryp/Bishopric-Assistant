@@ -14,6 +14,7 @@ import 'package:bishop_assistant_web_test_app/pages/recover_password/Pin.dart';
 import 'package:bishop_assistant_web_test_app/pages/recover_password/RequestPasswordReset.dart';
 import 'package:bishop_assistant_web_test_app/pages/signup_login/login_page.dart';
 import 'package:bishop_assistant_web_test_app/pages/signup_login/sign_up_page.dart';
+import 'package:bishop_assistant_web_test_app/widgets/page_support/authentication/authenticate.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -43,20 +44,20 @@ const String rEditProfile = "/profile/edit";
 
 final Map<String, Widget Function(BuildContext)> routes = {
   "/": (context) => MyFirebaseApp(),
-  rHome: (context) => HomePage(),
+  rHome: (context) => Authenticate(child: HomePage()),
   rLogin: (context) => LoginPage(),
   rSignup: (context) => SignupPage(),
   rPasswordRequest: (context) => RequestPasswordReset(),
   rPIN: (context) => Pin(),
   rChangePassword: (context) => ChangePassword(),
-  rEvents: (context) => EventPage(),
-  rAssignments: (context) => AssignmentPage(),
-  rOrganization: (context) => OrganizationPage(),
-  rProfile: (context) => ProfilePage(),
+  rEvents: (context) => Authenticate(child: EventPage()),
+  rAssignments: (context) => Authenticate(child: AssignmentPage()),
+  rOrganization: (context) => Authenticate(child: OrganizationPage()),
+  rProfile: (context) => Authenticate(child: ProfilePage()),
   rLegal: (context) => Legal(),
   rPrivacy: (context) => Privacy(),
   rAddEvent: (context) => CreateEventMobile(),
   rAddAssignment: (context) => CreateAssignmentMobile(),
   // rMemberDetails: (context) => MemberDetails()
-  rEditProfile: (context) => EditProfilePage(),
+  rEditProfile: (context) => Authenticate(child: EditProfilePage()),
 };

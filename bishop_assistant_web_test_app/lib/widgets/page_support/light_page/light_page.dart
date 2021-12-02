@@ -1,5 +1,6 @@
 import 'package:bishop_assistant_web_test_app/navigation/route_strings.dart';
 import 'package:bishop_assistant_web_test_app/util/strings.dart';
+import 'package:bishop_assistant_web_test_app/util/util.dart';
 import 'package:bishop_assistant_web_test_app/widgets/footer/FooterButton.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/Mobile.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/Web.dart';
@@ -7,7 +8,9 @@ import 'package:bishop_assistant_web_test_app/widgets/page_support/error_404.dar
 import 'package:bishop_assistant_web_test_app/widgets/page_support/error_404_page.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/light_page/light_page_mobile.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/light_page/light_page_web.dart';
+import 'package:bishop_assistant_web_test_app/widgets/page_support/page_support.dart';
 import 'package:flutter/material.dart';
+import 'package:models/shared/foundation.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 ///
@@ -58,7 +61,6 @@ class LightPage extends StatelessWidget {
         case DeviceScreenType.tablet:
           return LightPageMobile(child, footer,
               path: path, hasButton: _mobileButton);
-
         case DeviceScreenType.desktop:
           return LightPageWeb(children, footer);
         default:

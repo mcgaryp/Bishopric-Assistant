@@ -1,5 +1,6 @@
 import 'package:bishop_assistant_web_test_app/navigation/route_strings.dart';
 import 'package:bishop_assistant_web_test_app/repositories/firebase_account_repository.dart';
+import 'package:bishop_assistant_web_test_app/state/state_container.dart';
 import 'package:bishop_assistant_web_test_app/util/MyToast.dart';
 import 'package:bishop_assistant_web_test_app/util/strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/InputField.dart';
@@ -9,7 +10,6 @@ import 'package:crypt/crypt.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:models/models/account.dart';
-import 'package:models/models/account_domain/account_use_cases/login_use_case.dart';
 import 'package:models/shared/repository.dart';
 
 ///
@@ -140,20 +140,26 @@ class _LoginPageState extends State<LoginPage> {
   void _success(Account account) async {
     _errorMsg = "";
 
-    try {
-      FirebaseAccountRepository _repository = FirebaseAccountRepository();
-      DefaultLoginUseCase login = DefaultLoginUseCase(_repository);
-      Result<bool> result = await login.execute(account);
-      if (result.isError) {
-        MyToast.toastError(result.asError!.error.toString());
-        return;
-      }
-    } catch (e) {
-      MyToast.toastError(e.toString());
-      if (kDebugMode) print(e);
-      return;
-    }
+    // TODO: Find out if this is necessary anymore
+    // try {
+    //   FirebaseAccountRepository _repository = FirebaseAccountRepository();
+    //   DefaultLoginUseCase login = DefaultLoginUseCase(_repository);
+    //   Result<bool> result = await login.execute(account);
+    //   if (result.isError) {
+    //     MyToast.toastError(result.asError!.error.toString());
+    //     return;
+    //   }
+    // } catch (e) {
+    //   MyToast.toastError(e.toString());
+    //   if (kDebugMode) print(e);
+    //   return;
+    // }
 
+    // Change the session variable to logged in state
+    final container = StateContainer.of(context);
+    container.login(account);
+
+    // Navigate to the home page
     Navigator.pushReplacementNamed(context, rHome);
   }
 }

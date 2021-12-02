@@ -1,9 +1,6 @@
 import 'package:bishop_assistant_web_test_app/database/old_models_deprecated.dart';
-import 'package:bishop_assistant_web_test_app/navigation/route_strings.dart';
 import 'package:bishop_assistant_web_test_app/pages/home/home.dart';
-import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
-import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
-import 'package:bishop_assistant_web_test_app/util/MyToast.dart';
+import 'package:bishop_assistant_web_test_app/state/state_container.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/event_cards/EventCard.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/page_support.dart';
 import 'package:models/models/account.dart';
@@ -43,68 +40,22 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // The status of the user needs to be checked to ensure they have
-    // authenticated access to the application. This future allows a clean
-    // transitions of the display while the login is being authenticated
-    return FutureBuilder<Account?>(
-      future: _checkLoginStatus(context),
-      builder: (BuildContext futureContext, AsyncSnapshot<Account?> snapshot) {
-        // Ensure the account is properly created
-        if (snapshot.hasData) if (snapshot.data != null) {
-          Account account = snapshot.data!;
-          // Check to see if the user has an organization linked to their
-          // account. If not then invite the user to find one
-          if (_accountHasOrganization(account))
-            return ScreenTypeLayout(
-              mobile: HomeMobile(
-                  eventsList,
-                  Assignment.assignmentExampleCardList,
-                  OldMember.exampleMemberCardList),
-              desktop: HomeWeb(eventsList, Assignment.assignmentExampleCardList,
-                  OldMember.exampleMemberCardList),
-            );
-          List<Organization> organizations = lst;
-          return FindOrganizationPage(organizations);
-        }
+    final container = StateContainer.of(context);
+    Account account = container.account;
 
-        // Display any errors
-        if (snapshot.hasError) return Error404Page();
+    // Ensure the account is properly created
+    // Check to see if the user has an organization linked to their
+    // account. If not then invite the user to find one
+    if (_accountHasOrganization(account))
+      return ScreenTypeLayout(
+        mobile: HomeMobile(eventsList, Assignment.assignmentExampleCardList,
+            OldMember.exampleMemberCardList),
+        desktop: HomeWeb(eventsList, Assignment.assignmentExampleCardList,
+            OldMember.exampleMemberCardList),
+      );
 
-        // Load a temporary loading screen for the user
-        return SpinKitCircle(color: dark);
-      },
-    );
-  }
-
-  /// [_checkLoginStatus] ensures that the user is logged in. If this is the
-  /// case account will be parsed from the cache and return it to the caller
-  Future<Account?> _checkLoginStatus(BuildContext context) async {
-    Account? account;
-    try {
-      FirebaseAccountRepository _repository = FirebaseAccountRepository();
-      DefaultIsLoggedInUseCase isLoggedIn =
-          DefaultIsLoggedInUseCase(_repository);
-      Result<Account> result = await isLoggedIn.execute();
-      if (result.isError) {
-        MyToast.toastError(result.asError!.error.toString());
-        if (kDebugMode) print(result.asError!.error);
-        throw result.asError!.error;
-      }
-
-      if (result.isValue) {
-        account = result.asValue!.value;
-      }
-
-      if (account == null)
-        WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-          Navigator.pushReplacementNamed(context, rLogin);
-        });
-    } catch (e) {
-      MyToast.toastError(e.toString());
-      if (kDebugMode) print(e);
-      throw e;
-    }
-    return account;
+    List<Organization> organizations = lst;
+    return FindOrganizationPage(organizations);
   }
 
   /// [_accountHasOrganization] checks to ensure that the user has an
