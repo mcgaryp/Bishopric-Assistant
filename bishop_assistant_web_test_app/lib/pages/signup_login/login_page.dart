@@ -73,6 +73,10 @@ class _LoginPageState extends State<LoginPage> {
         absorbing: _isWaiting,
         child: Column(
           children: [
+            // Developer Quick Login
+            if (kDebugMode)
+              MyButton(
+                  label: "Developer Quick Login", onPressed: _developerLogin),
             // Login Button
             MyButton(label: login, onPressed: _onPress),
             // Sign Up Button
@@ -161,5 +165,11 @@ class _LoginPageState extends State<LoginPage> {
 
     // Navigate to the home page
     Navigator.pushReplacementNamed(context, rHome);
+  }
+
+  void _developerLogin() {
+    usernameControl.text = "dev";
+    passwordControl.text = "password1";
+    _onPress();
   }
 }
