@@ -62,7 +62,6 @@ class HomePage extends StatelessWidget {
   /// [_accountHasOrganization] checks to ensure that the user has an
   /// organization linked to the account returning true if so and false if not
   bool _accountHasOrganization(Account account) {
-    // TODO: Implement
     return false;
   }
 }

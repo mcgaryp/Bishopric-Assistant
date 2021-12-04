@@ -22,21 +22,24 @@ import 'package:models/shared/uuid.dart';
 ///
 /// URL to help with FireFlutter https://firebase.flutter.dev/docs/firestore/usage
 abstract class FirestoreHelper<T> {
-  static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirestoreCollectionPath _path;
+
+  FirestoreHelper(this._path);
 
   /// Once time accessors: [getSingleDocument], [getCollectionOfDocuments]
   ///
   /// These accessors will pull once and only once form the database
   /// [getSingleDocument] retrieves a single row from a specific table
-  static Future<DocumentSnapshot<Map<String, dynamic>>> getSingleDocument(
-          FirestoreCollectionPath path, UUID uuid) =>
-      _firestore.collection(path.string).doc(uuid.id).get();
+  Future<DocumentSnapshot<Map<String, dynamic>>> getSingleDocument(UUID uuid,
+          {FirestoreCollectionPath? path}) =>
+      _firestore.collection((path ?? _path).string).doc(uuid.id).get();
 
   /// [getCollectionOfDocuments] retrieves a collection of rows from a single
   /// table
-  static Future<QuerySnapshot<Map<String, dynamic>>> getCollectionOfDocuments(
-          FirestoreCollectionPath path) =>
-      _firestore.collection(path.string).get();
+  Future<QuerySnapshot<Map<String, dynamic>>> getCollectionOfDocuments(
+          {FirestoreCollectionPath? path}) =>
+      _firestore.collection((path ?? _path).string).get();
 
   /// Realtime update accessors: [getCollectionOfDocumentsStreamed],
   /// [getSingleDocumentStreamed]
@@ -45,23 +48,24 @@ abstract class FirestoreHelper<T> {
   /// row or table is changed
   /// [getCollectionOfDocumentsStreamed] gives a new collection of rows from a
   /// specific table everytime there is a change to the information in the table
-  static Stream<QuerySnapshot<Map<String, dynamic>>>
-      getCollectionOfDocumentsStreamed(FirestoreCollectionPath path) =>
-          _firestore.collection(path.string).snapshots();
+  Stream<QuerySnapshot<Map<String, dynamic>>> getCollectionOfDocumentsStreamed(
+          {FirestoreCollectionPath? path}) =>
+      _firestore.collection((path ?? _path).string).snapshots();
 
   /// [getSingleDocumentStreamed] gives a new row every time there is a change
   /// to that row
-  static Stream<DocumentSnapshot<Map<String, dynamic>>>
-      getSingleDocumentStreamed(FirestoreCollectionPath path, UUID uuid) =>
-          _firestore.collection(path.string).doc(uuid.id).snapshots();
+  Stream<DocumentSnapshot<Map<String, dynamic>>> getSingleDocumentStreamed(
+          UUID uuid,
+          {FirestoreCollectionPath? path}) =>
+      _firestore.collection((path ?? _path).string).doc(uuid.id).snapshots();
 
   /// [addDocument] to the database
-  static Future<bool> addDocument(
-      FirestoreCollectionPath path, Map<String, Object?> map, UUID uuid) async {
+  Future<bool> addDocument(Map<String, Object?> map, UUID uuid,
+      {FirestoreCollectionPath? path}) async {
     bool result = true;
 
     await _firestore
-        .collection(path.string)
+        .collection((path ?? _path).string)
         .doc(uuid.id)
         .set(map)
         .onError<bool>((error, stackTrace) => result = false);
@@ -70,7 +74,7 @@ abstract class FirestoreHelper<T> {
   }
 
   /// [getNextID] pulls the next id from the database for a specific table
-  static Future<Map<String, dynamic>?> getNextID() async {
+  Future<Map<String, dynamic>?> getNextID() async {
     // Get the next ID from the counters
     DocumentSnapshot<Map<String, dynamic>> counterMap = await _firestore
         .collection(FirestoreCollectionPath.util.string)
@@ -82,11 +86,11 @@ abstract class FirestoreHelper<T> {
   }
 
   /// [incrementId] increments a given id in the database for a specific table
-  static Future<bool> incrementId(
-      FirestoreCollectionPath path, Map<String, dynamic> map) async {
+  Future<bool> incrementId(Map<String, dynamic> map,
+      {FirestoreCollectionPath? path}) async {
     Map<String, dynamic> counterMap = map;
     // increase counter
-    counterMap[path.string] += 1;
+    counterMap[(path ?? _path).string] += 1;
 
     bool result = true;
 
@@ -105,7 +109,7 @@ abstract class FirestoreHelper<T> {
 }
 
 /// [FirestoreCollectionPath] paths to specific tables in the database
-enum FirestoreCollectionPath { accounts, util }
+enum FirestoreCollectionPath { accounts, organization, member, util }
 
 /// [FirestoreCollectionPathExtension] adds additional getters, functions to the
 /// [FirestoreCollectionPath] enum
