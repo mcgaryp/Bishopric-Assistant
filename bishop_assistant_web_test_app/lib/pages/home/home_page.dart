@@ -31,9 +31,11 @@ class HomePage extends StatelessWidget {
   static Organization tempOrganization = Organization(
       id: OrganizationID("Temporary Organization"),
       name: "Temporary Organization",
-      creator: Creator(
-          id: AccountID("Temporary Creator"),
-          name: Name(first: "Temporary", last: "Name")));
+      creator: Member(
+          name: Name(first: "Temp", last: "Creator"),
+          memberID: MemberID("Temp Creator"),
+          contact: Contact(email: "temp@creator.com", phone: "(123) 456-7894"),
+          role: Role.creator()));
 
   final List<Organization> lst = List.filled(20, tempOrganization);
 

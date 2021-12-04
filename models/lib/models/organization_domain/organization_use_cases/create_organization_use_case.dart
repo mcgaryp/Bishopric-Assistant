@@ -2,6 +2,7 @@ import 'package:async/async.dart';
 import 'package:flutter/foundation.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
+import 'package:models/models/organization_domain/member_repository.dart';
 import 'package:models/shared/exceptions.dart';
 
 ///
@@ -26,9 +27,10 @@ mixin CreateOrganizationUseCase {
 class DefaultCreateOrganizationUseCase implements CreateOrganizationUseCase {
   final AccountRepository _accountRepository;
   final OrganizationRepository _organizationRepository;
+  final MemberRepository _memberRepository;
 
-  DefaultCreateOrganizationUseCase(
-      this._accountRepository, this._organizationRepository);
+  DefaultCreateOrganizationUseCase(this._accountRepository,
+      this._organizationRepository, this._memberRepository);
 
   @override
   Future<Result> execute(
@@ -42,14 +44,25 @@ class DefaultCreateOrganizationUseCase implements CreateOrganizationUseCase {
     if (id == null)
       return Result.error(UnableToGenerateIdError(forEntity: "Organization"));
 
-    Organization? organizationFromBeyond = await _organizationRepository.find(id);
-    if (organizationFromBeyond != null) return Result.error(OrganizationAlreadyExistsError());
+    Organization? organizationFromBeyond =
+        await _organizationRepository.find(id);
+    if (organizationFromBeyond != null)
+      return Result.error(OrganizationAlreadyExistsError());
 
-    Creator creator = Creator.fromAccount(accessor, anonymous: anonymous);
+    MemberID? memberID = await _memberRepository.generateNextId();
+    Member creator;
+    if (memberID == null)
+      return Result.error(UnableToGenerateIdError(forEntity: "Member"));
+    creator = Member(
+        memberID: memberID,
+        name: accessor.name,
+        contact: accessor.contact,
+        role: Role.creator());
     Organization organization =
         Organization(id: id, name: name, creator: creator);
 
-    if (await _organizationRepository.insert(organization)) return Result.value(true);
+    if (await _organizationRepository.insert(organization))
+      return Result.value(true);
     return Result.error(FailedToSaveError(forEntity: "Organization"));
   }
 }

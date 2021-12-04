@@ -60,7 +60,10 @@ class NameTest with Test {
     try {
       MockName(first: "");
     } catch (result) {
-      expect(result.toString(), EmptyStringError().msg);
+      expect(
+          result.toString(),
+          EmptyStringError(forObject: "String Attempt to capitalize")
+              .toString());
       return;
     }
     Test.fallthrough;
@@ -70,7 +73,10 @@ class NameTest with Test {
     try {
       MockName(last: "");
     } catch (result) {
-      expect(result.toString(), EmptyStringError().msg);
+      expect(
+          result.toString(),
+          EmptyStringError(forObject: "String Attempt to capitalize")
+              .toString());
       return;
     }
     Test.fallthrough;

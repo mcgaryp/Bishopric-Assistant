@@ -24,7 +24,8 @@ class ContactTest with Test {
     try {
       MockContact(email: "");
     } catch (result) {
-      expect(result.toString(), EmptyStringError().toString());
+      expect(result.toString(),
+          EmptyStringError(forObject: "Contact Email").toString());
       return;
     }
     Test.fallthrough;
@@ -40,7 +41,8 @@ class ContactTest with Test {
     try {
       MockContact(phone: "");
     } catch (result) {
-      expect(result.toString(), EmptyStringError().toString());
+      expect(result.toString(),
+          EmptyStringError(forObject: "Contact Phone").toString());
       return;
     }
     Test.fallthrough;

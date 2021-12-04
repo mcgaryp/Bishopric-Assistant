@@ -30,7 +30,8 @@ class RoleTest with Test {
     try {
       MockRole(anonymous: "");
     } catch (result) {
-      expect(result.toString(), EmptyStringError().toString());
+      expect(result.toString(),
+          EmptyStringError(forObject: "Role Anonymous").toString());
       return;
     }
     Test.fallthrough;

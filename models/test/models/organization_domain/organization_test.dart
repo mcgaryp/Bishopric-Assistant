@@ -1,4 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:models/models/organization.dart';
+
+import '../../mocks/organization/mock_organization.dart';
 
 ///
 /// organization_test.dart
@@ -8,8 +11,16 @@ import 'package:flutter_test/flutter_test.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-class OrganizationTests {}
+class OrganizationTests {
+  static shouldReturnValidNameWhenGivenName() {
+    Organization organization = MockOrganization().organization;
+    expect(organization.name, MockOrganization.mockName);
+  }
+}
 
 runOrganizationTests() {
-  group("Organization", () {});
+  group("Organization", () {
+    test("Organization name",
+        OrganizationTests.shouldReturnValidNameWhenGivenName);
+  });
 }

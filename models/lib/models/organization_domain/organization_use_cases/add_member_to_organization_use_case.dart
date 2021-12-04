@@ -2,6 +2,7 @@ import 'package:async/async.dart';
 import 'package:flutter/foundation.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
+import 'package:models/models/organization_domain/member_repository.dart';
 import 'package:models/shared/exceptions.dart';
 
 ///
@@ -28,17 +29,18 @@ mixin AddMemberToOrganizationUseCase {
 class DefaultAddMemberToOrganizationUseCase
     implements AddMemberToOrganizationUseCase {
   AccountRepository _accountRepository;
-  OrganizationRepository _repository;
+  OrganizationRepository _organizationRepository;
+  final MemberRepository _memberRepository;
 
-  DefaultAddMemberToOrganizationUseCase(
-      this._accountRepository, this._repository);
+  DefaultAddMemberToOrganizationUseCase(this._accountRepository,
+      this._organizationRepository, this._memberRepository);
 
   @override
   Future<Result> execute(
       {required MemberID accessorId,
       required AccountID accountID,
       required Role role}) async {
-    Member? accessor = await _repository.findMember(accessorId);
+    Member? accessor = await _memberRepository.find(accessorId);
     if (accessor == null) return Result.error(MemberNotFoundError());
     if (accessor.role.permissions < Permissions.maintainer)
       return Result.error(PermissionDeniedError(
@@ -48,19 +50,18 @@ class DefaultAddMemberToOrganizationUseCase
     Account? account = await _accountRepository.find(accountID);
     if (account == null) return Result.error(AccountNotFoundError());
 
-    MemberID? memberId = await _repository.generateNextMemberId();
+    MemberID? memberId = await _memberRepository.generateNextId();
     if (memberId == null)
       return Result.error(UnableToGenerateIdError(forEntity: "Member"));
 
     Member member = Member(
         memberID: memberId,
-        // accountID: accountID,
-        organizationID: accessor.organizationID,
         name: account.name,
         role: role,
         contact: account.contact);
 
-    if (await _repository.insertMember(member)) return Result.value(true);
+    if (await _organizationRepository.addMember(member))
+      return Result.value(true);
     return Result.error(FailedToSaveError(forEntity: "Organization"));
   }
 }

@@ -33,7 +33,7 @@ class Account extends Entity<Account> {
     required this.credentials,
   }) : super(id);
 
-  Account.fromJson(AccountID id, Map<String, Object?> map)
+  Account.fromMap(AccountID id, Map<String, Object?> map)
       : this(
             id: id,
             credentials: Credentials(

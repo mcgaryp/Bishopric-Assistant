@@ -27,10 +27,9 @@ class RecoverAccountUseCaseTest {
     expect(result.isValue, true);
     expect(result.isError, false);
     expect(result.asError, null);
-    expect(result.asValue!.value, account);
+    expect(result.asValue!.value, account.credentials);
   }
 
-  @Deprecated("Not to be used at the moment")
   static void shouldReturnAccountWhenValidPhoneGiven() async {
     MockAccountRepository accountRepository = MockAccountRepository();
     DefaultRecoverAccountUseCase recoverAccount =
@@ -38,10 +37,17 @@ class RecoverAccountUseCaseTest {
     Account account = accountRepository.accounts.first;
     String usernameOrPhone = account.contact.phone;
     Result result = await recoverAccount.execute(usernameOrPhone);
-    expect(result.isValue, true);
-    expect(result.isError, false);
-    expect(result.asError, null);
-    expect(result.asValue!.value, account);
+    if (result.isValue) {
+      expect(result.isValue, true);
+      expect(result.isError, false);
+      expect(result.asError, null);
+      expect(result.asValue!.value, account);
+    } else {
+      expect(result.isValue, false);
+      expect(result.isError, true);
+      expect(result.asValue, null);
+      expect(result.asError!.error, false);
+    }
   }
 
   static void shouldReturnAccountNotFoundErrorWhenInvalidUsernameGiven() async {
@@ -56,7 +62,6 @@ class RecoverAccountUseCaseTest {
     expect(result.asValue, null);
   }
 
-  @Deprecated("Not to be used at the moment")
   static void shouldReturnAccountNotFoundErrorWhenInvalidPhoneGiven() async {
     MockAccountRepository accountRepository = MockAccountRepository();
     DefaultRecoverAccountUseCase recoverAccount =
