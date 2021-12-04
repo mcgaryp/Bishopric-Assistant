@@ -9,7 +9,7 @@ import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
 ///
 
 @Deprecated("")
-enum Role {
+enum OldRole {
   none,
   bishop,
   counselor1,

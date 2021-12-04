@@ -30,7 +30,8 @@ class CredentialsTest with Test {
     try {
       MockCredentials(password: "");
     } catch (result) {
-      expect(result.toString(), EmptyStringError().toString());
+      expect(result.toString(),
+          EmptyStringError(forObject: "Credentials Password").toString());
       return;
     }
     Test.fallthrough;
@@ -40,7 +41,8 @@ class CredentialsTest with Test {
     try {
       MockCredentials(username: "");
     } catch (result) {
-      expect(result.toString(), EmptyStringError().toString());
+      expect(result.toString(),
+          EmptyStringError(forObject: "Credentials Username").toString());
       return;
     }
     Test.fallthrough;

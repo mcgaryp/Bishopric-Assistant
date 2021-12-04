@@ -8,8 +8,7 @@ import 'package:models/shared/uuid.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-/// TODO: Implement OrganizationID, Refer to [ReadMe.md](old_models_deprecated/README.md)
-/// TODO: Comment
+/// [OrganizationID] unique identifier for each Organization created
 class OrganizationID extends UUID {
   OrganizationID(String id) : super(id);
 

@@ -10,41 +10,43 @@ import 'package:models/shared/domain_driven_design/entity.dart';
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
 
+/// [Member] represents the member in an organization
 class Member extends Entity<Member> {
   final Name name;
   final Contact contact;
-  // final AccountID accountID;
   final MemberID memberID;
-  final OrganizationID organizationID;
   final Role role;
 
   Member(
       {required this.name,
       required this.contact,
-      // required this.accountID,
-      required this.memberID,
       required this.role,
-      required this.organizationID})
+      required this.memberID})
       : super(memberID);
+
+  Member.fromMap(Map<String, dynamic> map)
+      : this(
+          name: Name(first: map["first"], last: map["last"]),
+          contact: Contact(email: map["email"], phone: map["phone"]),
+          role: Role(map["permissions"], anonymous: map["anonymous"]),
+          memberID: map["memberID"],
+        );
 
   Member.newRole({required Role role, required Member member})
       : this.role = role,
         this.name = member.name,
         this.contact = member.contact,
-        // this.accountID = member.accountID,
         this.memberID = member.memberID,
-        this.organizationID = member.organizationID,
         super(member.memberID);
 
   @override
   bool sameIdentityAs(Member other) {
-    // TODO: implement sameIdentityAs
-    throw UnimplementedError();
+    return this.memberID == other.memberID;
   }
 
   @override
   bool operator ==(Object other) {
-    // TODO: implement ==
-    return super == other;
+    if (other.runtimeType != Member) return false;
+    return sameIdentityAs(other as Member);
   }
 }

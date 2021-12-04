@@ -1,3 +1,4 @@
+import 'package:models/models/organization.dart';
 import 'package:models/shared/foundation.dart';
 
 ///
@@ -8,35 +9,18 @@ import 'package:models/shared/foundation.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-/// Greater to Lesser
-enum Permissions { creator, maintainer, reporter, viewer }
-
-extension PermissionsExtension on Permissions {
-  String get string => this.toString();
-
-  operator <(Permissions rhs) {
-    return this.index > rhs.index;
-  }
-
-  operator <=(Permissions rhs) {
-    return this.index >= rhs.index;
-  }
-
-  operator >(Permissions rhs) {
-    return this.index < rhs.index;
-  }
-
-  operator >=(Permissions rhs) {
-    return this.index <= rhs.index;
-  }
-}
-
+/// [Role] and permission of the role of a given user
 class Role extends ValueObject<Role> {
-  final Permissions permissions;
+  late final Permissions permissions;
   late final String _anonymous;
 
   Role(this.permissions, {required String anonymous}) : super.decode({}) {
     __anonymous = anonymous;
+  }
+
+  Role.creator() : super.decode({}) {
+    permissions = Permissions.creator;
+    __anonymous = "Owner";
   }
 
   set __anonymous(String anonymous) {

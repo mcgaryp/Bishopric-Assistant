@@ -9,29 +9,9 @@ import 'package:models/shared/repository.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-/// TODO: Implement Event, Refer to [ReadMe.md](old_models_deprecated/README.md)
-/// TODO: Comment
+/// [OrganizationRepository] manages the access and manipulation of the
+/// organization Repository
 mixin OrganizationRepository
     implements Repository<Organization, OrganizationID, void> {
-  @required
-  Future<Member?> findMember(MemberID id);
-
-  // add member to organization
-  @required
-  Future<Member?> addMember(MemberID memberID, OrganizationID organizationID);
-
-  // insert member
-  @required
-  Future<bool> insertMember(Member member);
-
-  // remove member
-  @required
-  Future<Result<bool>> removeMember(MemberID id);
-
-  // update the member
-  @required
-  Future<bool> updateMember(Member member);
-
-  @required
-  Future<MemberID?> generateNextMemberId();
+  Future<bool> addMember(Member member);
 }

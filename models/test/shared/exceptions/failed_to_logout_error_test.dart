@@ -8,7 +8,4 @@
 
 class FailedToLogoutErrorTest {}
 
-runFailedToLogoutErrorTests() {
-  // TODO: Implement
-  throw UnimplementedError();
-}
+runFailedToLogoutErrorTests() {}

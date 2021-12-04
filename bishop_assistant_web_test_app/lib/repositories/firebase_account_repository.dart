@@ -27,7 +27,7 @@ class FirebaseAccountRepository extends FirestoreHelper
 
     if (map == null) return null;
 
-    Account account = Account.fromJson(id, map);
+    Account account = Account.fromMap(id, map);
     return account;
   }
 
@@ -55,7 +55,7 @@ class FirebaseAccountRepository extends FirestoreHelper
         await FirestoreHelper.getCollectionOfDocuments(_path);
     for (QueryDocumentSnapshot<Map<String, dynamic>> map in snapshot.docs) {
       if (map.get('username') == username)
-        return Account.fromJson(AccountID(map.id), map.data());
+        return Account.fromMap(AccountID(map.id), map.data());
     }
   }
 
@@ -124,7 +124,7 @@ class FirebaseAccountRepository extends FirestoreHelper
     Map<String, dynamic> map =
         await SharedPreferencesHelper.findMap(_accountKey);
     AccountID id = AccountID(map["id"]);
-    Account account = Account.fromJson(id, map);
+    Account account = Account.fromMap(id, map);
     return account;
   }
 

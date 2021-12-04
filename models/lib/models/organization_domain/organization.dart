@@ -9,8 +9,7 @@ import 'package:models/shared/foundation.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-/// TODO: Remove late somehow
-/// TODO: Comments
+/// [Organization] is the entity that groups members together.
 class Organization extends Entity<Organization> {
   /// Variables
   ///
@@ -18,7 +17,7 @@ class Organization extends Entity<Organization> {
   final OrganizationID id;
 
   /// [_creator] the initial member and user of the organization
-  final Creator creator;
+  final Member creator;
 
   /// [_name] the name of the organization
   late final String _name;

@@ -24,8 +24,7 @@ class CreateAccountUseCaseTest with Test {
     Account account = accountRepository.accounts.first;
     Name name = account.name;
     Contact contact = account.contact;
-    Credentials credentials =
-        Credentials(password: "password", username: "newUsername");
+    Credentials credentials = account.credentials;
     Result result = await accountUseCase.execute(
         name: name, contact: contact, credentials: credentials);
     if (result.isError) {
@@ -33,13 +32,13 @@ class CreateAccountUseCaseTest with Test {
       expect(result.isValue, false);
       expect(result.asValue, null);
       expect(result.asError!.error.toString(),
-          FailedToSaveError(forEntity: "Account").toString());
+          AccountAlreadyExistsError().toString());
       return;
     } else if (result.isValue) {
       expect(result.isValue, true);
       expect(result.isError, false);
       expect(result.asError, null);
-      expect(result.asValue!.value, true);
+      expect(result.asValue!.value, account);
       return;
     }
     Test.fallthrough;
