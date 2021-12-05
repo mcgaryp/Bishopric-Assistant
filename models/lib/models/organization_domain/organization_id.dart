@@ -22,4 +22,7 @@ class OrganizationID extends UUID {
     if (other.runtimeType != OrganizationID) return false;
     return sameValueAs(other as OrganizationID);
   }
+
+  @override
+  Map<String, dynamic> get toMap => throw UnimplementedError();
 }

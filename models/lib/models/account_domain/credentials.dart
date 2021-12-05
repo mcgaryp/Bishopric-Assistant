@@ -60,10 +60,15 @@ class Credentials extends ValueObject<Credentials> {
   }
 
   @override
+  @deprecated
   Map<String, dynamic> toJson() => {"password": password, "username": username};
 
   @override
   String toString() {
     return username;
   }
+
+  @override
+  Map<String, dynamic> get toMap =>
+      {"password": password, "username": username};
 }

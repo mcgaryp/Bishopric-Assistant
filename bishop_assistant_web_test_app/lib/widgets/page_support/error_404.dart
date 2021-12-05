@@ -12,10 +12,13 @@ import 'package:flutter/material.dart';
 ///
 
 class Error404 extends Mobile {
-  const Error404({Key? key}) : super(key: key);
+  final String? msg;
+  const Error404({Key? key, this.msg}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Text(page404, style: bodyDark);
+    String text = page404;
+    if (msg != null) text = "Error: $msg";
+    return Text(text, style: bodyDark);
   }
 }

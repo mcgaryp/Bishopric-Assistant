@@ -24,12 +24,13 @@ class Member extends Entity<Member> {
       required this.memberID})
       : super(memberID);
 
-  Member.fromMap(Map<String, dynamic> map)
+  Member.fromMap(MemberID id, Map<String, dynamic> map)
       : this(
           name: Name(first: map["first"], last: map["last"]),
           contact: Contact(email: map["email"], phone: map["phone"]),
-          role: Role(map["permissions"], anonymous: map["anonymous"]),
-          memberID: map["memberID"],
+          role: Role(PermissionsExtension.fromString(map["character"]),
+              anonymous: map["anonymous"]),
+          memberID: id,
         );
 
   Member.newRole({required Role role, required Member member})
@@ -38,6 +39,14 @@ class Member extends Entity<Member> {
         this.contact = member.contact,
         this.memberID = member.memberID,
         super(member.memberID);
+
+  Map<String, dynamic> get toMap {
+    Map<String, dynamic> map = {};
+    map.addAll(name.toMap);
+    map.addAll(contact.toMap);
+    map.addAll(role.toMap);
+    return map;
+  }
 
   @override
   bool sameIdentityAs(Member other) {
@@ -48,5 +57,10 @@ class Member extends Entity<Member> {
   bool operator ==(Object other) {
     if (other.runtimeType != Member) return false;
     return sameIdentityAs(other as Member);
+  }
+
+  @override
+  String toString() {
+    return "${name.name}\n $contact, $role";
   }
 }

@@ -1,10 +1,13 @@
 import 'package:bishop_assistant_web_test_app/database/old_models_deprecated.dart';
 import 'package:bishop_assistant_web_test_app/pages/home/home.dart';
+import 'package:bishop_assistant_web_test_app/repositories/firebase_member_repository.dart';
 import 'package:bishop_assistant_web_test_app/state/state_container.dart';
+import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/event_cards/EventCard.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/page_support.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
+import 'package:models/models/organization_domain/organization_use_case.dart';
 import 'package:models/shared/foundation.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -41,27 +44,45 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final container = StateContainer.of(context);
-    Account account = container.account;
-
     // Ensure the account is properly created
     // Check to see if the user has an organization linked to their
     // account. If not then invite the user to find one
-    if (_accountHasOrganization(account))
-      return ScreenTypeLayout(
-        mobile: HomeMobile(eventsList, Assignment.assignmentExampleCardList,
-            OldMember.exampleMemberCardList),
-        desktop: HomeWeb(eventsList, Assignment.assignmentExampleCardList,
-            OldMember.exampleMemberCardList),
-      );
+    return FutureBuilder(
+        future: _accountHasOrganization(context),
+        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+          if (snapshot.hasData && snapshot.data != null) {
+            if (snapshot.data!)
+              return ScreenTypeLayout(
+                mobile: HomeMobile(
+                    eventsList,
+                    Assignment.assignmentExampleCardList,
+                    OldMember.exampleMemberCardList),
+                desktop: HomeWeb(
+                    eventsList,
+                    Assignment.assignmentExampleCardList,
+                    OldMember.exampleMemberCardList),
+              );
 
-    List<Organization> organizations = lst;
-    return FindOrganizationPage(organizations);
+            return FindOrganizationPage();
+          }
+
+          if (snapshot.hasError) return Error404Page();
+
+          return SpinKitCircle(color: dark);
+        });
   }
 
   /// [_accountHasOrganization] checks to ensure that the user has an
   /// organization linked to the account returning true if so and false if not
-  bool _accountHasOrganization(Account account) {
+  Future<bool> _accountHasOrganization(BuildContext context) async {
+    AccountID accountID = StateContainer.of(context).account.id;
+
+    try {
+      DefaultHasAssociatedOrganizationUseCase useCase =
+          DefaultHasAssociatedOrganizationUseCase(FirebaseMemberRepository());
+      return await useCase.execute(accountID: accountID);
+    } catch (e) {}
+
     return false;
   }
 }

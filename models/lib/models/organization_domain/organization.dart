@@ -1,3 +1,4 @@
+import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/shared/foundation.dart';
 
@@ -32,11 +33,25 @@ class Organization extends Entity<Organization> {
     __name = name;
   }
 
+  Organization.fromMap(OrganizationID id, Map<String, dynamic> map)
+      : this(
+            id: id,
+            name: map["name"],
+            creator: Member(
+                memberID: MemberID(map["creator"]),
+                name: Name(first: map["first"], last: map["last"]),
+                contact: Contact(email: map["email"], phone: map["phone"]),
+                role: Role(PermissionsExtension.fromString(map["character"]),
+                    anonymous: map["anonymous"])));
+
   /// Copy constructor to create a new name
   Organization.newName(Organization organization, this._name)
       : this.id = organization.id,
         this.creator = organization.creator,
         super(organization.id);
+
+  Map<String, dynamic> get toMap =>
+      {"creator": creator.memberID.id, "name": name};
 
   /// Setters
   ///
@@ -55,5 +70,10 @@ class Organization extends Entity<Organization> {
   bool operator ==(Object other) {
     if (other.runtimeType != Organization) return false;
     return sameIdentityAs(other as Organization);
+  }
+
+  @override
+  String toString() {
+    return "Name: $name\nCreator: $creator";
   }
 }

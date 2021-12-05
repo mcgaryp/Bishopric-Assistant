@@ -21,4 +21,7 @@ class EventID extends UUID {
     if (other.runtimeType != EventID) return false;
     return sameValueAs(other as EventID);
   }
+
+  @override
+  Map<String, dynamic> get toMap => throw UnimplementedError();
 }

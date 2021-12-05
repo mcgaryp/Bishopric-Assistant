@@ -14,4 +14,7 @@ import 'package:models/shared/repository.dart';
 mixin OrganizationRepository
     implements Repository<Organization, OrganizationID, void> {
   Future<bool> addMember(Member member);
+
+  Future<bool> insertRelationship(
+      OrganizationID organizationID, MemberID memberID);
 }

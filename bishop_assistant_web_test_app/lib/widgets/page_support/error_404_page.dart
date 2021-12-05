@@ -18,7 +18,8 @@ import 'Content.dart';
 ///
 
 class Error404Page extends StatelessWidget {
-  const Error404Page({Key? key}) : super(key: key);
+  final String? msg;
+  const Error404Page({Key? key, this.msg}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class Error404Page extends StatelessWidget {
           actions: [WebNavigationButton.label(home, path: rHome)],
         ),
         body: Content(
-          child: Error404(),
+          child: Error404(msg: msg),
         ));
   }
 }

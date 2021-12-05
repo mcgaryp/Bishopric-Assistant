@@ -56,10 +56,14 @@ class Contact extends ValueObject<Contact> {
   }
 
   @override
+  @deprecated
   Map<String, dynamic> toJson() => {"phone": phone, "email": email};
 
   @override
   String toString() {
     return "$email $phone";
   }
+
+  @override
+  Map<String, dynamic> get toMap => {"phone": phone, "email": email};
 }

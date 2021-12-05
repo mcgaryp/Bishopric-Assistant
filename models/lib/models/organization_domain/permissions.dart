@@ -10,6 +10,13 @@
 enum Permissions { creator, maintainer, reporter, viewer }
 
 extension PermissionsExtension on Permissions {
+  static Permissions fromString(String string) {
+    if (string == Permissions.creator.string) return Permissions.creator;
+    if (string == Permissions.maintainer.string) return Permissions.maintainer;
+    if (string == Permissions.reporter.string) return Permissions.reporter;
+    return Permissions.viewer;
+  }
+
   String get string => this.toString();
 
   operator <(Permissions rhs) {

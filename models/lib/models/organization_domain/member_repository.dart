@@ -1,3 +1,4 @@
+import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/shared/repository.dart';
 
@@ -10,6 +11,8 @@ import 'package:models/shared/repository.dart';
 ///
 
 /// [MemberRepository] manages the data of a repository regarding membership
-mixin MemberRepository implements Repository<Member, MemberID, void> {
+mixin MemberRepository implements Repository<Member, MemberID, OrganizationID> {
   Future<Organization?> findOrganization(MemberID memberID);
+  Future<Member?> findWithAccountID(AccountID accountID);
+  Future<List<Member>?> findAllWithAccountID(AccountID accountID);
 }

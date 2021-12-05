@@ -21,4 +21,7 @@ class AssignmentID extends UUID {
     if (other.runtimeType != AssignmentID) return false;
     return sameValueAs(other as AssignmentID);
   }
+
+  @override
+  Map<String, dynamic> get toMap => throw UnimplementedError();
 }

@@ -24,4 +24,7 @@ class MemberID extends UUID {
   bool sameValueAs(UUID other) {
     return other.id == this.id;
   }
+
+  @override
+  Map<String, dynamic> get toMap => throw UnimplementedError();
 }
