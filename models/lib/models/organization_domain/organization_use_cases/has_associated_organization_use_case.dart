@@ -12,7 +12,7 @@ import 'package:models/shared/foundation.dart';
 
 mixin HasAssociatedOrganizationUseCase {
   @required
-  Future<bool> execute({required AccountID accountID});
+  Future<Organization?> execute({required AccountID accountID});
 }
 
 class DefaultHasAssociatedOrganizationUseCase
@@ -22,20 +22,20 @@ class DefaultHasAssociatedOrganizationUseCase
   DefaultHasAssociatedOrganizationUseCase(this._memberRepository);
 
   @override
-  Future<bool> execute({required AccountID accountID}) async {
+  Future<Organization?> execute({required AccountID accountID}) async {
     // find members associated with account
     List<Member>? members =
         await _memberRepository.findAllWithAccountID(accountID);
-    if (members == null) return false;
+    if (members == null) return null;
     // for each member
     for (Member member in members) {
       Organization? organization =
           await _memberRepository.findOrganization(member.memberID);
       // if there is one member who has a valid member organization relationship
       // return true
-      if (organization != null) return true;
+      if (organization != null) return organization;
     }
     // else false
-    return false;
+    return null;
   }
 }

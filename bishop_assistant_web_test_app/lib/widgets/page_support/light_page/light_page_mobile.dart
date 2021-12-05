@@ -2,6 +2,7 @@ import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Mem
 import 'package:bishop_assistant_web_test_app/navigation/FloatingNavigationButton.dart';
 import 'package:bishop_assistant_web_test_app/navigation/MobileNavigationButton.dart';
 import 'package:bishop_assistant_web_test_app/navigation/route_strings.dart';
+import 'package:bishop_assistant_web_test_app/state/state_container.dart';
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:bishop_assistant_web_test_app/util/strings.dart';
@@ -32,13 +33,17 @@ class LightPageMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final container = StateContainer.of(context);
+
     // Action items
     final List<Widget> actions = [
       MemberDrawerHeader(OldMember.bishopExample),
       MobileNavigationButton(home, rHome),
-      MobileNavigationButton(events, rEvents),
-      MobileNavigationButton(assignments, rAssignments),
-      MobileNavigationButton(organization, rOrganization),
+      if (container.hasOrganization) MobileNavigationButton(events, rEvents),
+      if (container.hasOrganization)
+        MobileNavigationButton(assignments, rAssignments),
+      if (container.hasOrganization)
+        MobileNavigationButton(organization, rOrganization),
     ];
 
     Widget body = hasButton

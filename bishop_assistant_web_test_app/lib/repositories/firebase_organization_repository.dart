@@ -92,11 +92,13 @@ class FirebaseOrganizationRepository extends FirestoreHelper
   }
 
   @override
-  Future<bool> insertRelationship(
-      OrganizationID organizationID, MemberID memberID) async {
-    return await addDocument(
-        {"organizationID": organizationID.id, "memberID": memberID.id},
-        path: FirestoreCollectionPath.organization_members);
+  Future<bool> insertRelationship(OrganizationID organizationID,
+      MemberID memberID, AccountID accountID) async {
+    return await addDocument({
+      "organizationID": organizationID.id,
+      "memberID": memberID.id,
+      "accountID": accountID.id
+    }, path: FirestoreCollectionPath.organization_members);
   }
 
   Future<Member?> findCreator(MemberID id) async {

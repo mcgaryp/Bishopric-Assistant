@@ -103,7 +103,7 @@ class _SignupPageState extends State<SignupPage> {
       AbsorbPointer(
         absorbing: _isWaiting,
         child: MyButton(
-            label: login,
+            label: sLogin,
             onPressed: () {
               Navigator.pop(context);
             }),

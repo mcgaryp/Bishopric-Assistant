@@ -1,4 +1,5 @@
 import 'package:bishop_assistant_web_test_app/database/firestore_helper.dart';
+import 'package:bishop_assistant_web_test_app/navigation/route_strings.dart';
 import 'package:bishop_assistant_web_test_app/repositories/firebase_account_repository.dart';
 import 'package:bishop_assistant_web_test_app/repositories/firebase_member_repository.dart';
 import 'package:bishop_assistant_web_test_app/repositories/firebase_organization_repository.dart';
@@ -23,6 +24,8 @@ import 'package:responsive_builder/responsive_builder.dart';
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
 
+/// [FindOrganizationPage] Handles the organization loading and managing mobile
+/// and web versions
 class FindOrganizationPage extends Mobile {
   @override
   Widget build(BuildContext context) {
@@ -42,7 +45,8 @@ class FindOrganizationPage extends Mobile {
                     List<Organization> organizations = snapshot.data!;
                     return ScreenTypeLayout(
                         mobile: LightPage.mobileAction(
-                            ListOfOrganizations.mobile(organizations), ""),
+                            ListOfOrganizations.mobile(organizations),
+                            rCreateOrganization),
                         desktop: LightPage.web([
                           ListOfOrganizations.web(organizations),
                           CreateOrganization()
@@ -78,6 +82,7 @@ class FindOrganizationPage extends Mobile {
   }
 }
 
+/// [ListOfOrganizations] shows the list of organizations avaliable to join
 class ListOfOrganizations extends Mobile {
   final List<Organization> organizations;
   late final bool isWeb;
@@ -101,11 +106,21 @@ class ListOfOrganizations extends Mobile {
   }
 }
 
-class CreateOrganization extends Mobile {
+/// [CreateOrganization] allows the user to create an organization them selves
+class CreateOrganization extends Web {
   @override
   Widget build(BuildContext context) {
     return WebContentSnapShot(
-        title: createOrganization, children: [_CreateOrganization()]);
+        title: sCreateOrganization, children: [_CreateOrganization()]);
+  }
+}
+
+class CreateOrganizationMobile extends Mobile {
+  @override
+  Widget build(BuildContext context) {
+    return LightPage.mobile(MobileContentSnapShot([
+      Section(sCreateOrganization, [_CreateOrganization()])
+    ]));
   }
 }
 
@@ -166,6 +181,8 @@ class _CreateOrganizationState extends State<_CreateOrganization> {
         MyToast.toastSuccess(
             "Successfully Created ${result.asValue!.value.name}");
         name.clear();
+        StateContainer.of(context).setOrganization(result.asValue!.value);
+        Navigator.pushNamed(context, rHome);
       }
     } catch (e) {
       if (kDebugMode) print(e);

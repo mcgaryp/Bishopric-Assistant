@@ -16,9 +16,14 @@ class FirebaseMemberRepository extends FirestoreHelper
   FirebaseMemberRepository() : super(FirestoreCollectionPath.members);
 
   @override
-  Future<Member?> find(MemberID i) {
-    // TODO: implement find
-    throw UnimplementedError();
+  Future<Member?> find(MemberID id) async {
+    DocumentSnapshot<Map<String, dynamic>> document =
+        await getSingleDocument(id);
+    Map<String, dynamic>? map = document.data();
+    if (map != null) {
+      return Member.fromMap(id, map);
+    }
+    return null;
   }
 
   @override
@@ -37,19 +42,25 @@ class FirebaseMemberRepository extends FirestoreHelper
     for (QueryDocumentSnapshot<Map<String, dynamic>> document
         in documents.docs) {
       // pull the organization id
-      if (document.get("member_id") == memberID) {
-        organizationID = document.get("member_id");
+      if (document.get("memberID") == memberID.id) {
+        organizationID = OrganizationID(document.get("organizationID"));
         break;
       }
     }
+
     // find the organization by organization id
     if (organizationID != null) {
       DocumentSnapshot<Map<String, dynamic>> document = await getSingleDocument(
           organizationID,
           path: FirestoreCollectionPath.organizations);
       Map<String, dynamic>? map = document.data();
+
       if (map != null) {
-        return Organization.fromMap(organizationID, map);
+        Member? member = await find(memberID);
+        if (member != null) {
+          map.addAll(member.toMap);
+          return Organization.fromMap(organizationID, map);
+        }
       }
     }
 
@@ -98,10 +109,14 @@ class FirebaseMemberRepository extends FirestoreHelper
   Future<List<Member>?> findAllWithAccountID(AccountID accountID) async {
     List<Member> members = [];
     QuerySnapshot<Map<String, dynamic>> documents =
-        await getCollectionOfDocuments();
+        await getCollectionOfDocuments(
+            path: FirestoreCollectionPath.organization_members);
     for (QueryDocumentSnapshot<Map<String, dynamic>> document
         in documents.docs) {
-      members.add(Member.fromMap(MemberID(document.id), document.data()));
+      if (document.data()['accountID'] == accountID.id) {
+        Member? member = await find(MemberID(document.data()['memberID']));
+        if (member != null) members.add(member);
+      }
     }
     if (members.isEmpty) return null;
     return members;

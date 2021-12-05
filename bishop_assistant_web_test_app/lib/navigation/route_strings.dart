@@ -5,6 +5,7 @@ import 'package:bishop_assistant_web_test_app/pages/event/CreateEventMobile.dart
 import 'package:bishop_assistant_web_test_app/pages/event/EventPage.dart';
 import 'package:bishop_assistant_web_test_app/pages/footer/Legal.dart';
 import 'package:bishop_assistant_web_test_app/pages/footer/Privacy.dart';
+import 'package:bishop_assistant_web_test_app/pages/home/find_organization_page.dart';
 import 'package:bishop_assistant_web_test_app/pages/home/home_page.dart';
 import 'package:bishop_assistant_web_test_app/pages/organization/OrganizationPage.dart';
 import 'package:bishop_assistant_web_test_app/pages/profile/EditProfilePage.dart';
@@ -38,7 +39,8 @@ const String rProfile = "/profile";
 const String rLegal = "/legal";
 const String rPrivacy = "/privacy";
 const String rAddEvent = "/events/create";
-const String rAddAssignment = "/organization/create";
+const String rAddAssignment = "/assignment/create";
+const String rCreateOrganization = "/organization/create";
 const String rMemberDetails = "/organization/member/details";
 const String rEditProfile = "/profile/edit";
 
@@ -53,6 +55,8 @@ final Map<String, Widget Function(BuildContext)> routes = {
   rEvents: (context) => Authenticate(child: EventPage()),
   rAssignments: (context) => Authenticate(child: AssignmentPage()),
   rOrganization: (context) => Authenticate(child: OrganizationPage()),
+  rCreateOrganization: (context) =>
+      Authenticate(child: CreateOrganizationMobile()),
   rProfile: (context) => Authenticate(child: ProfilePage()),
   rLegal: (context) => Legal(),
   rPrivacy: (context) => Privacy(),

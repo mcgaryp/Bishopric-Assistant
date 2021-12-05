@@ -5,6 +5,7 @@ import 'package:bishop_assistant_web_test_app/state/state_container.dart';
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/event_cards/EventCard.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/page_support.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/models/organization_domain/organization_use_case.dart';
@@ -49,9 +50,14 @@ class HomePage extends StatelessWidget {
     // account. If not then invite the user to find one
     return FutureBuilder(
         future: _accountHasOrganization(context),
-        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-          if (snapshot.hasData && snapshot.data != null) {
-            if (snapshot.data!)
+        builder: (BuildContext context,
+            AsyncSnapshot<Result<Organization?>> snapshot) {
+          if (snapshot.hasData) {
+            SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
+              StateContainer.of(context)
+                  .setOrganization(snapshot.data!.asValue!.value);
+            });
+            if (snapshot.data!.asValue!.value != null)
               return ScreenTypeLayout(
                 mobile: HomeMobile(
                     eventsList,
@@ -74,15 +80,19 @@ class HomePage extends StatelessWidget {
 
   /// [_accountHasOrganization] checks to ensure that the user has an
   /// organization linked to the account returning true if so and false if not
-  Future<bool> _accountHasOrganization(BuildContext context) async {
+  Future<Result<Organization?>> _accountHasOrganization(
+      BuildContext context) async {
     AccountID accountID = StateContainer.of(context).account.id;
 
     try {
       DefaultHasAssociatedOrganizationUseCase useCase =
           DefaultHasAssociatedOrganizationUseCase(FirebaseMemberRepository());
-      return await useCase.execute(accountID: accountID);
-    } catch (e) {}
+      Organization? org = await useCase.execute(accountID: accountID);
+      return Result.value(org);
+    } catch (e) {
+      if (kDebugMode) print(e);
+    }
 
-    return false;
+    return Result.value(null);
   }
 }

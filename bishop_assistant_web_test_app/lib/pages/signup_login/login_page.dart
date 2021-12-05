@@ -78,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
               MyButton(
                   label: "Developer Quick Login", onPressed: _developerLogin),
             // Login Button
-            MyButton(label: login, onPressed: _onPress),
+            MyButton(label: sLogin, onPressed: _onPress),
             // Sign Up Button
             MyButton(
                 label: signup,

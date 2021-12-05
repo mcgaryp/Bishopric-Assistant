@@ -20,6 +20,6 @@ class Authenticate extends StatelessWidget {
     // authenticated access to the application.
     final isAuthenticated = StateContainer.of(context).isAuthenticated;
     if (isAuthenticated) return child;
-    return Error404Page();
+    return Error404Page(msg: "Unauthenticated User");
   }
 }

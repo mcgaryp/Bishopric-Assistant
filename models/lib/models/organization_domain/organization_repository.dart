@@ -1,5 +1,8 @@
+import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/shared/repository.dart';
+
+export 'package:models/models/account_domain/account_id.dart';
 
 ///
 /// organization_repository.dart
@@ -16,5 +19,5 @@ mixin OrganizationRepository
   Future<bool> addMember(Member member);
 
   Future<bool> insertRelationship(
-      OrganizationID organizationID, MemberID memberID);
+      OrganizationID organizationID, MemberID memberID, AccountID accountID);
 }

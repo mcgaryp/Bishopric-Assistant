@@ -1,5 +1,6 @@
 import 'package:bishop_assistant_web_test_app/navigation/WebNavigationButton.dart';
 import 'package:bishop_assistant_web_test_app/navigation/route_strings.dart';
+import 'package:bishop_assistant_web_test_app/state/state_container.dart';
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:bishop_assistant_web_test_app/util/strings.dart';
@@ -26,13 +27,19 @@ class LightPageWeb extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final container = StateContainer.of(context);
+
     // Action items
     final List<Widget> actions = [
       WebNavigationButton.label(home, path: rHome),
-      WebNavigationButton.label(events, path: rEvents),
-      WebNavigationButton.label(assignments, path: rAssignments),
-      WebNavigationButton.label(organization, path: rOrganization),
-      WebNavigationButton.icon(Icons.person, path: rProfile),
+      if (container.hasOrganization)
+        WebNavigationButton.label(events, path: rEvents),
+      if (container.hasOrganization)
+        WebNavigationButton.label(assignments, path: rAssignments),
+      if (container.hasOrganization)
+        WebNavigationButton.label(organization, path: rOrganization),
+      if (container.hasOrganization)
+        WebNavigationButton.icon(Icons.person, path: rProfile),
     ];
 
     return Scaffold(

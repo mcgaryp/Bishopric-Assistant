@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:models/models/account.dart';
+import 'package:models/models/organization.dart';
 import 'package:models/shared/exceptions.dart';
 
 ///
@@ -58,9 +59,11 @@ class StateContainerState extends State<StateContainer> {
   // variables
   /// [_account] of the user containing information about the user specifically
   Account? _account;
+  Organization? _organization;
   // TODO: set is authenticated up properly if the user has been cached in
   //  shared preferences
   bool _isAuthenticated = false;
+  bool _isOrganizationAssociated = false;
 
   /// [account] retrieves the account or notifies that an account is not valid
   /// and login is required
@@ -69,18 +72,32 @@ class StateContainerState extends State<StateContainer> {
     throw PermissionDeniedError(reason: "UnAuthenticated User");
   }
 
-  bool get isAuthenticated => _isAuthenticated;
-
-  Future login(Account account) async {
-    setState(() {
-      _isAuthenticated = true;
-      _account = account;
-    });
+  Organization get organization {
+    if (_organization != null) return _organization!;
+    throw PermissionDeniedError(reason: "No Organizational Relationship");
   }
+
+  bool get isAuthenticated => _isAuthenticated;
+  bool get hasOrganization => _isOrganizationAssociated;
+
+  void login(Account account) => setState(() {
+        _isAuthenticated = true;
+        _account = account;
+      });
 
   void logout() => setState(() {
         _isAuthenticated = false;
         _account = null;
+      });
+
+  void setOrganization(Organization? org) => setState(() {
+        _organization = org;
+        if (org != null) {
+          _isOrganizationAssociated = true;
+        }
+        if (org == null) {
+          _isOrganizationAssociated = false;
+        }
       });
 
   // Simple build method that just passes this state through

@@ -2,6 +2,7 @@ import 'package:bishop_assistant_web_test_app/navigation/WebNavigationButton.dar
 import 'package:bishop_assistant_web_test_app/navigation/route_strings.dart';
 import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/util/strings.dart';
+import 'package:bishop_assistant_web_test_app/widgets/my_button.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/error_404.dart';
 import 'package:bishop_assistant_web_test_app/widgets/title/Brand.dart';
 import 'package:bishop_assistant_web_test_app/widgets/title/Logo.dart';
@@ -30,10 +31,22 @@ class Error404Page extends StatelessWidget {
           leading: Logo(),
           centerTitle: false,
           title: Brand(isExpanded: false),
-          actions: [WebNavigationButton.label(home, path: rHome)],
+          actions: [WebNavigationButton.label(sLogin, path: rLogin)],
         ),
         body: Content(
-          child: Error404(msg: msg),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Error404(msg: msg),
+              Container(
+                width: 300,
+                child: MyButton(
+                    label: sLogin,
+                    onPressed: () =>
+                        Navigator.pushReplacementNamed(context, rLogin)),
+              ),
+            ],
+          ),
         ));
   }
 }
