@@ -24,4 +24,7 @@ class AccountID extends UUID {
   bool sameValueAs(UUID other) {
     return this.id == other.id;
   }
+
+  @override
+  Map<String, dynamic> get toMap => throw UnimplementedError();
 }

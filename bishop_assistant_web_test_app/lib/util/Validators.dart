@@ -18,7 +18,7 @@ class Validators {
   // - A field cannot be empty
   // - A field cannot have whitespace
   static String? standard(String? text) {
-    if (text == null || text.isEmpty) return "Field cannot be empty";
+    if (text == null) return "Field cannot be empty";
 
     if (text.startsWith(" ") || text.endsWith(" "))
       return "Field cannot start or end with WhiteSpace";
@@ -29,7 +29,6 @@ class Validators {
   // Validate a MultiSelect Field
   // - Cannot be empty
   static String? validateMultiSelect(List<Object?>? list) {
-    if (list == null || list.isEmpty)
-      return "Must select at least 1";
+    if (list == null || list.isEmpty) return "Must select at least 1";
   }
 }

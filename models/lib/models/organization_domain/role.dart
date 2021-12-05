@@ -43,6 +43,16 @@ class Role extends ValueObject<Role> {
   }
 
   @override
+  @deprecated
   Map<String, dynamic> toJson() =>
       {"character": permissions.string, "anonymous": anonymous};
+
+  @override
+  Map<String, dynamic> get toMap =>
+      {"character": permissions.string, "anonymous": anonymous};
+
+  @override
+  String toString() {
+    return "$anonymous: $permissions";
+  }
 }

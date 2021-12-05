@@ -51,11 +51,14 @@ class Name extends ValueObject<Name> {
   }
 
   @override
-  Map<String, dynamic> toJson() =>
-      {"first": first, "last": last, "name": "$first $last"};
+  @deprecated
+  Map<String, dynamic> toJson() => {"first": first, "last": last};
 
   @override
   String toString() {
     return name;
   }
+
+  @override
+  Map<String, dynamic> get toMap => {"first": first, "last": last};
 }

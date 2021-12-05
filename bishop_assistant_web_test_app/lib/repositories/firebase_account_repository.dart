@@ -14,11 +14,10 @@ import 'package:models/shared/foundation.dart';
 
 class FirebaseAccountRepository extends FirestoreHelper
     implements AccountRepository {
-  static final FirestoreCollectionPath _path = FirestoreCollectionPath.accounts;
   String _loginKey = "loginStatus";
   String _accountKey = "accountInfo";
 
-  FirebaseAccountRepository() : super(_path);
+  FirebaseAccountRepository() : super(FirestoreCollectionPath.accounts);
 
   @override
   Future<Account?> find(AccountID id) async {
@@ -65,11 +64,11 @@ class FirebaseAccountRepository extends FirestoreHelper
   Future<AccountID?> generateNextId() async {
     Map<String, dynamic>? snapshot = await getNextID();
     if (snapshot == null) return null;
-    String id = snapshot[_path.string].toString();
+    String id = snapshot[mPath.string].toString();
     if (id.isEmpty) return null;
     AccountID accountID = AccountID(id);
 
-    snapshot[_path.string] += 1;
+    snapshot[mPath.string] += 1;
     bool success = await incrementId(snapshot);
     if (!success) return null;
 
@@ -78,9 +77,7 @@ class FirebaseAccountRepository extends FirestoreHelper
 
   @override
   Future<bool> insert(Account account) async {
-    bool result = await addDocument(account.toJson, account.id);
-
-    return result;
+    return await addDocument(account.toJson, id: account.id);
   }
 
   @override

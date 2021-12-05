@@ -23,4 +23,6 @@ abstract class ValueObject<T> extends Serializable {
   /// attributes are the same.
   @required
   bool sameValueAs(T other);
+
+  Map<String, dynamic> get toMap;
 }
