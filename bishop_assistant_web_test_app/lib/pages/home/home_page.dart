@@ -88,6 +88,7 @@ class HomePage extends StatelessWidget {
       DefaultHasAssociatedOrganizationUseCase useCase =
           DefaultHasAssociatedOrganizationUseCase(FirebaseMemberRepository());
       Organization? org = await useCase.execute(accountID: accountID);
+      StateContainer.of(context).setOrganization(org);
       return Result.value(org);
     } catch (e) {
       if (kDebugMode) print(e);
