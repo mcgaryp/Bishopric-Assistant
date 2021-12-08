@@ -10,9 +10,9 @@ import 'package:bishop_assistant_web_test_app/pages/home/home_page.dart';
 import 'package:bishop_assistant_web_test_app/pages/organization/OrganizationPage.dart';
 import 'package:bishop_assistant_web_test_app/pages/profile/EditProfilePage.dart';
 import 'package:bishop_assistant_web_test_app/pages/profile/ProfilePage.dart';
-import 'package:bishop_assistant_web_test_app/pages/recover_password/ChangePassword.dart';
-import 'package:bishop_assistant_web_test_app/pages/recover_password/Pin.dart';
-import 'package:bishop_assistant_web_test_app/pages/recover_password/RequestPasswordReset.dart';
+import 'package:bishop_assistant_web_test_app/pages/recover_password/change_password.dart';
+import 'package:bishop_assistant_web_test_app/pages/recover_password/pin_view.dart';
+import 'package:bishop_assistant_web_test_app/pages/recover_password/request_password_reset.dart';
 import 'package:bishop_assistant_web_test_app/pages/signup_login/login_page.dart';
 import 'package:bishop_assistant_web_test_app/pages/signup_login/sign_up_page.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/authentication/authenticate.dart';
@@ -49,8 +49,9 @@ final Map<String, Widget Function(BuildContext)> routes = {
   rHome: (context) => Authenticate(child: HomePage()),
   rLogin: (context) => LoginPage(),
   rSignup: (context) => SignupPage(),
+  // TODO: Add back when requestReset is implemented
   rPasswordRequest: (context) => RequestPasswordReset(),
-  rPIN: (context) => Pin(),
+  rPIN: (context) => PinView(),
   rChangePassword: (context) => ChangePassword(),
   rEvents: (context) => Authenticate(child: EventPage()),
   rAssignments: (context) => Authenticate(child: AssignmentPage()),

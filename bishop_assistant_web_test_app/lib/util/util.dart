@@ -6,5 +6,5 @@
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
 export 'MyToast.dart';
-export 'Validators.dart';
 export 'strings.dart';
+export 'validators.dart';

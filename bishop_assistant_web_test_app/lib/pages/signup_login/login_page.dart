@@ -84,11 +84,12 @@ class _LoginPageState extends State<LoginPage> {
                 label: signup,
                 onPressed: () => Navigator.pushNamed(context, rSignup)),
             // Forgot Password button
-            MyButton(
-              label: forgot,
-              onPressed: () => Navigator.pushNamed(context, rPasswordRequest),
-              style: MyButtonStyle.text,
-            ),
+            // TODO: Add forgot button once the Mailer portion works for web
+            // MyButton(
+            //   label: forgot,
+            //   onPressed: () => Navigator.pushNamed(context, rPasswordRequest),
+            //   style: MyButtonStyle.text,
+            // ),
           ],
         ),
       )

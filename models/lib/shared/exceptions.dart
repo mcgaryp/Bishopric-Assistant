@@ -18,3 +18,4 @@ export 'exceptions/organization_already_exists_error.dart';
 export 'exceptions/organization_not_found_error.dart';
 export 'exceptions/permission_denied_error.dart';
 export 'exceptions/unable_to_generate_id_error.dart';
+export 'exceptions/invalid_password_error.dart';
