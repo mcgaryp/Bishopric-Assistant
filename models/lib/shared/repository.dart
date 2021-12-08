@@ -26,7 +26,7 @@ abstract class Repository<Entity, UUID, AlternativeUUID> {
   ///
   ///
   /// Returns a [List<Entity>] Optionals
-  Future<List<Entity>?> findAll(AlternativeUUID o);
+  Stream<List<Entity>> findAll(AlternativeUUID o);
 
   /// [insert] M
   ///

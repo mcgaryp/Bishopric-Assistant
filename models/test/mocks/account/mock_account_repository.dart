@@ -31,9 +31,8 @@ class MockAccountRepository implements AccountRepository {
   }
 
   @override
-  Future<List<Account>?> findAll(void o) async {
-    await Future.delayed(duration);
-    return accounts;
+  Stream<List<Account>> findAll(void o) {
+    throw UnimplementedError();
   }
 
   @override

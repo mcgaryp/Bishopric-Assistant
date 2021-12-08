@@ -36,27 +36,30 @@ class FirebaseOrganizationRepository extends FirestoreHelper
   }
 
   @override
-  Future<List<Organization>?> findAll(void o) async {
-    QuerySnapshot<Map<String, dynamic>> documents =
-        await getCollectionOfDocuments();
+  Stream<List<Organization>> findAll(void o) {
+    Stream<QuerySnapshot<Map<String, dynamic>>> stream =
+        getCollectionOfDocumentsStreamed();
 
-    List<Organization> organizations = [];
-    for (QueryDocumentSnapshot<Map<String, dynamic>> document
-        in documents.docs) {
-      Map<String, dynamic> map = document.data();
-      Member? member = await findCreator(MemberID(map["creator"]));
+    Stream<List<Organization>> organizationStream = stream
+        .asyncMap<List<Organization>>(
+            (QuerySnapshot<Map<String, dynamic>> documents) async {
+      List<Organization> organizations = [];
+      for (QueryDocumentSnapshot<Map<String, dynamic>> document
+          in documents.docs) {
+        Map<String, dynamic> map = document.data();
+        Member? member = await findCreator(MemberID(map["creator"]));
 
-      if (member == null) throw MemberNotFoundError();
-      map.addAll(member.toMap);
-      Organization organization =
-          Organization.fromMap(OrganizationID(document.id), map);
-      print(organization);
-      organizations.add(organization);
-    }
+        if (member == null) throw MemberNotFoundError();
+        map.addAll(member.toMap);
+        Organization organization =
+            Organization.fromMap(OrganizationID(document.id), map);
+        print(organization);
+        organizations.add(organization);
+      }
+      return organizations;
+    });
 
-    if (organizations.isEmpty) return null;
-
-    return organizations;
+    return organizationStream;
   }
 
   @override

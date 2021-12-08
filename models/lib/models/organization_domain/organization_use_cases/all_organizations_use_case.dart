@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:models/models/organization.dart';
 import 'package:models/shared/foundation.dart';
 
@@ -11,7 +13,7 @@ import 'package:models/shared/foundation.dart';
 
 mixin AllOrganizationsUseCase {
   @required
-  Future<Result<List<Organization>>> execute();
+  Stream<List<Organization>> execute();
 }
 
 class DefaultAllOrganizationsUseCase implements AllOrganizationsUseCase {
@@ -20,10 +22,7 @@ class DefaultAllOrganizationsUseCase implements AllOrganizationsUseCase {
   DefaultAllOrganizationsUseCase(this._organizationRepository);
 
   @override
-  Future<Result<List<Organization>>> execute() async {
-    List<Organization>? organizations =
-        await _organizationRepository.findAll(null);
-    if (organizations == null) return Result.value([]);
-    return Result.value(organizations);
+  Stream<List<Organization>> execute() {
+    return _organizationRepository.findAll(null);
   }
 }

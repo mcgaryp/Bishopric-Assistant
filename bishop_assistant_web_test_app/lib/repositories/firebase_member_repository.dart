@@ -27,7 +27,7 @@ class FirebaseMemberRepository extends FirestoreHelper
   }
 
   @override
-  Future<List<Member>?> findAll(OrganizationID organizationID) {
+  Stream<List<Member>> findAll(OrganizationID organizationID) {
     // TODO: implement findAll
     throw UnimplementedError();
   }

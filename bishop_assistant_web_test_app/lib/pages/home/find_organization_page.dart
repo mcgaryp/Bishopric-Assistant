@@ -1,4 +1,3 @@
-import 'package:bishop_assistant_web_test_app/database/firestore_helper.dart';
 import 'package:bishop_assistant_web_test_app/navigation/route_strings.dart';
 import 'package:bishop_assistant_web_test_app/repositories/firebase_account_repository.dart';
 import 'package:bishop_assistant_web_test_app/repositories/firebase_member_repository.dart';
@@ -9,7 +8,6 @@ import 'package:bishop_assistant_web_test_app/util/util.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/MyCard.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/organization_cards/organization_card.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
@@ -29,35 +27,23 @@ import 'package:responsive_builder/responsive_builder.dart';
 class FindOrganizationPage extends Mobile {
   @override
   Widget build(BuildContext context) {
-    // TODO: Improve Stream by removing future builder below it
+    DefaultAllOrganizationsUseCase useCase =
+        DefaultAllOrganizationsUseCase(FirebaseOrganizationRepository());
+
     return StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection(FirestoreCollectionPath.organizations.string)
-            .snapshots(),
-        builder: (BuildContext context,
-            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+        stream: useCase.execute(),
+        builder:
+            (BuildContext context, AsyncSnapshot<List<Organization>> snapshot) {
           if (snapshot.hasData && snapshot.data != null) {
-            return FutureBuilder(
-                future: _getOrganizations(context),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<Organization>?> snapshot) {
-                  if (snapshot.hasData && snapshot.data != null) {
-                    List<Organization> organizations = snapshot.data!;
-                    return ScreenTypeLayout(
-                        mobile: LightPage.mobileAction(
-                            ListOfOrganizations.mobile(organizations),
-                            rCreateOrganization),
-                        desktop: LightPage.web([
-                          ListOfOrganizations.web(organizations),
-                          CreateOrganization()
-                        ]));
-                  }
-
-                  if (snapshot.hasError)
-                    return Error404Page(msg: snapshot.error.toString());
-
-                  return SpinKitCircle(color: dark);
-                });
+            List<Organization> organizations = snapshot.data!;
+            return ScreenTypeLayout(
+                mobile: LightPage.mobileAction(
+                    ListOfOrganizations.mobile(organizations),
+                    rCreateOrganization),
+                desktop: LightPage.web([
+                  ListOfOrganizations.web(organizations),
+                  CreateOrganization()
+                ]));
           }
 
           if (snapshot.hasError)
@@ -65,20 +51,6 @@ class FindOrganizationPage extends Mobile {
 
           return SpinKitCircle(color: dark);
         });
-  }
-
-  Future<List<Organization>?> _getOrganizations(BuildContext context) async {
-    try {
-      DefaultAllOrganizationsUseCase useCase =
-          DefaultAllOrganizationsUseCase(FirebaseOrganizationRepository());
-      Result<List<Organization>> result = await useCase.execute();
-      if (result.isError) throw result.asError!.error;
-      if (result.isValue) return result.asValue!.value;
-    } catch (e) {
-      MyToast.toastError(e.toString());
-      if (kDebugMode) print(e);
-      throw e;
-    }
   }
 }
 

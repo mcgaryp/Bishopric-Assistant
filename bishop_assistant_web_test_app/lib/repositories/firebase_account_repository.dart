@@ -35,7 +35,7 @@ class FirebaseAccountRepository extends FirestoreHelper
   }
 
   @override
-  Future<List<Account>?> findAll(void nil) {
+  Stream<List<Account>> findAll(void nil) {
     // TODO: implement findAll
     throw UnimplementedError();
   }
