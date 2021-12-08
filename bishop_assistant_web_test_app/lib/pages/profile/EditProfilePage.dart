@@ -16,6 +16,6 @@ class EditProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LightPage.both(EditProfile(OldMember.bishopExample));
+    return LightPage.both(EditProfile());
   }
 }

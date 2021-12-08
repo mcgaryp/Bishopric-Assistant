@@ -1,5 +1,7 @@
+import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
 import 'package:bishop_assistant_web_test_app/database/firestore_helper.dart';
 import 'package:bishop_assistant_web_test_app/database/shared_preferences_helper.dart';
+import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:models/models/account.dart';
 import 'package:models/shared/foundation.dart';
@@ -39,15 +41,23 @@ class FirebaseAccountRepository extends FirestoreHelper
   }
 
   @override
-  Future<Account?> findByEmail(String email) {
-    // TODO: implement findByEmail
-    throw UnimplementedError();
+  Future<Account?> findByEmail(String email) async {
+    QuerySnapshot<Map<String, dynamic>> snapshot =
+        await getCollectionOfDocuments();
+    for (QueryDocumentSnapshot<Map<String, dynamic>> map in snapshot.docs) {
+      if (map.get('email') == email)
+        return Account.fromMap(AccountID(map.id), map.data());
+    }
   }
 
   @override
-  Future<Account?> findByPhone(String phone) {
-    // TODO: implement findByPhone
-    throw UnimplementedError();
+  Future<Account?> findByPhone(String phone) async {
+    QuerySnapshot<Map<String, dynamic>> snapshot =
+        await getCollectionOfDocuments();
+    for (QueryDocumentSnapshot<Map<String, dynamic>> map in snapshot.docs) {
+      if (map.get('phone') == phone)
+        return Account.fromMap(AccountID(map.id), map.data());
+    }
   }
 
   @override
@@ -77,7 +87,9 @@ class FirebaseAccountRepository extends FirestoreHelper
 
   @override
   Future<bool> insert(Account account) async {
-    return await addDocument(account.toJson, id: account.id);
+    bool result = await addDocument(account.toJson, id: account.id);
+
+    return result;
   }
 
   @override
@@ -86,10 +98,10 @@ class FirebaseAccountRepository extends FirestoreHelper
     throw UnimplementedError();
   }
 
+
   @override
   Future<bool> update(Account account) {
-    // TODO: implement update
-    throw UnimplementedError();
+    return updateDocument(account.toJson, account.id);
   }
 
   @override

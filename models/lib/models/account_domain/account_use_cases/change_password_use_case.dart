@@ -13,7 +13,7 @@ import 'package:models/shared/foundation.dart';
 mixin ChangePasswordUseCase {
   /// [execute] changes the password given a valid [accountID] and [password]
   @required
-  Future<Result> execute(
+  Future<Result<bool>> execute(
       {required AccountID accountID, required String password});
 }
 
@@ -30,11 +30,16 @@ class DefaultChangePasswordUseCase implements ChangePasswordUseCase {
   DefaultChangePasswordUseCase(this._accountRepository);
 
   @override
-  Future<Result> execute(
+  Future<Result<bool>> execute(
       {required AccountID accountID, required String password}) async {
     Account? account = await _accountRepository.find(accountID);
 
     if (account == null) return Result.error(AccountNotFoundError());
+
+    if (account.credentials.password == password)
+      return Result.error(InvalidPasswordError(
+          InvalidPasswordCase.settingPasswordSameAsPrevious,
+          forObject: "Change Password Use Case"));
 
     Credentials credentials =
         Credentials(password: password, username: account.credentials.username);

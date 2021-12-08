@@ -63,15 +63,15 @@ class _SignupPageState extends State<SignupPage> {
           children: [
             InputField.floating(firstname,
                 controller: fNameControl,
-                validator: _verifyName,
+                validator: Validators.validateName,
                 onSubmit: _onSubmit),
             InputField.floating(lastname,
                 controller: lNameControl,
-                validator: _verifyName,
+                validator: Validators.validateName,
                 onSubmit: _onSubmit),
             InputField.floating(email,
                 controller: emailControl,
-                validator: _verifyEmail,
+                validator: Validators.validateEmail,
                 onSubmit: _onSubmit),
             InputField.floating(phone,
                 controller: phoneControl,
@@ -85,12 +85,13 @@ class _SignupPageState extends State<SignupPage> {
             InputField.floating(password,
                 isPassword: true,
                 controller: passwordControl,
-                validator: _password,
+                validator: Validators.validatePassword,
                 onSubmit: _onSubmit),
             InputField.floating(confirmPassword,
                 isPassword: true,
                 controller: confirmControl,
-                validator: _confirmPassword,
+                validator: (str) => Validators.validateConfirmPassword(
+                    str, passwordControl.text),
                 onSubmit: _onSubmit),
           ],
         ),
@@ -116,89 +117,6 @@ class _SignupPageState extends State<SignupPage> {
     setState(() {
       _isWaiting = val;
     });
-  }
-
-  /// Verify Names
-  /// - Names do not have a limit to how many letters are in them
-  /// - Names do not have whitespace at the end or start of them
-  /// - Name should start with a capital letter
-  String? _verifyName(String? text) {
-    String? returnValue = Validators.standard(text);
-
-    if (text != null) {
-      RegExp regExp = RegExp(
-        r"\d",
-        caseSensitive: false,
-        multiLine: false,
-      );
-
-      if (regExp.hasMatch(text)) returnValue = "Names cannot contain numbers";
-    }
-
-    return returnValue;
-  }
-
-  /// Verify email
-  /// - Emails must have an @
-  /// - Emails must have something before the @
-  /// - Emails must have something after the @ along with a . following that
-  /// - Emails must have something after the .
-  /// Send a verification email on create
-  String? _verifyEmail(String? text) {
-    String? returnValue = Validators.standard(text);
-
-    if (text != null) {
-      RegExp regExp = RegExp(
-        r"\w+@\w+\.\w+",
-        caseSensitive: false,
-        multiLine: false,
-      );
-
-      if (!regExp.hasMatch(text))
-        returnValue = "Please enter valid email address";
-    }
-
-    return returnValue;
-  }
-
-  /// Password Validation
-  /// - Must be at least 8 characters
-  /// - Must have at least one number
-  /// - Must have at least one symbol
-  String? _password(String? text) {
-    String? returnValue = Validators.standard(text);
-
-    if (text != null) {
-      RegExp minimum = RegExp(
-        r".{8,}",
-        caseSensitive: false,
-        multiLine: false,
-      );
-      RegExp number = RegExp(
-        r"\d+",
-        caseSensitive: false,
-        multiLine: false,
-      );
-
-      if (!minimum.hasMatch(text))
-        return "Passwords must use at least 8 characters";
-
-      if (!number.hasMatch(text)) return "Passwords must use at least 1 number";
-    }
-
-    return returnValue;
-  }
-
-  /// Verify Confirming Password
-  /// - Standard
-  /// - Must match password text
-  String? _confirmPassword(String? text) {
-    String? returnValue = Validators.standard(text);
-
-    if (text != null) if (text != passwordControl.text)
-      return "Passwords do not match";
-
-    return returnValue;
   }
 
   /// When the enter button is pressed
@@ -227,7 +145,7 @@ class _SignupPageState extends State<SignupPage> {
             Credentials(username: usernameControl.text, password: hashPassword);
         Result<Account> result = await createAccount.execute(
             name: name, contact: contact, credentials: credentials);
-        if (result.isValue) _successEnd(result.asValue!.value);
+        if (result.isValue) _success(result.asValue!.value);
         if (result.isError) _error(result.asError!.error.toString());
       } catch (e) {
         _error(e.toString());
@@ -238,8 +156,8 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   /// Should the process succeed
-  void _successEnd(Account account) {
-    MyToast.toastSuccess("Welcome ${account.name.name}!");
+  void _success(Account account) {
+    MyToast.toastSuccess("Welcome ${account.name.fullName}!");
     _setIsWaiting(false);
     Navigator.pop(context);
   }

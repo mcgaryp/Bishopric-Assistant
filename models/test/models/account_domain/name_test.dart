@@ -40,19 +40,19 @@ class NameTest with Test {
 
   static void shouldReturnValidNameWhenValidFirstName() {
     Name name = MockName(first: "First").name;
-    String result = name.name;
+    String result = name.fullName;
     expect(result, "First Last");
   }
 
   static void shouldReturnValidNameWhenValidLastName() {
     Name name = MockName(last: "Last").name;
-    String result = name.name;
+    String result = name.fullName;
     expect(result, "First Last");
   }
 
   static void shouldReturnValidNameWhenValidFirstLastName() {
     Name name = MockName(first: "First", last: "Last").name;
-    String result = name.name;
+    String result = name.fullName;
     expect(result, "First Last");
   }
 

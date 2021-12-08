@@ -28,7 +28,7 @@ class OrganizationCard extends StatelessWidget {
         children: [
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             CardTitle(organization.name),
-            Text(organization.creator.name.name, style: captionLight),
+            Text(organization.creator.name.fullName, style: captionLight),
           ]),
           CardButton(join, onPressed: _joinOrganization),
         ],

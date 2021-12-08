@@ -30,8 +30,8 @@ class Name extends ValueObject<Name> {
   /// [__first] private setter to ensure that [_first] is not empty and capitalized
   set __first(String name) => _first = name.capitalize;
 
-  /// [name] public getter that combines [first] and [last]
-  String get name => "$first $last";
+  /// [fullName] public getter that combines [first] and [last]
+  String get fullName => "$first $last";
 
   /// [first] public getter of [_first]
   String get first => _first;
@@ -56,7 +56,7 @@ class Name extends ValueObject<Name> {
 
   @override
   String toString() {
-    return name;
+    return fullName;
   }
 
   @override

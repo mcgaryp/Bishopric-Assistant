@@ -60,8 +60,8 @@ abstract class FirestoreHelper<T> {
       _firestore.collection((path ?? mPath).string).doc(uuid.id).snapshots();
 
   /// [addDocument] to the database
-  Future<bool> addDocument(Map<String, Object?> map,
-      {UUID? id, FirestoreCollectionPath? path}) async {
+  Future<bool> addDocument(Map<String, Object?> map, {UUID? id,
+      FirestoreCollectionPath? path}) async {
     bool result = true;
 
     String? strId = id == null ? null : id.id;
@@ -70,6 +70,20 @@ abstract class FirestoreHelper<T> {
         .collection((path ?? mPath).string)
         .doc(strId)
         .set(map)
+        .onError<bool>((error, stackTrace) => result = false);
+
+    return result;
+  }
+
+  /// [updateDocument] in a collection
+  Future<bool> updateDocument(Map<String, Object?> map, UUID uuid,
+      {FirestoreCollectionPath? path}) async {
+    bool result = true;
+
+    await _firestore
+        .collection((path ?? mPath).string)
+        .doc(uuid.id)
+        .update(map)
         .onError<bool>((error, stackTrace) => result = false);
 
     return result;

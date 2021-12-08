@@ -61,6 +61,6 @@ class Member extends Entity<Member> {
 
   @override
   String toString() {
-    return "${name.name}\n $contact, $role";
+    return "${name.fullName}\n $contact, $role";
   }
 }

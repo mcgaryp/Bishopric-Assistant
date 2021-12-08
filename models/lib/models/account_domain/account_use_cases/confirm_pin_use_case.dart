@@ -13,7 +13,7 @@ import 'package:models/shared/foundation.dart';
 /// user with a PIN
 mixin ConfirmPinUseCase {
   @required
-  Future<Result<Account>> execute(String username);
+  Future<Result<AccountID>> execute(String username);
 }
 
 class DefaultConfirmPinUseCase implements ConfirmPinUseCase {
@@ -22,10 +22,10 @@ class DefaultConfirmPinUseCase implements ConfirmPinUseCase {
   DefaultConfirmPinUseCase(this._accountRepository);
 
   @override
-  Future<Result<Account>> execute(String username) async {
+  Future<Result<AccountID>> execute(String username) async {
     Account? account = await _accountRepository.findByUsername(username);
 
     if (account == null) return Result.error(AccountNotFoundError());
-    return Result.value(account);
+    return Result.value(account.id);
   }
 }

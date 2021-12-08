@@ -5,6 +5,7 @@ import 'account_domain/account_test.dart';
 import 'account_domain/contact_test.dart';
 import 'account_domain/credentials_test.dart';
 import 'account_domain/name_test.dart';
+import 'account_domain/pin_test.dart';
 import 'organization_domain/member_id_test.dart';
 import 'organization_domain/member_test.dart';
 import 'organization_domain/organization_id_test.dart';
@@ -28,6 +29,7 @@ runModelsTests() {
       runContactTests();
       runCredentialsTests();
       runNameTests();
+      runPinTests();
     });
     group("Assignment Tests", () {});
     group("Event Tests", () {});
