@@ -20,7 +20,7 @@ class Credentials extends ValueObject<Credentials> {
   /// [Credentials(password: password, username: username)] ensures the correct
   ///   initialization of the [_password] and [_username]
   Credentials({required String password, required String username})
-      : super.decode({"password": password, "username": username}) {
+      : super.fromMap({"password": password, "username": username}) {
     __password = password;
     __username = username;
   }

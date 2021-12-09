@@ -49,8 +49,14 @@ abstract class FirestoreHelper<T> {
   /// [getCollectionOfDocumentsStreamed] gives a new collection of rows from a
   /// specific table everytime there is a change to the information in the table
   Stream<QuerySnapshot<Map<String, dynamic>>> getCollectionOfDocumentsStreamed(
-          {FirestoreCollectionPath? path}) =>
-      _firestore.collection((path ?? mPath).string).snapshots();
+      {FirestoreCollectionPath? path, String? field, Object? isEqualTo}) {
+    if (field != null)
+      return _firestore
+          .collection((path ?? mPath).string)
+          .where(field, isEqualTo: isEqualTo)
+          .snapshots();
+    return _firestore.collection((path ?? mPath).string).snapshots();
+  }
 
   /// [getSingleDocumentStreamed] gives a new row every time there is a change
   /// to that row
@@ -60,8 +66,8 @@ abstract class FirestoreHelper<T> {
       _firestore.collection((path ?? mPath).string).doc(uuid.id).snapshots();
 
   /// [addDocument] to the database
-  Future<bool> addDocument(Map<String, Object?> map, {UUID? id,
-      FirestoreCollectionPath? path}) async {
+  Future<bool> addDocument(Map<String, Object?> map,
+      {UUID? id, FirestoreCollectionPath? path}) async {
     bool result = true;
 
     String? strId = id == null ? null : id.id;
@@ -84,6 +90,19 @@ abstract class FirestoreHelper<T> {
         .collection((path ?? mPath).string)
         .doc(uuid.id)
         .update(map)
+        .onError<bool>((error, stackTrace) => result = false);
+
+    return result;
+  }
+
+  /// [removeDocument] in a collection
+  Future<bool> removeDocument(UUID id, {FirestoreCollectionPath? path}) async {
+    bool result = true;
+
+    await _firestore
+        .collection((path ?? mPath).string)
+        .doc(id.id)
+        .delete()
         .onError<bool>((error, stackTrace) => result = false);
 
     return result;
@@ -130,6 +149,7 @@ enum FirestoreCollectionPath {
   organizations,
   members,
   organization_members,
+  organization_requests,
   util
 }
 

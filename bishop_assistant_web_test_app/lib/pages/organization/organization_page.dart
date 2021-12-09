@@ -1,5 +1,5 @@
-import 'package:bishop_assistant_web_test_app/pages/organization/OrganizationMobile.dart';
-import 'package:bishop_assistant_web_test_app/pages/organization/OrganizationWeb.dart';
+import 'package:bishop_assistant_web_test_app/pages/organization/organization_mobile.dart';
+import 'package:bishop_assistant_web_test_app/pages/organization/organization_web.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 

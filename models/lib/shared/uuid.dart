@@ -10,11 +10,10 @@ import 'package:models/shared/exceptions.dart';
 ///
 
 /// [UUID] forms a unique identity for an object
-/// TODO: Comments
 abstract class UUID extends ValueObject<UUID> {
   late final String _id;
 
-  UUID(String id) : super.decode({"id": id}) {
+  UUID(String id) : super.fromMap({"id": id}) {
     this.__id = id;
   }
 
@@ -33,6 +32,11 @@ abstract class UUID extends ValueObject<UUID> {
   @override
   bool operator ==(Object object) {
     UUID other = object as UUID;
+    return this.id == other.id;
+  }
+
+  @override
+  bool sameValueAs(UUID other) {
     return this.id == other.id;
   }
 }

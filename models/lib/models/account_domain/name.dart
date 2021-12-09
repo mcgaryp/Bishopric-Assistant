@@ -19,7 +19,7 @@ class Name extends ValueObject<Name> {
   /// [Name(first: first, last: last)] constructor to ensure the proper
   ///   initialization of [_first] and [_last]
   Name({required String first, required String last})
-      : super.decode({"first": first, "last": last, "name": "$first $last"}) {
+      : super.fromMap({"first": first, "last": last, "name": "$first $last"}) {
     this.__first = first;
     this.__last = last;
   }

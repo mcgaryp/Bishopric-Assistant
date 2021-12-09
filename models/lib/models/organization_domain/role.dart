@@ -14,11 +14,11 @@ class Role extends ValueObject<Role> {
   late final Permissions permissions;
   late final String _anonymous;
 
-  Role(this.permissions, {required String anonymous}) : super.decode({}) {
+  Role(this.permissions, {required String anonymous}) : super.fromMap({}) {
     __anonymous = anonymous;
   }
 
-  Role.creator() : super.decode({}) {
+  Role.creator() : super.fromMap({}) {
     permissions = Permissions.creator;
     __anonymous = "Owner";
   }

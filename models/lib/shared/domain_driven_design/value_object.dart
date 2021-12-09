@@ -14,7 +14,7 @@ import 'serializable.dart';
 // TODO: Rethink the decode and toJson forcing implementation
 abstract class ValueObject<T> extends Serializable {
   @required
-  ValueObject.decode(Map<String, dynamic> json) : super.decode(json);
+  ValueObject.fromMap(Map<String, dynamic> json) : super.decode(json);
 
   /// Value objects compare by the values of their attributes, they don't have an identity.
   ///

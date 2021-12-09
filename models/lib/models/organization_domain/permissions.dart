@@ -6,7 +6,7 @@
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
 
-/// [Permissions] security levels to visualing information
+/// [Permissions] security levels to visualizing information
 enum Permissions { creator, maintainer, reporter, viewer }
 
 extension PermissionsExtension on Permissions {
@@ -17,21 +17,25 @@ extension PermissionsExtension on Permissions {
     return Permissions.viewer;
   }
 
-  String get string => this.toString();
+  String get string {
+    String str = this.toString().split('.').last;
+    str = str[0].toUpperCase() + str.substring(1);
+    return str;
+  }
 
   operator <(Permissions rhs) {
-    return this.index > rhs.index;
-  }
-
-  operator <=(Permissions rhs) {
-    return this.index >= rhs.index;
-  }
-
-  operator >(Permissions rhs) {
     return this.index < rhs.index;
   }
 
-  operator >=(Permissions rhs) {
+  operator <=(Permissions rhs) {
     return this.index <= rhs.index;
+  }
+
+  operator >(Permissions rhs) {
+    return this.index > rhs.index;
+  }
+
+  operator >=(Permissions rhs) {
+    return this.index >= rhs.index;
   }
 }

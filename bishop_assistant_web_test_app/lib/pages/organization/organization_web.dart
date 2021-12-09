@@ -1,9 +1,15 @@
 import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Member.dart';
+import 'package:bishop_assistant_web_test_app/pages/organization/organization_members_view.dart';
+import 'package:bishop_assistant_web_test_app/pages/organization/organization_requests_view.dart';
 import 'package:bishop_assistant_web_test_app/util/strings.dart';
+import 'package:bishop_assistant_web_test_app/util/util.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/member_cards/member_details_card.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/WebContentSnapShot.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/light_page/light_page.dart';
+import 'package:bishop_assistant_web_test_app/widgets/page_support/page_support.dart';
 import 'package:flutter/material.dart';
+import 'package:models/models/account.dart';
+import 'package:models/models/organization.dart';
 
 ///
 /// OrganizationWeb.dart
@@ -27,7 +33,8 @@ class _OrganizationWebState extends State<OrganizationWeb> {
   Widget build(BuildContext context) {
     return LightPage.web([
       WebContentSnapShot(
-          title: organization, children: OldMember.exampleMemberCardList),
+          title: organization,
+          children: [OrganizationRequestsView(), OrganizationMembersView()]),
       WebContentSnapShot(
           title: memberDetails, children: [MemberDetailsCard(selectedMember)])
     ]);

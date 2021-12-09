@@ -5,11 +5,10 @@ import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
 import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:bishop_assistant_web_test_app/util/strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/Web.dart';
+import 'package:bishop_assistant_web_test_app/widgets/page_support/page_support.dart';
 import 'package:bishop_assistant_web_test_app/widgets/title/Brand.dart';
 import 'package:bishop_assistant_web_test_app/widgets/title/Logo.dart';
 import 'package:flutter/material.dart';
-
-import '../Content.dart';
 
 ///
 /// light_page_web.dart
@@ -37,7 +36,8 @@ class LightPageWeb extends StatelessWidget {
       if (container.hasOrganization)
         WebNavigationButton.label(assignments, path: rAssignments),
       if (container.hasOrganization)
-        WebNavigationButton.label(organization, path: rOrganization),
+        WebNavigationButton.label(organization,
+            path: rOrganization, notifications: container.organizationRequests),
       if (container.hasOrganization)
         WebNavigationButton.icon(Icons.person, path: rProfile),
     ];
