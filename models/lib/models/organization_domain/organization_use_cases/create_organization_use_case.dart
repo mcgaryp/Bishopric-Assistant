@@ -20,7 +20,7 @@ mixin CreateOrganizationUseCase {
   /// [name] given to the new organization
   /// returns a [ResultValue] if successful else [ResultError]
   @required
-  Future<Result<Organization>> execute(
+  Future<Result<OrganizationMember>> execute(
       {required AccountID creatorId, required String name, String? anonymous});
 }
 
@@ -33,7 +33,7 @@ class DefaultCreateOrganizationUseCase implements CreateOrganizationUseCase {
       this._organizationRepository, this._memberRepository);
 
   @override
-  Future<Result<Organization>> execute(
+  Future<Result<OrganizationMember>> execute(
       {required AccountID creatorId,
       required String name,
       String? anonymous}) async {
@@ -65,7 +65,8 @@ class DefaultCreateOrganizationUseCase implements CreateOrganizationUseCase {
       if (await _memberRepository.insert(creator)) {
         if (await _organizationRepository.insertRelationship(
             organization.id, creator.memberID, accessor.id)) {
-          return Result.value(organization);
+          return Result.value(
+              OrganizationMember(organization: organization, member: creator));
         } else
           return Result.error(
               FailedToSaveError(forEntity: "Organization Member Relationship"));

@@ -16,13 +16,16 @@ class WebNavigationButton extends NavigationButton {
   late final String? label;
   late final IconData? icon;
   late final bool _hasIcon;
+  final int? notifications;
 
-  WebNavigationButton.label(this.label, {required String path, Key? key})
+  WebNavigationButton.label(this.label,
+      {required String path, this.notifications, Key? key})
       : super(path, key: key) {
     _hasIcon = false;
   }
 
-  WebNavigationButton.icon(this.icon, {required String path, Key? key})
+  WebNavigationButton.icon(this.icon,
+      {required String path, this.notifications, Key? key})
       : super(path, key: key) {
     _hasIcon = true;
   }
@@ -51,9 +54,26 @@ class WebNavigationButton extends NavigationButton {
 
   Widget _text(BuildContext context) {
     return TextButton(
-      child: Text(label!, style: bodyLight),
+      child: Row(
+        children: [
+          Text(label!, style: bodyLight),
+          if (notifications != null) _notificationWidget,
+        ],
+      ),
       onPressed: () => navigate(context),
       style: textButtonStyle,
     );
+  }
+
+  Widget get _notificationWidget {
+    return Padding(
+        padding: const EdgeInsets.only(left: 4.0),
+        child: Container(
+            decoration:
+                BoxDecoration(shape: BoxShape.circle, color: Colors.red),
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Center(child: Text("$notifications", style: bodyLight)),
+            )));
   }
 }

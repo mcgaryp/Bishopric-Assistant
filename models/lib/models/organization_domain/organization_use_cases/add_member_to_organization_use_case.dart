@@ -1,4 +1,3 @@
-import 'package:async/async.dart';
 import 'package:flutter/foundation.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
@@ -20,10 +19,11 @@ mixin AddMemberToOrganizationUseCase {
   /// [accessorId] id of the member that is adding the user
   /// Returns a [ResultValue] if successful and [ResultError] if not
   @required
-  Future<Result> execute(
-      {required MemberID accessorId,
-      required AccountID accountID,
-      required Role role});
+  Future<void> execute({
+    required MemberID accessorId,
+    required JoinRequest request,
+    required Role role,
+  });
 }
 
 class DefaultAddMemberToOrganizationUseCase
@@ -36,23 +36,23 @@ class DefaultAddMemberToOrganizationUseCase
       this._organizationRepository, this._memberRepository);
 
   @override
-  Future<Result> execute(
-      {required MemberID accessorId,
-      required AccountID accountID,
-      required Role role}) async {
+  Future<void> execute({
+    required MemberID accessorId,
+    required JoinRequest request,
+    required Role role,
+  }) async {
     Member? accessor = await _memberRepository.find(accessorId);
-    if (accessor == null) return Result.error(MemberNotFoundError());
+    if (accessor == null) throw MemberNotFoundError();
     if (accessor.role.permissions < Permissions.maintainer)
-      return Result.error(PermissionDeniedError(
+      throw PermissionDeniedError(
           reason:
-              "Maintainer permissions required to Add Members to Organization"));
+              "Maintainer permissions required to Add Members to Organization");
 
-    Account? account = await _accountRepository.find(accountID);
-    if (account == null) return Result.error(AccountNotFoundError());
+    Account? account = await _accountRepository.find(request.accountID);
+    if (account == null) throw AccountNotFoundError();
 
     MemberID? memberId = await _memberRepository.generateNextId();
-    if (memberId == null)
-      return Result.error(UnableToGenerateIdError(forEntity: "Member"));
+    if (memberId == null) throw UnableToGenerateIdError(forEntity: "Member");
 
     Member member = Member(
         memberID: memberId,
@@ -60,8 +60,18 @@ class DefaultAddMemberToOrganizationUseCase
         role: role,
         contact: account.contact);
 
-    if (await _organizationRepository.addMember(member))
-      return Result.value(true);
-    return Result.error(FailedToSaveError(forEntity: "Organization"));
+    if (await _memberRepository.insert(member)) {
+      if (await _organizationRepository.insertRelationship(
+          request.organizationID, member.memberID, request.accountID)) {
+        if (await _organizationRepository
+            .removeRequestToJoinOrganization(request)) {
+          return;
+        } else
+          throw FailedToRemoveError(forEntity: "Join Request");
+      } else
+        throw FailedToSaveError(
+            forEntity: "Member Account Organization Relationship");
+    }
+    throw FailedToSaveError(forEntity: "Member to Organization");
   }
 }

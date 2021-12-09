@@ -17,12 +17,6 @@ class FirebaseOrganizationRepository extends FirestoreHelper
       : super(FirestoreCollectionPath.organizations);
 
   @override
-  Future<bool> addMember(Member member) {
-    // TODO: implement addMember
-    throw UnimplementedError();
-  }
-
-  @override
   Future<Organization?> find(OrganizationID id) async {
     DocumentSnapshot<Map<String, dynamic>> snapshot =
         await getSingleDocument(id);
@@ -53,7 +47,6 @@ class FirebaseOrganizationRepository extends FirestoreHelper
         map.addAll(member.toMap);
         Organization organization =
             Organization.fromMap(OrganizationID(document.id), map);
-        print(organization);
         organizations.add(organization);
       }
       return organizations;
@@ -110,5 +103,56 @@ class FirebaseOrganizationRepository extends FirestoreHelper
     Map<String, dynamic>? map = document.data();
     if (map != null) return Member.fromMap(MemberID(document.id), map);
     return null;
+  }
+
+  @override
+  Stream<List<JoinRequest>> findAllRequests(OrganizationID organizationID) {
+    Stream<QuerySnapshot<Map<String, dynamic>>> streamedDocuments =
+        getCollectionOfDocumentsStreamed(
+            path: FirestoreCollectionPath.organization_requests,
+            field: "organizationID",
+            isEqualTo: organizationID.id);
+    Stream<List<JoinRequest>> joinRequests = streamedDocuments
+        .asyncMap<List<JoinRequest>>(
+            (QuerySnapshot<Map<String, dynamic>> snapshot) async {
+      List<JoinRequest> requests = [];
+      for (QueryDocumentSnapshot<Map<String, dynamic>> document
+          in snapshot.docs) {
+        Map<String, dynamic> map = document.data();
+        JoinRequest request =
+            JoinRequest.fromMap(map, JoinRequestID(document.id));
+        requests.add(request);
+      }
+      return requests;
+    });
+    return joinRequests;
+  }
+
+  @override
+  Future<bool> requestToJoinOrganization(JoinRequest request) {
+    return addDocument(request.toMap,
+        path: FirestoreCollectionPath.organization_requests);
+  }
+
+  @override
+  Future<bool> removeRequestToJoinOrganization(JoinRequest request) {
+    return removeDocument(request.id,
+        path: FirestoreCollectionPath.organization_requests);
+  }
+
+  @override
+  Future<JoinRequestID?> generateNextRequestId() async {
+    Map<String, dynamic>? snapshot = await getNextID();
+    if (snapshot == null) return null;
+    String id = snapshot[FirestoreCollectionPath.organization_requests.string]
+        .toString();
+    if (id.isEmpty) return null;
+    JoinRequestID requestID = JoinRequestID(id);
+
+    snapshot[FirestoreCollectionPath.organization_requests.string] += 1;
+    bool success = await incrementId(snapshot);
+    if (!success) return null;
+
+    return requestID;
   }
 }

@@ -21,7 +21,7 @@ class Contact extends ValueObject<Contact> {
 
   /// [Contact] Constructor to create a specific contact
   Contact({required String email, required String phone})
-      : super.decode({"phone": phone, "email": email}) {
+      : super.fromMap({"phone": phone, "email": email}) {
     __phone = phone;
     __email = email;
   }

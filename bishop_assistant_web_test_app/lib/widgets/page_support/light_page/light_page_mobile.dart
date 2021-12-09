@@ -8,10 +8,9 @@ import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
 import 'package:bishop_assistant_web_test_app/util/strings.dart';
 import 'package:bishop_assistant_web_test_app/widgets/member_account_drawer_header.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/Mobile.dart';
+import 'package:bishop_assistant_web_test_app/widgets/page_support/page_support.dart';
 import 'package:bishop_assistant_web_test_app/widgets/title/MyTitle.dart';
 import 'package:flutter/material.dart';
-
-import '../Content.dart';
 
 ///
 /// light_page_mobile.dart

@@ -6,3 +6,5 @@
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
 export 'firebase_account_repository.dart';
+export 'firebase_member_repository.dart';
+export 'firebase_organization_repository.dart';

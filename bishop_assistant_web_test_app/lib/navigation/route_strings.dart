@@ -7,7 +7,7 @@ import 'package:bishop_assistant_web_test_app/pages/footer/Legal.dart';
 import 'package:bishop_assistant_web_test_app/pages/footer/Privacy.dart';
 import 'package:bishop_assistant_web_test_app/pages/home/find_organization_page.dart';
 import 'package:bishop_assistant_web_test_app/pages/home/home_page.dart';
-import 'package:bishop_assistant_web_test_app/pages/organization/OrganizationPage.dart';
+import 'package:bishop_assistant_web_test_app/pages/organization/organization_page.dart';
 import 'package:bishop_assistant_web_test_app/pages/profile/EditProfilePage.dart';
 import 'package:bishop_assistant_web_test_app/pages/profile/ProfilePage.dart';
 import 'package:bishop_assistant_web_test_app/pages/recover_password/change_password.dart';

@@ -1,3 +1,4 @@
+import 'package:bishop_assistant_web_test_app/repositories/firebase_organization_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
@@ -30,7 +31,7 @@ class _InheritedStateContainer extends InheritedWidget {
   @override
   bool updateShouldNotify(_InheritedStateContainer oldWidget) {
     // We only want to update the widgets if the authentication state has changed
-    return data.isAuthenticated != oldWidget.data.isAuthenticated;
+    return this.data != oldWidget.data;
   }
 }
 
@@ -60,25 +61,45 @@ class StateContainerState extends State<StateContainer> {
   /// [_account] of the user containing information about the user specifically
   Account? _account;
   Organization? _organization;
+  Member? _member;
+
   // TODO: set is authenticated up properly if the user has been cached in
   //  shared preferences
   bool _isAuthenticated = false;
   bool _isOrganizationAssociated = false;
+  bool _isMember = false;
+
+  int? organizationRequests;
+
+  Stream? _requestStream;
 
   /// [account] retrieves the account or notifies that an account is not valid
   /// and login is required
   Account get account {
-    if (_account != null) return _account!;
+    if (isAuthenticated) return _account!;
     throw PermissionDeniedError(reason: "UnAuthenticated User");
   }
 
   Organization get organization {
-    if (_organization != null) return _organization!;
+    if (hasOrganization) return _organization!;
     throw PermissionDeniedError(reason: "No Organizational Relationship");
   }
 
+  Member get member {
+    if (isMember) return _member!;
+    throw PermissionDeniedError(reason: "Not a Member of an organization");
+  }
+
   bool get isAuthenticated => _isAuthenticated;
+
   bool get hasOrganization => _isOrganizationAssociated;
+
+  bool get isMember => _isMember;
+
+  String get _now {
+    DateTime time = DateTime.now();
+    return "${time.hour}:${time.minute} ${time.second} sec ${time.millisecond} mSec";
+  }
 
   void login(Account account) => setState(() {
         _isAuthenticated = true;
@@ -90,20 +111,55 @@ class StateContainerState extends State<StateContainer> {
         _account = null;
       });
 
-  void setOrganization(Organization? org) => setState(() {
-        _organization = org;
+  void setOrganization(OrganizationMember? org) => setState(() {
         if (org != null) {
+          FirebaseOrganizationRepository repo =
+              FirebaseOrganizationRepository();
+          _requestStream = repo.findAllRequests(org.organization.id);
+          _requestStream!.listen((event) {
+            setOrganizationRequests(event.length);
+          });
+          _organization = org.organization;
+          _member = org.member;
           _isOrganizationAssociated = true;
+          _isMember = true;
         }
         if (org == null) {
+          _requestStream = null;
+          setOrganizationRequests(0);
+          _organization = null;
+          _member = null;
           _isOrganizationAssociated = false;
+          _isMember = false;
         }
       });
+
+  void setOrganizationRequests(int requests) {
+    setState(() {
+      if (requests <= 0)
+        organizationRequests = null;
+      else
+        organizationRequests = requests;
+    });
+  }
 
   // Simple build method that just passes this state through
   // your InheritedWidget
   @override
   Widget build(BuildContext context) {
     return _InheritedStateContainer(data: this, child: widget.child);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (other.runtimeType != StateContainerState) return false;
+    return sameAs(other as StateContainerState);
+  }
+
+  bool sameAs(StateContainerState other) {
+    return this.hasOrganization == other.hasOrganization &&
+        this.organizationRequests == other.organizationRequests &&
+        this.isMember == other.isMember &&
+        this.isAuthenticated == other.isAuthenticated;
   }
 }
