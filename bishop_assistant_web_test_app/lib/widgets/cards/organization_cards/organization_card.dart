@@ -1,14 +1,10 @@
-import 'package:bishop_assistant_web_test_app/repositories/firebase_organization_repository.dart';
-import 'package:bishop_assistant_web_test_app/state/state_container.dart';
-import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
+import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/theme/theme.dart';
 import 'package:bishop_assistant_web_test_app/util/util.dart';
-import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/CardButton.dart';
-import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/CardTitle.dart';
-import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/MyCard.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/page_support.dart';
+import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
-import 'package:models/models/organization_domain/organization_use_case.dart';
 
 ///
 /// organization_card.dart
@@ -34,7 +30,7 @@ class OrganizationCard extends StatelessWidget {
             CardTitle(organization.name),
             Text(organization.creator.name.fullName, style: captionLight),
           ]),
-          CardButton(join, onPressed: () => _joinOrganization(context)),
+          CardButton(sJoin, onPressed: () => _joinOrganization(context)),
         ],
       ),
     ]);

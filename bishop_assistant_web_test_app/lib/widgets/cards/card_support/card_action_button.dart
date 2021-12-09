@@ -1,6 +1,5 @@
-import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
-import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
-import 'package:bishop_assistant_web_test_app/widgets/my_button.dart';
+import 'package:bishop_assistant_web_test_app/theme/theme.dart';
+import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 ///

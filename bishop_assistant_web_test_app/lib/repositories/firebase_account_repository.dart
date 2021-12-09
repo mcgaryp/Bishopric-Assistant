@@ -1,7 +1,5 @@
-import 'package:bishop_assistant_web_test_app/database/FirestoreDocument.dart';
 import 'package:bishop_assistant_web_test_app/database/firestore_helper.dart';
 import 'package:bishop_assistant_web_test_app/database/shared_preferences_helper.dart';
-import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:models/models/account.dart';
 import 'package:models/shared/foundation.dart';
@@ -97,7 +95,6 @@ class FirebaseAccountRepository extends FirestoreHelper
     // TODO: implement remove
     throw UnimplementedError();
   }
-
 
   @override
   Future<bool> update(Account account) {

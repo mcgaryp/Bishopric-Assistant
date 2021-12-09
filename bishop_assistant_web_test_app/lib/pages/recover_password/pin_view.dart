@@ -1,14 +1,8 @@
-import 'package:bishop_assistant_web_test_app/navigation/route_strings.dart';
-import 'package:bishop_assistant_web_test_app/repositories/firebase_account_repository.dart';
-import 'package:bishop_assistant_web_test_app/util/MyToast.dart';
-import 'package:bishop_assistant_web_test_app/util/strings.dart';
-import 'package:bishop_assistant_web_test_app/widgets/InputField.dart';
-import 'package:bishop_assistant_web_test_app/widgets/my_button.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/DarkPage.dart';
+import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/util/util.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:models/models/account.dart';
-import 'package:models/models/account_domain/account_use_cases/confirm_pin_use_case.dart';
 import 'package:models/shared/dart_foundation.dart';
 
 ///
@@ -54,7 +48,7 @@ class _PinViewState extends State<PinView> {
       AbsorbPointer(
         absorbing: _isWaiting,
         child: MyButton(
-            label: confirmPin,
+            label: sConfirmPin,
             onPressed: () =>
                 Navigator.pushReplacementNamed(context, rChangePassword)),
       ),

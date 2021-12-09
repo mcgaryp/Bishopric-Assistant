@@ -1,6 +1,5 @@
-import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
-import 'package:bishop_assistant_web_test_app/util/strings.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/Mobile.dart';
+import 'package:bishop_assistant_web_test_app/theme/theme.dart';
+import 'package:bishop_assistant_web_test_app/util/util.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -11,13 +10,13 @@ import 'package:flutter/material.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-class Error404 extends Mobile {
+class Error404 extends StatelessWidget {
   final String? msg;
   const Error404({Key? key, this.msg}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String text = page404;
+    String text = sPage404;
     if (msg != null) text = "Error: $msg";
     return Text(text, style: bodyDark);
   }

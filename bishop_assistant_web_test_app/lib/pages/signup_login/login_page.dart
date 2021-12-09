@@ -1,11 +1,6 @@
-import 'package:bishop_assistant_web_test_app/navigation/route_strings.dart';
-import 'package:bishop_assistant_web_test_app/repositories/firebase_account_repository.dart';
-import 'package:bishop_assistant_web_test_app/state/state_container.dart';
-import 'package:bishop_assistant_web_test_app/util/MyToast.dart';
-import 'package:bishop_assistant_web_test_app/util/strings.dart';
-import 'package:bishop_assistant_web_test_app/widgets/InputField.dart';
-import 'package:bishop_assistant_web_test_app/widgets/my_button.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/DarkPage.dart';
+import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/util/util.dart';
+import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:crypt/crypt.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -52,13 +47,13 @@ class _LoginPageState extends State<LoginPage> {
         key: _formKey,
         child: Column(
           children: [
-            InputField.floating(username,
+            InputField.floating(sUsername,
                 controller: usernameControl,
                 onSubmit: _onSubmit,
                 errorMsg: _errorMsg),
             // Password Field
             InputField.floating(
-              password,
+              sPassword,
               isPassword: true,
               controller: passwordControl,
               errorMsg: _errorMsg,
@@ -81,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
             MyButton(label: sLogin, onPressed: _onPress),
             // Sign Up Button
             MyButton(
-                label: signup,
+                label: sSignup,
                 onPressed: () => Navigator.pushNamed(context, rSignup)),
             // Forgot Password button
             // TODO: Add forgot button once the Mailer portion works for web

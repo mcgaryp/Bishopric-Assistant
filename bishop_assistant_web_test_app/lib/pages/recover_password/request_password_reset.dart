@@ -1,10 +1,10 @@
-import 'package:bishop_assistant_web_test_app/navigation/route_strings.dart';
 import 'package:bishop_assistant_web_test_app/repositories/firebase_account_repository.dart';
-import 'package:bishop_assistant_web_test_app/util/MyToast.dart';
+import 'package:bishop_assistant_web_test_app/util/my_toast.dart';
+import 'package:bishop_assistant_web_test_app/util/route_strings.dart';
 import 'package:bishop_assistant_web_test_app/util/strings.dart';
-import 'package:bishop_assistant_web_test_app/widgets/InputField.dart';
-import 'package:bishop_assistant_web_test_app/widgets/my_button.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/DarkPage.dart';
+import 'package:bishop_assistant_web_test_app/widgets/buttons/my_button.dart';
+import 'package:bishop_assistant_web_test_app/widgets/inputs/input_field.dart';
+import 'package:bishop_assistant_web_test_app/widgets/page_support/dark_page.dart';
 import 'package:flutter/material.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
@@ -39,12 +39,12 @@ class _RequestPasswordResetState extends State<RequestPasswordReset> {
     return DarkPage(showSpinner: _isWaiting, inputs: [
       Form(
           key: _formKey,
-          child: InputField.floating("$username or $email or $phone",
+          child: InputField.floating("$sUsername or $sEmail or $sPhone",
               controller: controller, onSubmit: _onSubmit))
     ], buttons: [
       AbsorbPointer(
           absorbing: _isWaiting,
-          child: MyButton(label: requestReset, onPressed: _onPress))
+          child: MyButton(label: sRequestReset, onPressed: _onPress))
     ]);
   }
 
