@@ -1,8 +1,8 @@
-import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Member.dart';
-import 'package:bishop_assistant_web_test_app/theme/Decorations.dart';
-import 'package:bishop_assistant_web_test_app/theme/Topography.dart';
-import 'package:bishop_assistant_web_test_app/widgets/cards/member_cards/MemberIcon.dart';
+import 'package:bishop_assistant_web_test_app/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:models/models/organization.dart';
+
+import '../../widgets.dart';
 
 ///
 /// member_title.dart
@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 ///
 
 class MemberTitle extends StatelessWidget {
-  final OldMember member;
+  final Member member;
 
   const MemberTitle(this.member, {Key? key}) : super(key: key);
 
@@ -22,7 +22,7 @@ class MemberTitle extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        MemberIcon(member.image),
+        MemberIcon(Icons.person),
         Padding(
           padding: const EdgeInsets.only(left: padding8),
           child: Column(
@@ -31,13 +31,13 @@ class MemberTitle extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             children: [
               Text(
-                member.name,
+                member.name.fullName,
                 style: subheadDark,
               ),
               FittedBox(
                 fit: BoxFit.contain,
                 child: Text(
-                  member.role.string,
+                  member.role.anonymous,
                   style: footnoteLight,
                   softWrap: true,
                 ),

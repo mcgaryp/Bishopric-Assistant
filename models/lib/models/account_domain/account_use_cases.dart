@@ -8,6 +8,7 @@
 export 'account_use_cases/authenticate_account_use_case.dart';
 export 'account_use_cases/change_contact_use_case.dart';
 export 'account_use_cases/change_password_use_case.dart';
+export 'account_use_cases/confirm_pin_use_case.dart';
 export 'account_use_cases/create_account_use_case.dart';
 export 'account_use_cases/delete_account_use_case.dart';
 export 'account_use_cases/is_logged_in_use_case.dart';

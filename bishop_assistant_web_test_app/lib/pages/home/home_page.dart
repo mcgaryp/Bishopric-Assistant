@@ -1,13 +1,9 @@
 import 'package:bishop_assistant_web_test_app/pages/home/home.dart';
-import 'package:bishop_assistant_web_test_app/repositories/firebase_member_repository.dart';
-import 'package:bishop_assistant_web_test_app/state/state_container.dart';
-import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/page_support.dart';
-import 'package:models/models/account.dart';
+import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/theme/theme.dart';
+import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:models/models/organization.dart';
-import 'package:models/models/organization_domain/organization_use_case.dart';
-import 'package:models/shared/foundation.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 
 ///
 /// home_page.dart
@@ -33,10 +29,7 @@ class HomePage extends StatelessWidget {
             AsyncSnapshot<Result<OrganizationMember?>> snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data!.asValue!.value != null)
-              return ScreenTypeLayout(
-                mobile: HomeMobile([], [], []),
-                desktop: HomeWeb([], [], []),
-              );
+              return LightPage(child: Container());
 
             return FindOrganizationPage();
           }

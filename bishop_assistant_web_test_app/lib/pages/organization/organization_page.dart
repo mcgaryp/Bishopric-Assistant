@@ -1,7 +1,7 @@
-import 'package:bishop_assistant_web_test_app/pages/organization/organization_mobile.dart';
-import 'package:bishop_assistant_web_test_app/pages/organization/organization_web.dart';
+import 'package:bishop_assistant_web_test_app/pages/organization/organization_members_view.dart';
+import 'package:bishop_assistant_web_test_app/pages/organization/organization_requests_view.dart';
+import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 
 ///
 /// OrganizationPage.dart
@@ -16,7 +16,8 @@ class OrganizationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenTypeLayout(
-        mobile: OrganizationMobile(), desktop: OrganizationWeb());
+    return LightPage(
+        child: Column(
+            children: [OrganizationRequestsView(), OrganizationMembersView()]));
   }
 }

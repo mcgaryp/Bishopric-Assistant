@@ -1,17 +1,8 @@
-import 'package:bishop_assistant_web_test_app/navigation/route_strings.dart';
-import 'package:bishop_assistant_web_test_app/util/strings.dart';
+import 'package:bishop_assistant_web_test_app/theme/theme.dart';
 import 'package:bishop_assistant_web_test_app/util/util.dart';
-import 'package:bishop_assistant_web_test_app/widgets/footer/FooterButton.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/Mobile.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/Web.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/error_404.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/error_404_page.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/light_page/light_page_mobile.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/light_page/light_page_web.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/page_support.dart';
+import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:models/shared/foundation.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 
 ///
 /// light_page.dart
@@ -22,50 +13,53 @@ import 'package:responsive_builder/responsive_builder.dart';
 ///
 
 class LightPage extends StatelessWidget {
-  late final List<Web> children;
-  late final Mobile child;
-  late final bool _mobileButton;
-  late final String path;
+  final Widget child;
+  final bool hasActionButton;
+  final String? path;
 
-  LightPage.mobileAction(this.child, this.path, {Key? key}) : super(key: key) {
-    _mobileButton = true;
-    children = [];
-  }
-
-  LightPage.mobile(this.child, {Key? key}) : super(key: key) {
-    _mobileButton = false;
-    path = "";
-    children = [Error404()];
-  }
-
-  LightPage.web(this.children, {Key? key}) : super(key: key);
-
-  LightPage.both(this.child, {Key? key}) : super(key: key) {
-    _mobileButton = false;
-    path = "";
-    children = [child];
-  }
+  const LightPage(
+      {required this.child, this.hasActionButton = false, this.path, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // Footer
     final List<Widget> footer = [
-      FooterButton(label: legal, path: rLegal),
-      FooterButton(label: privacy, path: rPrivacy),
+      FooterButton(label: sLegal, path: rLegal),
+      FooterButton(label: sPrivacy, path: rPrivacy),
       FooterButton(label: "SiteMap", path: rHome)
     ];
 
-    return ResponsiveBuilder(builder: (context, size) {
-      switch (size.deviceScreenType) {
-        case DeviceScreenType.mobile:
-        case DeviceScreenType.tablet:
-          return LightPageMobile(child, footer,
-              path: path, hasButton: _mobileButton);
-        case DeviceScreenType.desktop:
-          return LightPageWeb(children, footer);
-        default:
-          return Error404Page();
-      }
-    });
+    final container = StateContainer.of(context);
+
+    // Action items
+    final List<Widget> actions = [
+      WebNavigationButton.label(sHome, path: rHome),
+      if (container.hasOrganization)
+        WebNavigationButton.label(sEvents, path: rEvents),
+      if (container.hasOrganization)
+        WebNavigationButton.label(sAssignments, path: rAssignments),
+      if (container.hasOrganization)
+        WebNavigationButton.label(sOrganization,
+            path: rOrganization, notifications: container.organizationRequests),
+      WebNavigationButton.icon(Icons.person, path: rProfile),
+    ];
+
+    return Scaffold(
+      backgroundColor: lightGrey,
+      appBar: AppBar(
+        backgroundColor: darkPrimary,
+        leading: Logo(),
+        centerTitle: false,
+        title: Brand(isExpanded: false),
+        actions: actions,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(
+            top: padding8, left: padding8, right: padding8),
+        child: Center(child: child),
+      ),
+      persistentFooterButtons: footer,
+    );
   }
 }

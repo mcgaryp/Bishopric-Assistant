@@ -1,14 +1,8 @@
-import 'package:bishop_assistant_web_test_app/database/old_models_deprecated/Member.dart';
-import 'package:bishop_assistant_web_test_app/theme/Colors.dart';
-import 'package:bishop_assistant_web_test_app/util/strings.dart';
-import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/CardButton.dart';
-import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/CardRow.dart';
-import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/MyCard.dart';
-import 'package:bishop_assistant_web_test_app/widgets/cards/card_support/card_action_button.dart';
-import 'package:bishop_assistant_web_test_app/widgets/cards/member_cards/member_title.dart';
-import 'package:bishop_assistant_web_test_app/widgets/login_signup/MyDivider.dart';
-import 'package:bishop_assistant_web_test_app/widgets/my_button.dart';
+import 'package:bishop_assistant_web_test_app/theme/theme.dart';
+import 'package:bishop_assistant_web_test_app/util/util.dart';
+import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:models/models/organization.dart';
 
 ///
 /// member_details_card.dart
@@ -19,30 +13,31 @@ import 'package:flutter/material.dart';
 ///
 
 class MemberDetailsCard extends StatelessWidget {
-  final OldMember member;
-
-  const MemberDetailsCard(this.member, {Key? key}) : super(key: key);
+  const MemberDetailsCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Member member = StateContainer.of(context).member;
+
     return MyCard(children: [
       Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [MemberTitle(member), CardButton(edit, onPressed: () {})],
+        children: [MemberTitle(member), CardButton(sEdit, onPressed: () {})],
       ),
       MyDivider(color: darkPrimary),
-      CardRow(email, content: member.email),
-      CardRow(phone, content: member.phone),
-      CardRow(currentAssignmentCount, content: "1"),
-      CardRow(currentEventCount, content: "2"),
+      CardRow(sEmail, content: member.contact.email),
+      CardRow(sPhone, content: member.contact.phone),
+      CardRow(sCurrentAssignmentCount, content: "1"),
+      CardRow(sCurrentEventCount, content: "2"),
       Row(
         mainAxisSize: MainAxisSize.max,
         children: [
-          CardActionButton(createEvent, onPressed: () {}),
-          CardActionButton(createAssignment, onPressed: () {}),
-          CardActionButton(remove, onPressed: () {}, style: MyButtonStyle.error)
+          CardActionButton(sCreateEvent, onPressed: () {}),
+          CardActionButton(sCreateAssignment, onPressed: () {}),
+          CardActionButton(sRemove,
+              onPressed: () {}, style: MyButtonStyle.error)
         ],
       )
     ]);

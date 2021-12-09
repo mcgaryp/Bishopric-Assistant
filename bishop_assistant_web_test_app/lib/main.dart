@@ -1,6 +1,6 @@
-import 'package:bishop_assistant_web_test_app/navigation/route_strings.dart';
 import 'package:bishop_assistant_web_test_app/state/state_container.dart';
-import 'package:bishop_assistant_web_test_app/theme/ThemeData.dart';
+import 'package:bishop_assistant_web_test_app/theme/theme_data.dart';
+import 'package:bishop_assistant_web_test_app/util/route_strings.dart';
 import 'package:flutter/material.dart';
 
 ///

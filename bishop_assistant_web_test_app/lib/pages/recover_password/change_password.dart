@@ -1,10 +1,10 @@
-import 'package:bishop_assistant_web_test_app/navigation/route_strings.dart';
 import 'package:bishop_assistant_web_test_app/repositories/firebase_account_repository.dart';
+import 'package:bishop_assistant_web_test_app/util/route_strings.dart';
 import 'package:bishop_assistant_web_test_app/util/strings.dart';
 import 'package:bishop_assistant_web_test_app/util/util.dart';
-import 'package:bishop_assistant_web_test_app/widgets/InputField.dart';
-import 'package:bishop_assistant_web_test_app/widgets/my_button.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/DarkPage.dart';
+import 'package:bishop_assistant_web_test_app/widgets/buttons/my_button.dart';
+import 'package:bishop_assistant_web_test_app/widgets/inputs/input_field.dart';
+import 'package:bishop_assistant_web_test_app/widgets/page_support/dark_page.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/error_404_page.dart';
 import 'package:flutter/material.dart';
 import 'package:models/models/account.dart';
@@ -43,14 +43,14 @@ class _ChangePasswordState extends State<ChangePassword> {
 
     return DarkPage(showSpinner: _isWaiting, inputs: [
       InputField.floating(
-        password,
+        sPassword,
         isPassword: true,
         controller: _passwordControl,
         onSubmit: _onSubmit,
         validator: Validators.validatePassword,
       ),
       InputField.floating(
-        confirmPassword,
+        sConfirmPassword,
         isPassword: true,
         controller: _confirmControl,
         onSubmit: _onSubmit,
@@ -61,7 +61,7 @@ class _ChangePasswordState extends State<ChangePassword> {
       AbsorbPointer(
         absorbing: _isWaiting,
         child: MyButton(
-          label: requestReset,
+          label: sRequestReset,
           onPressed: _onPress,
         ),
       )
