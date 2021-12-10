@@ -35,10 +35,10 @@ class LightPage extends StatelessWidget {
     // Action items
     final List<Widget> actions = [
       WebNavigationButton.label(sHome, path: rHome),
-      if (container.hasOrganization)
-        WebNavigationButton.label(sEvents, path: rEvents),
-      if (container.hasOrganization)
-        WebNavigationButton.label(sAssignments, path: rAssignments),
+      // if (container.hasOrganization)
+      //   WebNavigationButton.label(sEvents, path: rEvents),
+      // if (container.hasOrganization)
+      //   WebNavigationButton.label(sAssignments, path: rAssignments),
       if (container.hasOrganization)
         WebNavigationButton.label(sOrganization,
             path: rOrganization, notifications: container.organizationRequests),

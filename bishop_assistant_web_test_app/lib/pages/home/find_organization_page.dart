@@ -30,8 +30,8 @@ class FindOrganizationPage extends StatelessWidget {
             List<Organization> organizations = snapshot.data!;
             return LightPage(
                 child: Column(children: [
+              CreateOrganization(),
               ListOfOrganizations(organizations),
-              CreateOrganization()
             ]));
           }
 

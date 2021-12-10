@@ -16,8 +16,8 @@ import 'package:models/models/organization.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-class EditProfile extends StatelessWidget {
-  const EditProfile({Key? key}) : super(key: key);
+class EditProfilePage extends StatelessWidget {
+  const EditProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,52 +51,55 @@ class _editProfileState extends State<_editProfile> {
   @override
   Widget build(BuildContext context) {
     account = StateContainer.of(context).account;
-    return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          MemberIcon(Icons.person, size: 65),
-          Text(account.name.fullName, style: titleDark),
-          if (StateContainer.of(context).isMember)
-            Text(StateContainer.of(context).member.role.anonymous,
-                style: subheadDark),
-          MyConstrainedBox300(children: [
-            MyDivider(color: dark),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: padding8),
-              child: AbsorbPointer(
-                absorbing: _isWaiting,
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      InputField.border(account.contact.email),
-                      InputField.border(account.contact.phone),
-                      InputField.floating(
-                        sPassword,
-                        isPassword: true,
-                        controller: passwordControl,
-                        validator: Validators.validatePassword,
-                        onSubmit: _onSave,
-                        //errorMsg: _errorMsg
-                      ),
-                      InputField.floating(
-                        sConfirmPassword,
-                        isPassword: true,
-                        controller: confirmPasswordControl,
-                        validator: (text) => Validators.validateConfirmPassword(
-                            text, passwordControl.text),
-                        //errorMsg: _errorMsg,
-                        onSubmit: _onSave,
-                      ), //add validator
-                      MyButton(label: sSave, onPressed: _onPress)
-                    ],
+    return LightPage(
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            MemberIcon(Icons.person, size: 65),
+            Text(account.name.fullName, style: titleDark),
+            if (StateContainer.of(context).isMember)
+              Text(StateContainer.of(context).member.role.anonymous,
+                  style: subheadDark),
+            MyConstrainedBox300(children: [
+              MyDivider(color: dark),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: padding8),
+                child: AbsorbPointer(
+                  absorbing: _isWaiting,
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        InputField.border(account.contact.email),
+                        InputField.border(account.contact.phone),
+                        InputField.floating(
+                          sPassword,
+                          isPassword: true,
+                          controller: passwordControl,
+                          validator: Validators.validatePassword,
+                          onSubmit: _onSave,
+                          //errorMsg: _errorMsg
+                        ),
+                        InputField.floating(
+                          sConfirmPassword,
+                          isPassword: true,
+                          controller: confirmPasswordControl,
+                          validator: (text) =>
+                              Validators.validateConfirmPassword(
+                                  text, passwordControl.text),
+                          //errorMsg: _errorMsg,
+                          onSubmit: _onSave,
+                        ), //add validator
+                        MyButton(label: sSave, onPressed: _onPress)
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            )
+              )
+            ]),
           ]),
-        ]);
+    );
   }
 
   void _onSave(String? str) => _onPress();

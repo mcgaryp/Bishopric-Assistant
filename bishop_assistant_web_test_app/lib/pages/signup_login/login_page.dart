@@ -5,6 +5,7 @@ import 'package:crypt/crypt.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:models/models/account.dart';
+import 'package:models/models/organization.dart';
 import 'package:models/shared/repository.dart';
 
 ///
@@ -140,25 +141,15 @@ class _LoginPageState extends State<LoginPage> {
   void _success(Account account) async {
     _errorMsg = "";
 
-    // TODO: Find out if this is necessary anymore
-    // try {
-    //   FirebaseAccountRepository _repository = FirebaseAccountRepository();
-    //   DefaultLoginUseCase login = DefaultLoginUseCase(_repository);
-    //   Result<bool> result = await login.execute(account);
-    //   if (result.isError) {
-    //     MyToast.toastError(result.asError!.error.toString());
-    //     return;
-    //   }
-    // } catch (e) {
-    //   MyToast.toastError(e.toString());
-    //   if (kDebugMode) print(e);
-    //   return;
-    // }
+    // TODO: save a token to recognize the user is logged in still and refer to that
+    // token to check fi they are logged in on page refresh
 
     // Change the session variable to logged in state
     final container = StateContainer.of(context);
     container.login(account);
 
+    // check if the user has an organization or not
+    OrganizationMember? org = await _accountHasOrganization();
     // Navigate to the home page
     Navigator.pushReplacementNamed(context, rHome);
   }
@@ -167,5 +158,22 @@ class _LoginPageState extends State<LoginPage> {
     usernameControl.text = "dev";
     passwordControl.text = "password1";
     _onPress();
+  }
+
+  /// [_accountHasOrganization] checks to ensure that the user has an
+  /// organization linked to the account returning true if so and false if not
+  Future<OrganizationMember?> _accountHasOrganization() async {
+    AccountID accountID = StateContainer.of(context).account.id;
+    try {
+      DefaultHasAssociatedOrganizationUseCase useCase =
+          DefaultHasAssociatedOrganizationUseCase(FirebaseMemberRepository());
+      OrganizationMember? org = await useCase.execute(accountID: accountID);
+      StateContainer.of(context).setOrganization(org);
+      return org;
+    } catch (e) {
+      if (kDebugMode) print(e);
+    }
+
+    return null;
   }
 }
