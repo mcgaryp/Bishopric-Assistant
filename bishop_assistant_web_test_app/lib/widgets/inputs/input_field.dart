@@ -21,6 +21,7 @@ class InputField extends StatelessWidget {
   final TextEditingController? controller;
   final bool maxLines;
   final bool isPassword;
+  final bool errorColorIsDark;
   late final bool _isFloating;
 
   InputField.border(this.label,
@@ -33,6 +34,7 @@ class InputField extends StatelessWidget {
       this.validator,
       this.errorMsg,
       this.onSubmit,
+      this.errorColorIsDark = true,
       Key? key})
       : super(key: key) {
     this._isFloating = false;
@@ -48,6 +50,7 @@ class InputField extends StatelessWidget {
       this.validator,
       this.errorMsg,
       this.onSubmit,
+      this.errorColorIsDark = false,
       Key? key})
       : super(key: key) {
     this._isFloating = true;
@@ -87,7 +90,7 @@ class InputField extends StatelessWidget {
         enabledBorder: InputBorder.none,
         errorBorder: errorRedInputBorder,
         disabledBorder: InputBorder.none,
-        errorStyle: calloutLight,
+        errorStyle: errorColorIsDark ? calloutDark : calloutLight,
         hintText: hint,
         hintStyle: captionLight,
         labelStyle: bodyDark,
@@ -100,6 +103,7 @@ class InputField extends StatelessWidget {
         enabledBorder: darkPrimaryInputBorder,
         errorBorder: errorRedInputBorder,
         disabledBorder: InputBorder.none,
+        errorStyle: errorColorIsDark ? calloutDark : calloutLight,
         hintText: hint,
         hintStyle: captionLight,
         labelText: label,

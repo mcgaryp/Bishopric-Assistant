@@ -75,12 +75,8 @@ class _ChangePasswordState extends State<ChangePassword> {
     try {
       DefaultChangePasswordUseCase changePasswordUseCase =
           DefaultChangePasswordUseCase(FirebaseAccountRepository());
-      Result<bool> result = await changePasswordUseCase.execute(
-          accountID: id, password: _passwordControl.text);
-      if (result.isError)
-        _error(result.asError!.error);
-      else
-        _success();
+      if (await changePasswordUseCase.execute(
+          accountID: id, password: _passwordControl.text)) _success();
     } catch (e) {
       _error(e);
       if (kDebugMode) print(e);

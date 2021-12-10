@@ -29,8 +29,11 @@ class _EditProfileState extends State<EditProfile> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController passwordControl = TextEditingController();
   TextEditingController confirmPasswordControl = TextEditingController();
+  TextEditingController emailControl = TextEditingController();
+  TextEditingController phoneControl = TextEditingController();
 
   bool _isWaiting = false;
+  bool _changeWasMade = false;
 
   late Account account;
 
@@ -39,6 +42,8 @@ class _EditProfileState extends State<EditProfile> {
     super.dispose();
     passwordControl.dispose();
     confirmPasswordControl.dispose();
+    phoneControl.dispose();
+    emailControl.dispose();
   }
 
   @override
@@ -54,13 +59,28 @@ class _EditProfileState extends State<EditProfile> {
               key: _formKey,
               child: Column(
                 children: [
-                  InputField.border(account.contact.email),
-                  InputField.border(account.contact.phone),
+                  InputField.floating(
+                    account.contact.email,
+                    controller: emailControl,
+                    validator: (str) =>
+                        Validators.validateEmail(str, isUpdating: true),
+                    onSubmit: _onSave,
+                  ),
+                  InputField.floating(
+                    account.contact.phone,
+                    controller: phoneControl,
+                    validator: (str) =>
+                        Validators.standard(str, isUpdating: true),
+                    errorColorIsDark: true,
+                    formattingList: [Validators.phoneFilter],
+                    onSubmit: _onSave,
+                  ),
                   InputField.floating(
                     sPassword,
                     isPassword: true,
                     controller: passwordControl,
-                    validator: Validators.validatePassword,
+                    validator: (str) =>
+                        Validators.validatePassword(str, isUpdating: true),
                     onSubmit: _onSave,
                     //errorMsg: _errorMsg
                   ),
@@ -69,7 +89,8 @@ class _EditProfileState extends State<EditProfile> {
                     isPassword: true,
                     controller: confirmPasswordControl,
                     validator: (text) => Validators.validateConfirmPassword(
-                        text, passwordControl.text),
+                        text, passwordControl.text,
+                        isUpdating: true),
                     //errorMsg: _errorMsg,
                     onSubmit: _onSave,
                   ), //add
@@ -92,47 +113,67 @@ class _EditProfileState extends State<EditProfile> {
 
     // Verify information in form
     if (_formKey.currentState!.validate()) {
-      String hashPassword =
-          Crypt.sha256(passwordControl.text, salt: "bishopric").toString();
       try {
-        // Get encrypted Password from database
-        FirebaseAccountRepository _accountRepository =
-            FirebaseAccountRepository();
-        DefaultChangePasswordUseCase newPassword =
-            DefaultChangePasswordUseCase(_accountRepository);
+        if (passwordControl.text.isNotEmpty) await _changePassword();
+        if (emailControl.text.isNotEmpty || phoneControl.text.isNotEmpty)
+          await _changeContact();
 
-        Result<bool> result = await newPassword.execute(
-            accountID: account.id, password: hashPassword);
-
-        if (result.isError) {
-          _error(result.asError!.error.toString());
-          // Turn off the spinner
-          _setIsWaiting(false);
-          return;
+        if (_changeWasMade) {
+          FirebaseAccountRepository repo = FirebaseAccountRepository();
+          Account? updatedAccount = await repo.find(account.id);
+          if (updatedAccount != null)
+            StateContainer.of(context).updateAccount(updatedAccount);
+          widget.onSave();
         }
-        MyToast.toastSuccess("Password Updated Successfully");
       } catch (e) {
-        _error(e.toString());
+        MyToast.toastError(e.toString());
         if (kDebugMode) print(e.toString());
-        _setIsWaiting(false);
-        return;
       }
-
-      widget.onSave();
     }
+
     // Turn off the spinner
     _setIsWaiting(false);
   }
 
-  void _setIsWaiting(bool val) {
-    setState(() {
-      _isWaiting = val;
-    });
+  Future<void> _changePassword() async {
+    String hashPassword =
+        Crypt.sha256(passwordControl.text, salt: "bishopric").toString();
+    // Get encrypted Password from database
+    FirebaseAccountRepository _accountRepository = FirebaseAccountRepository();
+    DefaultChangePasswordUseCase newPassword =
+        DefaultChangePasswordUseCase(_accountRepository);
+
+    if (await newPassword.execute(
+        accountID: account.id, password: hashPassword)) {
+      MyToast.toastSuccess("Password Updated Successfully");
+      _setChangeWasMade(true);
+    }
   }
 
-  void _error(String error) {
-    // Set the error message
-    //_errorMsg = "Username or Password Incorrect";
-    MyToast.toastError(error);
+  void _setIsWaiting(bool val) => setState(() => _isWaiting = val);
+
+  void _setChangeWasMade(bool val) => setState(() => _changeWasMade = val);
+
+  Future<void> _changeContact() async {
+    DefaultChangeContactUseCase useCase =
+        DefaultChangeContactUseCase(FirebaseAccountRepository());
+    String email = account.contact.email;
+    String feedbackStr = "Changes Made...";
+    if (emailControl.text.isNotEmpty) {
+      email = emailControl.text;
+      feedbackStr += "\nUser email successfully changed to '$email'";
+    }
+    String phone = account.contact.phone;
+    if (phoneControl.text.isNotEmpty) {
+      phone = phoneControl.text;
+      feedbackStr += "\nPhone number successfully changed to '$phone'";
+    }
+
+    Contact contact = Contact(email: email, phone: phone);
+
+    if (await useCase.execute(accountID: account.id, contact: contact)) {
+      MyToast.toastSuccess(feedbackStr);
+      _setChangeWasMade(true);
+    }
   }
 }
