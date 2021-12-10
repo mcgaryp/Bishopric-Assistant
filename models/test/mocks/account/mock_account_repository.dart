@@ -69,17 +69,17 @@ class MockAccountRepository implements AccountRepository {
   }
 
   @override
-  Future<Result<bool>> remove(AccountID id) async {
+  Future<bool> remove(AccountID id) async {
     await Future.delayed(duration);
     for (Account account in accounts) {
       if (account.id == id) {
         if (accounts.remove(account))
-          return Result.value(true);
+          return true;
         else
           Result.error(FailedToRemoveError(forEntity: "Account"));
       }
     }
-    return Result.error(AccountNotFoundError());
+    throw AccountNotFoundError();
   }
 
   @override
@@ -127,6 +127,12 @@ class MockAccountRepository implements AccountRepository {
   @override
   Future<bool> cache(Account account) {
     // TODO: implement cache
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> activate(AccountID id) {
+    // TODO: implement activate
     throw UnimplementedError();
   }
 }

@@ -11,15 +11,14 @@ import 'package:models/shared/foundation.dart';
 ///
 
 class JoinRequest extends Entity<JoinRequest> {
-  final JoinRequestID id;
+  final JoinRequestID? id;
   final AccountID accountID;
   final OrganizationID organizationID;
   static const _accountIDKey = "accountID";
   static const _organizationIDKey = "organizationID";
 
-  JoinRequest(
-      {required this.accountID, required this.organizationID, required this.id})
-      : super(id);
+  JoinRequest({required this.accountID, required this.organizationID, this.id})
+      : super(JoinRequestID("Invalid ID"));
 
   JoinRequest.fromMap(Map<String, dynamic> map, JoinRequestID id)
       : this(

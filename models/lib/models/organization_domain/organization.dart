@@ -39,7 +39,7 @@ class Organization extends Entity<Organization> {
       : this(
             id: id,
             name: map[_nameKey],
-            creator: Member.fromMap(map[_creatorKey], map));
+            creator: Member.fromMap(MemberID(map[_creatorKey]), map));
 
   /// Copy constructor to create a new name
   Organization.newName(Organization organization, this._name)

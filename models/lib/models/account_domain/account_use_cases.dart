@@ -15,3 +15,4 @@ export 'account_use_cases/is_logged_in_use_case.dart';
 export 'account_use_cases/login_use_case.dart';
 export 'account_use_cases/logout_use_case.dart';
 export 'account_use_cases/recover_account_use_case.dart';
+export 'account_use_cases/reactivate_account_use_case.dart';

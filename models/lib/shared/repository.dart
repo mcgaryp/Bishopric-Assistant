@@ -37,7 +37,7 @@ abstract class Repository<Entity, UUID, AlternativeUUID> {
   /// [remove] M
   ///
   /// Returns a [ValueResult] or an [ErrorResult]
-  Future<Result<bool>> remove(UUID i);
+  Future<bool> remove(UUID i);
 
   /// [update] M
   ///

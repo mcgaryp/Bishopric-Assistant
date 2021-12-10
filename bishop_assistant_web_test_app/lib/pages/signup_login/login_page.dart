@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
+import 'package:models/shared/exceptions.dart';
 import 'package:models/shared/repository.dart';
 
 ///
@@ -117,6 +118,9 @@ class _LoginPageState extends State<LoginPage> {
 
       if (result.isError) _error(result.asError!.error.toString());
       if (result.isValue) _success(result.asValue!.value);
+    } on InactiveAccountError catch (error) {
+      Navigator.pushReplacementNamed(context, rReactivateAccount,
+          arguments: error.id);
     } catch (e) {
       _error(e.toString());
       if (kDebugMode) print(e.toString());
@@ -146,10 +150,15 @@ class _LoginPageState extends State<LoginPage> {
 
     // Change the session variable to logged in state
     final container = StateContainer.of(context);
+
     container.login(account);
 
     // check if the user has an organization or not
     OrganizationMember? org = await _accountHasOrganization();
+
+    // Set the organization
+    container.setOrganization(org);
+
     // Navigate to the home page
     Navigator.pushReplacementNamed(context, rHome);
   }
@@ -168,7 +177,6 @@ class _LoginPageState extends State<LoginPage> {
       DefaultHasAssociatedOrganizationUseCase useCase =
           DefaultHasAssociatedOrganizationUseCase(FirebaseMemberRepository());
       OrganizationMember? org = await useCase.execute(accountID: accountID);
-      StateContainer.of(context).setOrganization(org);
       return org;
     } catch (e) {
       if (kDebugMode) print(e);

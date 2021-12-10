@@ -17,7 +17,7 @@ mixin DeleteOrganizationUseCase {
   /// [organizationID] of the organization being removed
   /// Returns a [ResultValue] if successful else returns [ResultError]
   @required
-  Future<Result<bool>> execute(
+  Future<bool> execute(
       {required MemberID creatorID, required OrganizationID organizationID});
 }
 
@@ -29,19 +29,18 @@ class DefaultDeleteOrganizationUseCase implements DeleteOrganizationUseCase {
       this._organizationRepository, this._memberRepository);
 
   @override
-  Future<Result<bool>> execute(
+  Future<bool> execute(
       {required MemberID creatorID,
       required OrganizationID organizationID}) async {
     Member? creator = await _memberRepository.find(creatorID);
-    if (creator == null) return Result.error(MemberNotFoundError());
+    if (creator == null) throw MemberNotFoundError();
     Organization? organization =
         await _organizationRepository.find(organizationID);
-    if (organization == null) return Result.error(OrganizationNotFoundError());
+    if (organization == null) throw OrganizationNotFoundError();
     if (organization.creator != creator)
-      return Result.error(PermissionDeniedError(
-          reason: "Only creators can delete organizations"));
+      throw PermissionDeniedError(
+          reason: "Only creators can delete organizations");
 
-    Result<bool> result = await _organizationRepository.remove(organizationID);
-    return result;
+    return await _organizationRepository.remove(organizationID);
   }
 }

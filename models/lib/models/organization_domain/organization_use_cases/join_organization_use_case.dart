@@ -24,11 +24,8 @@ class DefaultJoinOrganizationUseCase implements JoinOrganizationUseCase {
   Future<bool> execute(
       {required AccountID accountID,
       required OrganizationID organizationID}) async {
-    JoinRequestID? id = await _organizationRepository.generateNextRequestId();
-    if (id == null) throw UnableToGenerateIdError(forEntity: "Join Request");
-
-    JoinRequest request = JoinRequest(
-        accountID: accountID, organizationID: organizationID, id: id);
+    JoinRequest request =
+        JoinRequest(accountID: accountID, organizationID: organizationID);
 
     return _organizationRepository.requestToJoinOrganization(request);
   }

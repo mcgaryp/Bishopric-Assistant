@@ -28,36 +28,31 @@ class _JoinRequestDetailsViewState extends State<JoinRequestDetailsView> {
 
   @override
   Widget build(BuildContext context) {
-    return Dismissible(
-      key: Key(widget.details.request.id.id),
-      background: Container(color: Colors.red),
-      onDismissed: (direction) {
-        _reject();
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: padding4),
-        child: Container(
-          decoration: darkBorderBox,
-          child: Padding(
-            padding: const EdgeInsets.all(padding8),
-            child: Column(
-              children: [
-                Text(widget.details.name.fullName, style: subheadDark),
-                MyDropdown(
-                    hint: sRole,
-                    validator: Validators.validateDropDown,
-                    collection: Permissions.values
-                        .map<DropdownMenuItem<int>>((e) => DropdownMenuItem(
-                            child: Text(e.string), value: e.index))
-                        .toList(),
-                    onchange: _onRoleSelected),
-                Row(
-                  children: [
-                    CardActionButton("Accept", onPressed: _accept),
-                  ],
-                ),
-              ],
-            ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: padding4),
+      child: Container(
+        decoration: darkBorderBox,
+        child: Padding(
+          padding: const EdgeInsets.all(padding8),
+          child: Column(
+            children: [
+              Text(widget.details.name.fullName, style: subheadDark),
+              MyDropdown(
+                  hint: sRole,
+                  validator: Validators.validateDropDown,
+                  collection: Permissions.values
+                      .map<DropdownMenuItem<int>>((e) => DropdownMenuItem(
+                          child: Text(e.string), value: e.index))
+                      .toList(),
+                  onchange: _onRoleSelected),
+              Row(
+                children: [
+                  CardActionButton(sAccept, onPressed: _accept),
+                  CardActionButton(sReject,
+                      onPressed: _reject, style: MyButtonStyle.error)
+                ],
+              ),
+            ],
           ),
         ),
       ),

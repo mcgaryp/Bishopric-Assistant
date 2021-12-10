@@ -21,6 +21,7 @@ class HomePage extends StatelessWidget {
     // Check to see if the user has an organization linked to their
     // account. If not then invite the user to find one
     StateContainerState state = StateContainer.of(context);
+    state.startNotifications();
     if (state.hasOrganization)
       return LightPage(child: Container());
     else

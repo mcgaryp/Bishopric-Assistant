@@ -1,3 +1,5 @@
+import 'package:bishop_assistant_web_test_app/pages/profile/display_profile.dart';
+import 'package:bishop_assistant_web_test_app/pages/profile/edit_profile.dart';
 import 'package:bishop_assistant_web_test_app/theme/theme.dart';
 import 'package:bishop_assistant_web_test_app/util/util.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
@@ -13,8 +15,15 @@ import 'package:models/models/organization.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  bool _isEditing = false;
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +37,7 @@ class ProfilePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: [
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [CardNavigationButton(sEdit, path: rEditProfile)],
-            ),
+            Row(children: [Spacer(), CardButton(sLogout, onPressed: _logout)]),
             MemberIcon(Icons.person, size: 65),
             Text(account.name.fullName, style: titleDark),
             if (isMember) Text(member!.role.anonymous, style: subheadDark),
@@ -40,15 +45,25 @@ class ProfilePage extends StatelessWidget {
               MyDivider(color: dark),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: padding8),
-                child: Column(children: [
-                  CardRow(sEmail, content: account.contact.email),
-                  CardRow(sPhone, content: account.contact.phone),
-                  CardRow(sAssignments, content: "1"),
-                  CardRow(sEvents, content: "3"),
-                ]),
-              )
+                child: _isEditing ? EditProfile(_save) : DisplayProfile(_edit),
+              ),
             ]),
           ]),
     );
   }
+
+  _edit() {
+    _setIsEditing(true);
+  }
+
+  _save() {
+    _setIsEditing(false);
+  }
+
+  _logout() {
+    StateContainer.of(context)
+        .logout(() => Navigator.pushReplacementNamed(context, rLogin));
+  }
+
+  _setIsEditing(bool val) => setState(() => _isEditing = val);
 }

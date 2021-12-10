@@ -35,4 +35,6 @@ mixin AccountRepository implements Repository<Account, AccountID, void> {
   Future<Account> getCache();
 
   Future<bool> cache(Account account);
+
+  Future<bool> activate(AccountID id);
 }

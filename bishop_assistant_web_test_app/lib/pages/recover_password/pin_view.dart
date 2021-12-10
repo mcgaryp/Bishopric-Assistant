@@ -34,7 +34,7 @@ class _PinViewState extends State<PinView> {
       pin = args["pin"] as Pin;
       username = args["username"] as String;
     } catch (e) {
-      print(e);
+      if (kDebugMode) print(e);
       return Error404Page();
     }
 
@@ -80,7 +80,7 @@ class _PinViewState extends State<PinView> {
       }
       _success(result.asValue!.value);
     } catch (e) {
-      print(e);
+      if (kDebugMode) print(e);
       _error(msg: e.toString());
     }
   }

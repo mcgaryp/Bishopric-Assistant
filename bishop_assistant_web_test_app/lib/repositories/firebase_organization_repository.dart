@@ -38,9 +38,11 @@ class FirebaseOrganizationRepository extends FirestoreHelper
         .asyncMap<List<Organization>>(
             (QuerySnapshot<Map<String, dynamic>> documents) async {
       List<Organization> organizations = [];
+
       for (QueryDocumentSnapshot<Map<String, dynamic>> document
           in documents.docs) {
         Map<String, dynamic> map = document.data();
+
         Member? member = await findCreator(MemberID(map["creator"]));
 
         if (member == null) throw MemberNotFoundError();
@@ -76,7 +78,7 @@ class FirebaseOrganizationRepository extends FirestoreHelper
   }
 
   @override
-  Future<Result<bool>> remove(OrganizationID i) {
+  Future<bool> remove(OrganizationID i) {
     // TODO: implement remove
     throw UnimplementedError();
   }
@@ -136,23 +138,7 @@ class FirebaseOrganizationRepository extends FirestoreHelper
 
   @override
   Future<bool> removeRequestToJoinOrganization(JoinRequest request) {
-    return removeDocument(request.id,
+    return removeDocument(request.id!,
         path: FirestoreCollectionPath.organization_requests);
-  }
-
-  @override
-  Future<JoinRequestID?> generateNextRequestId() async {
-    Map<String, dynamic>? snapshot = await getNextID();
-    if (snapshot == null) return null;
-    String id = snapshot[FirestoreCollectionPath.organization_requests.string]
-        .toString();
-    if (id.isEmpty) return null;
-    JoinRequestID requestID = JoinRequestID(id);
-
-    snapshot[FirestoreCollectionPath.organization_requests.string] += 1;
-    bool success = await incrementId(snapshot);
-    if (!success) return null;
-
-    return requestID;
   }
 }
