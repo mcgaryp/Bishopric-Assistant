@@ -26,10 +26,9 @@ class Member extends Entity<Member> {
 
   Member.fromMap(MemberID id, Map<String, dynamic> map)
       : this(
-          name: Name(first: map["first"], last: map["last"]),
-          contact: Contact(email: map["email"], phone: map["phone"]),
-          role: Role(PermissionsExtension.fromString(map["character"]),
-              anonymous: map["anonymous"]),
+          name: Name.fromMap(map),
+          contact: Contact.fromMap(map),
+          role: Role.fromMap(map),
           memberID: id,
         );
 

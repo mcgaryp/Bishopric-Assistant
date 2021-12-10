@@ -19,12 +19,4 @@ class MemberID extends UUID {
     if (other.runtimeType != MemberID) return false;
     return sameValueAs(other as MemberID);
   }
-
-  @override
-  bool sameValueAs(UUID other) {
-    return other.id == this.id;
-  }
-
-  @override
-  Map<String, dynamic> get toMap => throw UnimplementedError();
 }
