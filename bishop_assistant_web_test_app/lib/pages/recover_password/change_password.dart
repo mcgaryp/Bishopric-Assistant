@@ -37,7 +37,7 @@ class _ChangePasswordState extends State<ChangePassword> {
       final Map args = ModalRoute.of(context)!.settings.arguments as Map;
       id = args["accountID"] as AccountID;
     } catch (e) {
-      print(e);
+      if (kDebugMode) print(e);
       return Error404Page();
     }
 
@@ -83,7 +83,7 @@ class _ChangePasswordState extends State<ChangePassword> {
         _success();
     } catch (e) {
       _error(e);
-      print(e);
+      if (kDebugMode) print(e);
     }
     _setIsWaiting(false);
   }

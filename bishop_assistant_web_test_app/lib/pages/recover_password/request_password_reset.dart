@@ -123,7 +123,7 @@ class _RequestPasswordResetState extends State<RequestPasswordReset> {
   }
 
   void _error(msg) {
-    print(msg);
+    if (kDebugMode) print(msg);
     MyToast.toastError(msg.toString());
   }
 }

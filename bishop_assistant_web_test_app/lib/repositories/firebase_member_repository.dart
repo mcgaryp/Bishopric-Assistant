@@ -88,7 +88,7 @@ class FirebaseMemberRepository extends FirestoreHelper
   }
 
   @override
-  Future<Result<bool>> remove(MemberID id) {
+  Future<bool> remove(MemberID id) {
     // TODO: implement remove
     throw UnimplementedError();
   }

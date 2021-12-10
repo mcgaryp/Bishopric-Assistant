@@ -42,20 +42,21 @@ class OrganizationRequestsView extends StatelessWidget {
                       AsyncSnapshot<List<JoinRequestDetail>> snapshot) {
                     if (snapshot.hasData) {
                       List<JoinRequestDetail> details = snapshot.data!;
-                      print(details);
-                      return Column(
-                        children: [
-                          Center(
-                            child: Text("${requests.length} Join Requests",
-                                style: headlineDark),
-                          ),
-                          Column(
-                              children: details
-                                  .map<JoinRequestDetailsView>(
-                                      (JoinRequestDetail detail) =>
-                                          JoinRequestDetailsView(detail))
-                                  .toList()),
-                        ],
+                      return Expanded(
+                        child: ListView(
+                          children: [
+                            Center(
+                              child: Text("${requests.length} Join Requests",
+                                  style: headlineDark),
+                            ),
+                            Column(
+                                children: details
+                                    .map<JoinRequestDetailsView>(
+                                        (JoinRequestDetail detail) =>
+                                            JoinRequestDetailsView(detail))
+                                    .toList()),
+                          ],
+                        ),
                       );
                     }
                     if (snapshot.hasError) {

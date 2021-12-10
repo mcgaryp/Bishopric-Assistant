@@ -15,6 +15,7 @@ class MemberDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LightPage(child: Section(sMemberDetails, [MemberDetailsCard()]));
+    return LightPage(
+        child: Section(title: sMemberDetails, children: [MemberDetailsCard()]));
   }
 }

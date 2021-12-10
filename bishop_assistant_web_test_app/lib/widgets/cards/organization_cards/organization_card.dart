@@ -36,16 +36,19 @@ class OrganizationCard extends StatelessWidget {
     ]);
   }
 
-  void _joinOrganization(BuildContext context) {
+  void _joinOrganization(BuildContext context) async {
     try {
       Account account = StateContainer.of(context).account;
       DefaultJoinOrganizationUseCase useCase =
           DefaultJoinOrganizationUseCase(FirebaseOrganizationRepository());
-      useCase.execute(accountID: account.id, organizationID: organization.id);
-      MyToast.toastSuccess(
-          "${account.name.fullName}'s request to join ${organization.name} has been sent");
+      if (await useCase.execute(
+          accountID: account.id, organizationID: organization.id))
+        MyToast.toastSuccess(
+            "${account.name.fullName}'s request to join ${organization.name} has been sent");
+      else
+        MyToast.toastError("Failed to send request");
     } catch (e) {
-      print(e);
+      if (kDebugMode) print(e);
       MyToast.toastError(e.toString());
     }
   }

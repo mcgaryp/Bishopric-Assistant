@@ -14,7 +14,7 @@ export '../uuid.dart';
 
 /// An [Entity], as explained in the DDD book.
 abstract class Entity<T> {
-  final UUID id;
+  final UUID? id;
   Entity(this.id);
 
   /// Entities compare by identity, not by attributes.

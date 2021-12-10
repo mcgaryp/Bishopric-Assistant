@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/repositories/firebase_organization_repository.dart';
+import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
 import 'package:flutter/material.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
@@ -73,6 +73,8 @@ class StateContainerState extends State<StateContainer> {
 
   Stream? _requestStream;
 
+  bool _hasStartedNotifications = false;
+
   /// [account] retrieves the account or notifies that an account is not valid
   /// and login is required
   Account get account {
@@ -106,19 +108,14 @@ class StateContainerState extends State<StateContainer> {
         _account = account;
       });
 
-  void logout() => setState(() {
+  void logout(Function callback) => setState(() {
         _isAuthenticated = false;
         _account = null;
+        callback();
       });
 
   void setOrganization(OrganizationMember? org) => setState(() {
         if (org != null) {
-          FirebaseOrganizationRepository repo =
-              FirebaseOrganizationRepository();
-          _requestStream = repo.findAllRequests(org.organization.id);
-          _requestStream!.listen((event) {
-            setOrganizationRequests(event.length);
-          });
           _organization = org.organization;
           _member = org.member;
           _isOrganizationAssociated = true;
@@ -126,13 +123,23 @@ class StateContainerState extends State<StateContainer> {
         }
         if (org == null) {
           _requestStream = null;
-          setOrganizationRequests(0);
           _organization = null;
           _member = null;
           _isOrganizationAssociated = false;
           _isMember = false;
         }
       });
+
+  void startNotifications() {
+    if (hasOrganization && !_hasStartedNotifications) {
+      _hasStartedNotifications = true;
+      FirebaseOrganizationRepository repo = FirebaseOrganizationRepository();
+      _requestStream = repo.findAllRequests(organization.id);
+      _requestStream!.listen((event) {
+        setOrganizationRequests(event.length);
+      });
+    }
+  }
 
   void setOrganizationRequests(int requests) {
     setState(() {

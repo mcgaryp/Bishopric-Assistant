@@ -2,7 +2,7 @@ import 'package:bishop_assistant_web_test_app/database/firestore_helper.dart';
 import 'package:bishop_assistant_web_test_app/database/shared_preferences_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:models/models/account.dart';
-import 'package:models/shared/foundation.dart';
+import 'package:models/shared/exceptions.dart';
 
 ///
 /// firebase_account_repository.dart
@@ -16,6 +16,7 @@ class FirebaseAccountRepository extends FirestoreHelper
     implements AccountRepository {
   String _loginKey = "loginStatus";
   String _accountKey = "accountInfo";
+  static const String _accountActiveFlag = "isActive";
 
   FirebaseAccountRepository() : super(FirestoreCollectionPath.accounts);
 
@@ -27,6 +28,7 @@ class FirebaseAccountRepository extends FirestoreHelper
     Map<String, dynamic>? map = snapshot.data();
 
     if (map == null) return null;
+    if (map[_accountActiveFlag] == false) return null;
 
     Account account = Account.fromMap(id, map);
     return account;
@@ -63,8 +65,13 @@ class FirebaseAccountRepository extends FirestoreHelper
     QuerySnapshot<Map<String, dynamic>> snapshot =
         await getCollectionOfDocuments();
     for (QueryDocumentSnapshot<Map<String, dynamic>> map in snapshot.docs) {
-      if (map.get('username') == username)
-        return Account.fromMap(AccountID(map.id), map.data());
+      if (map.get('username') == username) {
+        Account account = Account.fromMap(AccountID(map.id), map.data());
+        if (map.get(_accountActiveFlag) == false)
+          throw InactiveAccountError(account.id);
+        else
+          return account;
+      }
     }
   }
 
@@ -85,15 +92,16 @@ class FirebaseAccountRepository extends FirestoreHelper
 
   @override
   Future<bool> insert(Account account) async {
-    bool result = await addDocument(account.toMap, id: account.id);
+    Map<String, dynamic> map = account.toMap;
+    map[_accountActiveFlag] = true;
+    bool result = await addDocument(map, id: account.id);
 
     return result;
   }
 
   @override
-  Future<Result<bool>> remove(AccountID id) {
-    // TODO: implement remove
-    throw UnimplementedError();
+  Future<bool> remove(AccountID id) {
+    return updateDocument({_accountActiveFlag: false}, id);
   }
 
   @override
@@ -141,5 +149,10 @@ class FirebaseAccountRepository extends FirestoreHelper
     bool isSuccessful =
         await SharedPreferencesHelper.insert(_accountKey, value);
     return isSuccessful;
+  }
+
+  @override
+  Future<bool> activate(AccountID id) {
+    return updateDocument({_accountActiveFlag: true}, id);
   }
 }

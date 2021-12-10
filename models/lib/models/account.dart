@@ -11,7 +11,6 @@ export 'account_domain/account.dart';
 export 'account_domain/account_id.dart';
 export 'account_domain/account_repository.dart';
 export 'account_domain/account_use_cases.dart';
-export 'account_domain/account_use_cases.dart';
 export 'account_domain/contact.dart';
 export 'account_domain/credentials.dart';
 export 'account_domain/login_status.dart';

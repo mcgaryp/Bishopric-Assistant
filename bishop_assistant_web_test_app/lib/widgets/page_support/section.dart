@@ -15,7 +15,8 @@ class Section extends StatelessWidget {
   final String title;
   final List<Widget> children;
 
-  const Section(this.title, this.children, {Key? key}) : super(key: key);
+  const Section({required this.title, required this.children, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

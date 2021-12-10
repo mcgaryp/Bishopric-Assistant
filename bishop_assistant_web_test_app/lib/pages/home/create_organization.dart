@@ -61,7 +61,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       DefaultCreateOrganizationUseCase useCase =
           DefaultCreateOrganizationUseCase(FirebaseAccountRepository(),
               FirebaseOrganizationRepository(), FirebaseMemberRepository());
-
+      StateContainerState container = StateContainer.of(context);
       AccountID accountID = StateContainer.of(context).account.id;
 
       Result<OrganizationMember> result =
@@ -71,8 +71,10 @@ class _CreateOrganizationState extends State<CreateOrganization> {
         MyToast.toastSuccess(
             "Successfully Created ${result.asValue!.value.organization.name}");
         name.clear();
-        StateContainer.of(context).setOrganization(result.asValue!.value);
-        Navigator.pushNamed(context, rHome);
+
+        container.setOrganization(result.asValue!.value);
+
+        Navigator.pushReplacementNamed(context, rHome);
       }
     } catch (e) {
       if (kDebugMode) print(e);

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:models/shared/exceptions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -38,11 +39,11 @@ class SharedPreferencesHelper {
     if (string == null)
       throw EmptyStringError(forObject: "SharedPreferences with key: $key");
     Map<String, dynamic> map = Map();
-    print(string);
+    if (kDebugMode) print(string);
     String stripped =
         string.replaceAll("{", "").replaceAll("}", "").replaceAll(" ", "");
     List<String> lst = stripped.split(",");
-    print(lst);
+    if (kDebugMode) print(lst);
     lst.forEach((element) {
       List<String> values = element.split(":");
       map[values.first] = values.last;

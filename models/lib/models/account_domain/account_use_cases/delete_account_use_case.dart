@@ -14,7 +14,7 @@ import 'package:models/shared/foundation.dart';
 mixin DeleteAccountUseCase {
   /// [execute] removes an account from a system given a valid [accountID]
   @required
-  Future<Result<bool>> execute(AccountID accessorID, AccountID accountID);
+  Future<bool> execute(AccountID accessorID, AccountID accountID);
 }
 
 /// [DeleteAccountUseCase] to remove an account from a system
@@ -25,15 +25,14 @@ class DefaultDeleteAccountUseCase implements DeleteAccountUseCase {
   DefaultDeleteAccountUseCase(this._accountRepository);
 
   @override
-  Future<Result<bool>> execute(
-      AccountID accessorID, AccountID accountID) async {
+  Future<bool> execute(AccountID accessorID, AccountID accountID) async {
     Account? accessor = await _accountRepository.find(accessorID);
-    if (accessor == null) return Result.error(AccountNotFoundError());
+    if (accessor == null) throw AccountNotFoundError();
     Account? account = await _accountRepository.find(accountID);
-    if (account == null) return Result.error(AccountNotFoundError());
+    if (account == null) throw AccountNotFoundError();
     if (accessor != account)
-      return Result.error(PermissionDeniedError(
-          reason: "May not remove Account that is not yours"));
+      throw PermissionDeniedError(
+          reason: "May not remove Account that is not yours");
     return await _accountRepository.remove(account.id);
   }
 }

@@ -17,7 +17,7 @@ mixin RemoveMemberFromOrganizationUseCase {
   /// [accessorID] id of the member that is attempting to remove [memberId]
   /// Returns a [ResultValue] if successful else returns [ResultError]
   @required
-  Future<Result<bool>> execute(
+  Future<bool> execute(
       {required MemberID accessorId, required MemberID memberID});
 }
 
@@ -28,17 +28,15 @@ class DefaultRemoveMemberFromOrganizationUseCase
   DefaultRemoveMemberFromOrganizationUseCase(this._repository);
 
   @override
-  Future<Result<bool>> execute(
+  Future<bool> execute(
       {required MemberID accessorId, required MemberID memberID}) async {
     Member? accessor = await _repository.find(accessorId);
-    if (accessor == null) return Result.error(MemberNotFoundError());
+    if (accessor == null) throw MemberNotFoundError();
     if (accessor.role.permissions < Permissions.maintainer)
-      return Result.error(PermissionDeniedError(
+      throw PermissionDeniedError(
           reason:
-              "Maintainer permissions required to Remove Members from an Organization"));
+              "Maintainer permissions required to Remove Members from an Organization");
 
-    Result<bool> result = await _repository.remove(memberID);
-    if (result.isValue) return Result.value(true);
-    return result;
+    return await _repository.remove(memberID);
   }
 }

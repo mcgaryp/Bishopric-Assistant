@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/account_domain/account_use_cases.dart';
-import 'package:models/shared/exceptions.dart';
 
 import '../../mocks/account/mock_account_repository.dart';
 
@@ -19,19 +18,8 @@ class DeleteAccountUseCaseTest {
     DefaultDeleteAccountUseCase deleteAccount =
         DefaultDeleteAccountUseCase(accountRepository);
     AccountID accountID = accountRepository.accounts.first.id;
-    Result result = await deleteAccount.execute(accountID, accountID);
-    if (result.isError) {
-      expect(result.isError, true);
-      expect(result.isValue, false);
-      expect(result.asValue, null);
-      expect(result.asError!.error.toString(),
-          FailedToRemoveError(forEntity: "Account").toString());
-    } else if (result.isValue) {
-      expect(result.isValue, true);
-      expect(result.isError, false);
-      expect(result.asError, null);
-      expect(result.asValue!.value, true);
-    }
+    await deleteAccount.execute(accountID, accountID);
+    throw UnimplementedError();
   }
 
   static void
@@ -40,11 +28,8 @@ class DeleteAccountUseCaseTest {
     DefaultDeleteAccountUseCase deleteAccount =
         DefaultDeleteAccountUseCase(accountRepository);
     AccountID accountID = AccountID("Bad ID");
-    Result result = await deleteAccount.execute(accountID, accountID);
-    expect(result.isError, true);
-    expect(result.isValue, false);
-    expect(result.asValue, null);
-    expect(result.asError!.error.toString(), AccountNotFoundError().toString());
+    await deleteAccount.execute(accountID, accountID);
+    throw UnimplementedError();
   }
 }
 
