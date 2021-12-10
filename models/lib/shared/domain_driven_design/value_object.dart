@@ -1,7 +1,5 @@
 import 'package:flutter/foundation.dart';
 
-import 'serializable.dart';
-
 ///
 /// value_object.dart
 /// bishopric-assistant
@@ -12,10 +10,7 @@ import 'serializable.dart';
 
 /// A [ValueObject], as described in the DDD book.
 // TODO: Rethink the decode and toJson forcing implementation
-abstract class ValueObject<T> extends Serializable {
-  @required
-  ValueObject.fromMap(Map<String, dynamic> json) : super.decode(json);
-
+abstract class ValueObject<T> {
   /// Value objects compare by the values of their attributes, they don't have an identity.
   ///
   /// The [other] value object.

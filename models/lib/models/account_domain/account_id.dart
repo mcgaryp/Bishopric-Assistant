@@ -11,7 +11,6 @@ import 'package:models/shared/uuid.dart';
 /// [AccountID] is a unique identifier for any account that is specifically used
 ///   with [Account]s
 class AccountID extends UUID {
-  /// Basic constructor takes in a ID as a String
   AccountID(String id) : super(id);
 
   @override
@@ -19,12 +18,4 @@ class AccountID extends UUID {
     if (other.runtimeType != AccountID) return false;
     return sameValueAs(other as AccountID);
   }
-
-  @override
-  bool sameValueAs(UUID other) {
-    return this.id == other.id;
-  }
-
-  @override
-  Map<String, dynamic> get toMap => throw UnimplementedError();
 }

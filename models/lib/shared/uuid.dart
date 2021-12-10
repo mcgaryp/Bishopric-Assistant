@@ -13,7 +13,7 @@ import 'package:models/shared/exceptions.dart';
 abstract class UUID extends ValueObject<UUID> {
   late final String _id;
 
-  UUID(String id) : super.fromMap({"id": id}) {
+  UUID(String id) {
     this.__id = id;
   }
 
@@ -25,7 +25,7 @@ abstract class UUID extends ValueObject<UUID> {
   }
 
   @override
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> get toMap => {
         "id": id,
       };
 

@@ -12,5 +12,8 @@ class JoinRequestID extends UUID {
   JoinRequestID(String id) : super(id);
 
   @override
-  Map<String, dynamic> get toMap => {"joinRequestID": id};
+  bool operator ==(Object object) {
+    if (object.runtimeType != JoinRequestID) return false;
+    return sameValueAs(object as JoinRequestID);
+  }
 }

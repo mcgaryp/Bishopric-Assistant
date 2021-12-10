@@ -85,7 +85,7 @@ class FirebaseAccountRepository extends FirestoreHelper
 
   @override
   Future<bool> insert(Account account) async {
-    bool result = await addDocument(account.toJson, id: account.id);
+    bool result = await addDocument(account.toMap, id: account.id);
 
     return result;
   }
@@ -98,7 +98,7 @@ class FirebaseAccountRepository extends FirestoreHelper
 
   @override
   Future<bool> update(Account account) {
-    return updateDocument(account.toJson, account.id);
+    return updateDocument(account.toMap, account.id);
   }
 
   @override
@@ -137,7 +137,7 @@ class FirebaseAccountRepository extends FirestoreHelper
 
   @override
   Future<bool> cache(Account account) async {
-    String value = account.toJsonWithId.toString();
+    String value = account.toMap.toString();
     bool isSuccessful =
         await SharedPreferencesHelper.insert(_accountKey, value);
     return isSuccessful;

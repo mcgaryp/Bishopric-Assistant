@@ -36,13 +36,9 @@ class Account extends Entity<Account> {
   Account.fromMap(AccountID id, Map<String, Object?> map)
       : this(
             id: id,
-            credentials: Credentials(
-                password: map['password']! as String,
-                username: map['username']! as String),
-            contact: Contact(
-                email: map['email']! as String, phone: map['phone']! as String),
-            name: Name(
-                first: map['first']! as String, last: map['last']! as String));
+            credentials: Credentials.fromMap(map),
+            contact: Contact.fromMap(map),
+            name: Name.fromMap(map));
 
   /// [Account.newPassword(account, credentials)] is a copy constructor
   ///   specifically used to change the credentials of the account
@@ -62,21 +58,6 @@ class Account extends Entity<Account> {
         this.name = account.name,
         super(account.id);
 
-  Map<String, Object?> get toJson => {
-        'password': credentials.password,
-        'username': credentials.username,
-        'email': contact.email,
-        'phone': contact.phone,
-        'first': name.first,
-        'last': name.last
-      };
-
-  Map<String, Object?> get toJsonWithId {
-    Map<String, Object?> map = toJson;
-    map["id"] = id;
-    return map;
-  }
-
   @override
   bool sameIdentityAs(Account other) {
     return other.id == this.id;
@@ -95,5 +76,14 @@ class Account extends Entity<Account> {
     Credentials: ${credentials.toString()}
     Contact: ${contact.toString()}
     """;
+  }
+
+  @override
+  Map<String, dynamic> get toMap {
+    Map<String, dynamic> map = {};
+    map.addAll(name.toMap);
+    map.addAll(credentials.toMap);
+    map.addAll(contact.toMap);
+    return map;
   }
 }

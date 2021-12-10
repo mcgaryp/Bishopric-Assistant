@@ -1,4 +1,3 @@
-import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/shared/foundation.dart';
 
@@ -23,6 +22,9 @@ class Organization extends Entity<Organization> {
   /// [_name] the name of the organization
   late final String _name;
 
+  static const String _nameKey = "organizationName";
+  static const String _creatorKey = "creator";
+
   /// Constructor
   ///
   /// [id] of the organization
@@ -36,13 +38,8 @@ class Organization extends Entity<Organization> {
   Organization.fromMap(OrganizationID id, Map<String, dynamic> map)
       : this(
             id: id,
-            name: map["name"],
-            creator: Member(
-                memberID: MemberID(map["creator"]),
-                name: Name(first: map["first"], last: map["last"]),
-                contact: Contact(email: map["email"], phone: map["phone"]),
-                role: Role(PermissionsExtension.fromString(map["character"]),
-                    anonymous: map["anonymous"])));
+            name: map[_nameKey],
+            creator: Member.fromMap(map[_creatorKey], map));
 
   /// Copy constructor to create a new name
   Organization.newName(Organization organization, this._name)
@@ -50,8 +47,9 @@ class Organization extends Entity<Organization> {
         this.creator = organization.creator,
         super(organization.id);
 
+  @override
   Map<String, dynamic> get toMap =>
-      {"creator": creator.memberID.id, "name": name};
+      {_creatorKey: creator.memberID.id, _nameKey: name};
 
   /// Setters
   ///

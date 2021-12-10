@@ -17,13 +17,18 @@ class Credentials extends ValueObject<Credentials> {
   /// [_username] holds the username string variable
   late final String _username;
 
+  static const String _passwordKey = "password";
+  static const String _usernameKey = "username";
+
   /// [Credentials(password: password, username: username)] ensures the correct
   ///   initialization of the [_password] and [_username]
-  Credentials({required String password, required String username})
-      : super.fromMap({"password": password, "username": username}) {
+  Credentials({required String password, required String username}) {
     __password = password;
     __username = username;
   }
+
+  Credentials.fromMap(Map<String, dynamic> map)
+      : this(password: map[_passwordKey], username: map[_usernameKey]);
 
   /// [__password] private setter to ensure the [_password] is hashed and not
   ///   empty
@@ -60,15 +65,11 @@ class Credentials extends ValueObject<Credentials> {
   }
 
   @override
-  @deprecated
-  Map<String, dynamic> toJson() => {"password": password, "username": username};
-
-  @override
   String toString() {
     return username;
   }
 
   @override
   Map<String, dynamic> get toMap =>
-      {"password": password, "username": username};
+      {_passwordKey: password, _usernameKey: username};
 }
