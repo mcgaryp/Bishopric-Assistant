@@ -37,7 +37,6 @@ class OrganizationCard extends StatelessWidget {
   }
 
   void _joinOrganization(BuildContext context) {
-    MyToast.toastSuccess("pressed join");
     try {
       Account account = StateContainer.of(context).account;
       DefaultJoinOrganizationUseCase useCase =
@@ -46,6 +45,7 @@ class OrganizationCard extends StatelessWidget {
       MyToast.toastSuccess(
           "${account.name.fullName}'s request to join ${organization.name} has been sent");
     } catch (e) {
+      print(e);
       MyToast.toastError(e.toString());
     }
   }

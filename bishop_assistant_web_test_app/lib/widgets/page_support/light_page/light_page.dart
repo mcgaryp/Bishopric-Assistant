@@ -57,7 +57,7 @@ class LightPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.only(
             top: padding8, left: padding8, right: padding8),
-        child: Center(child: child),
+        child: SafeArea(child: Center(child: child)),
       ),
       persistentFooterButtons: footer,
     );

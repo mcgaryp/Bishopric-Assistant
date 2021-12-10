@@ -53,7 +53,7 @@ class _editProfileState extends State<_editProfile> {
     account = StateContainer.of(context).account;
     return LightPage(
       child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: [
             MemberIcon(Icons.person, size: 65),

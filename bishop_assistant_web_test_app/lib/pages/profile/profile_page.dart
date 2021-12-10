@@ -19,21 +19,23 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Account account = StateContainer.of(context).account;
+    Member? member;
+    bool isMember = StateContainer.of(context).isMember;
+    if (isMember) member = StateContainer.of(context).member;
 
     return LightPage(
       child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: [
-            MyConstrainedBox300(children: [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [CardNavigationButton(sEdit, path: rEditProfile)],
-              ),
-            ]),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [CardNavigationButton(sEdit, path: rEditProfile)],
+            ),
             MemberIcon(Icons.person, size: 65),
             Text(account.name.fullName, style: titleDark),
+            if (isMember) Text(member!.role.anonymous, style: subheadDark),
             MyConstrainedBox300(children: [
               MyDivider(color: dark),
               Padding(
