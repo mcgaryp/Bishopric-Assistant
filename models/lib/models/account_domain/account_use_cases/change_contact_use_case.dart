@@ -15,7 +15,7 @@ mixin ChangeContactUseCase {
   /// [execute] changes the contact information given the [accountID] and
   ///   [contact] are valid
   @required
-  Future<Result> execute(
+  Future<bool> execute(
       {required AccountID accountID, required Contact contact});
 }
 
@@ -30,17 +30,16 @@ class DefaultChangeContactUseCase implements ChangeContactUseCase {
   DefaultChangeContactUseCase(this._accountRepository);
 
   @override
-  Future<Result> execute(
+  Future<bool> execute(
       {required AccountID accountID, required Contact contact}) async {
     Account? account = await _accountRepository.find(accountID);
 
-    if (account == null) return Result.error(AccountNotFoundError());
+    if (account == null) throw AccountNotFoundError();
 
     Account updatedAccount = Account.newContact(account, contact);
 
-    if (await _accountRepository.update(updatedAccount))
-      return Result.value(true);
+    if (await _accountRepository.update(updatedAccount)) return true;
 
-    return Result.error(FailedToSaveError(forEntity: _entity));
+    throw FailedToSaveError(forEntity: _entity);
   }
 }

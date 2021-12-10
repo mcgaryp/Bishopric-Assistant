@@ -103,6 +103,10 @@ class StateContainerState extends State<StateContainer> {
     return "${time.hour}:${time.minute} ${time.second} sec ${time.millisecond} mSec";
   }
 
+  void updateAccount(Account account) => setState(() {
+        _account = account;
+      });
+
   void login(Account account) => setState(() {
         _isAuthenticated = true;
         _account = account;

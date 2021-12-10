@@ -1,8 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/account_domain/account_use_cases.dart';
-import 'package:models/shared/foundation.dart';
-import 'package:models/shared/repository.dart';
 
 import '../../mocks/account/mock_account_repository.dart';
 
@@ -21,21 +19,23 @@ class ChangePasswordUseCaseTest {
     ChangePasswordUseCase changePasswordUseCase =
         DefaultChangePasswordUseCase(accountRepository);
     Account account = accountRepository.accounts.first;
-    Result result = await changePasswordUseCase.execute(
-        accountID: account.id, password: "newPassword");
-    if (result.isValue) {
-      expect(result.isValue, true);
-      expect(result.isError, false);
-      expect(result.asError, null);
-      expect(result.asValue!.value, true);
-      // TODO:
-    } else if (result.isError) {
-      expect(result.isValue, false);
-      expect(result.isError, true);
-      expect(result.asError!.error.toString(),
-          FailedToSaveError(forEntity: "Account").toString());
-      expect(result.asValue, null);
-    }
+    // Result result = await changePasswordUseCase.execute(
+    //     accountID: account.id, password: "newPassword");
+    // if (result.isValue) {
+    //   expect(result.isValue, true);
+    //   expect(result.isError, false);
+    //   expect(result.asError, null);
+    //   expect(result.asValue!.value, true);
+    //   // TODO:
+    // } else if (result.isError) {
+    //   expect(result.isValue, false);
+    //   expect(result.isError, true);
+    //   expect(result.asError!.error.toString(),
+    //       FailedToSaveError(forEntity: "Account").toString());
+    //   expect(result.asValue, null);
+    // }
+
+    throw UnimplementedError();
   }
 
   static void
@@ -44,12 +44,13 @@ class ChangePasswordUseCaseTest {
     ChangePasswordUseCase changePasswordUseCase =
         DefaultChangePasswordUseCase(accountRepository);
     AccountID id = AccountID("Bad ID");
-    Result result = await changePasswordUseCase.execute(
-        accountID: id, password: "newPassword");
-    expect(result.isValue, false);
-    expect(result.isError, true);
-    expect(result.asValue, null);
-    expect(result.asError!.error.toString(), AccountNotFoundError().toString());
+    // Result result = await changePasswordUseCase.execute(
+    //     accountID: id, password: "newPassword");
+    // expect(result.isValue, false);
+    // expect(result.isError, true);
+    // expect(result.asValue, null);
+    // expect(result.asError!.error.toString(), AccountNotFoundError().toString());
+    throw UnimplementedError();
   }
 }
 

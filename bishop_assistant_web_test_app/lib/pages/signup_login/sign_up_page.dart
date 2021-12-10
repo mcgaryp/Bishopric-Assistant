@@ -3,7 +3,6 @@ import 'package:bishop_assistant_web_test_app/util/util.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:crypt/crypt.dart';
 import 'package:flutter/material.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:models/models/account.dart';
 import 'package:models/shared/dart_foundation.dart';
 
@@ -34,10 +33,6 @@ class _SignupPageState extends State<SignupPage> {
   TextEditingController passwordControl = TextEditingController();
   TextEditingController confirmControl = TextEditingController();
   TextEditingController usernameControl = TextEditingController();
-
-  // Format the number
-  MaskTextInputFormatter filter = MaskTextInputFormatter(
-      mask: "(###) ###-####", filter: {"#": RegExp(r'\d')});
 
   // Is the Widget waiting for a callback function to complete
   bool _isWaiting = false;
@@ -75,7 +70,7 @@ class _SignupPageState extends State<SignupPage> {
                 onSubmit: _onSubmit),
             InputField.floating(sPhone,
                 controller: phoneControl,
-                formattingList: [filter],
+                formattingList: [Validators.phoneFilter],
                 validator: Validators.standard,
                 onSubmit: _onSubmit),
             InputField.floating(sUsername,
