@@ -109,7 +109,7 @@ abstract class FirestoreHelper<T> {
     // Get the next ID from the counters
     DocumentSnapshot<Map<String, dynamic>> counterMap = await _firestore
         .collection(FirestoreCollectionPath.util.string)
-        .doc(Util.counters)
+        .doc(Util.counters.id)
         .get();
 
     Map<String, dynamic>? counterData = counterMap.data();
@@ -128,7 +128,7 @@ abstract class FirestoreHelper<T> {
     // set new value in counter
     await _firestore
         .collection(FirestoreCollectionPath.util.string)
-        .doc(Util.counters)
+        .doc(Util.counters.id)
         .update(counterMap)
         .onError((error, stackTrace) {
       result = false;
@@ -160,5 +160,24 @@ extension FirestoreCollectionPathExtension on FirestoreCollectionPath {
 /// [Util] is a helper class to access the one table in the database that holds
 /// the id and other utilities in the database
 class Util {
-  static const String counters = "counters";
+  static final _UtilID counters = _UtilID("counters");
+  static final _UtilID email = _UtilID("email");
+}
+
+class _UtilID extends UUID {
+  _UtilID(String id) : super(id);
+
+  @override
+  bool sameValueAs(UUID other) {
+    return this == other;
+  }
+
+  @override
+  bool operator ==(Object object) {
+    if (object.runtimeType != _UtilID) return false;
+    return sameValueAs(object as UUID);
+  }
+
+  @override
+  Map<String, dynamic> get toMap => throw UnimplementedError();
 }

@@ -13,7 +13,7 @@ import 'package:models/shared/dart_foundation.dart';
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
 
-/// TODO: Comments
+/// [PinView] user interface to submit a pin that is then verified
 class PinView extends StatefulWidget {
   const PinView({Key? key}) : super(key: key);
 
@@ -64,7 +64,8 @@ class _PinViewState extends State<PinView> {
       await _lookUpCredentials();
     else
       _error();
-    _setIsWaiting(true);
+
+    _setIsWaiting(false);
   }
 
   void _setIsWaiting(bool val) => setState(() => _isWaiting = val);
@@ -74,11 +75,8 @@ class _PinViewState extends State<PinView> {
       DefaultConfirmPinUseCase confirmPinUseCase =
           DefaultConfirmPinUseCase(FirebaseAccountRepository());
       Result<AccountID> result = await confirmPinUseCase.execute(username);
-      if (result.isError) {
-        _error(msg: result.asError!.error.toString());
-        return;
-      }
-      _success(result.asValue!.value);
+      if (result.isError) _error(msg: result.asError!.error.toString());
+      if (result.isValue) _success(result.asValue!.value);
     } catch (e) {
       if (kDebugMode) print(e);
       _error(msg: e.toString());
