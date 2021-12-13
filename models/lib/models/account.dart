@@ -16,3 +16,4 @@ export 'account_domain/credentials.dart';
 export 'account_domain/login_status.dart';
 export 'account_domain/name.dart';
 export 'account_domain/pin.dart';
+export 'account_domain/smtp.dart';

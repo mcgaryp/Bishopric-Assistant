@@ -4,9 +4,6 @@ import 'package:bishop_assistant_web_test_app/pages/footer/privacy.dart';
 import 'package:bishop_assistant_web_test_app/pages/home/home.dart';
 import 'package:bishop_assistant_web_test_app/pages/organization/organization_page.dart';
 import 'package:bishop_assistant_web_test_app/pages/profile/profile_page.dart';
-import 'package:bishop_assistant_web_test_app/pages/recover_password/change_password.dart';
-import 'package:bishop_assistant_web_test_app/pages/recover_password/pin_view.dart';
-import 'package:bishop_assistant_web_test_app/pages/recover_password/request_password_reset.dart';
 import 'package:bishop_assistant_web_test_app/pages/signup_login/login_page.dart';
 import 'package:bishop_assistant_web_test_app/pages/signup_login/reactivate_account.dart';
 import 'package:bishop_assistant_web_test_app/pages/signup_login/sign_up_page.dart';
@@ -48,9 +45,10 @@ final Map<String, Widget Function(BuildContext)> routes = {
   rHome: (context) => Authenticate(child: HomePage()),
   rLogin: (context) => LoginPage(),
   rSignup: (context) => SignupPage(),
-  rPasswordRequest: (context) => RequestPasswordReset(),
-  rPIN: (context) => PinView(),
-  rChangePassword: (context) => ChangePassword(),
+  // TODO: Add back when requestReset is implemented
+  // rPasswordRequest: (context) => RequestPasswordReset(),
+  // rPIN: (context) => Pin(),
+  // rChangePassword: (context) => ChangePassword(),
   rOrganization: (context) => Authenticate(child: OrganizationPage()),
   rProfile: (context) => Authenticate(child: ProfilePage()),
   rLegal: (context) => Legal(),

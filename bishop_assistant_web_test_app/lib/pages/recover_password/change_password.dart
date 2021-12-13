@@ -1,11 +1,6 @@
-import 'package:bishop_assistant_web_test_app/repositories/firebase_account_repository.dart';
-import 'package:bishop_assistant_web_test_app/util/route_strings.dart';
-import 'package:bishop_assistant_web_test_app/util/strings.dart';
+import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/util/util.dart';
-import 'package:bishop_assistant_web_test_app/widgets/buttons/my_button.dart';
-import 'package:bishop_assistant_web_test_app/widgets/inputs/input_field.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/dark_page.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/error_404_page.dart';
+import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
@@ -18,6 +13,8 @@ import 'package:models/models/organization.dart';
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
 
+/// [ChangePassword] UI to change the users password whe they are not logged in
+/// and have authenticated some other way
 class ChangePassword extends StatefulWidget {
   const ChangePassword({Key? key}) : super(key: key);
 
@@ -37,7 +34,7 @@ class _ChangePasswordState extends State<ChangePassword> {
       final Map args = ModalRoute.of(context)!.settings.arguments as Map;
       id = args["accountID"] as AccountID;
     } catch (e) {
-      if (kDebugMode) print(e);
+      print(e);
       return Error404Page();
     }
 

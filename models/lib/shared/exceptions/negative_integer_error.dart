@@ -1,3 +1,5 @@
+import 'package:models/shared/exceptions/for_object_exception.dart';
+
 ///
 /// negative_integer_error.dart
 /// bishopric-assistant
@@ -6,11 +8,8 @@
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-class NegativeIntegerError implements Exception {
-  final String msg = "Integer is negative when it should not be";
-
-  @override
-  String toString() {
-    return msg;
-  }
+class NegativeIntegerError extends ForObjectException {
+  NegativeIntegerError({String? forObject})
+      : super("Integer is negative when it should not be",
+            forObject: forObject);
 }
