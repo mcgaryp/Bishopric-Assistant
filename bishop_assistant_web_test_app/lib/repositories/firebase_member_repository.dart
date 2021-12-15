@@ -28,8 +28,24 @@ class FirebaseMemberRepository extends FirestoreHelper
 
   @override
   Stream<List<Member>> findAll(OrganizationID organizationID) {
-    // TODO: implement findAll
-    throw UnimplementedError();
+    Stream<QuerySnapshot<Map<String, dynamic>>> streamedDocuments =
+        getCollectionOfDocumentsStreamed(
+            path: FirestoreCollectionPath.organization_members,
+            field: "organizationID",
+            isEqualTo: organizationID.id);
+    Stream<List<Member>> membersStream = streamedDocuments
+        .asyncMap<List<Member>>(
+            (QuerySnapshot<Map<String, dynamic>> snapshot) async {
+      List<Member> members = [];
+      for (QueryDocumentSnapshot<Map<String, dynamic>> document
+          in snapshot.docs) {
+        Map<String, dynamic> map = document.data();
+        Member? member = await find(MemberID(map["memberID"]));
+        if (member != null) members.add(member);
+      }
+      return members;
+    });
+    return membersStream;
   }
 
   @override

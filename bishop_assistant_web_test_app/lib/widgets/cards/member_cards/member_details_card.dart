@@ -13,31 +13,65 @@ import 'package:models/models/organization.dart';
 ///
 
 class MemberDetailsCard extends StatelessWidget {
-  const MemberDetailsCard({Key? key}) : super(key: key);
+  final Member member;
+
+  const MemberDetailsCard(this.member, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Member member = StateContainer.of(context).member;
+    Permissions permissions =
+        StateContainer.of(context).member.role.permissions;
+    return MyCard(
+      child: ExpansionTile(
+          maintainState: true,
+          title: MemberTitle(member),
+          children: [
+            if (permissions > Permissions.maintainer)
+              Align(
+                  alignment: Alignment.centerRight,
+                  child: CardButton(label: sEdit, onPressed: () {})),
+            MyDivider(color: darkPrimary),
+            CardRow(sEmail, content: member.contact.email),
+            CardRow(sPhone, content: member.contact.phone),
+            CardRow(sCurrentAssignmentCount, content: "1"),
+            CardRow(sCurrentEventCount, content: "2"),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                CardActionButton(label: sCreateEvent, onPressed: () {}),
+                CardActionButton(label: sCreateAssignment, onPressed: () {}),
+                if (permissions > Permissions.maintainer)
+                  CardActionButton(
+                      label: sRemove,
+                      onPressed: () {},
+                      style: MyButtonStyle.error)
+              ],
+            )
+          ]),
+    );
 
     return MyCard(children: [
       Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [MemberTitle(member), CardButton(sEdit, onPressed: () {})],
+        children: [
+          MemberTitle(member),
+          CardButton(label: sEdit, onPressed: () {})
+        ],
       ),
       MyDivider(color: darkPrimary),
       CardRow(sEmail, content: member.contact.email),
       CardRow(sPhone, content: member.contact.phone),
-      CardRow(sCurrentAssignmentCount, content: "1"),
-      CardRow(sCurrentEventCount, content: "2"),
+      // CardRow(sCurrentAssignmentCount, content: "1"),
+      // CardRow(sCurrentEventCount, content: "2"),
       Row(
         mainAxisSize: MainAxisSize.max,
         children: [
-          CardActionButton(sCreateEvent, onPressed: () {}),
-          CardActionButton(sCreateAssignment, onPressed: () {}),
-          CardActionButton(sRemove,
-              onPressed: () {}, style: MyButtonStyle.error)
+          CardActionButton(label: sCreateEvent, onPressed: () {}),
+          CardActionButton(label: sCreateAssignment, onPressed: () {}),
+          CardActionButton(
+              label: sRemove, onPressed: () {}, style: MyButtonStyle.error)
         ],
       )
     ]);

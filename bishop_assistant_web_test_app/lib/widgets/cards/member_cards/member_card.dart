@@ -17,6 +17,6 @@ class MemberCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MyCard(children: [MemberTitle(member)]);
+    return MyCard(child: MemberTitle(member));
   }
 }

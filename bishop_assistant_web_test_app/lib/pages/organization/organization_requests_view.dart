@@ -42,33 +42,24 @@ class OrganizationRequestsView extends StatelessWidget {
                       AsyncSnapshot<List<JoinRequestDetail>> snapshot) {
                     if (snapshot.hasData) {
                       List<JoinRequestDetail> details = snapshot.data!;
-                      return Expanded(
-                        child: ListView(
-                          children: [
-                            Center(
-                              child: Text("${requests.length} Join Requests",
-                                  style: headlineDark),
-                            ),
-                            Column(
-                                children: details
-                                    .map<JoinRequestDetailsView>(
-                                        (JoinRequestDetail detail) =>
-                                            JoinRequestDetailsView(detail))
-                                    .toList()),
-                          ],
+                      return MyConstrainedBox200(
+                        child: MyButton(
+                          label: "Join Requests ${requests.length}",
+                          onPressed: () => _showRequests(details, context),
+                          style: MyButtonStyle.standard,
                         ),
                       );
                     }
+
                     if (snapshot.hasError) {
                       if (kDebugMode) print(snapshot.error);
-                      MyToast.toastError("Failed to Load All Join Requests");
-                      return Container();
+                      return Error404(msg: snapshot.error.toString());
                     }
-                    // return MyCard(children: children);
-                    return SpinKitCircle(color: light);
+
+                    return Container();
                   });
             }
-            return MyCard(children: [Text("No Join Requests")]);
+            return Container();
           }
 
           if (snapshot.hasError) {
@@ -76,7 +67,7 @@ class OrganizationRequestsView extends StatelessWidget {
             return Error404(msg: snapshot.error.toString());
           }
 
-          return SpinKitCircle(color: light);
+          return Container();
         });
   }
 
@@ -96,5 +87,20 @@ class OrganizationRequestsView extends StatelessWidget {
     }
 
     return details;
+  }
+
+  void _showRequests(List<JoinRequestDetail> details, BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) => Dialog(
+            insetPadding: const EdgeInsets.all(padding8),
+            backgroundColor: Colors.transparent,
+            child: MyConstrainedBox300(
+              child: ListView(
+                  children: details
+                      .map<JoinRequestDetailsView>((JoinRequestDetail detail) =>
+                          JoinRequestDetailsView(detail))
+                      .toList()),
+            )));
   }
 }

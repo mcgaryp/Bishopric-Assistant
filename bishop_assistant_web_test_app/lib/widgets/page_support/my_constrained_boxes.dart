@@ -9,46 +9,49 @@ import 'package:flutter/material.dart';
 ///
 
 class MyConstrainedBox300 extends StatelessWidget {
-  final List<Widget> children;
+  final List<Widget>? children;
+  final Widget? child;
 
-  const MyConstrainedBox300({required this.children, Key? key})
+  const MyConstrainedBox300({this.children, this.child, Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints(maxWidth: 300),
-      child: Column(children: children),
+      child: child ?? Column(children: children ?? []),
     );
   }
 }
 
 class MyConstrainedBox200 extends StatelessWidget {
-  final List<Widget> children;
+  final List<Widget>? children;
+  final Widget? child;
 
-  const MyConstrainedBox200({required this.children, Key? key})
+  const MyConstrainedBox200({this.children, this.child, Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints(maxWidth: 200),
-      child: Column(children: children),
+      child: child ?? Column(children: children ?? []),
     );
   }
 }
 
 class MyConstrainedBox600 extends StatelessWidget {
-  final List<Widget> children;
+  final List<Widget>? children;
+  final Widget? child;
 
-  const MyConstrainedBox600({required this.children, Key? key})
+  const MyConstrainedBox600({this.children, this.child, Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints(maxWidth: 600),
-      child: Column(children: children),
+      child: child ?? Column(children: children ?? []),
     );
   }
 }

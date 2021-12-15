@@ -1,5 +1,6 @@
 import 'package:bishop_assistant_web_test_app/pages/organization/organization_members_view.dart';
 import 'package:bishop_assistant_web_test_app/pages/organization/organization_requests_view.dart';
+import 'package:bishop_assistant_web_test_app/theme/theme.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,18 @@ class OrganizationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LightPage(
-        child: Column(
-            children: [OrganizationRequestsView(), OrganizationMembersView()]));
+        child: ListView(children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            StateContainer.of(context).organization.name,
+            style: titleDark,
+          ),
+          OrganizationRequestsView(),
+        ],
+      ),
+      OrganizationMembersView()
+    ]));
   }
 }

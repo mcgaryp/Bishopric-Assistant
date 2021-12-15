@@ -50,7 +50,6 @@ class DefaultCreateOrganizationUseCase implements CreateOrganizationUseCase {
       Organization? organizationWithID =
           await _organizationRepository.insert(organization);
       if (organizationWithID != null) {
-        print("Test 1");
         if (await _organizationRepository.insertRelationship(
             organizationWithID.id, creatorWithID.id, accessor.id)) {
           return OrganizationMember(

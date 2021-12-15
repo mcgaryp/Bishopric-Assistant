@@ -13,7 +13,7 @@ class CardButton extends StatelessWidget {
   final String label;
   final Function() onPressed;
 
-  const CardButton(this.label, {required this.onPressed, Key? key})
+  const CardButton({required this.label, required this.onPressed, Key? key})
       : super(key: key);
 
   @override

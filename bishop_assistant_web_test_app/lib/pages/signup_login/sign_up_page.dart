@@ -139,7 +139,6 @@ class _SignupPageState extends State<SignupPage> {
             Credentials(username: usernameControl.text, password: hashPassword);
         Account account = await createAccount.execute(
             name: name, contact: contact, credentials: credentials);
-        print("tests");
         _success(account);
       } catch (e) {
         _error(e.toString());

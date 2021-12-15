@@ -28,34 +28,34 @@ class _JoinRequestDetailsViewState extends State<JoinRequestDetailsView> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: padding4),
-      child: Container(
-        decoration: darkBorderBox,
-        child: Padding(
-          padding: const EdgeInsets.all(padding8),
+    return Align(
+      alignment: Alignment.topRight,
+      child: MyCard(
           child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: padding8),
+            child: Text(widget.details.name.fullName, style: subheadDark),
+          ),
+          MyDropdown(
+              hint: sRole,
+              validator: Validators.validateDropDown,
+              collection: Permissions.values
+                  .map<DropdownMenuItem<int>>((e) =>
+                      DropdownMenuItem(child: Text(e.string), value: e.index))
+                  .toList(),
+              onchange: _onRoleSelected),
+          Row(
             children: [
-              Text(widget.details.name.fullName, style: subheadDark),
-              MyDropdown(
-                  hint: sRole,
-                  validator: Validators.validateDropDown,
-                  collection: Permissions.values
-                      .map<DropdownMenuItem<int>>((e) => DropdownMenuItem(
-                          child: Text(e.string), value: e.index))
-                      .toList(),
-                  onchange: _onRoleSelected),
-              Row(
-                children: [
-                  CardActionButton(sAccept, onPressed: _accept),
-                  CardActionButton(sReject,
-                      onPressed: _reject, style: MyButtonStyle.error)
-                ],
-              ),
+              CardActionButton(label: sAccept, onPressed: _accept),
+              CardActionButton(
+                  label: sReject,
+                  onPressed: _reject,
+                  style: MyButtonStyle.error)
             ],
           ),
-        ),
-      ),
+        ],
+      )),
     );
   }
 
