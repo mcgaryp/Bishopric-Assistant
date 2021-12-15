@@ -75,6 +75,7 @@ const String sRemove = "Remove";
 const String sRequestReset = "Request Reset";
 const String sRole = "Role";
 const String sSave = "Save";
+const String sSearch = "Search";
 const String sSignup = "Sign Up";
 const String sUsername = "Username";
 const String sYes = "Yes";

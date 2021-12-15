@@ -9,3 +9,4 @@ export 'firebase_multi_select_field.dart';
 export 'input_field.dart';
 export 'my_dropdown.dart';
 export 'row_toggle.dart';
+export 'search_bar.dart';

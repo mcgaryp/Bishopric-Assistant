@@ -16,7 +16,15 @@ import 'package:models/models/organization.dart';
 
 /// [FindOrganizationPage] Handles the organization loading and managing mobile
 /// and web versions
-class FindOrganizationPage extends StatelessWidget {
+class FindOrganizationPage extends StatefulWidget {
+  @override
+  State<FindOrganizationPage> createState() => _FindOrganizationPageState();
+}
+
+class _FindOrganizationPageState extends State<FindOrganizationPage> {
+  List<Organization>? organizations = [];
+  Widget? errors;
+
   @override
   Widget build(BuildContext context) {
     DefaultAllOrganizationsUseCase useCase =
@@ -27,11 +35,35 @@ class FindOrganizationPage extends StatelessWidget {
         builder:
             (BuildContext context, AsyncSnapshot<List<Organization>> snapshot) {
           if (snapshot.hasData && snapshot.data != null) {
-            List<Organization> organizations = snapshot.data!;
+            List<Organization> allOrganizations = snapshot.data!;
+
+            if (organizations != null && organizations!.isEmpty)
+              organizations = allOrganizations;
             return LightPage(
                 child: Column(children: [
               CreateOrganization(),
-              ListOfOrganizations(organizations),
+              SearchBar<Organization>(
+                filter: (Organization org, String? str) {
+                  if (str == null) return false;
+                  return org.name.toLowerCase().contains(str.toLowerCase());
+                },
+                onChange: (Result<List<Organization>> result) {
+                  if (result.isError) {
+                    setState(() {
+                      errors = Error404(msg: result.asError!.error.toString());
+                      organizations = null;
+                    });
+                  } else {
+                    setState(() {
+                      organizations = result.asValue!.value;
+                      if (errors != null) errors = null;
+                    });
+                  }
+                },
+                searchableItems: allOrganizations,
+              ),
+              errors ?? Container(),
+              if (organizations != null) ListOfOrganizations(organizations!),
             ]));
           }
 
