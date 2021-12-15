@@ -6,6 +6,7 @@
 /// Copyright 2021 Po. All rights reserved.
 ///
 export 'organization_use_cases/add_member_to_organization_use_case.dart';
+export 'organization_use_cases/all_organization_members_use_case.dart';
 export 'organization_use_cases/all_organization_requests_use_case.dart';
 export 'organization_use_cases/all_organizations_use_case.dart';
 export 'organization_use_cases/change_member_role_in_organization_use_case.dart';

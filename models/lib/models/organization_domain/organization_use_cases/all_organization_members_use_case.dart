@@ -1,0 +1,27 @@
+import 'package:models/models/organization.dart';
+import 'package:models/shared/foundation.dart';
+
+///
+/// all_organization_members.dart
+///
+///
+/// Created by Porter McGary on 12/15/21
+/// Copyright 2021 Porter McGary. All rights reserved.
+///
+
+mixin AllOrganizationMembersUseCase {
+  @required
+  Stream<List<Member>> execute(OrganizationID id);
+}
+
+class DefaultAllOrganizationMembersUseCase
+    implements AllOrganizationMembersUseCase {
+  final MemberRepository _memberRepository;
+
+  DefaultAllOrganizationMembersUseCase(this._memberRepository);
+
+  @override
+  Stream<List<Member>> execute(OrganizationID id) {
+    return _memberRepository.findAll(id);
+  }
+}

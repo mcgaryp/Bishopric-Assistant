@@ -30,7 +30,7 @@ class OrganizationCard extends StatelessWidget {
             CardTitle(organization.name),
             Text(organization.creator.name.fullName, style: captionLight),
           ]),
-          CardButton(sJoin, onPressed: () => _joinOrganization(context)),
+          CardButton(label: sJoin, onPressed: () => _joinOrganization(context)),
         ],
       ),
     ]);

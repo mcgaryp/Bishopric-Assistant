@@ -97,7 +97,7 @@ class _EditProfileState extends State<EditProfile> {
                   MyButton(label: sSave, onPressed: _onPress),
                   Padding(
                     padding: const EdgeInsets.only(top: padding16),
-                    child: CardButton(sCancel, onPressed: widget.onSave),
+                    child: CardButton(label: sCancel, onPressed: widget.onSave),
                   )
                 ],
               ),

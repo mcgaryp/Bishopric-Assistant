@@ -15,8 +15,11 @@ class CardActionButton extends StatelessWidget {
   final Function() onPressed;
   final MyButtonStyle style;
 
-  const CardActionButton(this.label,
-      {required this.onPressed, this.style = MyButtonStyle.primary, Key? key})
+  const CardActionButton(
+      {required this.label,
+      required this.onPressed,
+      this.style = MyButtonStyle.primary,
+      Key? key})
       : super(key: key);
 
   @override

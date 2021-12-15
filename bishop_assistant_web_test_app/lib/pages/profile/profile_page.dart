@@ -37,7 +37,10 @@ class _ProfilePageState extends State<ProfilePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: [
-            Row(children: [Spacer(), CardButton(sLogout, onPressed: _logout)]),
+            Row(children: [
+              Spacer(),
+              CardButton(label: sLogout, onPressed: _logout)
+            ]),
             MemberIcon(Icons.person, size: 65),
             Text(account.name.fullName, style: titleDark),
             if (isMember) Text(member!.role.anonymous, style: subheadDark),

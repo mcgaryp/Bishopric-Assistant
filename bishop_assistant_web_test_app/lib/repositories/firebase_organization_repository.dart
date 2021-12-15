@@ -152,7 +152,6 @@ class FirebaseOrganizationRepository extends FirestoreHelper
     if (member == null) throw MemberNotFoundError();
 
     map.addAll(member.toMap);
-    print(map);
     return Organization.fromMap(organizationID, map);
   }
 }
