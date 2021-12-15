@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 
 class Error404 extends StatelessWidget {
   final String? msg;
+
   const Error404({Key? key, this.msg}) : super(key: key);
 
   @override

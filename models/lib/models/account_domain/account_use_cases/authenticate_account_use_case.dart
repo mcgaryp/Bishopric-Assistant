@@ -13,7 +13,7 @@ import 'package:models/shared/foundation.dart';
 mixin AuthenticateAccountUseCase {
   /// [execute] authenticates an account given [credentials] are valid
   @required
-  Future<Result<Account>> execute(Credentials credentials);
+  Future<Account> execute(Credentials credentials);
 }
 
 /// [DefaultAuthenticateAccountUseCase] is the standard use case to authenticate
@@ -28,20 +28,16 @@ class DefaultAuthenticateAccountUseCase implements AuthenticateAccountUseCase {
   DefaultAuthenticateAccountUseCase(this._accountRepository);
 
   @override
-  Future<Result<Account>> execute(Credentials credentials) async {
+  Future<Account> execute(Credentials credentials) async {
     Account? accountFromBeyond =
         await _accountRepository.findByUsername(credentials.username);
 
-    if (accountFromBeyond == null)
-      return Result.error(
-          PermissionDeniedError(reason: _reason));
+    if (accountFromBeyond == null) throw PermissionDeniedError(reason: _reason);
 
     Credentials credentialsFromBeyond = accountFromBeyond.credentials;
 
-    if (credentials == credentialsFromBeyond)
-      return Result.value(accountFromBeyond);
+    if (credentials == credentialsFromBeyond) return accountFromBeyond;
 
-    return Result.error(
-        PermissionDeniedError(reason: _reason));
+    throw PermissionDeniedError(reason: _reason);
   }
 }

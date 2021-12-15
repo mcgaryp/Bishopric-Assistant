@@ -14,8 +14,7 @@ mixin ReactivateAccountUseCase {
   Future<bool> execute(AccountID id);
 }
 
-class DefaultReactivateAccountUseCase
-    implements ReactivateAccountUseCase {
+class DefaultReactivateAccountUseCase implements ReactivateAccountUseCase {
   final AccountRepository _accountRepository;
 
   DefaultReactivateAccountUseCase(this._accountRepository);

@@ -58,14 +58,14 @@ class MockAccountRepository implements AccountRepository {
   }
 
   @override
-  Future<bool> insert(Account account) async {
+  Future<Account?> insert(Account account) async {
     await Future.delayed(duration);
     bool succeeded = 1 == Random().nextInt(2);
     if (succeeded) {
       accounts.add(account);
-      return true;
+      return account;
     }
-    return false;
+    return null;
   }
 
   @override

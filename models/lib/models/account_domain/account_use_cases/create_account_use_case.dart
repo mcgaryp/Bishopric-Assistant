@@ -15,7 +15,7 @@ mixin CreateAccountUseCase {
   /// [execute] creates an account given a valid [name], [contact], and
   ///   [credentials]
   @required
-  Future<Result<Account>> execute(
+  Future<Account> execute(
       {required Name name,
       required Contact contact,
       required Credentials credentials});
@@ -32,28 +32,19 @@ class DefaultCreateAccountUseCase implements CreateAccountUseCase {
   DefaultCreateAccountUseCase(this._accountRepository);
 
   @override
-  Future<Result<Account>> execute(
+  Future<Account> execute(
       {required Name name,
       required Contact contact,
       required Credentials credentials}) async {
-    try {
-      if (await _accountRepository.findByUsername(credentials.username) != null)
-        return Result.error(AccountAlreadyExistsError());
+    if (await _accountRepository.findByUsername(credentials.username) != null)
+      throw AccountAlreadyExistsError();
 
-      AccountID? id = await _accountRepository.generateNextId();
+    Account account =
+        Account(name: name, contact: contact, credentials: credentials);
 
-      if (id == null)
-        return Result.error(UnableToGenerateIdError(forEntity: _entity));
+    Account? insertedAccount = await _accountRepository.insert(account);
+    if (insertedAccount != null) return insertedAccount;
 
-      Account account = Account(
-          id: id, name: name, contact: contact, credentials: credentials);
-
-      if (await _accountRepository.insert(account))
-        return Result.value(account);
-
-      return Result.error(FailedToSaveError(forEntity: _entity));
-    } catch (error) {
-      throw error;
-    }
+    throw FailedToSaveError(forEntity: _entity);
   }
 }

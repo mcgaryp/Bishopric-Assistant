@@ -7,7 +7,7 @@
 ///
 
 /// [Permissions] security levels to visualizing information
-enum Permissions { creator, maintainer, reporter, viewer }
+enum Permissions { viewer, reporter, maintainer, creator }
 
 extension PermissionsExtension on Permissions {
   static Permissions fromString(String string) {

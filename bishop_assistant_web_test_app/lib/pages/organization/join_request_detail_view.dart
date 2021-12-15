@@ -79,7 +79,7 @@ class _JoinRequestDetailsViewState extends State<JoinRequestDetailsView> {
               FirebaseOrganizationRepository(), FirebaseMemberRepository());
 
       await useCase.execute(
-          accessorId: StateContainer.of(context).member.memberID,
+          accessorId: StateContainer.of(context).member.id,
           request: widget.details.request,
           role: role!);
 

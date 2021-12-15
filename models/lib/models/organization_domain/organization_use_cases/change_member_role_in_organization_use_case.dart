@@ -18,7 +18,7 @@ mixin ChangeMemberRoleInOrganizationUseCase {
   /// [newRole] the new role of the [memberID]
   /// Returns a [ResultValue] if successful else[ResultError]
   @required
-  Future<Result> execute({
+  Future<bool> execute({
     required MemberID accessorID,
     required MemberID memberID,
     required Role role,
@@ -32,23 +32,22 @@ class DefaultChangeMemberRoleInOrganizationUseCase
   DefaultChangeMemberRoleInOrganizationUseCase(this._memberRepository);
 
   @override
-  Future<Result> execute({
+  Future<bool> execute({
     required MemberID accessorID,
     required MemberID memberID,
     required Role role,
   }) async {
     Member? accessor = await _memberRepository.find(accessorID);
-    if (accessor == null) return Result.error(MemberNotFoundError());
+    if (accessor == null) throw MemberNotFoundError();
     if (accessor.role.permissions < Permissions.maintainer)
-      return Result.error(PermissionDeniedError(
+      return throw PermissionDeniedError(
           reason:
-              "Maintainer permissions required to change a Role of Organization Member"));
+              "Maintainer permissions required to change a Role of Organization Member");
 
     Member? member = await _memberRepository.find(memberID);
-    if (member == null) return Result.error(MemberNotFoundError());
+    if (member == null) throw MemberNotFoundError();
     Member updatedMember = Member.newRole(role: role, member: member);
-    if (await _memberRepository.update(updatedMember))
-      return Result.value(true);
-    return Result.error(FailedToSaveError(forEntity: "Organization"));
+    if (await _memberRepository.update(updatedMember)) return true;
+    throw FailedToSaveError(forEntity: "Organization");
   }
 }

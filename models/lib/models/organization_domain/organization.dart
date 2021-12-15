@@ -14,7 +14,7 @@ class Organization extends Entity<Organization> {
   /// Variables
   ///
   /// [id] of the organization
-  final OrganizationID id;
+  late final OrganizationID? _id;
 
   /// [_creator] the initial member and user of the organization
   final Member creator;
@@ -30,8 +30,10 @@ class Organization extends Entity<Organization> {
   /// [id] of the organization
   /// [name] of the organization
   /// [creator] of the organization
-  Organization({required this.id, required String name, required this.creator})
-      : super(id) {
+  Organization(
+      {OrganizationID? id, required String name, required this.creator})
+      : this._id = id,
+        super(id) {
     __name = name;
   }
 
@@ -43,18 +45,23 @@ class Organization extends Entity<Organization> {
 
   /// Copy constructor to create a new name
   Organization.newName(Organization organization, this._name)
-      : this.id = organization.id,
+      : this._id = organization.id,
         this.creator = organization.creator,
         super(organization.id);
 
   @override
   Map<String, dynamic> get toMap =>
-      {_creatorKey: creator.memberID.id, _nameKey: name};
+      {_creatorKey: creator.id.id, _nameKey: name};
 
   /// Setters
   ///
   /// [__name] private setter for name
   set __name(String name) => _name = name.capitalize;
+
+  OrganizationID get id {
+    if (_id == null) throw IdDoesNotExistError(forObject: "Organization");
+    return _id!;
+  }
 
   /// Getters
   String get name => _name;

@@ -74,9 +74,8 @@ class _PinViewState extends State<PinView> {
     try {
       DefaultConfirmPinUseCase confirmPinUseCase =
           DefaultConfirmPinUseCase(FirebaseAccountRepository());
-      Result<AccountID> result = await confirmPinUseCase.execute(username);
-      if (result.isError) _error(msg: result.asError!.error.toString());
-      if (result.isValue) _success(result.asValue!.value);
+      AccountID id = await confirmPinUseCase.execute(username);
+      _success(id);
     } catch (e) {
       if (kDebugMode) print(e);
       _error(msg: e.toString());

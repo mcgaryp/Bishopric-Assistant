@@ -68,23 +68,10 @@ class FirebaseMemberRepository extends FirestoreHelper
   }
 
   @override
-  Future<MemberID?> generateNextId() async {
-    Map<String, dynamic>? snapshot = await getNextID();
-    if (snapshot == null) return null;
-    String id = snapshot[mPath.string].toString();
-    if (id.isEmpty) return null;
-    MemberID memberID = MemberID(id);
-
-    snapshot[mPath.string] += 1;
-    bool success = await incrementId(snapshot);
-    if (!success) return null;
-
-    return memberID;
-  }
-
-  @override
-  Future<bool> insert(Member member) async {
-    return await addDocument(member.toMap, id: member.id);
+  Future<Member?> insert(Member member) async {
+    String? id = await addDocument(member.toMap);
+    if (id == null) return null;
+    return Member.fromMap((MemberID(id)), member.toMap);
   }
 
   @override

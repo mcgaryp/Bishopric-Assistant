@@ -19,7 +19,7 @@ mixin AddMemberToOrganizationUseCase {
   /// [accessorId] id of the member that is adding the user
   /// Returns a [ResultValue] if successful and [ResultError] if not
   @required
-  Future<void> execute({
+  Future<bool> execute({
     required MemberID accessorId,
     required JoinRequest request,
     required Role role,
@@ -36,7 +36,7 @@ class DefaultAddMemberToOrganizationUseCase
       this._organizationRepository, this._memberRepository);
 
   @override
-  Future<void> execute({
+  Future<bool> execute({
     required MemberID accessorId,
     required JoinRequest request,
     required Role role,
@@ -51,21 +51,16 @@ class DefaultAddMemberToOrganizationUseCase
     Account? account = await _accountRepository.find(request.accountID);
     if (account == null) throw AccountNotFoundError();
 
-    MemberID? memberId = await _memberRepository.generateNextId();
-    if (memberId == null) throw UnableToGenerateIdError(forEntity: "Member");
+    Member member =
+        Member(name: account.name, role: role, contact: account.contact);
 
-    Member member = Member(
-        memberID: memberId,
-        name: account.name,
-        role: role,
-        contact: account.contact);
-
-    if (await _memberRepository.insert(member)) {
+    Member? memberWithID = await _memberRepository.insert(member);
+    if (memberWithID != null) {
       if (await _organizationRepository.insertRelationship(
-          request.organizationID, member.memberID, request.accountID)) {
+          request.organizationID, memberWithID.id, request.accountID)) {
         if (await _organizationRepository
             .removeRequestToJoinOrganization(request)) {
-          return;
+          return true;
         } else
           throw FailedToRemoveError(forEntity: "Join Request");
       } else

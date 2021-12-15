@@ -31,7 +31,7 @@ class DefaultHasAssociatedOrganizationUseCase
     // for each member
     for (Member member in members) {
       Organization? organization =
-          await _memberRepository.findOrganization(member.memberID);
+          await _memberRepository.findOrganization(member.id);
       // if there is one member who has a valid member organization relationship
       if (organization != null)
         return OrganizationMember(member: member, organization: organization);

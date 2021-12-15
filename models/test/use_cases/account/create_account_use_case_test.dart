@@ -1,8 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/account_domain/account_use_cases.dart';
-import 'package:models/shared/exceptions.dart';
-import 'package:models/shared/repository.dart';
 import 'package:models/shared/test.dart';
 
 import '../../mocks/account/mock_account_repository.dart';
@@ -25,23 +23,24 @@ class CreateAccountUseCaseTest with Test {
     Name name = account.name;
     Contact contact = account.contact;
     Credentials credentials = account.credentials;
-    Result result = await accountUseCase.execute(
-        name: name, contact: contact, credentials: credentials);
-    if (result.isError) {
-      expect(result.isError, true);
-      expect(result.isValue, false);
-      expect(result.asValue, null);
-      expect(result.asError!.error.toString(),
-          AccountAlreadyExistsError().toString());
-      return;
-    } else if (result.isValue) {
-      expect(result.isValue, true);
-      expect(result.isError, false);
-      expect(result.asError, null);
-      expect(result.asValue!.value, account);
-      return;
-    }
-    Test.fallthrough;
+    throw UnimplementedError();
+    // Result result = await accountUseCase.execute(
+    //     name: name, contact: contact, credentials: credentials);
+    // if (result.isError) {
+    //   expect(result.isError, true);
+    //   expect(result.isValue, false);
+    //   expect(result.asValue, null);
+    //   expect(result.asError!.error.toString(),
+    //       AccountAlreadyExistsError().toString());
+    //   return;
+    // } else if (result.isValue) {
+    //   expect(result.isValue, true);
+    //   expect(result.isError, false);
+    //   expect(result.asError, null);
+    //   expect(result.asValue!.value, account);
+    //   return;
+    // }
+    // Test.fallthrough;
   }
 
   static void
@@ -53,20 +52,21 @@ class CreateAccountUseCaseTest with Test {
     Name name = account.name;
     Contact contact = account.contact;
     Credentials credentials = account.credentials;
-    Result result = await accountUseCase.execute(
-        name: name, contact: contact, credentials: credentials);
-
-    expect(result.isError, true);
-    expect(result.isValue, false);
-    expect(result.asValue, null);
-
-    if (result.asError!.error.runtimeType == FailedToSaveError)
-      expect(result.asError!.error.toString(),
-          FailedToSaveError(forEntity: "Account").toString());
-
-    if (result.asError!.error.runtimeType == AccountAlreadyExistsError)
-      expect(result.asError!.error.toString(),
-          AccountAlreadyExistsError().toString());
+    throw UnimplementedError();
+    // Result result = await accountUseCase.execute(
+    //     name: name, contact: contact, credentials: credentials);
+    //
+    // expect(result.isError, true);
+    // expect(result.isValue, false);
+    // expect(result.asValue, null);
+    //
+    // if (result.asError!.error.runtimeType == FailedToSaveError)
+    //   expect(result.asError!.error.toString(),
+    //       FailedToSaveError(forEntity: "Account").toString());
+    //
+    // if (result.asError!.error.runtimeType == AccountAlreadyExistsError)
+    //   expect(result.asError!.error.toString(),
+    //       AccountAlreadyExistsError().toString());
   }
 }
 

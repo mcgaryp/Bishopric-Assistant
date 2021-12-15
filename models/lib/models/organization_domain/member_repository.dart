@@ -13,6 +13,8 @@ import 'package:models/shared/repository.dart';
 /// [MemberRepository] manages the data of a repository regarding membership
 mixin MemberRepository implements Repository<Member, MemberID, OrganizationID> {
   Future<Organization?> findOrganization(MemberID memberID);
+
   Future<Member?> findWithAccountID(AccountID accountID);
+
   Future<List<Member>?> findAllWithAccountID(AccountID accountID);
 }
