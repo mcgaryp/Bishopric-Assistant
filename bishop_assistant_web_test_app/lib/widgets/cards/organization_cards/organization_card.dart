@@ -26,10 +26,14 @@ class OrganizationCard extends StatelessWidget {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            CardTitle(organization.name),
-            Text(organization.creator.name.fullName, style: captionLight),
-          ]),
+          Padding(
+            padding: const EdgeInsets.only(left: padding8),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              CardTitle(organization.name),
+              Text(organization.creator.name.fullName, style: captionLight),
+            ]),
+          ),
           CardButton(label: sJoin, onPressed: () => _joinOrganization(context)),
         ],
       ),
