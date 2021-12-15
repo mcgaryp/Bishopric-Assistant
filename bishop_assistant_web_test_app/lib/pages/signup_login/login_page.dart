@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/shared/exceptions.dart';
-import 'package:models/shared/repository.dart';
 
 ///
 /// login_page.dart
@@ -114,10 +113,9 @@ class _LoginPageState extends State<LoginPage> {
 
       Credentials credentials =
           Credentials(password: hashPassword, username: usernameControl.text);
-      Result<Account> result = await authenticateAccount.execute(credentials);
+      Account account = await authenticateAccount.execute(credentials);
 
-      if (result.isError) _error(result.asError!.error.toString());
-      if (result.isValue) _success(result.asValue!.value);
+      _success(account);
     } on InactiveAccountError catch (error) {
       Navigator.pushReplacementNamed(context, rReactivateAccount,
           arguments: error.id);

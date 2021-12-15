@@ -27,12 +27,8 @@ class ReactivateAccount extends StatelessWidget {
     ], buttons: [
       MyButton(
           label: sYes,
-          onPressed: () =>
-              _yes(context,
-                  ModalRoute
-                      .of(context)!
-                      .settings
-                      .arguments as AccountID)),
+          onPressed: () => _yes(context,
+              ModalRoute.of(context)!.settings.arguments as AccountID)),
       MyButton(label: sNo, onPressed: () => _no(context)),
     ]);
   }
@@ -42,13 +38,12 @@ class ReactivateAccount extends StatelessWidget {
   }
 
   void _yes(BuildContext context, AccountID id) async {
-    DefaultReactivateAccountUseCase useCase = DefaultReactivateAccountUseCase(
-        FirebaseAccountRepository());
+    DefaultReactivateAccountUseCase useCase =
+        DefaultReactivateAccountUseCase(FirebaseAccountRepository());
     if (await useCase.execute(id)) {
       MyToast.toastSuccess("Account Activated");
       Navigator.pushReplacementNamed(context, rLogin);
-    }
-    else
+    } else
       MyToast.toastError("Account Failed to Reactivate");
   }
 }

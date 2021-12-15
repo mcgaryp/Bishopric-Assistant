@@ -1,6 +1,5 @@
 import 'package:models/models/account.dart';
 import 'package:models/shared/foundation.dart';
-import 'package:models/shared/repository.dart';
 
 ///
 /// recover_account_use_case.dart
@@ -16,7 +15,7 @@ mixin RecoverAccountUseCase {
   /// [execute] recovers an account given [usernameOrPhone] and
   ///   [secondaryAuthentication] is successful
   @required
-  Future<Result<Contact>> execute(String string);
+  Future<Contact> execute(String string);
 }
 
 /// [DefaultRecoverAccountUseCase] to recover an account
@@ -27,13 +26,13 @@ class DefaultRecoverAccountUseCase implements RecoverAccountUseCase {
   DefaultRecoverAccountUseCase(this._accountRepository);
 
   @override
-  Future<Result<Contact>> execute(String string) async {
+  Future<Contact> execute(String string) async {
     Account? account = await _accountRepository.findByUsername(string);
     if (account == null) account = await _accountRepository.findByPhone(string);
     if (account == null) account = await _accountRepository.findByEmail(string);
 
-    if (account == null) return Result.error(AccountNotFoundError());
+    if (account == null) throw AccountNotFoundError();
 
-    return Result.value(account.contact);
+    return account.contact;
   }
 }

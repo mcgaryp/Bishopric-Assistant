@@ -1,4 +1,3 @@
-import 'package:async/async.dart';
 import 'package:flutter/foundation.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
@@ -20,7 +19,7 @@ mixin CreateOrganizationUseCase {
   /// [name] given to the new organization
   /// returns a [ResultValue] if successful else [ResultError]
   @required
-  Future<Result<OrganizationMember>> execute(
+  Future<OrganizationMember> execute(
       {required AccountID creatorId, required String name, String? anonymous});
 }
 
@@ -33,47 +32,38 @@ class DefaultCreateOrganizationUseCase implements CreateOrganizationUseCase {
       this._organizationRepository, this._memberRepository);
 
   @override
-  Future<Result<OrganizationMember>> execute(
+  Future<OrganizationMember> execute(
       {required AccountID creatorId,
       required String name,
       String? anonymous}) async {
     Account? accessor = await _accountRepository.find(creatorId);
-    if (accessor == null) return Result.error(AccountNotFoundError());
-    OrganizationID? id = await _organizationRepository.generateNextId();
-
-    if (id == null)
-      return Result.error(UnableToGenerateIdError(forEntity: "Organization"));
-
+    if (accessor == null) throw AccountNotFoundError();
     Organization? organizationFromBeyond =
-        await _organizationRepository.find(id);
-    if (organizationFromBeyond != null)
-      return Result.error(OrganizationAlreadyExistsError());
-
-    MemberID? memberID = await _memberRepository.generateNextId();
-    Member creator;
-    if (memberID == null)
-      return Result.error(UnableToGenerateIdError(forEntity: "Member"));
-    creator = Member(
-        memberID: memberID,
-        name: accessor.name,
-        contact: accessor.contact,
-        role: Role.creator());
-    Organization organization =
-        Organization(id: id, name: name, creator: creator);
-
-    if (await _organizationRepository.insert(organization)) {
-      if (await _memberRepository.insert(creator)) {
+        await _organizationRepository.findByName(name);
+    if (organizationFromBeyond != null) throw OrganizationAlreadyExistsError();
+    Member creator = Member(
+        name: accessor.name, contact: accessor.contact, role: Role.creator());
+    Member? creatorWithID = await _memberRepository.insert(creator);
+    if (creatorWithID != null) {
+      Organization organization =
+          Organization(name: name, creator: creatorWithID);
+      Organization? organizationWithID =
+          await _organizationRepository.insert(organization);
+      if (organizationWithID != null) {
+        print("Test 1");
         if (await _organizationRepository.insertRelationship(
-            organization.id, creator.memberID, accessor.id)) {
-          return Result.value(
-              OrganizationMember(organization: organization, member: creator));
+            organizationWithID.id, creatorWithID.id, accessor.id)) {
+          return OrganizationMember(
+              organization: organizationWithID, member: creatorWithID);
         } else
-          return Result.error(
-              FailedToSaveError(forEntity: "Organization Member Relationship"));
+          // TODO: Remove the Creator from Repo
+          // TODO: Remove Organization from Repo
+          throw FailedToSaveError(
+              forEntity: "Organization Member Relationship");
       } else
-        return Result.error(
-            FailedToSaveError(forEntity: "Organization Creator"));
+        // TODO: Remove the Creator from Repo
+        throw FailedToSaveError(forEntity: "The Organization");
     } else
-      return Result.error(FailedToSaveError(forEntity: "Organization"));
+      throw FailedToSaveError(forEntity: "Creator of Organization");
   }
 }

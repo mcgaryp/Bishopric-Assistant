@@ -34,8 +34,14 @@ abstract class FirestoreHelper<T> {
   /// [getCollectionOfDocuments] retrieves a collection of rows from a single
   /// table
   Future<QuerySnapshot<Map<String, dynamic>>> getCollectionOfDocuments(
-          {FirestoreCollectionPath? path}) =>
-      _firestore.collection((path ?? mPath).string).get();
+      {FirestoreCollectionPath? path, String? field, Object? isEqualTo}) {
+    if (field != null)
+      return _firestore
+          .collection((path ?? mPath).string)
+          .where(field, isEqualTo: isEqualTo)
+          .get();
+    return _firestore.collection((path ?? mPath).string).get();
+  }
 
   /// Realtime update accessors: [getCollectionOfDocumentsStreamed],
   /// [getSingleDocumentStreamed]
@@ -62,17 +68,18 @@ abstract class FirestoreHelper<T> {
       _firestore.collection((path ?? mPath).string).doc(uuid.id).snapshots();
 
   /// [addDocument] to the database
-  Future<bool> addDocument(Map<String, Object?> map,
+  Future<String?> addDocument(Map<String, Object?> map,
       {UUID? id, FirestoreCollectionPath? path}) async {
-    bool result = true;
+    String? result;
 
     String? strId = id == null ? null : id.id;
 
-    await _firestore
-        .collection((path ?? mPath).string)
-        .doc(strId)
-        .set(map)
-        .onError<bool>((error, stackTrace) => result = false);
+    DocumentReference ref =
+        await _firestore.collection((path ?? mPath).string).doc(strId);
+
+    result = (ref.id);
+
+    await ref.set(map).onError<bool>((error, stackTrace) => result = null);
 
     return result;
   }
@@ -103,40 +110,6 @@ abstract class FirestoreHelper<T> {
 
     return result;
   }
-
-  /// [getNextID] pulls the next id from the database for a specific table
-  Future<Map<String, dynamic>?> getNextID() async {
-    // Get the next ID from the counters
-    DocumentSnapshot<Map<String, dynamic>> counterMap = await _firestore
-        .collection(FirestoreCollectionPath.util.string)
-        .doc(Util.counters.id)
-        .get();
-
-    Map<String, dynamic>? counterData = counterMap.data();
-    return counterData;
-  }
-
-  /// [incrementId] increments a given id in the database for a specific table
-  Future<bool> incrementId(Map<String, dynamic> map,
-      {FirestoreCollectionPath? path}) async {
-    Map<String, dynamic> counterMap = map;
-    // increase counter
-    counterMap[(path ?? mPath).string] += 1;
-
-    bool result = true;
-
-    // set new value in counter
-    await _firestore
-        .collection(FirestoreCollectionPath.util.string)
-        .doc(Util.counters.id)
-        .update(counterMap)
-        .onError((error, stackTrace) {
-      result = false;
-      throw Exception("Error Incrementing $path: $error => $stackTrace");
-    });
-
-    return result;
-  }
 }
 
 /// [FirestoreCollectionPath] paths to specific tables in the database
@@ -160,7 +133,6 @@ extension FirestoreCollectionPathExtension on FirestoreCollectionPath {
 /// [Util] is a helper class to access the one table in the database that holds
 /// the id and other utilities in the database
 class Util {
-  static final _UtilID counters = _UtilID("counters");
   static final _UtilID email = _UtilID("email");
 }
 

@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 
 class CardNavigationButton extends NavigationButton {
   final String label;
+
   const CardNavigationButton(this.label, {required String path, Key? key})
       : super(path, key: key);
 

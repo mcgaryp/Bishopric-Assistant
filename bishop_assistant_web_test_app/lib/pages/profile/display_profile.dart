@@ -15,6 +15,7 @@ import 'package:models/models/organization.dart';
 
 class DisplayProfile extends StatelessWidget {
   final void Function() onEdit;
+
   const DisplayProfile(this.onEdit, {Key? key}) : super(key: key);
 
   @override
@@ -28,8 +29,10 @@ class DisplayProfile extends StatelessWidget {
       children: [
         CardRow(sEmail, content: account.contact.email),
         CardRow(sPhone, content: account.contact.phone),
-        if (hasOrganization) CardRow(sOrganization, content: organization!.name),
-        if (hasOrganization) CardRow(sCreator, content: organization!.creator.name.fullName),
+        if (hasOrganization)
+          CardRow(sOrganization, content: organization!.name),
+        if (hasOrganization)
+          CardRow(sCreator, content: organization!.creator.name.fullName),
         MyButton(label: sEdit, onPressed: onEdit),
         MyButton(
           label: sDeactivateAccount,

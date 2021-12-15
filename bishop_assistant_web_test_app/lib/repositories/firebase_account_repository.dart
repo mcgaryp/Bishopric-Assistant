@@ -76,27 +76,12 @@ class FirebaseAccountRepository extends FirestoreHelper
   }
 
   @override
-  Future<AccountID?> generateNextId() async {
-    Map<String, dynamic>? snapshot = await getNextID();
-    if (snapshot == null) return null;
-    String id = snapshot[mPath.string].toString();
-    if (id.isEmpty) return null;
-    AccountID accountID = AccountID(id);
-
-    snapshot[mPath.string] += 1;
-    bool success = await incrementId(snapshot);
-    if (!success) return null;
-
-    return accountID;
-  }
-
-  @override
-  Future<bool> insert(Account account) async {
+  Future<Account?> insert(Account account) async {
     Map<String, dynamic> map = account.toMap;
     map[_accountActiveFlag] = true;
-    bool result = await addDocument(map, id: account.id);
-
-    return result;
+    String? id = await addDocument(map);
+    if (id == null) return null;
+    return Account.fromMap(AccountID(id), account.toMap);
   }
 
   @override

@@ -58,23 +58,12 @@ class FirebaseOrganizationRepository extends FirestoreHelper
   }
 
   @override
-  Future<OrganizationID?> generateNextId() async {
-    Map<String, dynamic>? snapshot = await getNextID();
-    if (snapshot == null) return null;
-    String id = snapshot[mPath.string].toString();
-    if (id.isEmpty) return null;
-    OrganizationID organizationID = OrganizationID(id);
-
-    snapshot[mPath.string] += 1;
-    bool success = await incrementId(snapshot);
-    if (!success) return null;
-
-    return organizationID;
-  }
-
-  @override
-  Future<bool> insert(Organization organization) async {
-    return await addDocument(organization.toMap, id: organization.id);
+  Future<Organization?> insert(Organization organization) async {
+    String? id = await addDocument(organization.toMap);
+    if (id == null) return null;
+    Map<String, dynamic> map = organization.toMap;
+    map.addAll(organization.creator.toMap);
+    return Organization.fromMap(OrganizationID(id), map);
   }
 
   @override
@@ -92,11 +81,12 @@ class FirebaseOrganizationRepository extends FirestoreHelper
   @override
   Future<bool> insertRelationship(OrganizationID organizationID,
       MemberID memberID, AccountID accountID) async {
-    return await addDocument({
-      "organizationID": organizationID.id,
-      "memberID": memberID.id,
-      "accountID": accountID.id
-    }, path: FirestoreCollectionPath.organization_members);
+    return null !=
+        await addDocument({
+          "organizationID": organizationID.id,
+          "memberID": memberID.id,
+          "accountID": accountID.id
+        }, path: FirestoreCollectionPath.organization_members);
   }
 
   Future<Member?> findCreator(MemberID id) async {
@@ -131,14 +121,38 @@ class FirebaseOrganizationRepository extends FirestoreHelper
   }
 
   @override
-  Future<bool> requestToJoinOrganization(JoinRequest request) {
-    return addDocument(request.toMap,
-        path: FirestoreCollectionPath.organization_requests);
+  Future<bool> requestToJoinOrganization(JoinRequest request) async {
+    return null !=
+        await addDocument(request.toMap,
+            path: FirestoreCollectionPath.organization_requests);
   }
 
   @override
   Future<bool> removeRequestToJoinOrganization(JoinRequest request) {
     return removeDocument(request.id!,
         path: FirestoreCollectionPath.organization_requests);
+  }
+
+  @override
+  Future<Organization?> findByName(String name) async {
+    QuerySnapshot<Map<String, dynamic>> snapshot =
+        await getCollectionOfDocuments(
+            field: "organizationName", isEqualTo: name);
+    if (snapshot.docs.isEmpty) return null;
+    if (snapshot.docs.length > 1)
+      throw UnimplementedError(
+          "There are more than one organization with the same name..."
+          "This is not allowed");
+    DocumentSnapshot<Map<String, dynamic>?> document = snapshot.docs.first;
+    Map<String, dynamic>? map = document.data();
+    if (map == null) return null;
+    OrganizationID organizationID = OrganizationID(document.id);
+
+    Member? member = await findCreator(MemberID(map["creator"]));
+    if (member == null) throw MemberNotFoundError();
+
+    map.addAll(member.toMap);
+    print(map);
+    return Organization.fromMap(organizationID, map);
   }
 }

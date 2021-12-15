@@ -30,7 +30,7 @@ class MockMember {
     Role? role,
   }) {
     member = Member(
-        memberID: id ?? mockId,
+        id: id ?? mockId,
         role: role ?? mockRole,
         contact: contact ?? mockContact,
         name: name ?? mockName);

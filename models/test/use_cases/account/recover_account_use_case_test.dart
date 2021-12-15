@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/account_domain/account_use_cases.dart';
-import 'package:models/shared/exceptions.dart';
 
 import '../../mocks/account/mock_account_repository.dart';
 
@@ -23,11 +22,12 @@ class RecoverAccountUseCaseTest {
         DefaultRecoverAccountUseCase(accountRepository);
     Account account = accountRepository.accounts.first;
     String usernameOrPhone = account.credentials.username;
-    Result result = await recoverAccount.execute(usernameOrPhone);
-    expect(result.isValue, true);
-    expect(result.isError, false);
-    expect(result.asError, null);
-    expect(result.asValue!.value, account.credentials);
+    throw UnimplementedError();
+    // Result result = await recoverAccount.execute(usernameOrPhone);
+    // expect(result.isValue, true);
+    // expect(result.isError, false);
+    // expect(result.asError, null);
+    // expect(result.asValue!.value, account.credentials);
   }
 
   static void shouldReturnAccountWhenValidPhoneGiven() async {
@@ -36,18 +36,19 @@ class RecoverAccountUseCaseTest {
         DefaultRecoverAccountUseCase(accountRepository);
     Account account = accountRepository.accounts.first;
     String usernameOrPhone = account.contact.phone;
-    Result result = await recoverAccount.execute(usernameOrPhone);
-    if (result.isValue) {
-      expect(result.isValue, true);
-      expect(result.isError, false);
-      expect(result.asError, null);
-      expect(result.asValue!.value, account);
-    } else {
-      expect(result.isValue, false);
-      expect(result.isError, true);
-      expect(result.asValue, null);
-      expect(result.asError!.error, false);
-    }
+    throw UnimplementedError();
+    // Result result = await recoverAccount.execute(usernameOrPhone);
+    // if (result.isValue) {
+    //   expect(result.isValue, true);
+    //   expect(result.isError, false);
+    //   expect(result.asError, null);
+    //   expect(result.asValue!.value, account);
+    // } else {
+    //   expect(result.isValue, false);
+    //   expect(result.isError, true);
+    //   expect(result.asValue, null);
+    //   expect(result.asError!.error, false);
+    // }
   }
 
   static void shouldReturnAccountNotFoundErrorWhenInvalidUsernameGiven() async {
@@ -55,11 +56,12 @@ class RecoverAccountUseCaseTest {
     DefaultRecoverAccountUseCase recoverAccount =
         DefaultRecoverAccountUseCase(accountRepository);
     String usernameOrPhone = "Bad Username";
-    Result result = await recoverAccount.execute(usernameOrPhone);
-    expect(result.isValue, false);
-    expect(result.isError, true);
-    expect(result.asError!.error.toString(), AccountNotFoundError().toString());
-    expect(result.asValue, null);
+    throw UnimplementedError();
+    // Result result = await recoverAccount.execute(usernameOrPhone);
+    // expect(result.isValue, false);
+    // expect(result.isError, true);
+    // expect(result.asError!.error.toString(), AccountNotFoundError().toString());
+    // expect(result.asValue, null);
   }
 
   static void shouldReturnAccountNotFoundErrorWhenInvalidPhoneGiven() async {
@@ -67,11 +69,12 @@ class RecoverAccountUseCaseTest {
     DefaultRecoverAccountUseCase recoverAccount =
         DefaultRecoverAccountUseCase(accountRepository);
     String usernameOrPhone = "Bad Phone";
-    Result result = await recoverAccount.execute(usernameOrPhone);
-    expect(result.isValue, false);
-    expect(result.isError, true);
-    expect(result.asError!.error.toString(), AccountNotFoundError().toString());
-    expect(result.asValue, null);
+    throw UnimplementedError();
+    // Result result = await recoverAccount.execute(usernameOrPhone);
+    // expect(result.isValue, false);
+    // expect(result.isError, true);
+    // expect(result.asError!.error.toString(), AccountNotFoundError().toString());
+    // expect(result.asValue, null);
   }
 }
 

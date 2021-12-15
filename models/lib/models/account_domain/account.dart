@@ -12,7 +12,7 @@ import 'package:models/shared/foundation.dart';
 /// [Account] holds the valuable information of an application user
 class Account extends Entity<Account> {
   /// [id] unique identifier of the account
-  final AccountID id;
+  final AccountID? _id;
 
   /// [name] describes the account names
   final Name name;
@@ -27,11 +27,12 @@ class Account extends Entity<Account> {
   ///
   /// Main constructor of an [Account]
   Account({
-    required this.id,
+    AccountID? id,
     required this.name,
     required this.contact,
     required this.credentials,
-  }) : super(id);
+  })  : this._id = id,
+        super(id);
 
   Account.fromMap(AccountID id, Map<String, Object?> map)
       : this(
@@ -43,7 +44,7 @@ class Account extends Entity<Account> {
   /// [Account.newPassword(account, credentials)] is a copy constructor
   ///   specifically used to change the credentials of the account
   Account.newPassword(Account account, Credentials credentials)
-      : this.id = account.id,
+      : this._id = account.id,
         this.credentials = credentials,
         this.contact = account.contact,
         this.name = account.name,
@@ -52,11 +53,16 @@ class Account extends Entity<Account> {
   /// [Account.newContact(account, contact)] is a copy constructor specifically
   ///   used to change the contact of the account
   Account.newContact(Account account, Contact contact)
-      : this.id = account.id,
+      : this._id = account.id,
         this.credentials = account.credentials,
         this.contact = contact,
         this.name = account.name,
         super(account.id);
+
+  AccountID get id {
+    if (_id == null) throw IdDoesNotExistError(forObject: "Account");
+    return _id!;
+  }
 
   @override
   bool sameIdentityAs(Account other) {

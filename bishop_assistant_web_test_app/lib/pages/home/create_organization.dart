@@ -64,18 +64,16 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       StateContainerState container = StateContainer.of(context);
       AccountID accountID = StateContainer.of(context).account.id;
 
-      Result<OrganizationMember> result =
+      OrganizationMember organizationMember =
           await useCase.execute(creatorId: accountID, name: name.text);
-      if (result.isError) throw result.asError!.error;
-      if (result.isValue) {
-        MyToast.toastSuccess(
-            "Successfully Created ${result.asValue!.value.organization.name}");
-        name.clear();
 
-        container.setOrganization(result.asValue!.value);
+      MyToast.toastSuccess(
+          "Successfully Created ${organizationMember.organization.name}");
+      name.clear();
 
-        Navigator.pushReplacementNamed(context, rHome);
-      }
+      container.setOrganization(organizationMember);
+
+      Navigator.pushReplacementNamed(context, rHome);
     } catch (e) {
       if (kDebugMode) print(e);
       MyToast.toastError(e.toString());

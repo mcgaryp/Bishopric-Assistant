@@ -32,7 +32,7 @@ abstract class Repository<Entity, UUID, AlternativeUUID> {
   ///
   /// This class inserts a new M into a database
   /// Returns a [ValueResult] or an [ErrorResult] on a failure
-  Future<bool> insert(Entity m);
+  Future<Entity?> insert(Entity m);
 
   /// [remove] M
   ///
@@ -43,11 +43,6 @@ abstract class Repository<Entity, UUID, AlternativeUUID> {
   ///
   /// Returns a [ValueResult] or an [ErrorResult]
   Future<bool> update(Entity m);
-
-  /// [generateNextId] for the M
-  ///
-  /// Returns a [UUID]
-  Future<UUID?> generateNextId();
 }
 
 // TODO: Turn into Exceptions?

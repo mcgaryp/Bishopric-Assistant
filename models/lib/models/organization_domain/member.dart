@@ -1,6 +1,7 @@
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/shared/domain_driven_design/entity.dart';
+import 'package:models/shared/exceptions.dart';
 
 ///
 /// member.dart
@@ -14,30 +15,31 @@ import 'package:models/shared/domain_driven_design/entity.dart';
 class Member extends Entity<Member> {
   final Name name;
   final Contact contact;
-  final MemberID memberID;
+  final MemberID? _id;
   final Role role;
 
   Member(
       {required this.name,
       required this.contact,
       required this.role,
-      required this.memberID})
-      : super(memberID);
+      MemberID? id})
+      : this._id = id,
+        super(id);
 
   Member.fromMap(MemberID id, Map<String, dynamic> map)
       : this(
           name: Name.fromMap(map),
           contact: Contact.fromMap(map),
           role: Role.fromMap(map),
-          memberID: id,
+          id: id,
         );
 
   Member.newRole({required Role role, required Member member})
       : this.role = role,
         this.name = member.name,
         this.contact = member.contact,
-        this.memberID = member.memberID,
-        super(member.memberID);
+        this._id = member.id,
+        super(member.id);
 
   Map<String, dynamic> get toMap {
     Map<String, dynamic> map = {};
@@ -47,9 +49,16 @@ class Member extends Entity<Member> {
     return map;
   }
 
+  MemberID get id {
+    if (_id == null)
+      throw IdDoesNotExistError(forObject: "Member");
+    else
+      return _id!;
+  }
+
   @override
   bool sameIdentityAs(Member other) {
-    return this.memberID == other.memberID;
+    return this.id == other.id;
   }
 
   @override

@@ -16,7 +16,7 @@ mixin ChangeOrganizationNameUseCase {
   /// [accessorId] id of the member who is editing the name of the organization
   /// [newName] is the string that will represent the new organization name
   @required
-  Future<Result> execute({required MemberID accessorId, required String name});
+  Future<bool> execute({required MemberID accessorId, required String name});
 }
 
 class DefaultChangeOrganizationNameUseCase
@@ -28,20 +28,19 @@ class DefaultChangeOrganizationNameUseCase
       this._organizationRepository, this._memberRepository);
 
   @override
-  Future<Result> execute(
+  Future<bool> execute(
       {required MemberID accessorId, required String name}) async {
     Member? accessor = await _memberRepository.find(accessorId);
-    if (accessor == null) return Result.error(MemberNotFoundError());
+    if (accessor == null) throw MemberNotFoundError();
     if (accessor.role.permissions < Permissions.creator)
-      return Result.error(PermissionDeniedError(
-          reason: "Creator Permissions required to Change Organization Name"));
+      throw PermissionDeniedError(
+          reason: "Creator Permissions required to Change Organization Name");
 
     Organization? organization =
-        await _memberRepository.findOrganization(accessor.memberID);
-    if (organization == null) return Result.error(OrganizationNotFoundError());
+        await _memberRepository.findOrganization(accessor.id);
+    if (organization == null) throw OrganizationNotFoundError();
     Organization newOrganization = Organization.newName(organization, name);
-    if (await _organizationRepository.update(newOrganization))
-      return Result.value(true);
-    return Result.error(FailedToSaveError(forEntity: "Organization"));
+    if (await _organizationRepository.update(newOrganization)) return true;
+    throw FailedToSaveError(forEntity: "Organization");
   }
 }

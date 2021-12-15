@@ -130,7 +130,6 @@ class _SignupPageState extends State<SignupPage> {
 
       try {
         FirebaseAccountRepository _accountRepo = FirebaseAccountRepository();
-
         DefaultCreateAccountUseCase createAccount =
             DefaultCreateAccountUseCase(_accountRepo);
         Name name = Name(first: fNameControl.text, last: lNameControl.text);
@@ -138,10 +137,10 @@ class _SignupPageState extends State<SignupPage> {
             Contact(phone: phoneControl.text, email: emailControl.text);
         Credentials credentials =
             Credentials(username: usernameControl.text, password: hashPassword);
-        Result<Account> result = await createAccount.execute(
+        Account account = await createAccount.execute(
             name: name, contact: contact, credentials: credentials);
-        if (result.isValue) _success(result.asValue!.value);
-        if (result.isError) _error(result.asError!.error.toString());
+        print("tests");
+        _success(account);
       } catch (e) {
         _error(e.toString());
         if (kDebugMode) print(e.toString());

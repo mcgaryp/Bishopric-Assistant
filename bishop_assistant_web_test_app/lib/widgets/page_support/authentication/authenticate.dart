@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 
 class Authenticate extends StatelessWidget {
   final Widget child;
+
   const Authenticate({Key? key, required this.child}) : super(key: key);
 
   @override

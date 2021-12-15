@@ -64,10 +64,8 @@ class _RequestPasswordResetState extends State<RequestPasswordReset> {
       DefaultRecoverAccountUseCase recoverAccountUseCase =
           DefaultRecoverAccountUseCase(FirebaseAccountRepository());
 
-      Result<Contact> result =
-          await recoverAccountUseCase.execute(controller.text);
-      if (result.isValue) await _sendEmail(result.asValue!.value);
-      if (result.isError) _error(result.asError!.error);
+      Contact contact = await recoverAccountUseCase.execute(controller.text);
+      await _sendEmail(contact);
     } catch (error) {
       MyToast.toastError(error.toString());
     }

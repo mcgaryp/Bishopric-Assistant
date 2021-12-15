@@ -20,6 +20,10 @@ mixin OrganizationRepository
       OrganizationID organizationID, MemberID memberID, AccountID accountID);
 
   Stream<List<JoinRequest>> findAllRequests(OrganizationID organizationID);
+
   Future<bool> requestToJoinOrganization(JoinRequest joinRequest);
+
   Future<bool> removeRequestToJoinOrganization(JoinRequest request);
+
+  Future<Organization?> findByName(String name);
 }
