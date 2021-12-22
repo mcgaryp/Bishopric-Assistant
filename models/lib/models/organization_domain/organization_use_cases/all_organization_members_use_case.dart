@@ -11,7 +11,7 @@ import 'package:models/shared/foundation.dart';
 
 mixin AllOrganizationMembersUseCase {
   @required
-  Stream<List<Member>> execute(OrganizationID id);
+  Stream<List<Stream<Member>>> execute(OrganizationID id);
 }
 
 class DefaultAllOrganizationMembersUseCase
@@ -21,7 +21,7 @@ class DefaultAllOrganizationMembersUseCase
   DefaultAllOrganizationMembersUseCase(this._memberRepository);
 
   @override
-  Stream<List<Member>> execute(OrganizationID id) {
+  Stream<List<Stream<Member>>> execute(OrganizationID id) {
     return _memberRepository.findAll(id);
   }
 }

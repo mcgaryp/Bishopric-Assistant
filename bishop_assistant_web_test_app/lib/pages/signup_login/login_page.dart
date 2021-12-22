@@ -162,7 +162,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _developerLogin() {
-    usernameControl.text = "dev6";
+    usernameControl.text = "dev";
     passwordControl.text = "password1";
     _onPress();
   }

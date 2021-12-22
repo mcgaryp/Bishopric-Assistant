@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 class MyDropdown extends StatefulWidget {
   final String hint;
   final bool isInput;
+  final double? padding;
   final String? Function(dynamic)? validator;
   final List<DropdownMenuItem<int>> collection;
   final void Function(int)? onchange;
@@ -23,7 +24,13 @@ class MyDropdown extends StatefulWidget {
     this.onchange,
     this.validator,
     this.collection = const [DropdownMenuItem<int>(value: -1, child: Text(""))],
-  }) : super(key: key);
+    double? padding,
+  })  : padding = padding != null
+            ? padding
+            : isInput
+                ? padding8
+                : padding16,
+        super(key: key);
 
   @override
   State<MyDropdown> createState() => _MyDropdownState();
@@ -35,7 +42,7 @@ class _MyDropdownState extends State<MyDropdown> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: widget.isInput ? padding8 : padding16),
+      padding: EdgeInsets.only(bottom: widget.padding!),
       child: Stack(
         children: [
           Container(

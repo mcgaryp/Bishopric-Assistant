@@ -16,5 +16,7 @@ mixin MemberRepository implements Repository<Member, MemberID, OrganizationID> {
 
   Future<Member?> findWithAccountID(AccountID accountID);
 
+  Stream<List<Stream<Member>>> findAll(OrganizationID organizationID);
+
   Future<List<Member>?> findAllWithAccountID(AccountID accountID);
 }

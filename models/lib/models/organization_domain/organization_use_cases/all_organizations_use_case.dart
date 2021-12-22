@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:models/models/organization.dart';
-import 'package:models/shared/foundation.dart';
 
 ///
 /// all_organizations_use_Case.dart
@@ -23,6 +22,6 @@ class DefaultAllOrganizationsUseCase implements AllOrganizationsUseCase {
 
   @override
   Stream<List<Organization>> execute() {
-    return _organizationRepository.findAll(null);
+    return _organizationRepository.findAll();
   }
 }
