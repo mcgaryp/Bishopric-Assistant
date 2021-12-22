@@ -22,12 +22,6 @@ abstract class Repository<Entity, UUID, AlternativeUUID> {
   /// @required
   Future<Entity?> find(UUID i);
 
-  /// [findAll] M
-  ///
-  ///
-  /// Returns a [List<Entity>] Optionals
-  Stream<List<Entity>> findAll(AlternativeUUID o);
-
   /// [insert] M
   ///
   /// This class inserts a new M into a database

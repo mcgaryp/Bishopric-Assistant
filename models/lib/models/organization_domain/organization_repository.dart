@@ -21,6 +21,8 @@ mixin OrganizationRepository
 
   Stream<List<JoinRequest>> findAllRequests(OrganizationID organizationID);
 
+  Stream<List<Organization>> findAll();
+
   Future<bool> requestToJoinOrganization(JoinRequest joinRequest);
 
   Future<bool> removeRequestToJoinOrganization(JoinRequest request);

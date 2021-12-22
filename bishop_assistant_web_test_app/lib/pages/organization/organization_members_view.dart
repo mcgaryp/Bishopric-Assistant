@@ -1,5 +1,4 @@
 import 'package:bishop_assistant_web_test_app/repositories/firebase_member_repository.dart';
-import 'package:bishop_assistant_web_test_app/state/state.dart';
 import 'package:bishop_assistant_web_test_app/theme/theme.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -20,16 +19,16 @@ class OrganizationMembersView extends StatelessWidget {
         DefaultAllOrganizationMembersUseCase(FirebaseMemberRepository());
     Organization organization = StateContainer.of(context).organization;
 
-    return StreamBuilder<List<Member>>(
+    return StreamBuilder<List<Stream<Member>>>(
       stream: useCase.execute(organization.id),
-      builder: (BuildContext context, AsyncSnapshot<List<Member>> snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<List<Stream<Member>>> snapshot) {
         if (snapshot.hasData) {
-          List<Member>? members = snapshot.data;
+          List<Stream<Member>>? members = snapshot.data;
           if (members == null) return Container();
           return Column(
               children: members
                   .map<MemberDetailsCard>(
-                      (Member member) => MemberDetailsCard(member))
+                      (Stream<Member> member) => MemberDetailsCard(member))
                   .toList());
         }
 

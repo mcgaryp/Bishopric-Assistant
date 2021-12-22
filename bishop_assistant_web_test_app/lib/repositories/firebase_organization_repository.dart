@@ -30,7 +30,7 @@ class FirebaseOrganizationRepository extends FirestoreHelper
   }
 
   @override
-  Stream<List<Organization>> findAll(void o) {
+  Stream<List<Organization>> findAll() {
     Stream<QuerySnapshot<Map<String, dynamic>>> stream =
         getCollectionOfDocumentsStreamed();
 
@@ -41,6 +41,7 @@ class FirebaseOrganizationRepository extends FirestoreHelper
 
       for (QueryDocumentSnapshot<Map<String, dynamic>> document
           in documents.docs) {
+
         Map<String, dynamic> map = document.data();
 
         Member? member = await findCreator(MemberID(map["creator"]));

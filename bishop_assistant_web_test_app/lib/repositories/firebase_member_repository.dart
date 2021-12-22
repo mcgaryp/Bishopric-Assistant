@@ -2,6 +2,7 @@ import 'package:bishop_assistant_web_test_app/database/firestore_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:models/models/account_domain/account_id.dart';
 import 'package:models/models/organization.dart';
+import 'package:models/shared/exceptions.dart';
 
 ///
 /// firebase_member_repository.dart
@@ -26,23 +27,34 @@ class FirebaseMemberRepository extends FirestoreHelper
     return null;
   }
 
+  Stream<Member> findMemberStreamed(MemberID id) {
+    Stream<DocumentSnapshot<Map<String, dynamic>>> documentStream =
+        getSingleDocumentStreamed(id);
+    Stream<Member> memberStream = documentStream
+        .asyncMap<Member>((DocumentSnapshot<Map<String, dynamic>> event) async {
+      Map<String, dynamic>? map = event.data();
+      if (map == null) throw MemberNotFoundError();
+      Member member = Member.fromMap(id, map);
+      return member;
+    });
+    return memberStream;
+  }
+
   @override
-  Stream<List<Member>> findAll(OrganizationID organizationID) {
+  Stream<List<Stream<Member>>> findAll(OrganizationID organizationID) {
     Stream<QuerySnapshot<Map<String, dynamic>>> streamedDocuments =
         getCollectionOfDocumentsStreamed(
             path: FirestoreCollectionPath.organization_members,
             field: "organizationID",
             isEqualTo: organizationID.id);
-    Stream<List<Member>> membersStream = streamedDocuments
-        .asyncMap<List<Member>>(
+
+    Stream<List<Stream<Member>>> membersStream = streamedDocuments
+        .asyncMap<List<Stream<Member>>>(
             (QuerySnapshot<Map<String, dynamic>> snapshot) async {
-      List<Member> members = [];
-      for (QueryDocumentSnapshot<Map<String, dynamic>> document
-          in snapshot.docs) {
-        Map<String, dynamic> map = document.data();
-        Member? member = await find(MemberID(map["memberID"]));
-        if (member != null) members.add(member);
-      }
+      List<Stream<Member>> members = [];
+      snapshot.docs.forEach((element) {
+        members.add(findMemberStreamed(MemberID(element["memberID"])));
+      });
       return members;
     });
     return membersStream;
@@ -98,8 +110,7 @@ class FirebaseMemberRepository extends FirestoreHelper
 
   @override
   Future<bool> update(Member member) {
-    // TODO: implement update
-    throw UnimplementedError();
+    return updateDocument(member.toMap, member.id);
   }
 
   @override
