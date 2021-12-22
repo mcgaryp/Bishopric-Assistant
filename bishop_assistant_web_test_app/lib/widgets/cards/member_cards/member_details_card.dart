@@ -43,8 +43,6 @@ class _MemberDetailsCardState extends State<MemberDetailsCard> {
     return StreamBuilder(
         stream: widget.memberStream,
         builder: (BuildContext context, AsyncSnapshot<Member> snapshot) {
-          if (snapshot.data != null && snapshot.data!.name.fullName == "Developer Two Account")
-            print(snapshot.data!.role);
           if (snapshot.hasData && snapshot.data != null) {
             member = snapshot.data!;
             return MyCard(
