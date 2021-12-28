@@ -1,7 +1,6 @@
 import 'package:bishop_assistant_web_test_app/theme/decorations.dart';
 import 'package:bishop_assistant_web_test_app/util/util.dart';
 import 'package:bishop_assistant_web_test_app/widgets/inputs/input_field.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:models/shared/foundation.dart';
 

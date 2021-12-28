@@ -1,5 +1,4 @@
 import 'package:models/models/organization.dart';
-import 'package:models/shared/foundation.dart';
 
 ///
 /// all_organization_requests_use_case.dart

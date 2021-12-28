@@ -1,5 +1,4 @@
 import 'package:models/models/organization.dart';
-import 'package:models/models/organization_domain/join_requests/join_request_id.dart';
 import 'package:models/shared/foundation.dart';
 
 ///

@@ -11,9 +11,7 @@ import 'package:flutter/material.dart';
 
 final ThemeData theme = ThemeData(
     backgroundColor: darkPrimary,
-    buttonColor: lightPrimary,
     primaryColor: darkPrimary,
-    accentColor: light,
     errorColor: errorRed,
     cardColor: darkPrimary,
     highlightColor: lightPrimary,

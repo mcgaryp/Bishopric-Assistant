@@ -1,5 +1,4 @@
 import 'package:models/models/account.dart';
-import 'package:models/shared/foundation.dart';
 
 ///
 /// reactivate_account_use_case.dart

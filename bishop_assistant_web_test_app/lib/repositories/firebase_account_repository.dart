@@ -35,12 +35,6 @@ class FirebaseAccountRepository extends FirestoreHelper
   }
 
   @override
-  Stream<List<Account>> findAll(void nil) {
-    // TODO: implement findAll
-    throw UnimplementedError();
-  }
-
-  @override
   Future<Account?> findByEmail(String email) async {
     QuerySnapshot<Map<String, dynamic>> snapshot =
         await getCollectionOfDocuments();

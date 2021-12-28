@@ -1,5 +1,4 @@
 import 'package:models/models/organization.dart';
-import 'package:models/models/organization_domain/member_repository.dart';
 import 'package:models/shared/exceptions.dart';
 
 ///

@@ -3,8 +3,6 @@ import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../page_support/auto_text.dart';
-
 ///
 /// CardTextFieldRow.dart
 /// bishop_assistant_web_test_app

@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:models/models/account.dart';
 import 'package:models/shared/exceptions.dart';
-import 'package:models/shared/repository.dart';
 
 import 'mock_account.dart';
 
@@ -31,11 +30,6 @@ class MockAccountRepository implements AccountRepository {
   }
 
   @override
-  Stream<List<Account>> findAll(void o) {
-    throw UnimplementedError();
-  }
-
-  @override
   Future<Account?> findByPhone(String phone) async {
     await Future.delayed(duration);
     for (Account account in accounts)
@@ -47,14 +41,6 @@ class MockAccountRepository implements AccountRepository {
     await Future.delayed(duration);
     for (Account account in accounts)
       if (account.credentials.username == username) return account;
-  }
-
-  @override
-  Future<AccountID?> generateNextId() async {
-    await Future.delayed(duration);
-    AccountID id = AccountID("Mock ${this.id}");
-    this.id++;
-    return id;
   }
 
   @override

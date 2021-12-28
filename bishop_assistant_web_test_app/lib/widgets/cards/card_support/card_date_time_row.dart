@@ -1,6 +1,5 @@
 import 'package:bishop_assistant_web_test_app/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 

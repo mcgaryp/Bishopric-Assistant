@@ -1,5 +1,4 @@
 import 'package:models/models/organization.dart';
-import 'package:models/models/organization_domain/member.dart';
 
 import 'mock_member.dart';
 

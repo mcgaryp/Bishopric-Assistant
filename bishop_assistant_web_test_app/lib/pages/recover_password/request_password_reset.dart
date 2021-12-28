@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 import 'package:models/models/account.dart';
-import 'package:models/models/organization.dart';
 
 ///
 /// RequestPasswordReset.dart

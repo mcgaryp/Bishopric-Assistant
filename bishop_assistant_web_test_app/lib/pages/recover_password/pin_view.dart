@@ -3,7 +3,6 @@ import 'package:bishop_assistant_web_test_app/util/util.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:models/models/account.dart';
-import 'package:models/shared/dart_foundation.dart';
 
 ///
 /// Pin.dart

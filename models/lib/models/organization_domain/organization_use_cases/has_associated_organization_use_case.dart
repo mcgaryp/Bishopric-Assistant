@@ -1,7 +1,4 @@
-import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
-import 'package:models/models/organization_domain/organization_member.dart';
-import 'package:models/shared/foundation.dart';
 
 ///
 /// has_associated_organization_use_case.dart

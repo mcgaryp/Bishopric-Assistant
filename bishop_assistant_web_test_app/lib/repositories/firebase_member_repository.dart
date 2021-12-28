@@ -1,6 +1,5 @@
 import 'package:bishop_assistant_web_test_app/database/firestore_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:models/models/account_domain/account_id.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/shared/exceptions.dart';
 
