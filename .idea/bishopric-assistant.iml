@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/build" />
+      <excludeFolder url="file://$MODULE_DIR$/models/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/models/build" />
+      <excludeFolder url="file://$MODULE_DIR$/models/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/ios/.symlinks/plugins/fluttertoast/build" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/ios/.symlinks/plugins/fluttertoast/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/ios/.symlinks/plugins/fluttertoast/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/ios/.symlinks/plugins/cloud_firestore/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/ios/.symlinks/plugins/cloud_firestore/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/ios/.symlinks/plugins/cloud_firestore/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/ios/.symlinks/plugins/cloud_firestore/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/ios/.symlinks/plugins/cloud_firestore/build" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/ios/.symlinks/plugins/cloud_firestore/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/ios/.symlinks/plugins/firebase_core/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/ios/.symlinks/plugins/firebase_core/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/ios/.symlinks/plugins/firebase_core/build" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/ios/.symlinks/plugins/shared_preferences/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/ios/.symlinks/plugins/shared_preferences/build" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/ios/.symlinks/plugins/shared_preferences/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/ios/.symlinks/plugins/fluttertoast/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/ios/.symlinks/plugins/fluttertoast/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/ios/.symlinks/plugins/fluttertoast/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/ios/.symlinks/plugins/firebase_core/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/ios/.symlinks/plugins/firebase_core/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/ios/.symlinks/plugins/firebase_core/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/ios/.symlinks/plugins/shared_preferences/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/ios/.symlinks/plugins/shared_preferences/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/ios/.symlinks/plugins/shared_preferences/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/android/app/src/main/java" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/android/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/ios/Runner.xcworkspace/xcuserdata" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/ios/.symlinks" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/ios/Pods" />
+      <excludeFolder url="file://$MODULE_DIR$/bishop_assistant_web_test_app/.idea" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Dart SDK" level="project" />
+    <orderEntry type="library" name="Dart Packages" level="project" />
+  </component>
+</module>

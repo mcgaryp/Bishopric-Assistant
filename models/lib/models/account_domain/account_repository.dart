@@ -23,18 +23,10 @@ mixin AccountRepository implements Repository<Account, AccountID, void> {
   Future<Account?> findByEmail(String email);
 
   /// [login] stores a value to mark the user as logged in
-  Future<bool> login();
+  Future<bool> login(Account account);
 
   /// [logout] stores a value to mark the user as logged out
   Future<bool> logout();
-
-  /// [getLoginStatus] retrieves current status of the login state
-  Future<LoginStatus> getLoginStatus();
-
-  /// [getCache] retrieves the cache from storage
-  Future<Account> getCache();
-
-  Future<bool> cache(Account account);
 
   Future<bool> activate(AccountID id);
 }

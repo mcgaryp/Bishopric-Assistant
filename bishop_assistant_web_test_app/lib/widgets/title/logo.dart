@@ -15,7 +15,7 @@ class Logo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Icon(
-      Icons.accessibility_new_rounded,
+      Icons.people,
       color: light,
     );
   }

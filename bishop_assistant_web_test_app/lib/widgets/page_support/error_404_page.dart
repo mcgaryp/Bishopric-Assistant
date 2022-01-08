@@ -13,8 +13,10 @@ import 'package:flutter/material.dart';
 
 class Error404Page extends StatelessWidget {
   final String? msg;
+  final bool canLogin;
 
-  const Error404Page({Key? key, this.msg}) : super(key: key);
+  const Error404Page({Key? key, this.msg, this.canLogin = true})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,20 +27,23 @@ class Error404Page extends StatelessWidget {
         leading: Logo(),
         centerTitle: false,
         title: Brand(isExpanded: false),
-        actions: [WebNavigationButton.label(sLogin, path: rLogin)],
+        actions: [
+          if (canLogin) WebNavigationButton.label(sLogin, path: rLogin)
+        ],
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Error404(msg: msg),
-            Container(
-              width: 300,
-              child: MyButton(
-                  label: sLogin,
-                  onPressed: () =>
-                      Navigator.pushReplacementNamed(context, rLogin)),
-            ),
+            if (canLogin)
+              Container(
+                width: 300,
+                child: MyButton(
+                    label: sLogin,
+                    onPressed: () =>
+                        Navigator.pushReplacementNamed(context, rLogin)),
+              ),
           ],
         ),
       ),

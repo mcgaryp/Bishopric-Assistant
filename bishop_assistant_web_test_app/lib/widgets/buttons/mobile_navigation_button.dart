@@ -12,8 +12,10 @@ import 'package:flutter/material.dart';
 
 class MobileNavigationButton extends NavigationButton {
   final String label;
+  final int? notifications;
 
-  const MobileNavigationButton(this.label, String path, {Key? key})
+  const MobileNavigationButton(this.label,
+      {required String path, this.notifications, Key? key})
       : super(path, key: key);
 
   @override

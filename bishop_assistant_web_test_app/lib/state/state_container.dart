@@ -108,15 +108,20 @@ class StateContainerState extends State<StateContainer> {
       });
 
   void login(Account account) => setState(() {
-        _isAuthenticated = true;
         _account = account;
+        _isAuthenticated = true;
       });
 
-  void logout(Function callback) => setState(() {
-        _isAuthenticated = false;
+  void logout(Function callback) async {
+    LogoutAccountUseCase useCase =
+        DefaultLogoutAccountUseCase(FirebaseAccountRepository());
+    if (await useCase.execute()) {
+      setState(() {
         _account = null;
         callback();
       });
+    }
+  }
 
   void setOrganization(OrganizationMember? org) => setState(() {
         if (org != null) {
