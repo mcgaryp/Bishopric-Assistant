@@ -113,9 +113,17 @@ class FirebaseMemberRepository extends FirestoreHelper
   }
 
   @override
-  Future<Member?> findWithAccountID(AccountID accountID) {
-    // TODO: implement findWithAccountID
-    throw UnimplementedError();
+  Future<Member?> findWithAccountID(AccountID accountID) async {
+    QuerySnapshot<Map<String, dynamic>> documents =
+        await getCollectionOfDocuments(
+            path: FirestoreCollectionPath.organization_members);
+    for (QueryDocumentSnapshot<Map<String, dynamic>> document
+        in documents.docs) {
+      if (document.data()['accountID'] == accountID.id) {
+        Member? member = await find(MemberID(document.data()['memberID']));
+        if (member != null) return member;
+      }
+    }
   }
 
   @override

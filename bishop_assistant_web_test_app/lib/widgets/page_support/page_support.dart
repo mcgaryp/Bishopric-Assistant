@@ -11,7 +11,7 @@ export 'coming_soon.dart';
 export 'dark_page.dart';
 export 'error_404.dart';
 export 'error_404_page.dart';
-export 'light_page/light_page.dart';
+export 'light_page.dart';
 export 'my_constrained_boxes.dart';
 export 'my_divider.dart';
 export 'my_divider.dart';

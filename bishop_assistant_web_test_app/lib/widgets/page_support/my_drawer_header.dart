@@ -1,7 +1,7 @@
 import 'package:bishop_assistant_web_test_app/theme/theme.dart';
 import 'package:bishop_assistant_web_test_app/util/util.dart';
 import 'package:flutter/material.dart';
-import 'package:models/models/organization.dart';
+import 'package:models/models/account.dart';
 
 ///
 /// member_account_drawer_header.dart
@@ -12,14 +12,13 @@ import 'package:models/models/organization.dart';
 ///
 
 class MyDrawerHeader extends StatelessWidget {
-  final Member member;
+  final Account account;
 
-  const MyDrawerHeader(this.member, {Key? key}) : super(key: key);
+  const MyDrawerHeader(this.account, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(maxHeight: 125),
       decoration: darkPrimaryBox,
       child: Padding(
         padding: const EdgeInsets.all(padding16),
@@ -41,8 +40,8 @@ class MyDrawerHeader extends StatelessWidget {
                 size: 40,
               ),
             ),
-            Text(member.name.fullName, style: bodyLight),
-            Text(member.contact.email, style: captionDark)
+            Text(account.name.fullName, style: bodyLight),
+            Text(account.contact.email, style: captionDark)
           ]),
         ),
       ),

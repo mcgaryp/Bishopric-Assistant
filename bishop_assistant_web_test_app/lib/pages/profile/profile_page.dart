@@ -55,18 +55,18 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  _edit() {
+  void _edit() {
     _setIsEditing(true);
   }
 
-  _save() {
+  void _save() {
     _setIsEditing(false);
   }
 
-  _logout() {
+  void _logout() {
     StateContainer.of(context)
         .logout(() => Navigator.pushReplacementNamed(context, rLogin));
   }
 
-  _setIsEditing(bool val) => setState(() => _isEditing = val);
+  void _setIsEditing(bool val) => setState(() => _isEditing = val);
 }

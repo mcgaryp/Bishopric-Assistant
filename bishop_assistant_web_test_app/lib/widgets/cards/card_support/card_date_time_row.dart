@@ -1,9 +1,4 @@
-import 'package:bishop_assistant_web_test_app/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:responsive_builder/responsive_builder.dart';
-
-import '../../widgets.dart';
 
 ///
 /// CardDateTimeRow.dart
@@ -28,54 +23,55 @@ class _CardDateTimeRowState extends State<CardDateTimeRow> {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveBuilder(builder: (context, size) {
-      List<Widget> children = [
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(DateFormat.MMMMEEEEd().format(selectedDate), style: bodyDark),
-            CardIconButton(Icons.calendar_today_outlined,
-                onPressed: () => _showDatePicker(context)),
-          ],
-        ),
-        Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(selectedTime.format(context), style: bodyDark),
-              CardIconButton(Icons.access_time,
-                  onPressed: () => _showTimePicker(context)),
-            ])
-      ];
+    return Container();
+    // return ResponsiveBuilder(builder: (context, size) {
+    //   List<Widget> children = [
+    //     Row(
+    //       mainAxisSize: MainAxisSize.max,
+    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //       children: [
+    //         Text(DateFormat.MMMMEEEEd().format(selectedDate), style: bodyDark),
+    //         CardIconButton(Icons.calendar_today_outlined,
+    //             onPressed: () => _showDatePicker(context)),
+    //       ],
+    //     ),
+    //     Row(
+    //         mainAxisSize: MainAxisSize.max,
+    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //         children: [
+    //           Text(selectedTime.format(context), style: bodyDark),
+    //           CardIconButton(Icons.access_time,
+    //               onPressed: () => _showTimePicker(context)),
+    //         ])
+    //   ];
 
-      Widget child;
+    // Widget child;
+    //
+    // switch (size.deviceScreenType) {
+    //   case DeviceScreenType.mobile:
+    //   case DeviceScreenType.tablet:
+    //     child = Column(
+    //       mainAxisSize: MainAxisSize.max,
+    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //       children: children,
+    //     );
+    //     break;
+    //   case DeviceScreenType.desktop:
+    //   default:
+    //     child = Row(
+    //         mainAxisSize: MainAxisSize.max,
+    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //         children: children);
+    // }
 
-      switch (size.deviceScreenType) {
-        case DeviceScreenType.mobile:
-        case DeviceScreenType.tablet:
-          child = Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: children,
-          );
-          break;
-        case DeviceScreenType.desktop:
-        default:
-          child = Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: children);
-      }
-
-      return Padding(
-        padding: const EdgeInsets.only(bottom: padding8),
-        child: Container(
-          decoration: darkBorderBox,
-          child: Padding(padding: const EdgeInsets.all(padding8), child: child),
-        ),
-      );
-    });
+    //   return Padding(
+    //     padding: const EdgeInsets.only(bottom: padding8),
+    //     child: Container(
+    //       decoration: darkBorderBox,
+    //       child: Padding(padding: const EdgeInsets.all(padding8), child: child),
+    //     ),
+    //   );
+    // });
   }
 
   void _showDatePicker(BuildContext context) async {

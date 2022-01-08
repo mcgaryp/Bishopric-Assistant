@@ -87,13 +87,7 @@ class MockAccountRepository implements AccountRepository {
   }
 
   @override
-  Future<LoginStatus> getLoginStatus() {
-    // TODO: implement getLoginStatus
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<bool> login() {
+  Future<bool> login(Account account) {
     // TODO: implement login
     throw UnimplementedError();
   }
@@ -101,18 +95,6 @@ class MockAccountRepository implements AccountRepository {
   @override
   Future<bool> logout() {
     // TODO: implement logout
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Account> getCache() {
-    // TODO: implement getCache
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<bool> cache(Account account) {
-    // TODO: implement cache
     throw UnimplementedError();
   }
 

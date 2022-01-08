@@ -1,4 +1,5 @@
 import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/state/firebase_authentication.dart';
 import 'package:bishop_assistant_web_test_app/util/util.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:crypt/crypt.dart';
@@ -30,6 +31,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController usernameControl = TextEditingController();
 
   bool _isWaiting = false;
+  bool _canRequestEmailVerification = false;
   String? _errorMsg;
 
   @override
@@ -79,12 +81,20 @@ class _LoginPageState extends State<LoginPage> {
                 label: sSignup,
                 onPressed: () => Navigator.pushNamed(context, rSignup)),
             // Forgot Password button
-            // TODO: Add forgot button once the Mailer portion works for web
+            // TODO: Uncomment
             // MyButton(
-            //   label: forgot,
+            //   label: sForgot,
             //   onPressed: () => Navigator.pushNamed(context, rPasswordRequest),
             //   style: MyButtonStyle.text,
             // ),
+            // Request email verification
+            if (_canRequestEmailVerification)
+              MyButton(
+                label: sRequestToVerifyEmail,
+                onPressed: () =>
+                    FirebaseAuthentication.user.sendEmailVerification(),
+                style: MyButtonStyle.text,
+              ),
           ],
         ),
       )
@@ -118,15 +128,20 @@ class _LoginPageState extends State<LoginPage> {
     } on InactiveAccountError catch (error) {
       Navigator.pushReplacementNamed(context, rReactivateAccount,
           arguments: error.id);
+    } on VerifyEmailError catch (e) {
+      _errorMsg = null;
+      setState(() => _canRequestEmailVerification = true);
+      MyToast.toastError(e.toString());
     } catch (e) {
       _error(e.toString());
       if (kDebugMode) print(e.toString());
     }
+
     // Turn off the spinner
     _setIsWaiting(false);
   }
 
-  // Set the private variable isWaiting
+// Set the private variable isWaiting
   void _setIsWaiting(bool val) {
     setState(() {
       _isWaiting = val;
@@ -140,7 +155,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _success(Account account) async {
-    _errorMsg = "";
+    _errorMsg = null;
 
     // TODO: save a token to recognize the user is logged in still and refer to that
     // token to check fi they are logged in on page refresh

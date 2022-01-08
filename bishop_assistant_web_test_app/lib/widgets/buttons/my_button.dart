@@ -62,6 +62,7 @@ class MyButton extends StatelessWidget {
                 child: Text(
                   label,
                   style: bodyLight,
+                  textAlign: TextAlign.center,
                 )),
           )),
     );

@@ -70,7 +70,7 @@ class _MemberDetailsCardState extends State<MemberDetailsCard> {
                                   onchange: _onRoleSelected),
                             ),
                           if (StateContainer.of(context).organization.creator !=
-                              widget.memberStream)
+                              StateContainer.of(context).member)
                             Align(
                                 alignment: Alignment.centerRight,
                                 child: CardButton(

@@ -39,8 +39,7 @@ class _FindOrganizationPageState extends State<FindOrganizationPage> {
 
             if (organizations != null && organizations!.isEmpty)
               organizations = allOrganizations;
-            return LightPage(
-                child: Column(children: [
+            return Column(children: [
               CreateOrganization(),
               SearchBar<Organization>(
                 filter: (Organization org, String? str) {
@@ -64,7 +63,7 @@ class _FindOrganizationPageState extends State<FindOrganizationPage> {
               ),
               errors ?? Container(),
               if (organizations != null) ListOfOrganizations(organizations!),
-            ]));
+            ]);
           }
 
           if (snapshot.hasError)

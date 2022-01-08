@@ -72,9 +72,13 @@ class _RequestPasswordResetState extends State<RequestPasswordReset> {
   }
 
   Future<void> _sendEmail(Contact contact) async {
-    //TODO: Remove
-    Pin pin = Pin();
+    // OPTION A
+    // TODO: Create `ActionCodeSetting` that is sent with emailVerification
+    // https://firebase.flutter.dev/docs/auth/usage/#open-link-in-app
+    // This method requires `ActionCodeSetting` link back to the `ChangePassword`
+    // FirebaseAuthentication.auth.sendPasswordResetEmail(email: contact.email);
 
+    // OPTION B
     String email = "noreply@bishopric-assistant.web.app";
     // TODO: Store username and password secretly...
     String username = ''; // TODO: Get from sendinblue
@@ -87,8 +91,8 @@ class _RequestPasswordResetState extends State<RequestPasswordReset> {
         port: 587,
       );
 
-      // Create random pin
-      // Pin pin = Pin();
+      // Create random one time pin
+      Pin pin = Pin();
 
       // TODO: Finish Message creation
       final Message message = Message()
@@ -107,12 +111,9 @@ class _RequestPasswordResetState extends State<RequestPasswordReset> {
     } catch (e) {
       _error(e);
     }
-    // TODO: Remove
-    _success(pin);
   }
 
   void _success(pin) {
-    MyToast.toastSuccess(pin.toString());
     // Navigate to the next page
     // Send pin as valid argument
     Navigator.pushReplacementNamed(context, rPIN,

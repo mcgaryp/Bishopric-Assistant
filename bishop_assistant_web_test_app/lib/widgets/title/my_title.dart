@@ -14,12 +14,6 @@ class MyTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      constraints: BoxConstraints(maxWidth: 500),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [Logo(), Brand()],
-      ),
-    );
+    return SizedBox(width: 500, child: Brand(isExpanded: false));
   }
 }

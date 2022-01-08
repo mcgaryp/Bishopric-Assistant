@@ -72,10 +72,14 @@ const String sReactivate =
     "We noticed your account has been deactivated.\nWould you like to reactivate it?";
 const String sReject = "Reject";
 const String sRemove = "Remove";
+const String sReminderToVerifyEmail =
+    "Remember to verify your email before login";
 const String sRequestReset = "Request Reset";
+const String sRequestToVerifyEmail = "Send new request to verify email";
 const String sRole = "Role";
 const String sSave = "Save";
 const String sSearch = "Search";
 const String sSignup = "Sign Up";
+const String sTitle = "Bishopric Assistant";
 const String sUsername = "Username";
 const String sYes = "Yes";

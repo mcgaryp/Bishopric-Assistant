@@ -1,4 +1,5 @@
 import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/theme/theme.dart';
 import 'package:bishop_assistant_web_test_app/util/util.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:crypt/crypt.dart';
@@ -91,6 +92,8 @@ class _SignupPageState extends State<SignupPage> {
         ),
       ),
     ], buttons: [
+      Text(sReminderToVerifyEmail,
+          textAlign: TextAlign.center, style: bodyLight),
       AbsorbPointer(
         absorbing: _isWaiting,
         child: MyButton(label: sSignup, onPressed: _onPress),

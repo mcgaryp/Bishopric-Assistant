@@ -36,7 +36,10 @@ class DefaultAuthenticateAccountUseCase implements AuthenticateAccountUseCase {
 
     Credentials credentialsFromBeyond = accountFromBeyond.credentials;
 
-    if (credentials == credentialsFromBeyond) return accountFromBeyond;
+    if (credentials == credentialsFromBeyond) {
+      if (await _accountRepository.login(accountFromBeyond))
+        return accountFromBeyond;
+    }
 
     throw PermissionDeniedError(reason: _reason);
   }

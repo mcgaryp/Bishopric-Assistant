@@ -1,4 +1,3 @@
-import 'package:bishop_assistant_web_test_app/my_firebase_app.dart';
 import 'package:bishop_assistant_web_test_app/pages/footer/legal.dart';
 import 'package:bishop_assistant_web_test_app/pages/footer/privacy.dart';
 import 'package:bishop_assistant_web_test_app/pages/home/home.dart';
@@ -41,13 +40,13 @@ const String rReactivateAccount = "/reactivate";
 const String rSignup = "/signup";
 
 final Map<String, Widget Function(BuildContext)> routes = {
-  "/": (context) => MyFirebaseApp(),
+  "/": (context) => LoginPage(),
   rHome: (context) => Authenticate(child: HomePage()),
   rLogin: (context) => LoginPage(),
   rSignup: (context) => SignupPage(),
-  // TODO: Add back when requestReset is implemented
+  // TODO: Uncomment
   // rPasswordRequest: (context) => RequestPasswordReset(),
-  // rPIN: (context) => Pin(),
+  // rPIN: (context) => PinView(),
   // rChangePassword: (context) => ChangePassword(),
   rOrganization: (context) => Authenticate(child: OrganizationPage()),
   rProfile: (context) => Authenticate(child: ProfilePage()),

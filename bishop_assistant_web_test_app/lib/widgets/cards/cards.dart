@@ -15,7 +15,6 @@ export 'card_support/card_subtitle.dart';
 export 'card_support/card_text_field_row.dart';
 export 'card_support/card_title.dart';
 export 'card_support/my_card.dart';
-export 'member_cards/member_card.dart';
 export 'member_cards/member_details_card.dart';
 export 'member_cards/member_icon.dart';
 export 'member_cards/member_title.dart';
