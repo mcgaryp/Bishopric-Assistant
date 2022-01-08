@@ -17,7 +17,7 @@ import 'package:models/shared/uuid.dart';
 ///   information that is returned in a generic form of Document or Mapping.
 ///
 /// URL to help with FireFlutter https://firebase.flutter.dev/docs/firestore/usage
-abstract class FirestoreHelper<T> {
+abstract class FirestoreHelper {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirestoreCollectionPath mPath;
 
@@ -27,20 +27,32 @@ abstract class FirestoreHelper<T> {
   ///
   /// These accessors will pull once and only once form the database
   /// [getSingleDocument] retrieves a single row from a specific table
-  Future<DocumentSnapshot<Map<String, dynamic>>> getSingleDocument(UUID uuid,
-          {FirestoreCollectionPath? path}) =>
-      _firestore.collection((path ?? mPath).string).doc(uuid.id).get();
+  Future<Map<String, dynamic>?> getSingleDocument(UUID uuid,
+      {FirestoreCollectionPath? path}) async {
+    DocumentSnapshot<Map<String, dynamic>> snapshot =
+        await _firestore.collection((path ?? mPath).string).doc(uuid.id).get();
+    Map<String, dynamic>? map = snapshot.data();
+    if (map == null) return null;
+    map['id'] = snapshot.id;
+    return map;
+  }
 
   /// [getCollectionOfDocuments] retrieves a collection of rows from a single
   /// table
-  Future<QuerySnapshot<Map<String, dynamic>>> getCollectionOfDocuments(
-      {FirestoreCollectionPath? path, String? field, Object? isEqualTo}) {
+  Future<List<Map<String, dynamic>>> getCollectionOfDocuments(
+      {FirestoreCollectionPath? path, String? field, Object? isEqualTo}) async {
+    QuerySnapshot<Map<String, dynamic>> snapshot;
     if (field != null)
-      return _firestore
+      snapshot = await _firestore
           .collection((path ?? mPath).string)
           .where(field, isEqualTo: isEqualTo)
           .get();
-    return _firestore.collection((path ?? mPath).string).get();
+    snapshot = await _firestore.collection((path ?? mPath).string).get();
+    return snapshot.docs.map<Map<String, dynamic>>((document) {
+      Map<String, dynamic> map = document.data();
+      map['id'] = document.id;
+      return map;
+    }).toList();
   }
 
   /// Realtime update accessors: [getCollectionOfDocumentsStreamed],
@@ -50,22 +62,36 @@ abstract class FirestoreHelper<T> {
   /// row or table is changed
   /// [getCollectionOfDocumentsStreamed] gives a new collection of rows from a
   /// specific table everytime there is a change to the information in the table
-  Stream<QuerySnapshot<Map<String, dynamic>>> getCollectionOfDocumentsStreamed(
+  Stream<List<Map<String, dynamic>>> getCollectionOfDocumentsStreamed(
       {FirestoreCollectionPath? path, String? field, Object? isEqualTo}) {
+    Stream<QuerySnapshot<Map<String, dynamic>>> snapshot;
     if (field != null)
-      return _firestore
+      snapshot = _firestore
           .collection((path ?? mPath).string)
           .where(field, isEqualTo: isEqualTo)
           .snapshots();
-    return _firestore.collection((path ?? mPath).string).snapshots();
+    snapshot = _firestore.collection((path ?? mPath).string).snapshots();
+    return snapshot.asyncMap<List<Map<String, dynamic>>>(
+        (event) => event.docs.map<Map<String, dynamic>>((e) {
+              Map<String, dynamic> map = e.data();
+              map["id"] = e.id;
+              return map;
+            }).toList());
   }
 
   /// [getSingleDocumentStreamed] gives a new row every time there is a change
   /// to that row
-  Stream<DocumentSnapshot<Map<String, dynamic>>> getSingleDocumentStreamed(
-          UUID uuid,
-          {FirestoreCollectionPath? path}) =>
-      _firestore.collection((path ?? mPath).string).doc(uuid.id).snapshots();
+  Stream<Map<String, dynamic>?> getSingleDocumentStreamed(UUID uuid,
+      {FirestoreCollectionPath? path}) {
+    Stream<DocumentSnapshot<Map<String, dynamic>>> stream =
+        _firestore.collection((path ?? mPath).string).doc(uuid.id).snapshots();
+    return stream.asyncMap<Map<String, dynamic>?>((event) {
+      Map<String, dynamic>? map = event.data();
+      if (map == null) return null;
+      map['id'] = event.id;
+      return map;
+    });
+  }
 
   /// [addDocument] to the database
   Future<String?> addDocument(Map<String, Object?> map,

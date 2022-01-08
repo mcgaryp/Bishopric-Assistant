@@ -156,10 +156,10 @@ class _EditProfileState extends State<EditProfile> {
     DefaultChangeContactUseCase useCase =
         DefaultChangeContactUseCase(FirebaseAccountRepository());
     String email = account.contact.email;
-    String feedbackStr = "Changes Made...";
+    String feedbackStr = "";
     if (emailControl.text.isNotEmpty) {
       email = emailControl.text;
-      feedbackStr += "\nUser email successfully changed to '$email'";
+      feedbackStr += "User email successfully changed to '$email'";
     }
     String phone = account.contact.phone;
     if (phoneControl.text.isNotEmpty) {
