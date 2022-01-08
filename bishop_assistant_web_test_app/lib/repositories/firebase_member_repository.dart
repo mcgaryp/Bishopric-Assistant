@@ -1,5 +1,4 @@
 import 'package:bishop_assistant_web_test_app/database/firestore_helper.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/shared/exceptions.dart';
 
@@ -17,9 +16,7 @@ class FirebaseMemberRepository extends FirestoreHelper
 
   @override
   Future<Member?> find(MemberID id) async {
-    DocumentSnapshot<Map<String, dynamic>> document =
-        await getSingleDocument(id);
-    Map<String, dynamic>? map = document.data();
+    Map<String, dynamic>? map = await getSingleDocument(id);
     if (map != null) {
       return Member.fromMap(id, map);
     }
@@ -27,11 +24,10 @@ class FirebaseMemberRepository extends FirestoreHelper
   }
 
   Stream<Member> findMemberStreamed(MemberID id) {
-    Stream<DocumentSnapshot<Map<String, dynamic>>> documentStream =
+    Stream<Map<String, dynamic>?> documentStream =
         getSingleDocumentStreamed(id);
-    Stream<Member> memberStream = documentStream
-        .asyncMap<Member>((DocumentSnapshot<Map<String, dynamic>> event) async {
-      Map<String, dynamic>? map = event.data();
+    Stream<Member> memberStream =
+        documentStream.asyncMap<Member>((Map<String, dynamic>? map) async {
       if (map == null) throw MemberNotFoundError();
       Member member = Member.fromMap(id, map);
       return member;
@@ -41,7 +37,7 @@ class FirebaseMemberRepository extends FirestoreHelper
 
   @override
   Stream<List<Stream<Member>>> findAll(OrganizationID organizationID) {
-    Stream<QuerySnapshot<Map<String, dynamic>>> streamedDocuments =
+    Stream<List<Map<String, dynamic>>> streamedDocuments =
         getCollectionOfDocumentsStreamed(
             path: FirestoreCollectionPath.organization_members,
             field: "organizationID",
@@ -49,9 +45,9 @@ class FirebaseMemberRepository extends FirestoreHelper
 
     Stream<List<Stream<Member>>> membersStream = streamedDocuments
         .asyncMap<List<Stream<Member>>>(
-            (QuerySnapshot<Map<String, dynamic>> snapshot) async {
+            (List<Map<String, dynamic>> snapshot) async {
       List<Stream<Member>> members = [];
-      snapshot.docs.forEach((element) {
+      snapshot.forEach((element) {
         members.add(findMemberStreamed(MemberID(element["memberID"])));
       });
       return members;
@@ -62,25 +58,21 @@ class FirebaseMemberRepository extends FirestoreHelper
   @override
   Future<Organization?> findOrganization(MemberID memberID) async {
     // find the document that connects the two
-    QuerySnapshot<Map<String, dynamic>> documents =
-        await getCollectionOfDocuments(
-            path: FirestoreCollectionPath.organization_members);
+    List<Map<String, dynamic>> documents = await getCollectionOfDocuments(
+        path: FirestoreCollectionPath.organization_members);
     OrganizationID? organizationID;
-    for (QueryDocumentSnapshot<Map<String, dynamic>> document
-        in documents.docs) {
+    for (Map<String, dynamic> document in documents) {
       // pull the organization id
-      if (document.get("memberID") == memberID.id) {
-        organizationID = OrganizationID(document.get("organizationID"));
+      if (document["memberID"] == memberID.id) {
+        organizationID = OrganizationID(document["organizationID"]);
         break;
       }
     }
 
     // find the organization by organization id
     if (organizationID != null) {
-      DocumentSnapshot<Map<String, dynamic>> document = await getSingleDocument(
-          organizationID,
+      Map<String, dynamic>? map = await getSingleDocument(organizationID,
           path: FirestoreCollectionPath.organizations);
-      Map<String, dynamic>? map = document.data();
 
       if (map != null) {
         Member? member = await find(memberID);
@@ -114,13 +106,11 @@ class FirebaseMemberRepository extends FirestoreHelper
 
   @override
   Future<Member?> findWithAccountID(AccountID accountID) async {
-    QuerySnapshot<Map<String, dynamic>> documents =
-        await getCollectionOfDocuments(
-            path: FirestoreCollectionPath.organization_members);
-    for (QueryDocumentSnapshot<Map<String, dynamic>> document
-        in documents.docs) {
-      if (document.data()['accountID'] == accountID.id) {
-        Member? member = await find(MemberID(document.data()['memberID']));
+    List<Map<String, dynamic>> documents = await getCollectionOfDocuments(
+        path: FirestoreCollectionPath.organization_members);
+    for (Map<String, dynamic> document in documents) {
+      if (document['accountID'] == accountID.id) {
+        Member? member = await find(MemberID(document['memberID']));
         if (member != null) return member;
       }
     }
@@ -129,13 +119,11 @@ class FirebaseMemberRepository extends FirestoreHelper
   @override
   Future<List<Member>?> findAllWithAccountID(AccountID accountID) async {
     List<Member> members = [];
-    QuerySnapshot<Map<String, dynamic>> documents =
-        await getCollectionOfDocuments(
-            path: FirestoreCollectionPath.organization_members);
-    for (QueryDocumentSnapshot<Map<String, dynamic>> document
-        in documents.docs) {
-      if (document.data()['accountID'] == accountID.id) {
-        Member? member = await find(MemberID(document.data()['memberID']));
+    List<Map<String, dynamic>> documents = await getCollectionOfDocuments(
+        path: FirestoreCollectionPath.organization_members);
+    for (Map<String, dynamic> document in documents) {
+      if (document['accountID'] == accountID.id) {
+        Member? member = await find(MemberID(document['memberID']));
         if (member != null) members.add(member);
       }
     }

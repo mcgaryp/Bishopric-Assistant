@@ -1,5 +1,4 @@
 import 'package:bishop_assistant_web_test_app/database/firestore_helper.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/shared/exceptions.dart';
 
@@ -18,10 +17,7 @@ class FirebaseOrganizationRepository extends FirestoreHelper
 
   @override
   Future<Organization?> find(OrganizationID id) async {
-    DocumentSnapshot<Map<String, dynamic>> snapshot =
-        await getSingleDocument(id);
-
-    Map<String, dynamic>? map = snapshot.data();
+    Map<String, dynamic>? map = await getSingleDocument(id);
 
     if (map == null) return null;
 
@@ -31,25 +27,21 @@ class FirebaseOrganizationRepository extends FirestoreHelper
 
   @override
   Stream<List<Organization>> findAll() {
-    Stream<QuerySnapshot<Map<String, dynamic>>> stream =
+    Stream<List<Map<String, dynamic>>> stream =
         getCollectionOfDocumentsStreamed();
 
     Stream<List<Organization>> organizationStream = stream
         .asyncMap<List<Organization>>(
-            (QuerySnapshot<Map<String, dynamic>> documents) async {
+            (List<Map<String, dynamic>> documents) async {
       List<Organization> organizations = [];
 
-      for (QueryDocumentSnapshot<Map<String, dynamic>> document
-          in documents.docs) {
-
-        Map<String, dynamic> map = document.data();
-
+      for (Map<String, dynamic> map in documents) {
         Member? member = await findCreator(MemberID(map["creator"]));
 
         if (member == null) throw MemberNotFoundError();
         map.addAll(member.toMap);
         Organization organization =
-            Organization.fromMap(OrganizationID(document.id), map);
+            Organization.fromMap(OrganizationID(map["id"]), map);
         organizations.add(organization);
       }
       return organizations;
@@ -91,29 +83,26 @@ class FirebaseOrganizationRepository extends FirestoreHelper
   }
 
   Future<Member?> findCreator(MemberID id) async {
-    DocumentSnapshot<Map<String, dynamic>> document =
+    Map<String, dynamic>? map =
         await getSingleDocument(id, path: FirestoreCollectionPath.members);
-    Map<String, dynamic>? map = document.data();
-    if (map != null) return Member.fromMap(MemberID(document.id), map);
+    if (map != null) return Member.fromMap(MemberID(map["id"]), map);
     return null;
   }
 
   @override
   Stream<List<JoinRequest>> findAllRequests(OrganizationID organizationID) {
-    Stream<QuerySnapshot<Map<String, dynamic>>> streamedDocuments =
+    Stream<List<Map<String, dynamic>>> streamedDocuments =
         getCollectionOfDocumentsStreamed(
             path: FirestoreCollectionPath.organization_requests,
             field: "organizationID",
             isEqualTo: organizationID.id);
     Stream<List<JoinRequest>> joinRequests = streamedDocuments
         .asyncMap<List<JoinRequest>>(
-            (QuerySnapshot<Map<String, dynamic>> snapshot) async {
+            (List<Map<String, dynamic>> snapshot) async {
       List<JoinRequest> requests = [];
-      for (QueryDocumentSnapshot<Map<String, dynamic>> document
-          in snapshot.docs) {
-        Map<String, dynamic> map = document.data();
+      for (Map<String, dynamic> map in snapshot) {
         JoinRequest request =
-            JoinRequest.fromMap(map, JoinRequestID(document.id));
+            JoinRequest.fromMap(map, JoinRequestID(map['id']));
         requests.add(request);
       }
       return requests;
@@ -136,18 +125,15 @@ class FirebaseOrganizationRepository extends FirestoreHelper
 
   @override
   Future<Organization?> findByName(String name) async {
-    QuerySnapshot<Map<String, dynamic>> snapshot =
-        await getCollectionOfDocuments(
-            field: "organizationName", isEqualTo: name);
-    if (snapshot.docs.isEmpty) return null;
-    if (snapshot.docs.length > 1)
+    List<Map<String, dynamic>> snapshots = await getCollectionOfDocuments(
+        field: "organizationName", isEqualTo: name);
+    if (snapshots.isEmpty) return null;
+    if (snapshots.length > 1)
       throw UnimplementedError(
           "There are more than one organization with the same name..."
           "This is not allowed");
-    DocumentSnapshot<Map<String, dynamic>?> document = snapshot.docs.first;
-    Map<String, dynamic>? map = document.data();
-    if (map == null) return null;
-    OrganizationID organizationID = OrganizationID(document.id);
+    Map<String, dynamic> map = snapshots.first;
+    OrganizationID organizationID = OrganizationID(map['id']);
 
     Member? member = await findCreator(MemberID(map["creator"]));
     if (member == null) throw MemberNotFoundError();

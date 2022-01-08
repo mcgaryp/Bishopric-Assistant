@@ -1,6 +1,5 @@
 import 'package:bishop_assistant_web_test_app/database/firestore_helper.dart';
 import 'package:bishop_assistant_web_test_app/state/firebase_authentication.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:models/models/account.dart';
 import 'package:models/shared/exceptions.dart';
@@ -21,10 +20,7 @@ class FirebaseAccountRepository extends FirestoreHelper
 
   @override
   Future<Account?> find(AccountID id) async {
-    DocumentSnapshot<Map<String, dynamic>> snapshot =
-        await getSingleDocument(id);
-
-    Map<String, dynamic>? map = snapshot.data();
+    Map<String, dynamic>? map = await getSingleDocument(id);
 
     if (map == null) return null;
     if (map[_accountActiveFlag] == false) return null;
@@ -35,32 +31,29 @@ class FirebaseAccountRepository extends FirestoreHelper
 
   @override
   Future<Account?> findByEmail(String email) async {
-    QuerySnapshot<Map<String, dynamic>> snapshot =
-        await getCollectionOfDocuments();
-    for (QueryDocumentSnapshot<Map<String, dynamic>> map in snapshot.docs) {
-      if (map.get('email') == email)
-        return Account.fromMap(AccountID(map.id), map.data());
+    List<Map<String, dynamic>> snapshot = await getCollectionOfDocuments();
+    for (Map<String, dynamic> map in snapshot) {
+      if (map['email'] == email)
+        return Account.fromMap(AccountID(map['id']), map);
     }
   }
 
   @override
   Future<Account?> findByPhone(String phone) async {
-    QuerySnapshot<Map<String, dynamic>> snapshot =
-        await getCollectionOfDocuments();
-    for (QueryDocumentSnapshot<Map<String, dynamic>> map in snapshot.docs) {
-      if (map.get('phone') == phone)
-        return Account.fromMap(AccountID(map.id), map.data());
+    List<Map<String, dynamic>> snapshot = await getCollectionOfDocuments();
+    for (Map<String, dynamic> map in snapshot) {
+      if (map['phone'] == phone)
+        return Account.fromMap(AccountID(map['id']), map);
     }
   }
 
   @override
   Future<Account?> findByUsername(String username) async {
-    QuerySnapshot<Map<String, dynamic>> snapshot =
-        await getCollectionOfDocuments();
-    for (QueryDocumentSnapshot<Map<String, dynamic>> map in snapshot.docs) {
-      if (map.get('username') == username) {
-        Account account = Account.fromMap(AccountID(map.id), map.data());
-        if (map.get(_accountActiveFlag) == false)
+    List<Map<String, dynamic>> snapshot = await getCollectionOfDocuments();
+    for (Map<String, dynamic> map in snapshot) {
+      if (map['username'] == username) {
+        Account account = Account.fromMap(AccountID(map['id']), map);
+        if (map[_accountActiveFlag] == false)
           throw InactiveAccountError(account.id);
         else {
           User? user = await FirebaseAuthentication.signInUsingEmailPassword(
@@ -98,22 +91,26 @@ class FirebaseAccountRepository extends FirestoreHelper
 
   @override
   Future<bool> update(Account account) async {
+    Account? oldAccount = await find(account.id);
     if (await updateDocument(account.toMap, account.id)) {
-      Account? oldAccount = await find(account.id);
       if (oldAccount == null) throw AccountNotFoundError();
-
+      bool result;
       // if both are changed
       if (oldAccount.credentials.password != account.credentials.password &&
           oldAccount.contact.email != account.contact.email) {
-        return await FirebaseAuthentication.updateEmail(
+        result = await FirebaseAuthentication.updateEmail(
                 account.contact.email, oldAccount.credentials.password) &&
             await FirebaseAuthentication.updatePassword(
                 account.contact.email, account.credentials.password);
+        await FirebaseAuthentication.user.sendEmailVerification();
+        return result;
       }
       // if email changed
       if (oldAccount.contact.email != account.contact.email) {
-        return await FirebaseAuthentication.updateEmail(
+        result = await FirebaseAuthentication.updateEmail(
             account.contact.email, oldAccount.credentials.password);
+        await FirebaseAuthentication.user.sendEmailVerification();
+        return result;
       }
       // if password changed
       if (oldAccount.credentials.password != account.credentials.password) {
