@@ -31,8 +31,8 @@ abstract class UUID extends ValueObject<UUID> {
 
   @override
   bool operator ==(Object object) {
-    UUID other = object as UUID;
-    return this.id == other.id;
+    if (object.runtimeType != UUID) return false;
+    return sameValueAs(object as UUID);
   }
 
   @override
