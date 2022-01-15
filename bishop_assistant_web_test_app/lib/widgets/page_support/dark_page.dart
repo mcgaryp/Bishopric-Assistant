@@ -24,7 +24,13 @@ class DarkPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    StateContainerState _container;
+    _container = StateContainer.of(context);
     return Scaffold(
+        persistentFooterButtons: [
+          Text(_container.version, style: bodyLight),
+          Text(_container.copyRight, style: bodyLight)
+        ],
         backgroundColor: darkPrimary,
         body: Center(
           child: SingleChildScrollView(
