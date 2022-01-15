@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bishop_assistant_web_test_app/theme/theme.dart';
 import 'package:bishop_assistant_web_test_app/util/util.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/app_bar/action_model.dart';
@@ -40,7 +42,9 @@ class MyScaffold {
   static final List<Widget> _footer = [
     FooterButton(label: sLegal, path: rLegal),
     FooterButton(label: sPrivacy, path: rPrivacy),
-    FooterButton(label: "SiteMap", path: rHome)
+    FooterButton(label: sSiteMap, path: rHome),
+    Text(_container.version, style: bodyDark),
+    Text(_container.copyRight, style: bodyDark),
   ];
 
   static Scaffold get _compact => Scaffold(

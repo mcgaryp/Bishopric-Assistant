@@ -12,6 +12,7 @@
 const String sAccept = "Accept";
 const String sAgenda = "Agenda";
 const String sAgendaHint = "What should this meeting include in it?";
+const String sAppName = "Bishopric Assistant";
 const String sAssignee = "Assignee";
 const String sAssignees = "Assignees";
 const String sAssignmentName = "Assignment Name";
@@ -80,6 +81,7 @@ const String sRole = "Role";
 const String sSave = "Save";
 const String sSearch = "Search";
 const String sSignup = "Sign Up";
+const String sSiteMap = "SiteMap";
 const String sTitle = "Bishopric Assistant";
 const String sUsername = "Username";
 const String sYes = "Yes";

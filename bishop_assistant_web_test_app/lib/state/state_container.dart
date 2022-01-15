@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/shared/exceptions.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:bishop_assistant_web_test_app/util/util.dart';
 
 ///
 /// state_container.dart
@@ -62,6 +64,7 @@ class StateContainerState extends State<StateContainer> {
   Account? _account;
   Organization? _organization;
   Member? _member;
+  PackageInfo? _packageInfo;
 
   // TODO: set is authenticated up properly if the user has been cached in
   //  shared preferences
@@ -101,6 +104,27 @@ class StateContainerState extends State<StateContainer> {
   String get _now {
     DateTime time = DateTime.now();
     return "${time.hour}:${time.minute} ${time.second} sec ${time.millisecond} mSec";
+  }
+
+  String get copyRight {
+    return "\u00A9 ${DateTime.now().year.toString()} ${sAppName}";
+  }
+
+  String get version {
+    return _packageInfo?.version ?? '';
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initPackageInfo();
+  }
+
+  Future<void> _initPackageInfo() async {
+    final info = await PackageInfo.fromPlatform();
+    setState(() {
+      _packageInfo = info;
+    });
   }
 
   void updateAccount(Account account) => setState(() {
