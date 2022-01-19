@@ -1,10 +1,10 @@
 import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/util/util.dart';
 import 'package:flutter/material.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/shared/exceptions.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:bishop_assistant_web_test_app/util/util.dart';
 
 ///
 /// state_container.dart
@@ -111,7 +111,7 @@ class StateContainerState extends State<StateContainer> {
   }
 
   String get version {
-    return _packageInfo?.version ?? '';
+    return _packageInfo?.version ?? "";
   }
 
   @override
@@ -123,7 +123,7 @@ class StateContainerState extends State<StateContainer> {
   Future<void> _initPackageInfo() async {
     final info = await PackageInfo.fromPlatform();
     setState(() {
-      _packageInfo = info;
+      this._packageInfo = info;
     });
   }
 

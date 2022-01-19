@@ -40,7 +40,6 @@ const String rReactivateAccount = "/reactivate";
 const String rSignup = "/signup";
 
 final Map<String, Widget Function(BuildContext)> routes = {
-  "/": (context) => LoginPage(),
   rHome: (context) => Authenticate(child: HomePage()),
   rLogin: (context) => LoginPage(),
   rSignup: (context) => SignupPage(),

@@ -54,7 +54,7 @@ class MyScaffold {
               child: Column(
             children: [
               Expanded(child: ListView(children: _compactActions)),
-              Row(mainAxisAlignment: MainAxisAlignment.end, children: _footer)
+              Wrap(direction: Axis.horizontal, alignment: WrapAlignment.center, runAlignment: WrapAlignment.center, spacing: 20.0, children: _footer),
             ],
           )),
         ),
