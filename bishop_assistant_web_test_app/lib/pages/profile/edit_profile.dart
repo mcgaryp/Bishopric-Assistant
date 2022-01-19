@@ -40,8 +40,8 @@ class _EditProfileState extends State<EditProfile> {
     super.dispose();
     passwordControl.dispose();
     confirmPasswordControl.dispose();
-    phoneControl.dispose();
     emailControl.dispose();
+    phoneControl.dispose();
   }
 
   @override

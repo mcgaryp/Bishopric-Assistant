@@ -158,9 +158,9 @@ class _LoginPageState extends State<LoginPage> {
     _errorMsg = null;
 
     // TODO: save a token to recognize the user is logged in still and refer to that
-    // token to check fi they are logged in on page refresh
+    // token to check if they are logged in on page refresh
 
-    // Change the session variable to logged in state
+    // Change the session variable to logged in stat e
     final container = StateContainer.of(context);
 
     container.login(account);

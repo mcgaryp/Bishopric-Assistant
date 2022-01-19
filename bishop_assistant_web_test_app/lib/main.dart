@@ -1,8 +1,8 @@
 import 'package:bishop_assistant_web_test_app/firebase_options.dart';
-import 'package:bishop_assistant_web_test_app/state/state_container.dart';
+import 'package:bishop_assistant_web_test_app/pages/signup_login/login_page.dart';
 import 'package:bishop_assistant_web_test_app/theme/theme_data.dart';
 import 'package:bishop_assistant_web_test_app/util/util.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/error_404_page.dart';
+import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -15,14 +15,7 @@ import 'package:flutter/material.dart';
 ///
 
 void main() async {
-  try {
-    WidgetsFlutterBinding.ensureInitialized();
-    FirebaseOptions options = await DevFirebaseOptions.currentPlatform;
-    await Firebase.initializeApp(options: options);
-    runApp(StateContainer(child: App()));
-  } catch (e) {
-    runApp(MaterialApp(home: Error404Page(msg: e.toString(), canLogin: false)));
-  }
+  runApp(StateContainer(child: App()));
 }
 
 class App extends StatefulWidget {
@@ -37,6 +30,28 @@ class _AppState extends State<App> {
       title: sTitle,
       theme: theme,
       routes: routes,
+      onGenerateRoute: (RouteSettings settings) {
+        return MaterialPageRoute(builder: (context) {
+          return FutureBuilder(
+              future: _initFirebase(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done)
+                  return LoginPage();
+
+                if (snapshot.hasError)
+                  Error404Page(msg: snapshot.error.toString(), canLogin: false);
+
+                return DarkPage(
+                    inputs: [], buttons: [SpinKitCircle(color: Colors.white)]);
+              });
+        });
+      },
     );
+  }
+
+  _initFirebase() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    FirebaseOptions options = await DevFirebaseOptions.currentPlatform;
+    await Firebase.initializeApp(options: options);
   }
 }
