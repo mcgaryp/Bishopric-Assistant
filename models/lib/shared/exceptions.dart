@@ -21,3 +21,4 @@ export 'exceptions/organization_already_exists_error.dart';
 export 'exceptions/organization_not_found_error.dart';
 export 'exceptions/permission_denied_error.dart';
 export 'exceptions/verify_email_error.dart';
+export 'exceptions/invalid_date_error.dart';
