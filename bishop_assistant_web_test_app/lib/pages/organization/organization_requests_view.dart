@@ -36,28 +36,23 @@ class OrganizationRequestsView extends StatelessWidget {
           if (snapshot.hasData) {
             if (snapshot.data != null) {
               List<JoinRequest> requests = snapshot.data!;
-              return FutureBuilder(
-                  future: _getRequests(requests),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<JoinRequestDetail>> snapshot) {
-                    if (snapshot.hasData) {
-                      List<JoinRequestDetail> details = snapshot.data!;
-                      return MyConstrainedBox200(
-                        child: MyButton(
-                          label: "Join Requests ${requests.length}",
-                          onPressed: () => _showRequests(details, context),
-                          style: MyButtonStyle.standard,
-                        ),
-                      );
-                    }
-
-                    if (snapshot.hasError) {
-                      if (kDebugMode) print(snapshot.error);
-                      return Error404(msg: snapshot.error.toString());
-                    }
-
-                    return Container();
-                  });
+              return Builder(builder: (BuildContext context) {
+                return MyConstrainedBox200(
+                  child: MyButton(
+                    label: "Join Requests ${requests.length}",
+                    onPressed: () async {
+                      try {
+                        List<JoinRequestDetail> details =
+                            await _getRequests(requests);
+                        _showRequests(details, context);
+                      } catch (e) {
+                        if (kDebugMode) print(e);
+                      }
+                    },
+                    style: MyButtonStyle.standard,
+                  ),
+                );
+              });
             }
             return Container();
           }
@@ -90,17 +85,19 @@ class OrganizationRequestsView extends StatelessWidget {
   }
 
   void _showRequests(List<JoinRequestDetail> details, BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) => Dialog(
-            insetPadding: const EdgeInsets.all(padding8),
-            backgroundColor: Colors.transparent,
-            child: MyConstrainedBox300(
-              child: ListView(
-                  children: details
-                      .map<JoinRequestDetailsView>((JoinRequestDetail detail) =>
-                          JoinRequestDetailsView(detail))
-                      .toList()),
-            )));
+    if (details.isNotEmpty)
+      showDialog(
+          context: context,
+          builder: (BuildContext context) => Dialog(
+              insetPadding: const EdgeInsets.all(padding8),
+              backgroundColor: Colors.transparent,
+              child: MyConstrainedBox300(
+                child: ListView(
+                    children: details
+                        .map<JoinRequestDetailsView>(
+                            (JoinRequestDetail detail) =>
+                                JoinRequestDetailsView(detail))
+                        .toList()),
+              )));
   }
 }

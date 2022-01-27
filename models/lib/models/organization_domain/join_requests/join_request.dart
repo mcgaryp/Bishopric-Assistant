@@ -13,17 +13,18 @@ class JoinRequest extends Entity<JoinRequest> {
   final JoinRequestID? id;
   final AccountID accountID;
   final OrganizationID organizationID;
-  static const _accountIDKey = "accountID";
-  static const _organizationIDKey = "organizationID";
+  static const accountIDKey = "Join Request Account ID";
+  static const organizationIDKey = "Join Request Organization ID";
+  static const idKey = "Join Request ID";
 
   JoinRequest({required this.accountID, required this.organizationID, this.id})
       : super(JoinRequestID("Invalid ID"));
 
-  JoinRequest.fromMap(Map<String, dynamic> map, JoinRequestID id)
+  JoinRequest.fromMap(Map<String, dynamic> map)
       : this(
-            id: id,
-            accountID: AccountID(map[_accountIDKey]),
-            organizationID: OrganizationID(map[_organizationIDKey]));
+            id: JoinRequestID(map[idKey]),
+            accountID: AccountID(map[accountIDKey]),
+            organizationID: OrganizationID(map[organizationIDKey]));
 
   @override
   bool operator ==(Object other) {
@@ -32,8 +33,11 @@ class JoinRequest extends Entity<JoinRequest> {
   }
 
   @override
-  Map<String, dynamic> get toMap =>
-      {_accountIDKey: accountID.id, _organizationIDKey: organizationID.id};
+  Map<String, dynamic> get toMap => {
+        accountIDKey: accountID.id,
+        organizationIDKey: organizationID.id,
+        idKey: id?.id
+      };
 
   @override
   bool sameIdentityAs(JoinRequest other) {

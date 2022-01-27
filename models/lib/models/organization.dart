@@ -16,6 +16,7 @@ export 'organization_domain/member_repository.dart';
 export 'organization_domain/organization.dart';
 export 'organization_domain/organization_id.dart';
 export 'organization_domain/organization_member.dart';
+export 'organization_domain/organization_member_relationship.dart';
 export 'organization_domain/organization_repository.dart';
 export 'organization_domain/organization_use_case.dart';
 export 'organization_domain/permissions.dart';

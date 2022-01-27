@@ -18,7 +18,7 @@ class FirebaseMemberRepository extends FirestoreHelper
   Future<Member?> find(MemberID id) async {
     Map<String, dynamic>? map = await getSingleDocument(id);
     if (map != null) {
-      return Member.fromMap(id, map);
+      return Member.fromMap(map);
     }
     return null;
   }
@@ -29,8 +29,8 @@ class FirebaseMemberRepository extends FirestoreHelper
     Stream<Member> memberStream =
         documentStream.asyncMap<Member>((Map<String, dynamic>? map) async {
       if (map == null) throw MemberNotFoundError();
-      Member member = Member.fromMap(id, map);
-      return member;
+      return Member.fromMap(map);
+      ;
     });
     return memberStream;
   }
@@ -40,7 +40,7 @@ class FirebaseMemberRepository extends FirestoreHelper
     Stream<List<Map<String, dynamic>>> streamedDocuments =
         getCollectionOfDocumentsStreamed(
             path: FirestoreCollectionPath.organization_members,
-            field: "organizationID",
+            field: OrganizationMemberRelationship.orgIdKey,
             isEqualTo: organizationID.id);
 
     Stream<List<Stream<Member>>> membersStream = streamedDocuments
@@ -48,7 +48,8 @@ class FirebaseMemberRepository extends FirestoreHelper
             (List<Map<String, dynamic>> snapshot) async {
       List<Stream<Member>> members = [];
       snapshot.forEach((element) {
-        members.add(findMemberStreamed(MemberID(element["memberID"])));
+        members.add(findMemberStreamed(
+            MemberID(element[OrganizationMemberRelationship.memberIdKey])));
       });
       return members;
     });
@@ -63,8 +64,9 @@ class FirebaseMemberRepository extends FirestoreHelper
     OrganizationID? organizationID;
     for (Map<String, dynamic> document in documents) {
       // pull the organization id
-      if (document["memberID"] == memberID.id) {
-        organizationID = OrganizationID(document["organizationID"]);
+      if (document[OrganizationMemberRelationship.memberIdKey] == memberID.id) {
+        organizationID =
+            OrganizationID(document[OrganizationMemberRelationship.orgIdKey]);
         break;
       }
     }
@@ -75,11 +77,7 @@ class FirebaseMemberRepository extends FirestoreHelper
           path: FirestoreCollectionPath.organizations);
 
       if (map != null) {
-        Member? member = await find(memberID);
-        if (member != null) {
-          map.addAll(member.toMap);
-          return Organization.fromMap(organizationID, map);
-        }
+        return Organization.fromMap(map);
       }
     }
 
@@ -88,15 +86,17 @@ class FirebaseMemberRepository extends FirestoreHelper
 
   @override
   Future<Member?> insert(Member member) async {
-    String? id = await addDocument(member.toMap);
+    Map<String, dynamic> map = member.toMap;
+    String? id = await addDocument(map);
     if (id == null) return null;
-    return Member.fromMap((MemberID(id)), member.toMap);
+    map[Member.idKey] = id;
+    Member newMember = Member.fromMap(map);
+    if (await update(newMember)) return newMember;
   }
 
   @override
   Future<bool> remove(MemberID id) {
-    // TODO: implement remove
-    throw UnimplementedError();
+    return removeDocument(id);
   }
 
   @override
@@ -109,8 +109,10 @@ class FirebaseMemberRepository extends FirestoreHelper
     List<Map<String, dynamic>> documents = await getCollectionOfDocuments(
         path: FirestoreCollectionPath.organization_members);
     for (Map<String, dynamic> document in documents) {
-      if (document['accountID'] == accountID.id) {
-        Member? member = await find(MemberID(document['memberID']));
+      if (document[OrganizationMemberRelationship.accountIdKey] ==
+          accountID.id) {
+        Member? member = await find(
+            MemberID(document[OrganizationMemberRelationship.memberIdKey]));
         if (member != null) return member;
       }
     }
@@ -122,8 +124,10 @@ class FirebaseMemberRepository extends FirestoreHelper
     List<Map<String, dynamic>> documents = await getCollectionOfDocuments(
         path: FirestoreCollectionPath.organization_members);
     for (Map<String, dynamic> document in documents) {
-      if (document['accountID'] == accountID.id) {
-        Member? member = await find(MemberID(document['memberID']));
+      if (document[OrganizationMemberRelationship.accountIdKey] ==
+          accountID.id) {
+        Member? member = await find(
+            MemberID(document[OrganizationMemberRelationship.memberIdKey]));
         if (member != null) members.add(member);
       }
     }

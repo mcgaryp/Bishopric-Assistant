@@ -21,11 +21,9 @@ class FirebaseAccountRepository extends FirestoreHelper
   @override
   Future<Account?> find(AccountID id) async {
     Map<String, dynamic>? map = await getSingleDocument(id);
-
     if (map == null) return null;
     if (map[_accountActiveFlag] == false) return null;
-
-    Account account = Account.fromMap(id, map);
+    Account account = Account.fromMap(map);
     return account;
   }
 
@@ -33,8 +31,9 @@ class FirebaseAccountRepository extends FirestoreHelper
   Future<Account?> findByEmail(String email) async {
     List<Map<String, dynamic>> snapshot = await getCollectionOfDocuments();
     for (Map<String, dynamic> map in snapshot) {
-      if (map['email'] == email)
-        return Account.fromMap(AccountID(map['id']), map);
+      if (map[Account.contactKey][Contact.emailKey] == email) {
+        return Account.fromMap(map);
+      }
     }
   }
 
@@ -42,8 +41,9 @@ class FirebaseAccountRepository extends FirestoreHelper
   Future<Account?> findByPhone(String phone) async {
     List<Map<String, dynamic>> snapshot = await getCollectionOfDocuments();
     for (Map<String, dynamic> map in snapshot) {
-      if (map['phone'] == phone)
-        return Account.fromMap(AccountID(map['id']), map);
+      if (map[Account.contactKey][Contact.phoneKey] == phone) {
+        return Account.fromMap(map);
+      }
     }
   }
 
@@ -51,8 +51,8 @@ class FirebaseAccountRepository extends FirestoreHelper
   Future<Account?> findByUsername(String username) async {
     List<Map<String, dynamic>> snapshot = await getCollectionOfDocuments();
     for (Map<String, dynamic> map in snapshot) {
-      if (map['username'] == username) {
-        Account account = Account.fromMap(AccountID(map['id']), map);
+      if (map[Account.credentialsKey][Credentials.usernameKey] == username) {
+        Account account = Account.fromMap(map);
         if (map[_accountActiveFlag] == false)
           throw InactiveAccountError(account.id);
         else {
@@ -81,7 +81,10 @@ class FirebaseAccountRepository extends FirestoreHelper
     user.sendEmailVerification();
     String? id = await addDocument(map);
     if (id == null) return null;
-    return Account.fromMap(AccountID(id), account.toMap);
+    map[Account.idKey] = id;
+    Account newAccount = Account.fromMap(map);
+    if (await updateDocument(newAccount.toMap, newAccount.id))
+      return newAccount;
   }
 
   @override

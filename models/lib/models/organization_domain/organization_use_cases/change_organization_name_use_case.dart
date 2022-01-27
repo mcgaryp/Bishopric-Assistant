@@ -38,8 +38,8 @@ class DefaultChangeOrganizationNameUseCase
     Organization? organization =
         await _memberRepository.findOrganization(accessor.id);
     if (organization == null) throw OrganizationNotFoundError();
-    Organization newOrganization = Organization.newName(organization, name);
-    if (await _organizationRepository.update(newOrganization)) return true;
+    organization.name = name;
+    if (await _organizationRepository.update(organization)) return true;
     throw FailedToSaveError(forEntity: "Organization");
   }
 }

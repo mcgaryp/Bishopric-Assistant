@@ -22,8 +22,9 @@ class Organization extends Entity<Organization> {
   /// [_name] the name of the organization
   late final String _name;
 
-  static const String _nameKey = "organizationName";
-  static const String _creatorKey = "creator";
+  static const String nameKey = "Organization Name";
+  static const String creatorKey = "Organization Creator";
+  static const String idKey = "Organization ID";
 
   /// Constructor
   ///
@@ -34,29 +35,23 @@ class Organization extends Entity<Organization> {
       {OrganizationID? id, required String name, required this.creator})
       : this._id = id,
         super(id) {
-    __name = name;
+    this.name = name;
   }
 
-  Organization.fromMap(OrganizationID id, Map<String, dynamic> map)
+  Organization.fromMap(Map<String, dynamic> map)
       : this(
-            id: id,
-            name: map[_nameKey],
-            creator: Member.fromMap(MemberID(map[_creatorKey]), map));
-
-  /// Copy constructor to create a new name
-  Organization.newName(Organization organization, this._name)
-      : this._id = organization.id,
-        this.creator = organization.creator,
-        super(organization.id);
+            id: OrganizationID(map[idKey]),
+            name: map[nameKey],
+            creator: Member.fromMap(map[creatorKey]));
 
   @override
   Map<String, dynamic> get toMap =>
-      {_creatorKey: creator.id.id, _nameKey: name};
+      {creatorKey: creator.toMap, nameKey: name, idKey: _id?.id};
 
   /// Setters
   ///
   /// [__name] private setter for name
-  set __name(String name) => _name = name.capitalize;
+  set name(String name) => _name = name.capitalize;
 
   OrganizationID get id {
     if (_id == null) throw IdDoesNotExistError(forObject: "Organization");

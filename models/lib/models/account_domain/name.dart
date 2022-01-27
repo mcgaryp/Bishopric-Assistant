@@ -16,8 +16,8 @@ class Name extends ValueObject<Name> {
   /// [_last] the last name of an object. Not mutable.
   late final String _last;
 
-  static const String _firstKey = "first";
-  static const String _lastKey = "last";
+  static const String firstKey = "first";
+  static const String lastKey = "last";
 
   /// [Name(first: first, last: last)] constructor to ensure the proper
   ///   initialization of [_first] and [_last]
@@ -27,7 +27,7 @@ class Name extends ValueObject<Name> {
   }
 
   Name.fromMap(Map<String, dynamic> map)
-      : this(first: map[_firstKey], last: map[_lastKey]);
+      : this(first: map[firstKey], last: map[lastKey]);
 
   /// [__last] private setter to ensure that [_last] is not empty and capitalized
   set __last(String name) => _last = name.capitalize;
@@ -61,5 +61,5 @@ class Name extends ValueObject<Name> {
   }
 
   @override
-  Map<String, dynamic> get toMap => {_firstKey: first, _lastKey: last};
+  Map<String, dynamic> get toMap => {firstKey: first, lastKey: last};
 }

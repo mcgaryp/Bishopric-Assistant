@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:bishop_assistant_web_test_app/theme/theme.dart';
 import 'package:bishop_assistant_web_test_app/util/util.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/app_bar/action_model.dart';
@@ -54,7 +52,12 @@ class MyScaffold {
               child: Column(
             children: [
               Expanded(child: ListView(children: _compactActions)),
-              Wrap(direction: Axis.horizontal, alignment: WrapAlignment.center, runAlignment: WrapAlignment.center, spacing: 20.0, children: _footer),
+              Wrap(
+                  direction: Axis.horizontal,
+                  alignment: WrapAlignment.center,
+                  runAlignment: WrapAlignment.center,
+                  spacing: 20.0,
+                  children: _footer),
             ],
           )),
         ),

@@ -1,5 +1,6 @@
 import 'package:bishop_assistant_web_test_app/theme/theme.dart';
 import 'package:bishop_assistant_web_test_app/util/util.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -19,6 +20,7 @@ class Error404 extends StatelessWidget {
   Widget build(BuildContext context) {
     String text = sPage404;
     if (msg != null) text = "Error: $msg";
+    if (kDebugMode) print(text);
     return Text(text, style: bodyDark);
   }
 }

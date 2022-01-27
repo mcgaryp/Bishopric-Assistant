@@ -38,10 +38,8 @@ class DefaultCreateAccountUseCase implements CreateAccountUseCase {
       required Credentials credentials}) async {
     if (await _accountRepository.findByUsername(credentials.username) != null)
       throw AccountAlreadyExistsError();
-
     Account account =
         Account(name: name, contact: contact, credentials: credentials);
-
     Account? insertedAccount = await _accountRepository.insert(account);
     if (insertedAccount != null) return insertedAccount;
 

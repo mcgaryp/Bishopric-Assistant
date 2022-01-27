@@ -19,8 +19,8 @@ class Contact extends ValueObject<Contact> {
   ///   mutable
   late final String _phone;
 
-  static const String _phoneKey = "phone";
-  static const String _emailKey = "email";
+  static const String phoneKey = "phone";
+  static const String emailKey = "email";
 
   /// [Contact] Constructor to create a specific contact
   Contact({required String email, required String phone}) {
@@ -29,7 +29,7 @@ class Contact extends ValueObject<Contact> {
   }
 
   Contact.fromMap(Map<String, dynamic> map)
-      : this(email: map[_emailKey], phone: map[_phoneKey]);
+      : this(email: map[emailKey], phone: map[phoneKey]);
 
   /// [__email] setter to ensure that the email is not empty string
   set __email(String email) {
@@ -66,5 +66,5 @@ class Contact extends ValueObject<Contact> {
   }
 
   @override
-  Map<String, dynamic> get toMap => {_phoneKey: phone, _emailKey: email};
+  Map<String, dynamic> get toMap => {phoneKey: phone, emailKey: email};
 }

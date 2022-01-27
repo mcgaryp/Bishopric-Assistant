@@ -7,6 +7,7 @@
 ///
 export 'exceptions/account_already_exists_error.dart';
 export 'exceptions/account_not_found_error.dart';
+export 'exceptions/assignment_not_found_error.dart';
 export 'exceptions/empty_string_error.dart';
 export 'exceptions/failed_to_login_error.dart';
 export 'exceptions/failed_to_logout_error.dart';

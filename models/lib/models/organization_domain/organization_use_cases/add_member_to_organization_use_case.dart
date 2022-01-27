@@ -54,8 +54,12 @@ class DefaultAddMemberToOrganizationUseCase
 
     Member? memberWithID = await _memberRepository.insert(member);
     if (memberWithID != null) {
-      if (await _organizationRepository.insertRelationship(
-          request.organizationID, memberWithID.id, request.accountID)) {
+      OrganizationMemberRelationship relationship =
+          OrganizationMemberRelationship(
+              organizationID: request.organizationID,
+              memberID: memberWithID.id,
+              accountID: request.accountID);
+      if (await _organizationRepository.insertRelationship(relationship)) {
         if (await _organizationRepository
             .removeRequestToJoinOrganization(request)) {
           return true;

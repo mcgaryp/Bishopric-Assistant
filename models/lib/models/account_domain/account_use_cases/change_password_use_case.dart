@@ -44,9 +44,9 @@ class DefaultChangePasswordUseCase implements ChangePasswordUseCase {
     Credentials credentials =
         Credentials(password: password, username: account.credentials.username);
 
-    Account updatedAccount = Account.newPassword(account, credentials);
+    account.credentials = credentials;
 
-    if (await _accountRepository.update(updatedAccount)) return true;
+    if (await _accountRepository.update(account)) return true;
 
     throw FailedToSaveError(forEntity: _entity);
   }

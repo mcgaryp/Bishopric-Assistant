@@ -1,6 +1,5 @@
 import 'package:models/models/assignment.dart';
 import 'package:models/models/organization.dart';
-import 'package:models/shared/repository.dart';
 
 ///
 /// assignment_repository.dart
@@ -10,6 +9,20 @@ import 'package:models/shared/repository.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-/// TODO: Implement AssignmentRepository, Refer to [ReadMe.md](old_models_deprecated/README.md)
-mixin AssignmentRepository
-    implements Repository<Assignment, AssignmentID, OrganizationID> {}
+mixin AssignmentRepository {
+  Stream<List<Stream<Assignment>>> findAllStreamedByOrganizationID(
+      OrganizationID orgID);
+
+  Future<Assignment?> insert(Assignment assignment);
+
+  Future<Assignment?> find(AssignmentID assignmentID);
+
+  Stream<Assignment> findStream(AssignmentID assignmentID);
+
+  Future<bool> update(Assignment assignment);
+
+  Future<bool> insertRelationship(
+      OrganizationAssignmentRelationship assignmentOrganization);
+
+  Future<bool> remove(AssignmentID assignmentID);
+}

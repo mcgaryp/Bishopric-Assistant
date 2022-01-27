@@ -39,6 +39,7 @@ class DefaultCreateOrganizationUseCase implements CreateOrganizationUseCase {
     Organization? organizationFromBeyond =
         await _organizationRepository.findByName(name);
     if (organizationFromBeyond != null) throw OrganizationAlreadyExistsError();
+
     Member creator = Member(
         name: accessor.name, contact: accessor.contact, role: Role.creator());
     Member? creatorWithID = await _memberRepository.insert(creator);
@@ -48,19 +49,38 @@ class DefaultCreateOrganizationUseCase implements CreateOrganizationUseCase {
       Organization? organizationWithID =
           await _organizationRepository.insert(organization);
       if (organizationWithID != null) {
-        if (await _organizationRepository.insertRelationship(
-            organizationWithID.id, creatorWithID.id, accessor.id)) {
+        OrganizationMemberRelationship relationship =
+            OrganizationMemberRelationship(
+                accountID: accessor.id,
+                organizationID: organizationWithID.id,
+                memberID: creatorWithID.id);
+        if (await _organizationRepository.insertRelationship(relationship)) {
           return OrganizationMember(
               organization: organizationWithID, member: creatorWithID);
-        } else
-          // TODO: Remove the Creator from Repo
-          // TODO: Remove Organization from Repo
-          throw FailedToSaveError(
-              forEntity: "Organization Member Relationship");
-      } else
-        // TODO: Remove the Creator from Repo
-        throw FailedToSaveError(forEntity: "The Organization");
+        } else {
+          if (await _removeCreator(creatorWithID.id) &&
+              await _removeOrganization(organizationWithID.id))
+            throw FailedToSaveError(
+                forEntity: "Organization Member Relationship");
+          else
+            throw FailedToRemoveError(
+                forEntity: "The Organization and Creator");
+        }
+      } else {
+        if (await _removeCreator(creatorWithID.id))
+          throw FailedToSaveError(forEntity: "The Organization");
+        else
+          throw FailedToRemoveError(forEntity: "The Organization Creator");
+      }
     } else
       throw FailedToSaveError(forEntity: "Creator of Organization");
+  }
+
+  Future<bool> _removeCreator(MemberID id) {
+    return _memberRepository.remove(id);
+  }
+
+  Future<bool> _removeOrganization(OrganizationID id) {
+    return _organizationRepository.remove(id);
   }
 }

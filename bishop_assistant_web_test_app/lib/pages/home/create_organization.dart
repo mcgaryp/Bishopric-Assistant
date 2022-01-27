@@ -15,7 +15,8 @@ import 'package:models/models/organization.dart';
 
 /// [CreateOrganization] allows the user to create an organization them selves
 class CreateOrganization extends StatefulWidget {
-  const CreateOrganization({Key? key}) : super(key: key);
+  final Function fun;
+  const CreateOrganization(this.fun, {Key? key}) : super(key: key);
 
   @override
   _CreateOrganizationState createState() => _CreateOrganizationState();
@@ -67,13 +68,14 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       OrganizationMember organizationMember =
           await useCase.execute(creatorId: accountID, name: name.text);
 
-      MyToast.toastSuccess(
-          "Successfully Created ${organizationMember.organization.name}");
-      name.clear();
-
       container.setOrganization(organizationMember);
 
-      Navigator.pushReplacementNamed(context, rHome);
+      MyToast.toastSuccess(
+          "Successfully Created ${organizationMember.organization.name}");
+
+      name.clear();
+
+      widget.fun(() {});
     } catch (e) {
       if (kDebugMode) print(e);
       MyToast.toastError(e.toString());
@@ -81,5 +83,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     _setIsWaiting(false);
   }
 
-  _setIsWaiting(bool val) => setState(() => _isWaiting = val);
+  _setIsWaiting(bool val) {
+    if (mounted) setState(() => _isWaiting = val);
+  }
 }

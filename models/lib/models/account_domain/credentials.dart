@@ -17,8 +17,8 @@ class Credentials extends ValueObject<Credentials> {
   /// [_username] holds the username string variable
   late final String _username;
 
-  static const String _passwordKey = "password";
-  static const String _usernameKey = "username";
+  static const String passwordKey = "password";
+  static const String usernameKey = "username";
 
   /// [Credentials(password: password, username: username)] ensures the correct
   ///   initialization of the [_password] and [_username]
@@ -28,7 +28,7 @@ class Credentials extends ValueObject<Credentials> {
   }
 
   Credentials.fromMap(Map<String, dynamic> map)
-      : this(password: map[_passwordKey], username: map[_usernameKey]);
+      : this(password: map[passwordKey], username: map[usernameKey]);
 
   /// [__password] private setter to ensure the [_password] is hashed and not
   ///   empty
@@ -71,5 +71,5 @@ class Credentials extends ValueObject<Credentials> {
 
   @override
   Map<String, dynamic> get toMap =>
-      {_passwordKey: password, _usernameKey: username};
+      {passwordKey: password, usernameKey: username};
 }

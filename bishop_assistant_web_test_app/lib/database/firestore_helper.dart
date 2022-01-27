@@ -20,6 +20,7 @@ import 'package:models/shared/uuid.dart';
 abstract class FirestoreHelper {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirestoreCollectionPath mPath;
+  static const String documentID = "Document ID";
 
   FirestoreHelper(this.mPath);
 
@@ -33,7 +34,6 @@ abstract class FirestoreHelper {
         await _firestore.collection((path ?? mPath).string).doc(uuid.id).get();
     Map<String, dynamic>? map = snapshot.data();
     if (map == null) return null;
-    map['id'] = snapshot.id;
     return map;
   }
 
@@ -42,16 +42,15 @@ abstract class FirestoreHelper {
   Future<List<Map<String, dynamic>>> getCollectionOfDocuments(
       {FirestoreCollectionPath? path, String? field, Object? isEqualTo}) async {
     QuerySnapshot<Map<String, dynamic>> snapshot;
-    if (field != null)
+    if (field != null) {
       snapshot = await _firestore
           .collection((path ?? mPath).string)
           .where(field, isEqualTo: isEqualTo)
           .get();
-    snapshot = await _firestore.collection((path ?? mPath).string).get();
+    } else
+      snapshot = await _firestore.collection((path ?? mPath).string).get();
     return snapshot.docs.map<Map<String, dynamic>>((document) {
-      Map<String, dynamic> map = document.data();
-      map['id'] = document.id;
-      return map;
+      return document.data();
     }).toList();
   }
 
@@ -65,17 +64,17 @@ abstract class FirestoreHelper {
   Stream<List<Map<String, dynamic>>> getCollectionOfDocumentsStreamed(
       {FirestoreCollectionPath? path, String? field, Object? isEqualTo}) {
     Stream<QuerySnapshot<Map<String, dynamic>>> snapshot;
-    if (field != null)
+    if (field != null) {
       snapshot = _firestore
           .collection((path ?? mPath).string)
           .where(field, isEqualTo: isEqualTo)
           .snapshots();
-    snapshot = _firestore.collection((path ?? mPath).string).snapshots();
+    } else {
+      snapshot = _firestore.collection((path ?? mPath).string).snapshots();
+    }
     return snapshot.asyncMap<List<Map<String, dynamic>>>(
-        (event) => event.docs.map<Map<String, dynamic>>((e) {
-              Map<String, dynamic> map = e.data();
-              map["id"] = e.id;
-              return map;
+        (event) => event.docs.map<Map<String, dynamic>>((document) {
+              return document.data();
             }).toList());
   }
 
@@ -88,7 +87,6 @@ abstract class FirestoreHelper {
     return stream.asyncMap<Map<String, dynamic>?>((event) {
       Map<String, dynamic>? map = event.data();
       if (map == null) return null;
-      map['id'] = event.id;
       return map;
     });
   }
@@ -139,12 +137,15 @@ abstract class FirestoreHelper {
 }
 
 /// [FirestoreCollectionPath] paths to specific tables in the database
+/// Keep these in alphabetical order
 enum FirestoreCollectionPath {
   accounts,
-  organizations,
+  assignments,
   members,
+  organization_assignments,
   organization_members,
   organization_requests,
+  organizations,
   util
 }
 

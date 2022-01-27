@@ -11,6 +11,11 @@ import 'package:models/shared/foundation.dart';
 
 /// [Account] holds the valuable information of an application user
 class Account extends Entity<Account> {
+  static const String contactKey = "Account Contact";
+  static const String nameKey = "Account Name";
+  static const String credentialsKey = "Account Credentials";
+  static const String idKey = "Account ID";
+
   /// [id] unique identifier of the account
   final AccountID? _id;
 
@@ -18,10 +23,10 @@ class Account extends Entity<Account> {
   final Name name;
 
   /// [contact] information of the account
-  final Contact contact;
+  Contact contact;
 
   /// [credentials] describes the specific login information connected to the account
-  final Credentials credentials;
+  Credentials credentials;
 
   /// Constructors
   ///
@@ -34,30 +39,12 @@ class Account extends Entity<Account> {
   })  : this._id = id,
         super(id);
 
-  Account.fromMap(AccountID id, Map<String, Object?> map)
+  Account.fromMap(Map<String, dynamic> map)
       : this(
-            id: id,
-            credentials: Credentials.fromMap(map),
-            contact: Contact.fromMap(map),
-            name: Name.fromMap(map));
-
-  /// [Account.newPassword(account, credentials)] is a copy constructor
-  ///   specifically used to change the credentials of the account
-  Account.newPassword(Account account, Credentials credentials)
-      : this._id = account.id,
-        this.credentials = credentials,
-        this.contact = account.contact,
-        this.name = account.name,
-        super(account.id);
-
-  /// [Account.newContact(account, contact)] is a copy constructor specifically
-  ///   used to change the contact of the account
-  Account.newContact(Account account, Contact contact)
-      : this._id = account.id,
-        this.credentials = account.credentials,
-        this.contact = contact,
-        this.name = account.name,
-        super(account.id);
+            id: AccountID(map[idKey]),
+            credentials: Credentials.fromMap(map[credentialsKey]),
+            contact: Contact.fromMap(map[contactKey]),
+            name: Name.fromMap(map[nameKey]));
 
   AccountID get id {
     if (_id == null) throw IdDoesNotExistError(forObject: "Account");
@@ -85,11 +72,10 @@ class Account extends Entity<Account> {
   }
 
   @override
-  Map<String, dynamic> get toMap {
-    Map<String, dynamic> map = {};
-    map.addAll(name.toMap);
-    map.addAll(credentials.toMap);
-    map.addAll(contact.toMap);
-    return map;
-  }
+  Map<String, dynamic> get toMap => {
+        idKey: _id?.id,
+        nameKey: name.toMap,
+        contactKey: contact.toMap,
+        credentialsKey: credentials.toMap,
+      };
 }

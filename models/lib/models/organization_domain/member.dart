@@ -13,10 +13,15 @@ import 'package:models/shared/exceptions.dart';
 
 /// [Member] represents the member in an organization
 class Member extends Entity<Member> {
+  static const String nameKey = "Member Name";
+  static const String contactKey = "Member Contact";
+  static const String idKey = "Member ID";
+  static const String roleKey = "Member Role";
+
   final Name name;
   final Contact contact;
   final MemberID? _id;
-  final Role role;
+  Role role;
 
   Member(
       {required this.name,
@@ -26,28 +31,20 @@ class Member extends Entity<Member> {
       : this._id = id,
         super(id);
 
-  Member.fromMap(MemberID id, Map<String, dynamic> map)
+  Member.fromMap(Map<String, dynamic> map)
       : this(
-          name: Name.fromMap(map),
-          contact: Contact.fromMap(map),
-          role: Role.fromMap(map),
-          id: id,
+          name: Name.fromMap(map[nameKey]),
+          contact: Contact.fromMap(map[contactKey]),
+          role: Role.fromMap(map[roleKey]),
+          id: MemberID(map[idKey]),
         );
 
-  Member.newRole({required Role role, required Member member})
-      : this.role = role,
-        this.name = member.name,
-        this.contact = member.contact,
-        this._id = member.id,
-        super(member.id);
-
-  Map<String, dynamic> get toMap {
-    Map<String, dynamic> map = {};
-    map.addAll(name.toMap);
-    map.addAll(contact.toMap);
-    map.addAll(role.toMap);
-    return map;
-  }
+  Map<String, dynamic> get toMap => {
+        nameKey: name.toMap,
+        contactKey: contact.toMap,
+        roleKey: role.toMap,
+        idKey: _id?.id,
+      };
 
   MemberID get id {
     if (_id == null)

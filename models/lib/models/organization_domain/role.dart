@@ -11,23 +11,22 @@ import 'package:models/shared/foundation.dart';
 
 /// [Role] and permission of the role of a given user
 class Role extends ValueObject<Role> {
-  late final Permissions permissions;
+  final Permissions permissions;
   late final String _anonymous;
-  static const String _anonymousKey = "anonymous";
-  static const String _permissionsKey = "character";
+  static const String anonymousKey = "anonymous";
+  static const String permissionsKey = "character";
 
   Role(this.permissions, {required String anonymous}) {
     __anonymous = anonymous;
   }
 
-  Role.creator() {
-    permissions = Permissions.creator;
+  Role.creator() : permissions = Permissions.creator {
     __anonymous = "Owner";
   }
 
   Role.fromMap(Map<String, dynamic> map)
-      : this(PermissionsExtension.fromString(map[_permissionsKey]),
-            anonymous: map[_anonymousKey]);
+      : this(PermissionsExtension.fromString(map[permissionsKey]),
+            anonymous: map[anonymousKey]);
 
   set __anonymous(String anonymous) {
     if (anonymous.isEmpty) throw EmptyStringError(forObject: "Role Anonymous");
@@ -50,7 +49,7 @@ class Role extends ValueObject<Role> {
 
   @override
   Map<String, dynamic> get toMap =>
-      {_permissionsKey: permissions.string, _anonymousKey: anonymous};
+      {permissionsKey: permissions.string, anonymousKey: anonymous};
 
   @override
   String toString() {

@@ -15,8 +15,7 @@ export 'package:models/models/account_domain/account_id.dart';
 /// organization Repository
 mixin OrganizationRepository
     implements Repository<Organization, OrganizationID, void> {
-  Future<bool> insertRelationship(
-      OrganizationID organizationID, MemberID memberID, AccountID accountID);
+  Future<bool> insertRelationship(OrganizationMemberRelationship relationship);
 
   Stream<List<JoinRequest>> findAllRequests(OrganizationID organizationID);
 

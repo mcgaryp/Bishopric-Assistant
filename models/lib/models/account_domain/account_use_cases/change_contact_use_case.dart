@@ -36,9 +36,9 @@ class DefaultChangeContactUseCase implements ChangeContactUseCase {
 
     if (account == null) throw AccountNotFoundError();
 
-    Account updatedAccount = Account.newContact(account, contact);
+    account.contact = contact;
 
-    if (await _accountRepository.update(updatedAccount)) return true;
+    if (await _accountRepository.update(account)) return true;
 
     throw FailedToSaveError(forEntity: _entity);
   }

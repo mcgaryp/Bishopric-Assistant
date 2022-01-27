@@ -94,11 +94,13 @@ class _MemberDetailsCardState extends State<MemberDetailsCard> {
                         CardActionButton(label: sCreateEvent, onPressed: () {}),
                         CardActionButton(
                             label: sCreateAssignment, onPressed: () {}),
-                        if (permissions > Permissions.maintainer)
-                          CardActionButton(
-                              label: sRemove,
-                              onPressed: () {},
-                              style: MyButtonStyle.error)
+                        if (permissions >= Permissions.maintainer)
+                          if (StateContainer.of(context).organization.creator !=
+                              member)
+                            CardActionButton(
+                                label: sRemove,
+                                onPressed: () {},
+                                style: MyButtonStyle.error)
                       ],
                     )
                   ]),

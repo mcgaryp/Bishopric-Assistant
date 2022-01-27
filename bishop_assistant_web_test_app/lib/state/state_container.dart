@@ -32,7 +32,6 @@ class _InheritedStateContainer extends InheritedWidget {
   // that rely on your state.
   @override
   bool updateShouldNotify(_InheritedStateContainer oldWidget) {
-    // We only want to update the widgets if the authentication state has changed
     return this.data != oldWidget.data;
   }
 }
@@ -66,10 +65,8 @@ class StateContainerState extends State<StateContainer> {
   Member? _member;
   PackageInfo? _packageInfo;
 
-  // TODO: set is authenticated up properly if the user has been cached in
-  //  shared preferences
   bool _isAuthenticated = false;
-  bool _isOrganizationAssociated = false;
+  bool hasOrganization = false;
   bool _isMember = false;
 
   int? organizationRequests;
@@ -97,11 +94,9 @@ class StateContainerState extends State<StateContainer> {
 
   bool get isAuthenticated => _isAuthenticated;
 
-  bool get hasOrganization => _isOrganizationAssociated;
-
   bool get isMember => _isMember;
 
-  String get _now {
+  String get now {
     DateTime time = DateTime.now();
     return "${time.hour}:${time.minute} ${time.second} sec ${time.millisecond} mSec";
   }
@@ -151,14 +146,14 @@ class StateContainerState extends State<StateContainer> {
         if (org != null) {
           _organization = org.organization;
           _member = org.member;
-          _isOrganizationAssociated = true;
+          hasOrganization = true;
           _isMember = true;
         }
         if (org == null) {
           _requestStream = null;
           _organization = null;
           _member = null;
-          _isOrganizationAssociated = false;
+          hasOrganization = false;
           _isMember = false;
         }
       });
