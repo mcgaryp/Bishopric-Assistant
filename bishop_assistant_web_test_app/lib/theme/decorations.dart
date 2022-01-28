@@ -51,6 +51,9 @@ const OutlineInputBorder errorRedInputBorder = OutlineInputBorder(
     borderSide: BorderSide(color: errorRed, width: 2),
     borderRadius: _borderRadius20);
 
+const RoundedRectangleBorder roundedBorder =
+    RoundedRectangleBorder(borderRadius: _borderRadius20);
+
 /// Paddings
 const double padding4 = 4.0;
 const double padding8 = 8.0;

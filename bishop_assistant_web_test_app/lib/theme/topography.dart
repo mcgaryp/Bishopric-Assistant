@@ -41,6 +41,7 @@ const TextStyle subheadDark = TextStyle(fontSize: 20, color: darkText);
 ///    - body
 const TextStyle bodyLight = TextStyle(fontSize: 17, color: lightText);
 const TextStyle bodyDark = TextStyle(fontSize: 17, color: darkText);
+const TextStyle bodyRed = TextStyle(fontSize: 17, color: errorRed);
 
 /// ## Callout
 ///    - calloutLight

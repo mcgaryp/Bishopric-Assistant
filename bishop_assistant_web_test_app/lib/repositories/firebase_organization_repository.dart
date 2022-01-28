@@ -64,9 +64,15 @@ class FirebaseOrganizationRepository extends FirestoreHelper
   @override
   Future<bool> insertRelationship(
       OrganizationMemberRelationship relationship) async {
-    return null !=
-        await addDocument(relationship.toMap,
-            path: FirestoreCollectionPath.organization_members);
+    Map<String, dynamic> map = relationship.toMap;
+    String? id = await addDocument(map,
+        path: FirestoreCollectionPath.organization_members);
+    id ??
+        (throw FailedToSaveError(
+            forEntity: "Organization Member Relationship"));
+    map[OrganizationMemberRelationship.idKey] = id;
+    return updateDocument(map, RelationshipID(id),
+        path: FirestoreCollectionPath.organization_members);
   }
 
   Future<Member?> findCreator(MemberID id) async {
@@ -79,7 +85,8 @@ class FirebaseOrganizationRepository extends FirestoreHelper
   }
 
   @override
-  Stream<List<JoinRequest>> findAllRequests(OrganizationID organizationID) {
+  Stream<List<JoinRequest>> findAllRequestsStreamed(
+      OrganizationID organizationID) {
     Stream<List<Map<String, dynamic>>> streamedDocuments =
         getCollectionOfDocumentsStreamed(
             path: FirestoreCollectionPath.organization_requests,
@@ -128,4 +135,32 @@ class FirebaseOrganizationRepository extends FirestoreHelper
     Map<String, dynamic> map = snapshots.first;
     return Organization.fromMap(map);
   }
+
+  @override
+  Future<List<OrganizationMemberRelationship>> findAllRelationships(
+          OrganizationID organizationID) async =>
+      (await getCollectionOfDocuments(
+              path: FirestoreCollectionPath.organization_members,
+              field: OrganizationMemberRelationship.orgIdKey,
+              isEqualTo: organizationID.id))
+          .map<OrganizationMemberRelationship>((Map<String, dynamic> map) =>
+              OrganizationMemberRelationship.fromMap(map))
+          .toList();
+
+  @override
+  Future<List<JoinRequest>> findAllRequests(
+          OrganizationID organizationID) async =>
+      (await getCollectionOfDocuments(
+              path: FirestoreCollectionPath.organization_requests,
+              field: JoinRequest.organizationIDKey,
+              isEqualTo: organizationID.id))
+          .map<JoinRequest>(
+              (Map<String, dynamic> map) => JoinRequest.fromMap(map))
+          .toList();
+
+  @override
+  Future<bool> removeRelationship(
+          OrganizationMemberRelationship relationship) =>
+      removeDocument(relationship.id,
+          path: FirestoreCollectionPath.organization_members);
 }

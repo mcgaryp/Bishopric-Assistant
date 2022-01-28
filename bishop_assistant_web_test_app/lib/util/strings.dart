@@ -33,6 +33,7 @@ const String sCurrentAssignmentCount = "Current Assignment Count";
 const String sCurrentEventCount = "Current Event Count";
 const String sDate = "Date";
 const String sDeactivateAccount = "Deactivate Account";
+const String sDelete = "Delete";
 const String sEdit = "Edit";
 const String sEmail = "email";
 const String sEvent = "Event";

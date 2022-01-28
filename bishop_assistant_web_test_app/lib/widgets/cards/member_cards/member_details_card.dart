@@ -100,7 +100,7 @@ class _MemberDetailsCardState extends State<MemberDetailsCard> {
                             CardActionButton(
                                 label: sRemove,
                                 onPressed: () {},
-                                style: MyButtonStyle.error)
+                                style: MyButtonStyle.floatingError)
                       ],
                     )
                   ]),

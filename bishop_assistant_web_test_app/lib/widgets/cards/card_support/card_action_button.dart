@@ -28,14 +28,20 @@ class CardActionButton extends StatelessWidget {
 
     switch (style) {
       case MyButtonStyle.primary:
-      case MyButtonStyle.standard:
+      case MyButtonStyle.floating:
         decor = floatingLightPrimaryBox;
         break;
       case MyButtonStyle.text:
         decor = lightbox;
         break;
-      case MyButtonStyle.error:
+      case MyButtonStyle.floatingError:
         decor = floatingErrorRedBox;
+        break;
+      case MyButtonStyle.lightText:
+        decor = invisibleBox;
+        break;
+      case MyButtonStyle.errorText:
+        decor = invisibleBox;
         break;
     }
 

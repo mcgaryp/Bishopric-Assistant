@@ -51,9 +51,10 @@ class DefaultCreateOrganizationUseCase implements CreateOrganizationUseCase {
       if (organizationWithID != null) {
         OrganizationMemberRelationship relationship =
             OrganizationMemberRelationship(
-                accountID: accessor.id,
-                organizationID: organizationWithID.id,
-                memberID: creatorWithID.id);
+          accountID: accessor.id,
+          organizationID: organizationWithID.id,
+          memberID: creatorWithID.id,
+        );
         if (await _organizationRepository.insertRelationship(relationship)) {
           return OrganizationMember(
               organization: organizationWithID, member: creatorWithID);

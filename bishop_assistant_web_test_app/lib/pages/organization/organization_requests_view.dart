@@ -1,9 +1,6 @@
 import 'package:bishop_assistant_web_test_app/pages/organization/join_request_detail_view.dart';
 import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
-import 'package:bishop_assistant_web_test_app/theme/theme.dart';
-import 'package:bishop_assistant_web_test_app/util/util.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
-import 'package:flutter/material.dart';
 import 'package:models/models/organization.dart';
 
 ///
@@ -49,7 +46,7 @@ class OrganizationRequestsView extends StatelessWidget {
                         if (kDebugMode) print(e);
                       }
                     },
-                    style: MyButtonStyle.standard,
+                    style: MyButtonStyle.floating,
                   ),
                 );
               });

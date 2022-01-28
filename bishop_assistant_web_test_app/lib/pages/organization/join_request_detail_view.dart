@@ -1,8 +1,5 @@
 import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
-import 'package:bishop_assistant_web_test_app/theme/theme.dart';
-import 'package:bishop_assistant_web_test_app/util/util.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
-import 'package:flutter/material.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/shared/foundation.dart';
 
@@ -51,7 +48,7 @@ class _JoinRequestDetailsViewState extends State<JoinRequestDetailsView> {
               CardActionButton(
                   label: sReject,
                   onPressed: _reject,
-                  style: MyButtonStyle.error)
+                  style: MyButtonStyle.floatingError)
             ],
           ),
         ],

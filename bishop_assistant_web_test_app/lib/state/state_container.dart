@@ -162,7 +162,7 @@ class StateContainerState extends State<StateContainer> {
     if (hasOrganization && !_hasStartedNotifications) {
       _hasStartedNotifications = true;
       FirebaseOrganizationRepository repo = FirebaseOrganizationRepository();
-      _requestStream = repo.findAllRequests(organization.id);
+      _requestStream = repo.findAllRequestsStreamed(organization.id);
       _requestStream!.listen((event) {
         setOrganizationRequests(event.length);
       });

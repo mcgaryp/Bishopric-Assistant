@@ -17,7 +17,15 @@ mixin OrganizationRepository
     implements Repository<Organization, OrganizationID, void> {
   Future<bool> insertRelationship(OrganizationMemberRelationship relationship);
 
-  Stream<List<JoinRequest>> findAllRequests(OrganizationID organizationID);
+  Future<List<OrganizationMemberRelationship>> findAllRelationships(
+      OrganizationID organizationID);
+
+  Future<bool> removeRelationship(OrganizationMemberRelationship relationship);
+
+  Stream<List<JoinRequest>> findAllRequestsStreamed(
+      OrganizationID organizationID);
+
+  Future<List<JoinRequest>> findAllRequests(OrganizationID organizationID);
 
   Stream<List<Organization>> findAll();
 

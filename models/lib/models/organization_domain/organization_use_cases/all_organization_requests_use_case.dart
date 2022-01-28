@@ -21,6 +21,6 @@ class DefaultAllOrganizationRequestsUseCase
 
   @override
   Stream<List<JoinRequest>> execute(OrganizationID organizationID) {
-    return _organizationRepository.findAllRequests(organizationID);
+    return _organizationRepository.findAllRequestsStreamed(organizationID);
   }
 }

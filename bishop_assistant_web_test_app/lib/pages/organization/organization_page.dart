@@ -1,8 +1,6 @@
-import 'package:bishop_assistant_web_test_app/pages/organization/organization_members_view.dart';
-import 'package:bishop_assistant_web_test_app/pages/organization/organization_requests_view.dart';
-import 'package:bishop_assistant_web_test_app/theme/theme.dart';
+import 'package:bishop_assistant_web_test_app/pages/organization/display_organization.dart';
+import 'package:bishop_assistant_web_test_app/pages/organization/edit_organization.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
-import 'package:flutter/material.dart';
 
 ///
 /// OrganizationPage.dart
@@ -12,24 +10,26 @@ import 'package:flutter/material.dart';
 /// Copyright 2021 porter. All rights reserved.
 ///
 
-class OrganizationPage extends StatelessWidget {
+class OrganizationPage extends StatefulWidget {
   const OrganizationPage({Key? key}) : super(key: key);
+
+  @override
+  State<OrganizationPage> createState() => _OrganizationPageState();
+}
+
+class _OrganizationPageState extends State<OrganizationPage> {
+  bool isEditing = false;
 
   @override
   Widget build(BuildContext context) {
     return LightPage(
-        child: ListView(children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            StateContainer.of(context).organization.name,
-            style: titleDark,
-          ),
-          OrganizationRequestsView(),
-        ],
-      ),
-      OrganizationMembersView()
-    ]));
+        child:
+            isEditing ? EditOrganization(_save) : DisplayOrganization(_edit));
   }
+
+  void _save() => _setIsEditing(false);
+
+  void _edit() => _setIsEditing(true);
+
+  void _setIsEditing(bool val) => setState(() => isEditing = val);
 }

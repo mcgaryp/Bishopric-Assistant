@@ -37,7 +37,7 @@ class DisplayProfile extends StatelessWidget {
         MyButton(
           label: sDeactivateAccount,
           onPressed: () => _deactivate(context),
-          style: MyButtonStyle.error,
+          style: MyButtonStyle.floatingError,
         )
       ],
     );

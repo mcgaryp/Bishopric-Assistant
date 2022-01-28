@@ -6,6 +6,7 @@
 /// Copyright 2021 Po. All rights reserved.
 ///
 export 'package:models/shared/dart_foundation.dart';
+export 'package:models/shared/relationship_id.dart';
 
 export 'organization_domain/join_requests/join_request.dart';
 export 'organization_domain/join_requests/join_request_details.dart';

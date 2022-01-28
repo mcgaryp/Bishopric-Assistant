@@ -36,7 +36,7 @@ class FirebaseMemberRepository extends FirestoreHelper
   }
 
   @override
-  Stream<List<Stream<Member>>> findAll(OrganizationID organizationID) {
+  Stream<List<Stream<Member>>> findAllStreamed(OrganizationID organizationID) {
     Stream<List<Map<String, dynamic>>> streamedDocuments =
         getCollectionOfDocumentsStreamed(
             path: FirestoreCollectionPath.organization_members,
@@ -132,6 +132,25 @@ class FirebaseMemberRepository extends FirestoreHelper
       }
     }
     if (members.isEmpty) return null;
+    return members;
+  }
+
+  @override
+  Future<List<Member>> findAll(OrganizationID organizationID) async {
+    List<Member> members = [];
+
+    List<Map<String, dynamic>> documents = await getCollectionOfDocuments(
+        path: FirestoreCollectionPath.organization_members,
+        field: OrganizationMemberRelationship.orgIdKey,
+        isEqualTo: organizationID.id);
+
+    for (Map<String, dynamic> map in documents) {
+      OrganizationMemberRelationship relationship =
+          OrganizationMemberRelationship.fromMap(map);
+      Member? member = await find(relationship.memberID);
+      if (member != null) members.add(member);
+    }
+
     return members;
   }
 }

@@ -141,6 +141,7 @@ abstract class FirestoreHelper {
 enum FirestoreCollectionPath {
   accounts,
   assignments,
+  events,
   members,
   organization_assignments,
   organization_members,

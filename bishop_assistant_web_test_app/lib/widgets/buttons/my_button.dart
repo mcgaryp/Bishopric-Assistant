@@ -1,5 +1,4 @@
-import 'package:bishop_assistant_web_test_app/theme/decorations.dart';
-import 'package:bishop_assistant_web_test_app/theme/topography.dart';
+import 'package:bishop_assistant_web_test_app/theme/theme.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -14,43 +13,54 @@ class MyButton extends StatelessWidget {
   final String label;
   final Function() onPressed;
   final MyButtonStyle style;
+  final bool isExpanded;
 
   const MyButton(
       {required this.label,
       required this.onPressed,
       this.style = MyButtonStyle.primary,
+      this.isExpanded = true,
       Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     BoxDecoration decor;
-    double padding = padding16;
-    EdgeInsets topPadding = EdgeInsets.only(top: padding);
+    EdgeInsets? padding = EdgeInsets.only(top: padding16);
+    TextStyle textStyle = bodyLight;
     switch (style) {
       case MyButtonStyle.primary:
         decor = floatingLightPrimaryBox;
-        padding = padding16;
         break;
       case MyButtonStyle.text:
         decor = invisibleBox;
-        padding = padding8;
+        textStyle = bodyDark;
+        padding = EdgeInsets.zero;
         break;
-      case MyButtonStyle.error:
+      case MyButtonStyle.floatingError:
         decor = floatingErrorRedBox;
-        padding = padding8;
         break;
-      case MyButtonStyle.standard:
+      case MyButtonStyle.floating:
         decor = floatingLightPrimaryBox;
-        padding = padding8;
-        topPadding = EdgeInsets.only(bottom: padding);
+        padding = EdgeInsets.only(bottom: padding8);
+        break;
+      case MyButtonStyle.lightText:
+        decor = invisibleBox;
+        padding = EdgeInsets.zero;
+        textStyle = captionLight;
+        break;
+      case MyButtonStyle.errorText:
+        textStyle = bodyRed;
+        padding = EdgeInsets.zero;
+        decor = invisibleBox;
         break;
     }
 
     return Padding(
-      padding: topPadding,
+      padding: padding,
       child: Container(
-          constraints: BoxConstraints(minWidth: double.infinity),
+          constraints:
+              isExpanded ? BoxConstraints(minWidth: double.infinity) : null,
           decoration: decor,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: padding8),
@@ -61,7 +71,7 @@ class MyButton extends StatelessWidget {
                         MaterialStateProperty.all(Colors.transparent)),
                 child: Text(
                   label,
-                  style: bodyLight,
+                  style: textStyle,
                   textAlign: TextAlign.center,
                 )),
           )),
@@ -69,4 +79,11 @@ class MyButton extends StatelessWidget {
   }
 }
 
-enum MyButtonStyle { primary, text, error, standard }
+enum MyButtonStyle {
+  primary,
+  text,
+  floatingError,
+  floating,
+  lightText,
+  errorText
+}

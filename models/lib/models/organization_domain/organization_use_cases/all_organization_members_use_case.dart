@@ -21,6 +21,6 @@ class DefaultAllOrganizationMembersUseCase
 
   @override
   Stream<List<Stream<Member>>> execute(OrganizationID id) {
-    return _memberRepository.findAll(id);
+    return _memberRepository.findAllStreamed(id);
   }
 }
