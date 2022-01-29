@@ -1,7 +1,5 @@
 import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
-import 'package:bishop_assistant_web_test_app/util/util.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
-import 'package:flutter/material.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
 
@@ -36,7 +34,12 @@ class DisplayProfile extends StatelessWidget {
         MyButton(label: sEdit, onPressed: onEdit),
         MyButton(
           label: sDeactivateAccount,
-          onPressed: () => _deactivate(context),
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext con) =>
+                    ConfirmDeactivationDialog(() => _deactivate(con)));
+          },
           style: MyButtonStyle.floatingError,
         )
       ],
@@ -56,5 +59,23 @@ class DisplayProfile extends StatelessWidget {
       if (kDebugMode) print(e);
       MyToast.toastError(e.toString());
     }
+  }
+}
+
+class ConfirmDeactivationDialog extends StatelessWidget {
+  final void Function() onConfirm;
+
+  const ConfirmDeactivationDialog(this.onConfirm, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ConfirmationDialog(
+        onConfirm: onConfirm,
+        title: "Confirm Account Deactivation",
+        content:
+            "Are you sure you want to deactivate your account? Doing so will no "
+            "longer give you or anyone else access to personal information "
+            "and organizations.\n\nYou may reactivate your account when you "
+            "verify your email address again.");
   }
 }

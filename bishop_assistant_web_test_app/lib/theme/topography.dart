@@ -1,6 +1,5 @@
+import 'package:bishop_assistant_web_test_app/theme/colors.dart';
 import 'package:flutter/material.dart';
-
-import 'colors.dart';
 
 ///
 /// Topography.dart

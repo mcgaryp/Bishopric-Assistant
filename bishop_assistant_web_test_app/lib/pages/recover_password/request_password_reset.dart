@@ -1,11 +1,5 @@
-import 'package:bishop_assistant_web_test_app/repositories/firebase_account_repository.dart';
-import 'package:bishop_assistant_web_test_app/util/my_toast.dart';
-import 'package:bishop_assistant_web_test_app/util/route_strings.dart';
-import 'package:bishop_assistant_web_test_app/util/strings.dart';
-import 'package:bishop_assistant_web_test_app/widgets/buttons/my_button.dart';
-import 'package:bishop_assistant_web_test_app/widgets/inputs/input_field.dart';
-import 'package:bishop_assistant_web_test_app/widgets/page_support/dark_page.dart';
-import 'package:flutter/material.dart';
+import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 import 'package:models/models/account.dart';

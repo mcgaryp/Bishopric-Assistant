@@ -82,9 +82,9 @@ class _MyDropdownState extends State<MyDropdown> {
       enabledBorder: InputBorder.none,
       errorBorder: errorRedInputBorder,
       disabledBorder: InputBorder.none,
-      errorStyle: calloutLight,
+      errorStyle: calloutDark,
       hintText: widget.hint,
-      hintStyle: captionLight,
+      hintStyle: captionDark,
       labelStyle: bodyDark,
     );
   }

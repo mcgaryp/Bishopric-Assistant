@@ -30,7 +30,7 @@ class DisplayOrganization extends StatelessWidget {
                   label: sEdit,
                   onPressed: onPress,
                   isExpanded: false,
-                  style: MyButtonStyle.lightText),
+                  style: MyButtonStyle.darkText),
             ],
           ),
           OrganizationRequestsView(),

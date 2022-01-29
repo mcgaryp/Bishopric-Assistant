@@ -1,6 +1,4 @@
-import 'package:bishop_assistant_web_test_app/theme/theme.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
-import 'package:flutter/material.dart';
 
 ///
 /// RowTitle.dart
@@ -21,8 +19,8 @@ class RowTitle extends StatelessWidget {
       children: [
         Align(
             alignment: Alignment.centerLeft,
-            child: Text(label, style: smallTitleLight)),
-        MyDivider()
+            child: Text(label, style: smallTitleDark)),
+        MyDivider(color: darkText)
       ],
     );
   }

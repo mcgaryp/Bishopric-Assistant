@@ -25,7 +25,7 @@ class _EditOrganizationState extends State<EditOrganization> {
       Row(
         children: [
           Flexible(
-              child: InputField.border(
+              child: InputField.floating(
             StateContainer.of(context).organization.name,
             // TODO: Add controller and other needs
           )),

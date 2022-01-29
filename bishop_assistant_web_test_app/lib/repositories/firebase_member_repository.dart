@@ -30,7 +30,6 @@ class FirebaseMemberRepository extends FirestoreHelper
         documentStream.asyncMap<Member>((Map<String, dynamic>? map) async {
       if (map == null) throw MemberNotFoundError();
       return Member.fromMap(map);
-      ;
     });
     return memberStream;
   }

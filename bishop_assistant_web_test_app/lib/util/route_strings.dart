@@ -6,6 +6,7 @@ import 'package:bishop_assistant_web_test_app/pages/profile/profile_page.dart';
 import 'package:bishop_assistant_web_test_app/pages/signup_login/login_page.dart';
 import 'package:bishop_assistant_web_test_app/pages/signup_login/reactivate_account.dart';
 import 'package:bishop_assistant_web_test_app/pages/signup_login/sign_up_page.dart';
+import 'package:bishop_assistant_web_test_app/theme/theme_page.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/authentication/authenticate.dart';
 import 'package:flutter/material.dart';
 
@@ -38,6 +39,7 @@ const String rPrivacy = "/privacy";
 const String rProfile = "/profile";
 const String rReactivateAccount = "/reactivate";
 const String rSignup = "/signup";
+const String rTheme = "/theme";
 
 final Map<String, Widget Function(BuildContext)> routes = {
   rHome: (context) => Authenticate(child: HomePage()),
@@ -52,4 +54,5 @@ final Map<String, Widget Function(BuildContext)> routes = {
   rLegal: (context) => Legal(),
   rPrivacy: (context) => Privacy(),
   rReactivateAccount: (context) => ReactivateAccount(),
+  rTheme: (context) => ThemePage(),
 };

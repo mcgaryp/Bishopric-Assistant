@@ -1,5 +1,4 @@
-import 'package:bishop_assistant_web_test_app/theme/theme.dart';
-import 'package:flutter/material.dart';
+import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 
 ///
 /// my_button.dart
@@ -14,24 +13,29 @@ class MyButton extends StatelessWidget {
   final Function() onPressed;
   final MyButtonStyle style;
   final bool isExpanded;
+  final Icon? icon;
 
   const MyButton(
       {required this.label,
       required this.onPressed,
-      this.style = MyButtonStyle.primary,
+      this.style = MyButtonStyle.floating,
       this.isExpanded = true,
       Key? key})
-      : super(key: key);
+      : icon = null,
+        super(key: key);
+
+  const MyButton.icon({required this.icon, required this.onPressed, Key? key})
+      : label = "",
+        style = MyButtonStyle.text,
+        isExpanded = false,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
     BoxDecoration decor;
-    EdgeInsets? padding = EdgeInsets.only(top: padding16);
+    EdgeInsets? padding = EdgeInsets.all(padding8);
     TextStyle textStyle = bodyLight;
     switch (style) {
-      case MyButtonStyle.primary:
-        decor = floatingLightPrimaryBox;
-        break;
       case MyButtonStyle.text:
         decor = invisibleBox;
         textStyle = bodyDark;
@@ -42,15 +46,19 @@ class MyButton extends StatelessWidget {
         break;
       case MyButtonStyle.floating:
         decor = floatingLightPrimaryBox;
-        padding = EdgeInsets.only(bottom: padding8);
         break;
       case MyButtonStyle.lightText:
         decor = invisibleBox;
         padding = EdgeInsets.zero;
-        textStyle = captionLight;
+        textStyle = bodyLight;
         break;
       case MyButtonStyle.errorText:
         textStyle = bodyRed;
+        padding = EdgeInsets.zero;
+        decor = invisibleBox;
+        break;
+      case MyButtonStyle.darkText:
+        textStyle = captionDark;
         padding = EdgeInsets.zero;
         decor = invisibleBox;
         break;
@@ -69,21 +77,22 @@ class MyButton extends StatelessWidget {
                 style: ButtonStyle(
                     overlayColor:
                         MaterialStateProperty.all(Colors.transparent)),
-                child: Text(
-                  label,
-                  style: textStyle,
-                  textAlign: TextAlign.center,
-                )),
+                child: icon ??
+                    Text(
+                      label,
+                      style: textStyle,
+                      textAlign: TextAlign.center,
+                    )),
           )),
     );
   }
 }
 
 enum MyButtonStyle {
-  primary,
-  text,
+  errorText,
   floatingError,
   floating,
+  darkText,
   lightText,
-  errorText
+  text,
 }

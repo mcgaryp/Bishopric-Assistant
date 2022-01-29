@@ -37,13 +37,4 @@ extension MyString on String {
           forObject: "String Attempt check if not capitalize");
     return this[0].toUpperCase() != this[0];
   }
-
-  @Deprecated("Use `capitalize`")
-  String get checkCapitalization {
-    if (this.isEmpty)
-      throw EmptyStringError(
-          forObject: "String don't use this method it should be depricated");
-    if (this.isNotCapitalized) return this.capitalize;
-    return this;
-  }
 }

@@ -26,10 +26,10 @@ const Color lightPrimary = Color.fromRGBO(113, 146, 190, 1);
 const Color darkPrimary = Color.fromRGBO(11, 83, 112, 1);
 
 // LightSecondary
-const Color lightSecondary = Color.fromRGBO(163, 163, 163, 1);
+const Color darkSecondary = Color.fromRGBO(163, 163, 163, 1);
 
 // DarkSecondary
-const Color darkSecondary = Color.fromRGBO(251, 251, 255, 1);
+const Color lightSecondary = Color.fromRGBO(251, 251, 255, 1);
 
 // ErrorRed
 const Color errorRed = Color.fromRGBO(231, 58, 35, 1);

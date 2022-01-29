@@ -41,7 +41,7 @@ class MyDrawerHeader extends StatelessWidget {
               ),
             ),
             Text(account.name.fullName, style: bodyLight),
-            Text(account.contact.email, style: captionDark)
+            Text(account.contact.email, style: captionLight)
           ]),
         ),
       ),

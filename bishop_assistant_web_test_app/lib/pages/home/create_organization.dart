@@ -1,8 +1,5 @@
 import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
-import 'package:bishop_assistant_web_test_app/theme/theme.dart';
-import 'package:bishop_assistant_web_test_app/util/util.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
-import 'package:flutter/material.dart';
 import 'package:models/models/organization.dart';
 
 ///
@@ -16,6 +13,7 @@ import 'package:models/models/organization.dart';
 /// [CreateOrganization] allows the user to create an organization them selves
 class CreateOrganization extends StatefulWidget {
   final Function fun;
+
   const CreateOrganization(this.fun, {Key? key}) : super(key: key);
 
   @override
@@ -29,7 +27,8 @@ class _CreateOrganizationState extends State<CreateOrganization> {
 
   @override
   Widget build(BuildContext context) {
-    return MyCard(children: [
+    return MyCard(
+        child: Column(children: [
       Form(
           key: _formKey,
           child: Column(
@@ -46,12 +45,12 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                   child: SpinKitCircle(color: dark),
                 ),
               AbsorbPointer(
-                  absorbing: _isWaiting,
-                  child:
-                      MyButton(label: sCreate, onPressed: _createOrganization)),
+                absorbing: _isWaiting,
+                child: MyButton(label: sCreate, onPressed: _createOrganization),
+              ),
             ],
           )),
-    ]);
+    ]));
   }
 
   void _onSubmit(String? str) => _createOrganization();

@@ -1,10 +1,7 @@
 import 'package:bishop_assistant_web_test_app/firebase_options.dart';
 import 'package:bishop_assistant_web_test_app/pages/signup_login/login_page.dart';
-import 'package:bishop_assistant_web_test_app/theme/theme_data.dart';
-import 'package:bishop_assistant_web_test_app/util/util.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
 
 ///
 /// main.dart

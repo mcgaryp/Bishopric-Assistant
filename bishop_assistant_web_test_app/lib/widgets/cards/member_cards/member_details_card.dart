@@ -1,25 +1,19 @@
-import 'dart:async';
-
-import 'package:bishop_assistant_web_test_app/repositories/firebase_member_repository.dart';
-import 'package:bishop_assistant_web_test_app/theme/theme.dart';
-import 'package:bishop_assistant_web_test_app/util/util.dart';
+import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
-import 'package:flutter/material.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/shared/exceptions.dart';
 
 ///
-/// member_details_card.dart
-/// bishop_assistant_web_test_app
+/// member_details_card_.dart
+/// bishopric-assistant
 ///
-/// Created by Po on 8/16/21
-/// Copyright 2021 Po. All rights reserved.
+/// Created by Porter McGary on 1/29/22
+/// Copyright 2022 Porter McGary. All rights reserved.
 ///
 
 class MemberDetailsCard extends StatefulWidget {
-  final Stream<Member> memberStream;
-
-  const MemberDetailsCard(this.memberStream, {Key? key}) : super(key: key);
+  final Member member;
+  const MemberDetailsCard(this.member, {Key? key}) : super(key: key);
 
   @override
   State<MemberDetailsCard> createState() => _MemberDetailsCardState();
@@ -28,92 +22,82 @@ class MemberDetailsCard extends StatefulWidget {
 class _MemberDetailsCardState extends State<MemberDetailsCard> {
   bool isEditing = false;
   Role? role;
-  late Member member;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
-    Permissions permissions =
-        StateContainer.of(context).member.role.permissions;
+    Permissions permissions = widget.member.role.permissions;
 
-    return StreamBuilder(
-        stream: widget.memberStream,
-        builder: (BuildContext context, AsyncSnapshot<Member> snapshot) {
-          if (snapshot.hasData && snapshot.data != null) {
-            member = snapshot.data!;
-            return MyCard(
-              child: ExpansionTile(
-                  maintainState: true,
-                  title: MemberTitle(member),
-                  children: [
-                    if (permissions > Permissions.maintainer)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          if (!isEditing) Spacer(),
-                          if (isEditing)
-                            MyConstrainedBox200(
-                              child: MyDropdown(
-                                  padding: 0,
-                                  hint: sRole,
-                                  validator: Validators.validateDropDown,
-                                  collection: Permissions.values
-                                      .map<DropdownMenuItem<int>>((e) =>
-                                          DropdownMenuItem(
-                                              child: Text(e.string),
-                                              value: e.index))
-                                      .toList(),
-                                  onchange: _onRoleSelected),
-                            ),
-                          if (StateContainer.of(context).organization.creator !=
-                              member)
-                            Align(
-                                alignment: Alignment.centerRight,
-                                child: CardButton(
-                                    label: isEditing ? sSave : sEdit,
-                                    onPressed: () {
-                                      if (isEditing == true) {
-                                        _save();
-                                      }
-                                      setIsEditing(!isEditing);
-                                    })),
-                        ],
-                      ),
-                    MyDivider(color: darkPrimary),
-                    CardRow(sEmail, content: member.contact.email),
-                    CardRow(sPhone, content: member.contact.phone),
-                    CardRow(sCurrentAssignmentCount, content: "1"),
-                    CardRow(sCurrentEventCount, content: "2"),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        CardActionButton(label: sCreateEvent, onPressed: () {}),
-                        CardActionButton(
-                            label: sCreateAssignment, onPressed: () {}),
-                        if (permissions >= Permissions.maintainer)
-                          if (StateContainer.of(context).organization.creator !=
-                              member)
-                            CardActionButton(
-                                label: sRemove,
-                                onPressed: () {},
-                                style: MyButtonStyle.floatingError)
-                      ],
-                    )
-                  ]),
-            );
-          }
-          if (snapshot.hasError)
-            return Error404(msg: snapshot.error.toString());
-
-          return SpinKitCircle(color: dark);
-        });
+    return MyCard(
+      child: ExpansionTile(
+          maintainState: true,
+          title: MemberTitle(widget.member),
+          children: [
+            if (permissions > Permissions.maintainer)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  if (!isEditing) Spacer(),
+                  if (isEditing)
+                    MyConstrainedBox200(
+                      child: MyDropdown(
+                          padding: 0,
+                          hint: sRole,
+                          validator: Validators.validateDropDown,
+                          collection: Permissions.values
+                              .map<DropdownMenuItem<int>>((e) =>
+                                  DropdownMenuItem(
+                                      child: Text(e.string), value: e.index))
+                              .toList(),
+                          onchange: _onRoleSelected),
+                    ),
+                  if (StateContainer.of(context).organization.creator !=
+                      widget.member)
+                    Align(
+                        alignment: Alignment.centerRight,
+                        child: MyButton(
+                            label: isEditing ? sSave : sEdit,
+                            onPressed: () {
+                              if (isEditing == true) {
+                                _save();
+                              }
+                              _setIsEditing(!isEditing);
+                            })),
+                ],
+              ),
+            MyDivider(color: darkPrimary),
+            CardRow(sEmail, content: widget.member.contact.email),
+            CardRow(sPhone, content: widget.member.contact.phone),
+            CardRow(sCurrentAssignmentCount, content: "1"),
+            CardRow(sCurrentEventCount, content: "2"),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                MyButton(
+                  label: sCreateEvent,
+                  onPressed: () {},
+                  isExpanded: false,
+                ),
+                MyButton(
+                  label: sCreateAssignment,
+                  onPressed: () {},
+                  isExpanded: false,
+                ),
+                if (permissions >= Permissions.maintainer)
+                  if (StateContainer.of(context).organization.creator !=
+                      widget.member)
+                    MyButton(
+                      label: sRemove,
+                      onPressed: () {},
+                      isExpanded: false,
+                      style: MyButtonStyle.floatingError,
+                    ),
+              ],
+            )
+          ]),
+    );
   }
 
-  void setIsEditing(bool val) => setState(() => isEditing = val);
+  void _setIsEditing(bool val) => setState(() => isEditing = val);
 
   void _onRoleSelected(int? value) {
     if (value == null)
@@ -136,10 +120,10 @@ class _MemberDetailsCardState extends State<MemberDetailsCard> {
               FirebaseMemberRepository());
       if (await useCase.execute(
           accessorID: StateContainer.of(context).member.id,
-          memberID: member.id,
+          memberID: widget.member.id,
           role: role!)) {
         MyToast.toastSuccess(
-            "Successfully changed ${member.name.fullName} to ${role!.permissions.string}");
+            "Successfully changed ${widget.member.name.fullName} to ${role!.permissions.string}");
         role = null;
       }
     } catch (e) {

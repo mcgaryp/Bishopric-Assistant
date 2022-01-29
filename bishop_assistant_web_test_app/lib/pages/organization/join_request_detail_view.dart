@@ -25,35 +25,40 @@ class _JoinRequestDetailsViewState extends State<JoinRequestDetailsView> {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.topRight,
-      child: MyCard(
-          child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: padding8),
-            child: Text(widget.details.name.fullName, style: subheadDark),
-          ),
-          MyDropdown(
-              hint: sRole,
-              validator: Validators.validateDropDown,
-              collection: Permissions.values
-                  .map<DropdownMenuItem<int>>((e) =>
-                      DropdownMenuItem(child: Text(e.string), value: e.index))
-                  .toList(),
-              onchange: _onRoleSelected),
-          Row(
-            children: [
-              CardActionButton(label: sAccept, onPressed: _accept),
-              CardActionButton(
-                  label: sReject,
-                  onPressed: _reject,
-                  style: MyButtonStyle.floatingError)
-            ],
-          ),
-        ],
-      )),
-    );
+    return MyCard(
+        child: Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: padding8),
+          child: Text(widget.details.name.fullName, style: subheadDark),
+        ),
+        MyDropdown(
+            hint: sRole,
+            validator: Validators.validateDropDown,
+            collection: Permissions.values
+                .map<DropdownMenuItem<int>>((e) =>
+                    DropdownMenuItem(child: Text(e.string), value: e.index))
+                .toList(),
+            onchange: _onRoleSelected),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            MyButton(
+              label: sReject,
+              onPressed: _reject,
+              style: MyButtonStyle.errorText,
+              isExpanded: false,
+            ),
+            MyButton(
+              label: sAccept,
+              onPressed: _accept,
+              isExpanded: false,
+              style: MyButtonStyle.text,
+            ),
+          ],
+        ),
+      ],
+    ));
   }
 
   void _onRoleSelected(int? value) {

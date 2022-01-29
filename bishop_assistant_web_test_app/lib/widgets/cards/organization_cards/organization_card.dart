@@ -1,8 +1,5 @@
 import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
-import 'package:bishop_assistant_web_test_app/theme/theme.dart';
-import 'package:bishop_assistant_web_test_app/util/util.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
-import 'package:flutter/material.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
 
@@ -22,7 +19,8 @@ class OrganizationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MyCard(children: [
+    return MyCard(
+        child: Column(children: [
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -31,13 +29,17 @@ class OrganizationCard extends StatelessWidget {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               CardTitle(organization.name),
-              Text(organization.creator.name.fullName, style: captionLight),
+              Text(organization.creator.name.fullName, style: captionDark),
             ]),
           ),
-          CardButton(label: sJoin, onPressed: () => _joinOrganization(context)),
+          MyButton(
+              label: sJoin,
+              onPressed: () => _joinOrganization(context),
+              style: MyButtonStyle.text,
+              isExpanded: false),
         ],
       ),
-    ]);
+    ]));
   }
 
   void _joinOrganization(BuildContext context) async {

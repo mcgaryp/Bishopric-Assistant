@@ -1,6 +1,5 @@
 import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
-import 'package:bishop_assistant_web_test_app/util/util.dart';
-import 'package:flutter/material.dart';
+import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/shared/exceptions.dart';
@@ -75,15 +74,33 @@ class StateContainerState extends State<StateContainer> {
 
   bool _hasStartedNotifications = false;
 
+  Name _mockName = Name(first: "Unauthenticated", last: "Account");
+  Contact _mockContact =
+      Contact(email: "fake@email.com", phone: "(123) 456-7890");
+
   /// [account] retrieves the account or notifies that an account is not valid
   /// and login is required
   Account get account {
     if (isAuthenticated) return _account!;
+    if (kDebugMode)
+      return Account(
+          name: _mockName,
+          contact: _mockContact,
+          credentials:
+              Credentials(username: "unauthenticated", password: "none"));
     throw PermissionDeniedError(reason: "UnAuthenticated User");
   }
 
   Organization get organization {
     if (hasOrganization) return _organization!;
+    if (kDebugMode)
+      return Organization(
+          creator: Member(
+              name: _mockName,
+              contact: _mockContact,
+              role: Role.creator(),
+              id: MemberID("Fake ID")),
+          name: "Fake Organization");
     throw PermissionDeniedError(reason: "No Organizational Relationship");
   }
 

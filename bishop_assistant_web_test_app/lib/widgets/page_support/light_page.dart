@@ -1,7 +1,6 @@
-import 'package:bishop_assistant_web_test_app/util/util.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/app_bar/scaffold.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
 ///
 /// light_page.dart
@@ -35,6 +34,7 @@ class LightPage extends StatelessWidget {
             label: sOrganization,
             path: rOrganization,
             notifications: container.organizationRequests),
+      if (kDebugMode) ActionModel(label: sTheme, path: rTheme),
       ActionModel(icon: Icons.person, path: rProfile),
     ];
 

@@ -1,8 +1,5 @@
-import 'package:bishop_assistant_web_test_app/theme/theme.dart';
-import 'package:flutter/material.dart';
+import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/organization.dart';
-
-import '../../widgets.dart';
 
 ///
 /// member_title.dart
@@ -38,7 +35,7 @@ class MemberTitle extends StatelessWidget {
                 fit: BoxFit.contain,
                 child: Text(
                   member.role.anonymous,
-                  style: footnoteLight,
+                  style: footnoteDark,
                   softWrap: true,
                 ),
               )

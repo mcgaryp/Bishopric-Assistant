@@ -10,11 +10,9 @@ import 'package:flutter/material.dart';
 ///
 
 class MyCard extends StatelessWidget {
-  @deprecated
-  final List<Widget>? children;
   final Widget? child;
 
-  const MyCard({this.children, this.child, Key? key}) : super(key: key);
+  const MyCard({this.child, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +22,7 @@ class MyCard extends StatelessWidget {
         decoration: floatingLightBox,
         child: Padding(
           padding: const EdgeInsets.all(padding8),
-          child: child ??
-              Column(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: children ?? []),
+          child: child,
         ),
       ),
     );

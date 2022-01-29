@@ -1,6 +1,4 @@
-import 'package:bishop_assistant_web_test_app/theme/theme.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
-import 'package:flutter/material.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 ///
@@ -14,14 +12,21 @@ import 'package:sticky_headers/sticky_headers.dart';
 class Section extends StatelessWidget {
   final String title;
   final List<Widget> children;
+  final MainAxisAlignment alignment;
+  final Color titleBackgroundColor;
 
-  const Section({required this.title, required this.children, Key? key})
-      : super(key: key);
+  const Section({
+    required this.title,
+    required this.children,
+    this.alignment = MainAxisAlignment.center,
+    this.titleBackgroundColor = lightGrey,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return StickyHeader(
-        header: Container(color: darkPrimary, child: RowTitle(title)),
-        content: Column(children: children));
+        header: Container(color: titleBackgroundColor, child: RowTitle(title)),
+        content: Column(mainAxisAlignment: alignment, children: children));
   }
 }

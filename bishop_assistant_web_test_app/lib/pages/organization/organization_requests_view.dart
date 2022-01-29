@@ -33,23 +33,21 @@ class OrganizationRequestsView extends StatelessWidget {
           if (snapshot.hasData) {
             if (snapshot.data != null) {
               List<JoinRequest> requests = snapshot.data!;
-              return Builder(builder: (BuildContext context) {
-                return MyConstrainedBox200(
-                  child: MyButton(
-                    label: "Join Requests ${requests.length}",
-                    onPressed: () async {
-                      try {
-                        List<JoinRequestDetail> details =
-                            await _getRequests(requests);
-                        _showRequests(details, context);
-                      } catch (e) {
-                        if (kDebugMode) print(e);
-                      }
-                    },
-                    style: MyButtonStyle.floating,
-                  ),
-                );
-              });
+              return MyConstrainedBox200(
+                child: MyButton(
+                  label: "Join Requests ${requests.length}",
+                  onPressed: () async {
+                    try {
+                      List<JoinRequestDetail> details =
+                          await _getRequests(requests);
+                      _showRequests(details, context);
+                    } catch (e) {
+                      if (kDebugMode) print(e);
+                    }
+                  },
+                  style: MyButtonStyle.floating,
+                ),
+              );
             }
             return Container();
           }
@@ -86,6 +84,7 @@ class OrganizationRequestsView extends StatelessWidget {
       showDialog(
           context: context,
           builder: (BuildContext context) => Dialog(
+              elevation: 0,
               insetPadding: const EdgeInsets.all(padding8),
               backgroundColor: Colors.transparent,
               child: MyConstrainedBox300(

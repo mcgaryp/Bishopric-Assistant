@@ -93,24 +93,21 @@ class InputField extends StatelessWidget {
                   : _isFloating!
                       ? floatingLightBox
                       : null),
-          Container(
-            child: TextFormField(
-              focusNode: focus,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              controller: controller,
-              obscureText: isPassword,
-              maxLines: maxLines ? null : 1,
-              inputFormatters: formattingList,
-              keyboardType: inputType,
-              decoration: _isFloating == null
-                  ? _plain()
-                  : _isFloating!
-                      ? _floating()
-                      : _border(),
-              validator: validator,
-              onFieldSubmitted: onSubmit,
-              // onChanged: onChange,
-            ),
+          TextFormField(
+            focusNode: focus,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            controller: controller,
+            obscureText: isPassword,
+            maxLines: maxLines ? null : 1,
+            inputFormatters: formattingList,
+            keyboardType: inputType,
+            decoration: _isFloating == null
+                ? _plain()
+                : _isFloating!
+                    ? _floating()
+                    : _border(),
+            validator: validator,
+            onFieldSubmitted: onSubmit,
           ),
         ],
       ),
@@ -119,42 +116,45 @@ class InputField extends StatelessWidget {
 
   InputDecoration _floating() {
     return InputDecoration(
-        contentPadding: EdgeInsets.symmetric(horizontal: padding16),
-        border: InputBorder.none,
-        enabledBorder: InputBorder.none,
-        errorBorder: errorRedInputBorder,
-        disabledBorder: InputBorder.none,
-        errorStyle: errorColorIsDark ? calloutDark : calloutLight,
-        hintText: hint,
-        hintStyle: captionLight,
-        labelStyle: bodyDark,
-        errorText: errorMsg);
+      contentPadding: EdgeInsets.symmetric(horizontal: padding16),
+      border: InputBorder.none,
+      enabledBorder: InputBorder.none,
+      errorBorder: errorRedInputBorder,
+      disabledBorder: InputBorder.none,
+      errorStyle: errorColorIsDark ? calloutDark : calloutLight,
+      hintText: hint,
+      hintStyle: captionDark,
+      labelStyle: bodyDark,
+      errorText: errorMsg,
+    );
   }
 
   InputDecoration _border() {
     return InputDecoration(
-        focusedBorder: lightPrimaryInputBorder,
-        enabledBorder: darkPrimaryInputBorder,
-        errorBorder: errorRedInputBorder,
-        disabledBorder: InputBorder.none,
-        errorStyle: errorColorIsDark ? calloutDark : calloutLight,
-        hintText: hint,
-        hintStyle: captionLight,
-        labelText: label,
-        labelStyle: bodyDark);
+      contentPadding: EdgeInsets.symmetric(horizontal: padding16),
+      focusedBorder: lightPrimaryInputBorder,
+      enabledBorder: darkPrimaryInputBorder,
+      errorBorder: errorRedInputBorder,
+      errorStyle: errorColorIsDark ? calloutDark : calloutLight,
+      hintText: hint,
+      hintStyle: captionLight,
+      labelText: label,
+      labelStyle: bodyDark,
+    );
   }
 
   InputDecoration _plain() {
     return InputDecoration(
-        contentPadding: EdgeInsets.symmetric(horizontal: padding16),
-        border: InputBorder.none,
-        enabledBorder: InputBorder.none,
-        errorBorder: errorRedInputBorder,
-        disabledBorder: InputBorder.none,
-        errorStyle: errorColorIsDark ? calloutDark : calloutLight,
-        hintText: hint,
-        hintStyle: captionLight,
-        labelStyle: bodyDark,
-        errorText: errorMsg);
+      contentPadding: EdgeInsets.symmetric(horizontal: padding16),
+      border: InputBorder.none,
+      enabledBorder: InputBorder.none,
+      errorBorder: errorRedInputBorder,
+      disabledBorder: InputBorder.none,
+      errorStyle: errorColorIsDark ? calloutDark : calloutLight,
+      hintText: hint,
+      hintStyle: captionDark,
+      labelStyle: bodyDark,
+      errorText: errorMsg,
+    );
   }
 }

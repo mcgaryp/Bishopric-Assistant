@@ -26,8 +26,8 @@ class OrganizationMembersView extends StatelessWidget {
           if (members == null) return Container();
           return Column(
               children: members
-                  .map<MemberDetailsCard>(
-                      (Stream<Member> member) => MemberDetailsCard(member))
+                  .map<MemberDetailsCardView>(
+                      (Stream<Member> member) => MemberDetailsCardView(member))
                   .toList());
         }
 

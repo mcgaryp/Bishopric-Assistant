@@ -1,9 +1,6 @@
 import 'package:bishop_assistant_web_test_app/pages/profile/display_profile.dart';
 import 'package:bishop_assistant_web_test_app/pages/profile/edit_profile.dart';
-import 'package:bishop_assistant_web_test_app/theme/theme.dart';
-import 'package:bishop_assistant_web_test_app/util/util.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
-import 'package:flutter/material.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
 
@@ -39,7 +36,11 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             Row(children: [
               Spacer(),
-              CardButton(label: sLogout, onPressed: _logout)
+              MyButton(
+                  label: sLogout,
+                  onPressed: _logout,
+                  style: MyButtonStyle.text,
+                  isExpanded: false),
             ]),
             MemberIcon(Icons.person, size: 65),
             Text(account.name.fullName, style: titleDark),

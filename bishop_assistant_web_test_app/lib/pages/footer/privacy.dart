@@ -1,5 +1,4 @@
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
-import 'package:flutter/material.dart';
 
 ///
 /// Privacy.dart

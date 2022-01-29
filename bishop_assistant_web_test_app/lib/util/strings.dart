@@ -83,6 +83,7 @@ const String sSave = "Save";
 const String sSearch = "Search";
 const String sSignup = "Sign Up";
 const String sSiteMap = "SiteMap";
+const String sTheme = "Theme Components";
 const String sTitle = "Bishopric Assistant";
 const String sUsername = "Username";
 const String sYes = "Yes";
