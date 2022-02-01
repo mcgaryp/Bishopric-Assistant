@@ -5,8 +5,6 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:bishop_assistant_web_test_app/main.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'home_page_tests/find_organization_page_test.dart';
@@ -18,25 +16,27 @@ import 'repository_tests/firebase_account_repository_test.dart';
 import 'sign_up_tests/sign_up_page_test.dart';
 
 void exampleTest() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('Example Tests', (WidgetTester tester) async {
+    expect(true,true);
     // Build our app and trigger a frame.
-    await tester.pumpWidget(App());
-
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // await tester.pumpWidget(App());
+    //
+    // // Verify that our counter starts at 0.
+    // expect(find.text('0'), findsOneWidget);
+    // expect(find.text('1'), findsNothing);
+    //
+    // // Tap the '+' icon and trigger a frame.
+    // await tester.tap(find.byIcon(Icons.add));
+    // await tester.pump();
+    //
+    // // Verify that our counter has incremented.
+    // expect(find.text('0'), findsNothing);
+    // expect(find.text('1'), findsOneWidget);
   });
 }
 
 void main() {
+  exampleTest();
   runFirebaseAccountRepositoryTests();
   runSignUpPageTests();
   runLoginPageTests();

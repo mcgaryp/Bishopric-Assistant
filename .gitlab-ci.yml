@@ -1,50 +1,112 @@
-# This file is a template, and might need editing before it works on your project.
-# To contribute improvements to CI/CD templates, please follow the Development guide at:
-# https://docs.gitlab.com/ee/development/cicd/templates.html
-# This specific template is located at:
-# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Flutter.gitlab-ci.yml
+# From an article
+# https://medium.com/version-1/flutter-continuous-integration-using-gitlab-80f3d896704a
+image: mobiledevops/flutter-sdk-image:latest
 
-# code_quality:
-#   stage: test
-#   image: "cirrusci/flutter:1.22.5"
-#   before_script:
-#     - pub global activate dart_code_metrics
-#     - export PATH="$PATH":"$HOME/.pub-cache/bin"
-#   script:
-#     - metrics lib -r codeclimate  > gl-code-quality-report.json
-#   artifacts:
-#     reports:
-#       codequality: gl-code-quality-report.json
+variables:
 
-# test:
-#   stage: test
-#   image: "cirrusci/flutter:1.22.5"
+# Cache downloaded dependencies and plugins between builds.
+# To keep cache across branches add 'key: "$CI_JOB_NAME"'
+cache:
+  paths:
+    - .pub-cache/global_packages
+
+stages:
+  - test # All Jobs related to testing, Unit Tests and Widget Tests
+  - build # All Jobs related to building the app for web, iOS, and Android
+  - deploy # All Jobs related to deploying the app
+
+flutter_model_test:
+  stage: test
+  before_script:
+    - cd models
+  script:
+    - flutter test test/test.dart
+  tags:
+    - shared
+  only:
+    - merge_requests
+
+# TODO: How is .env file included without disclosing the secrets
+#flutter_app_test:
+#  stage: test
+#  before_script:
+#    - cd bishop_assistant_web_test_app
+#    - flutter upgrade
+#  script:
+#    - flutter test test/tests.dart
+#  tags:
+#    - shared
+#  only:
+#    - merge_requests
+
+#flutter_build_web:
+#  stage: build
+#  before_script:
+#    - flutter upgrade
+#    - flutter packages get
+#    - flutter clean
+#    - cd bishop_assistant_web_test_app
+#  script:
+#    - flutter build web
+#  artifacts:
+#    paths:
+#      - build/web/index.html
+#  tags:
+#    - shared
+
+# Website that describes how to set up build for flutter
+# https://medium.com/kinandcartacreated/setup-a-flutter-ci-cd-with-gitlab-ci-part-3-8e67c91c6da7
+# flutter_build_android: #Job name
+#   stage: build # kind of job
 #   before_script:
-#     - pub global activate junitreport
-#     - export PATH="$PATH":"$HOME/.pub-cache/bin"
+#     - flutter packages get
+#     - flutter clean
 #   script:
-#     - flutter test --machine --coverage | tojunit -o report.xml
-#     - lcov --summary coverage/lcov.info
-#     - genhtml coverage/lcov.info --output=coverage
-#   coverage: '/lines\.*: \d+\.\d+\%/'
+#      - flutter build apk
 #   artifacts:
-#     name: coverage
 #     paths:
-#       - $CI_PROJECT_DIR/coverage
-#     reports:
-#       junit: report.xml
+#       - build/app/outputs/apk/release/app-release.apk
+#   tags:
+#     - flutter
 
-# deploy:
-#   stage: deploy
-#   image: "cirrusci/flutter:1.22.5"
+# flutter_build_ios:
+#   stage: build
+#   before_script:
+#     - flutter packages get
+#     - flutter clean
 #   script:
-#     - flutter pub get
-#     - flutter build web
-#     - firebase deploy
+#     - flutter build ios
+#     - cd ios
+#     - xcodebuild clean archive -workspace Runner.xcworkspace -scheme Runner -archivePath RunnerArchive
+#     - xcodebuild -exportArchive -archivePath RunnerArchive.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath ./build
 #   artifacts:
-#     name: deployable
-#     paths: 
-#       - $CI_PROJECT_DIR/deployment
-#     reports:
-#       junit: deploy_report.xml
+#     paths:
+#       - ios/build/Runner.ipa
+#   tags:
+#     - flutter
 
+# Article that describes the process of deployment with App Center
+# https://medium.com/kinandcartacreated/setup-a-flutter-ci-cd-with-gitlab-ci-part-4-e517c4c11bd8
+# deploy_ios:
+#   stage: deploy
+#   dependencies:
+#     - flutter_build_ios
+#   script:
+#     - appcenter login --token $APPCENTER_API_TOKEN
+#     - appcenter distribute release -f ios/build/Runner.ipa -g Collaborators --app [username]/[project]
+#   tags:
+#     - flutter
+
+# deploy_android:
+#   stage: deploy
+#   dependencies:
+#     - flutter_build_android
+#   script:
+#     - appcenter login --token $APPCENTER_API_TOKEN
+#     - appcenter distribute release -f build/app/outputs/apk/release/app-release.apk -g Collaborators -app [username]/[project]
+#   tags:
+#     - flutter
+
+# Article that describes the process of deployment with Fastlane
+# https://medium.com/kinandcartacreated/setup-a-flutter-ci-cd-with-gitlab-ci-part-5-26ab03f3190
+# TODO: Compare Fastlane with AppCenter

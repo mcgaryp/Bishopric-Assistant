@@ -1,4 +1,3 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:models/shared/test.dart';
 
 ///
@@ -20,14 +19,14 @@ class ChangeContactUseCaseTest with Test {
 }
 
 runChangeContactTests() {
-  group("Change Contact Tests", () {
-    test(
-        "should return some kind of result based on the success of the backend",
-        ChangeContactUseCaseTest
-            .shouldReturnTrueWhenValidContactAndSuccessfulUpdate);
-    test(
-        "should return account not found error when invalid id given",
-        ChangeContactUseCaseTest
-            .shouldReturnAccountNotFoundErrorWhenGivenInvalidID);
-  });
+  // group("Change Contact Tests", () {
+  //   test(
+  //       "should return some kind of result based on the success of the backend",
+  //       ChangeContactUseCaseTest
+  //           .shouldReturnTrueWhenValidContactAndSuccessfulUpdate);
+  //   test(
+  //       "should return account not found error when invalid id given",
+  //       ChangeContactUseCaseTest
+  //           .shouldReturnAccountNotFoundErrorWhenGivenInvalidID);
+  // });
 }
