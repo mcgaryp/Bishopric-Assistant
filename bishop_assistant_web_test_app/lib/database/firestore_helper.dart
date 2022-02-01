@@ -95,7 +95,6 @@ abstract class FirestoreHelper {
   Future<String?> addDocument(Map<String, Object?> map,
       {UUID? id, FirestoreCollectionPath? path}) async {
     String? result;
-
     String? strId = id == null ? null : id.id;
 
     DocumentReference ref =

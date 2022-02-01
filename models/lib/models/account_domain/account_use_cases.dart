@@ -11,6 +11,8 @@ export 'account_use_cases/change_password_use_case.dart';
 export 'account_use_cases/confirm_pin_use_case.dart';
 export 'account_use_cases/create_account_use_case.dart';
 export 'account_use_cases/delete_account_use_case.dart';
+export 'account_use_cases/get_state_use_case.dart';
 export 'account_use_cases/logout_account_use_case.dart';
 export 'account_use_cases/reactivate_account_use_case.dart';
 export 'account_use_cases/recover_account_use_case.dart';
+export 'account_use_cases/save_state_use_case.dart';

@@ -20,7 +20,7 @@ class Organization extends Entity<Organization> {
   final Member creator;
 
   /// [_name] the name of the organization
-  late final String _name;
+  late String _name;
 
   static const String nameKey = "Organization Name";
   static const String creatorKey = "Organization Creator";
@@ -74,6 +74,6 @@ class Organization extends Entity<Organization> {
 
   @override
   String toString() {
-    return "Name: $name\nCreator: $creator";
+    return "Name: $name\nCreator: $creator\nID: $id";
   }
 }

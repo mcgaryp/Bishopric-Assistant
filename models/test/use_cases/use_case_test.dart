@@ -5,7 +5,6 @@ import 'account/change_contact_use_case_test.dart';
 import 'account/change_password_use_case_test.dart';
 import 'account/confirm_pin_use_case_test.dart';
 import 'account/create_account_use_case_test.dart';
-import 'account/delete_account_use_case_test.dart';
 import 'account/recover_account_use_case_test.dart';
 
 ///
@@ -24,7 +23,6 @@ runUseCaseTests() {
       runChangePasswordUseCaseTests();
       runConfirmPinUseCaseTests();
       runCreateAccountUseCaseTests();
-      runDeleteAccountUseCaseTests();
       runRecoverAccountUseCaseTest();
     });
   });

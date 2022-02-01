@@ -39,7 +39,6 @@ class DefaultCreateOrganizationUseCase implements CreateOrganizationUseCase {
     Organization? organizationFromBeyond =
         await _organizationRepository.findByName(name);
     if (organizationFromBeyond != null) throw OrganizationAlreadyExistsError();
-
     Member creator = Member(
         name: accessor.name, contact: accessor.contact, role: Role.creator());
     Member? creatorWithID = await _memberRepository.insert(creator);
@@ -60,21 +59,24 @@ class DefaultCreateOrganizationUseCase implements CreateOrganizationUseCase {
               organization: organizationWithID, member: creatorWithID);
         } else {
           if (await _removeCreator(creatorWithID.id) &&
-              await _removeOrganization(organizationWithID.id))
+              await _removeOrganization(organizationWithID.id)) {
             throw FailedToSaveError(
                 forEntity: "Organization Member Relationship");
-          else
+          } else {
             throw FailedToRemoveError(
                 forEntity: "The Organization and Creator");
+          }
         }
       } else {
-        if (await _removeCreator(creatorWithID.id))
+        if (await _removeCreator(creatorWithID.id)) {
           throw FailedToSaveError(forEntity: "The Organization");
-        else
+        } else {
           throw FailedToRemoveError(forEntity: "The Organization Creator");
+        }
       }
-    } else
+    } else {
       throw FailedToSaveError(forEntity: "Creator of Organization");
+    }
   }
 
   Future<bool> _removeCreator(MemberID id) {

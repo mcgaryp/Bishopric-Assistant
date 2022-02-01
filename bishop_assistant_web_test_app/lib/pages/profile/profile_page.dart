@@ -25,9 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     Account account = StateContainer.of(context).account;
-    Member? member;
-    bool isMember = StateContainer.of(context).isMember;
-    if (isMember) member = StateContainer.of(context).member;
+    Member member = StateContainer.of(context).member;
 
     return LightPage(
       child: Column(
@@ -37,14 +35,23 @@ class _ProfilePageState extends State<ProfilePage> {
             Row(children: [
               Spacer(),
               MyButton(
-                  label: sLogout,
-                  onPressed: _logout,
-                  style: MyButtonStyle.text,
-                  isExpanded: false),
+                label: sLogout,
+                onPressed: () {
+                  StateContainer.of(context).logout();
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    rLogin,
+                    (Route route) => route.isFirst,
+                  );
+                },
+                style: MyButtonStyle.text,
+                isExpanded: false,
+              ),
             ]),
             MemberIcon(Icons.person, size: 65),
             Text(account.name.fullName, style: titleDark),
-            if (isMember) Text(member!.role.anonymous, style: subheadDark),
+            if (StateContainer.of(context).state >= UserState.inOrganization)
+              Text(member.role.anonymous, style: subheadDark),
             MyConstrainedBox300(children: [
               MyDivider(color: dark),
               Padding(
@@ -62,11 +69,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void _save() {
     _setIsEditing(false);
-  }
-
-  void _logout() {
-    StateContainer.of(context)
-        .logout(() => Navigator.pushReplacementNamed(context, rLogin));
   }
 
   void _setIsEditing(bool val) => setState(() => _isEditing = val);

@@ -1,6 +1,5 @@
 import 'package:bishop_assistant_web_test_app/database/firestore_helper.dart';
 import 'package:models/models/organization.dart';
-import 'package:models/shared/exceptions.dart';
 
 ///
 /// firebase_member_repository.dart
@@ -23,17 +22,6 @@ class FirebaseMemberRepository extends FirestoreHelper
     return null;
   }
 
-  Stream<Member> findMemberStreamed(MemberID id) {
-    Stream<Map<String, dynamic>?> documentStream =
-        getSingleDocumentStreamed(id);
-    Stream<Member> memberStream =
-        documentStream.asyncMap<Member>((Map<String, dynamic>? map) async {
-      if (map == null) throw MemberNotFoundError();
-      return Member.fromMap(map);
-    });
-    return memberStream;
-  }
-
   @override
   Stream<List<Stream<Member>>> findAllStreamed(OrganizationID organizationID) {
     Stream<List<Map<String, dynamic>>> streamedDocuments =
@@ -47,7 +35,7 @@ class FirebaseMemberRepository extends FirestoreHelper
             (List<Map<String, dynamic>> snapshot) async {
       List<Stream<Member>> members = [];
       snapshot.forEach((element) {
-        members.add(findMemberStreamed(
+        members.add(findStreamed(
             MemberID(element[OrganizationMemberRelationship.memberIdKey])));
       });
       return members;
@@ -151,5 +139,11 @@ class FirebaseMemberRepository extends FirestoreHelper
     }
 
     return members;
+  }
+
+  @override
+  Stream<Member> findStreamed(MemberID memberID) {
+    return getSingleDocumentStreamed(memberID)
+        .map<Member>((Map<String, dynamic>? map) => Member.fromMap(map!));
   }
 }

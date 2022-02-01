@@ -36,17 +36,18 @@ class ConfirmDeleteOrganizationDialog extends StatelessWidget {
       OrganizationID organizationID =
           StateContainer.of(context).organization.id;
       String name = StateContainer.of(context).organization.name;
+      StateContainer.of(context).nullOrganization();
       if (await useCase.execute(
           creatorID: creatorID, organizationID: organizationID)) {
+        await StateContainer.of(context).findOrganization();
         MyToast.toastSuccess("Deleted $name");
-        StateContainer.of(context).setOrganization(null);
         Navigator.pushReplacementNamed(context, rHome);
         return;
       }
-      MyToast.toastError("Failed to Remove $name");
     } catch (e) {
       if (kDebugMode) print(e);
       MyToast.toastError(e.toString());
     }
+    await StateContainer.of(context).findOrganization();
   }
 }

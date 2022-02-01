@@ -15,9 +15,6 @@ import 'package:models/models/organization.dart';
 /// [FindOrganizationPage] Handles the organization loading and managing mobile
 /// and web versions
 class FindOrganizationPage extends StatefulWidget {
-  final Function fun;
-
-  const FindOrganizationPage(this.fun, {Key? key}) : super(key: key);
   @override
   State<FindOrganizationPage> createState() => _FindOrganizationPageState();
 }
@@ -40,8 +37,12 @@ class _FindOrganizationPageState extends State<FindOrganizationPage> {
 
             if (organizations != null && organizations!.isEmpty)
               organizations = allOrganizations;
+
             return Column(children: [
-              CreateOrganization(widget.fun),
+              CreateOrganization(() async {
+                await StateContainer.of(context).findOrganization();
+                Navigator.of(context).pushReplacementNamed(rHome);
+              }),
               SearchBar<Organization>(
                 filter: (Organization org, String? str) {
                   if (str == null) return false;

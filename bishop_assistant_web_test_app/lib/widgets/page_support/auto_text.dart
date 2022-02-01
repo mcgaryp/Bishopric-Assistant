@@ -26,6 +26,7 @@ class AutoText extends StatelessWidget {
           data,
           style: style,
           textAlign: TextAlign.start,
+          maxLines: 2,
         ));
 
     if (isExpanded)

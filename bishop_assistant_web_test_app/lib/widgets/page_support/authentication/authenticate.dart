@@ -1,4 +1,6 @@
+import 'package:bishop_assistant_web_test_app/pages/signup_login/login_page.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
+import 'package:models/models/account.dart';
 
 ///
 /// authenticate.dart
@@ -17,8 +19,10 @@ class Authenticate extends StatelessWidget {
   Widget build(BuildContext context) {
     // The status of the user needs to be checked to ensure they have
     // authenticated access to the application.
-    final isAuthenticated = StateContainer.of(context).isAuthenticated;
-    if (isAuthenticated) return child;
-    return Error404Page(msg: "Unauthenticated User");
+    UserState state = StateContainer.of(context).state;
+    if (state >= UserState.authenticated) return child;
+    if (state == UserState.loadingIn)
+      return DarkPage(inputs: [], buttons: [], showSpinner: true);
+    return LoginPage();
   }
 }

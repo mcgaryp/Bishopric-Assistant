@@ -118,10 +118,6 @@ class _EditProfileState extends State<EditProfile> {
           await _changeContact();
 
         if (_changeWasMade) {
-          FirebaseAccountRepository repo = FirebaseAccountRepository();
-          Account? updatedAccount = await repo.find(account.id);
-          if (updatedAccount != null)
-            StateContainer.of(context).updateAccount(updatedAccount);
           widget.onSave();
         }
       } catch (e) {

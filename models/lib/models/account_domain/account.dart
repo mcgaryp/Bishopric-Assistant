@@ -68,6 +68,7 @@ class Account extends Entity<Account> {
     Name: ${name.toString()}
     Credentials: ${credentials.toString()}
     Contact: ${contact.toString()}
+    ID: ${_id?.id}
     """;
   }
 

@@ -18,13 +18,8 @@ class OrganizationRequestsView extends StatelessWidget {
   Widget build(BuildContext context) {
     DefaultAllOrganizationRequestsUseCase useCase =
         DefaultAllOrganizationRequestsUseCase(FirebaseOrganizationRepository());
-    OrganizationID id;
 
-    try {
-      id = StateContainer.of(context).organization.id;
-    } catch (e) {
-      return Error404(msg: e.toString());
-    }
+    OrganizationID id = StateContainer.of(context).organization.id;
 
     return StreamBuilder(
         stream: useCase.execute(id),
@@ -33,21 +28,46 @@ class OrganizationRequestsView extends StatelessWidget {
           if (snapshot.hasData) {
             if (snapshot.data != null) {
               List<JoinRequest> requests = snapshot.data!;
-              return MyConstrainedBox200(
-                child: MyButton(
-                  label: "Join Requests ${requests.length}",
-                  onPressed: () async {
-                    try {
-                      List<JoinRequestDetail> details =
-                          await _getRequests(requests);
-                      _showRequests(details, context);
-                    } catch (e) {
-                      if (kDebugMode) print(e);
-                    }
-                  },
-                  style: MyButtonStyle.floating,
-                ),
-              );
+              if (requests.length > 0)
+                return Container(
+                  height: 55,
+                  width: 55,
+                  child: Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: Container(
+                          decoration: floatingDarkCircleBox,
+                          height: 40,
+                          width: 55,
+                          child: MyButton.icon(
+                            icon: Icon(Icons.notifications, color: light),
+                            onPressed: () async {
+                              try {
+                                List<JoinRequestDetail> details =
+                                    await _getRequests(requests);
+                                _showRequests(details, context);
+                              } catch (e) {
+                                if (kDebugMode) print(e);
+                              }
+                            },
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: Container(
+                            decoration: BoxDecoration(
+                                color: errorRed, shape: BoxShape.circle),
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child:
+                                  Text("${requests.length}", style: bodyLight),
+                            )),
+                      ),
+                    ],
+                  ),
+                );
             }
             return Container();
           }

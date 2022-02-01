@@ -22,6 +22,9 @@ mixin AccountRepository implements Repository<Account, AccountID, void> {
   /// [findByPhone] uses a string phone to find and return an optional [Account]
   Future<Account?> findByEmail(String email);
 
+  /// [findStreamed] uses the account ID to return a stream of [Account]
+  Stream<Account> findStreamed(AccountID id);
+
   /// [login] stores a value to mark the user as logged in
   Future<bool> login(Account account);
 

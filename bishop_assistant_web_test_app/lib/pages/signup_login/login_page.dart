@@ -1,9 +1,7 @@
-import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/state/firebase_authentication.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:crypt/crypt.dart';
 import 'package:models/models/account.dart';
-import 'package:models/models/organization.dart';
 import 'package:models/shared/exceptions.dart';
 
 ///
@@ -108,21 +106,16 @@ class _LoginPageState extends State<LoginPage> {
     _setIsWaiting(true);
 
     try {
-      // Get encrypted Password from database
-      FirebaseAccountRepository _accountRepository =
-          FirebaseAccountRepository();
-      DefaultAuthenticateAccountUseCase authenticateAccount =
-          DefaultAuthenticateAccountUseCase(_accountRepository);
-
       // Password encryption
       String hashPassword =
           Crypt.sha256(passwordControl.text, salt: "bishopric").toString();
 
       Credentials credentials =
           Credentials(password: hashPassword, username: usernameControl.text);
-      Account account = await authenticateAccount.execute(credentials);
 
-      _success(account);
+      await StateContainer.of(context).login(credentials);
+
+      _success();
     } on InactiveAccountError catch (error) {
       Navigator.pushReplacementNamed(context, rReactivateAccount,
           arguments: error.id);
@@ -152,22 +145,10 @@ class _LoginPageState extends State<LoginPage> {
     MyToast.toastError(error);
   }
 
-  void _success(Account account) async {
+  void _success() async {
     _errorMsg = null;
 
-    // TODO: save a token to recognize the user is logged in still and refer to that
-    // token to check if they are logged in on page refresh
-
-    // Change the session variable to logged in stat e
-    final container = StateContainer.of(context);
-
-    container.login(account);
-
-    // check if the user has an organization or not
-    OrganizationMember? org = await _accountHasOrganization();
-
-    // Set the organization
-    container.setOrganization(org);
+    // TODO: save a token to recognize the user is logged in still and refer to that token to check if they are logged in on page refresh
 
     // Navigate to the home page
     Navigator.pushReplacementNamed(context, rHome);
@@ -177,21 +158,5 @@ class _LoginPageState extends State<LoginPage> {
     usernameControl.text = "dev";
     passwordControl.text = "password1";
     _onPress();
-  }
-
-  /// [_accountHasOrganization] checks to ensure that the user has an
-  /// organization linked to the account returning true if so and false if not
-  Future<OrganizationMember?> _accountHasOrganization() async {
-    AccountID accountID = StateContainer.of(context).account.id;
-    try {
-      DefaultHasAssociatedOrganizationUseCase useCase =
-          DefaultHasAssociatedOrganizationUseCase(FirebaseMemberRepository());
-      OrganizationMember? org = await useCase.execute(accountID: accountID);
-      return org;
-    } catch (e) {
-      if (kDebugMode) print(e);
-    }
-
-    return null;
   }
 }

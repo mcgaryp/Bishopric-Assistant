@@ -11,18 +11,34 @@ import 'package:flutter/material.dart';
 
 /// Floating Boxes
 const BoxDecoration floatingLightBox = BoxDecoration(
-    color: light, boxShadow: _boxShadow, borderRadius: _borderRadius20);
+  color: light,
+  boxShadow: _boxShadow,
+  borderRadius: _borderRadius20,
+);
 
 const BoxDecoration floatingLightPrimaryBox = BoxDecoration(
-    color: lightPrimary, boxShadow: _boxShadow, borderRadius: _borderRadius20);
+  color: lightPrimary,
+  boxShadow: _boxShadow,
+  borderRadius: _borderRadius20,
+);
 
 const BoxDecoration floatingDarkPrimaryHalfBorderBox = BoxDecoration(
-    color: darkPrimary,
-    boxShadow: _boxShadow,
-    borderRadius: _borderRadiusTop20);
+  color: darkPrimary,
+  boxShadow: _boxShadow,
+  borderRadius: _borderRadiusTop20,
+);
 
 const BoxDecoration floatingErrorRedBox = BoxDecoration(
-    color: errorRed, boxShadow: _boxShadow, borderRadius: _borderRadius20);
+  color: errorRed,
+  boxShadow: _boxShadow,
+  borderRadius: _borderRadius20,
+);
+
+const BoxDecoration floatingDarkCircleBox = BoxDecoration(
+  boxShadow: _boxShadow,
+  color: dark,
+  shape: BoxShape.circle,
+);
 
 /// Flat Boxes
 const BoxDecoration darkPrimaryBox = BoxDecoration(color: darkPrimary);

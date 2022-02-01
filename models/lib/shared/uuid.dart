@@ -39,4 +39,9 @@ abstract class UUID extends ValueObject<UUID> {
   bool sameValueAs(UUID other) {
     return this.id == other.id;
   }
+
+  @override
+  String toString() {
+    return _id;
+  }
 }

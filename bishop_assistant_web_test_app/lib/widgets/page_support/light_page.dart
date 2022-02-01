@@ -1,6 +1,6 @@
 import 'package:bishop_assistant_web_test_app/widgets/page_support/app_bar/scaffold.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
-import 'package:flutter/foundation.dart';
+import 'package:models/models/account.dart';
 
 ///
 /// light_page.dart
@@ -21,19 +21,21 @@ class LightPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final container = StateContainer.of(context);
+    final container = StateContainer.of(context).state;
 
     // Action items
     final List<ActionModel> actions = [
       ActionModel(label: sHome, path: rHome),
-      if (container.hasOrganization) ActionModel(label: sEvents, path: rEvents),
-      if (container.hasOrganization)
+      if (container == UserState.inOrganization)
+        ActionModel(label: sEvents, path: rEvents),
+      if (container == UserState.inOrganization)
         ActionModel(label: sAssignments, path: rAssignments),
-      if (container.hasOrganization)
+      if (container == UserState.inOrganization)
         ActionModel(
-            label: sOrganization,
-            path: rOrganization,
-            notifications: container.organizationRequests),
+          label: sOrganization,
+          path: rOrganization,
+        ),
+      //notifications: 0), // TODO: request info
       if (kDebugMode) ActionModel(label: sTheme, path: rTheme),
       ActionModel(icon: Icons.person, path: rProfile),
     ];

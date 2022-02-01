@@ -25,6 +25,10 @@ class DisplayOrganization extends StatelessWidget {
               Text(
                 StateContainer.of(context).organization.name,
                 style: titleDark,
+                maxLines: 2,
+                // textAlign: TextAlign.center,
+                // softWrap: true,
+                overflow: TextOverflow.ellipsis,
               ),
               MyButton(
                   label: sEdit,

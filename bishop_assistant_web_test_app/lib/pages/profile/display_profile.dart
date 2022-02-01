@@ -20,17 +20,17 @@ class DisplayProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     Account account = StateContainer.of(context).account;
     Organization? organization;
-    bool hasOrganization = StateContainer.of(context).hasOrganization;
-    if (hasOrganization) organization = StateContainer.of(context).organization;
+    if (StateContainer.of(context).state >= UserState.inOrganization)
+      organization = StateContainer.of(context).organization;
 
     return Column(
       children: [
         CardRow(sEmail, content: account.contact.email),
         CardRow(sPhone, content: account.contact.phone),
-        if (hasOrganization)
-          CardRow(sOrganization, content: organization!.name),
-        if (hasOrganization)
-          CardRow(sCreator, content: organization!.creator.name.fullName),
+        if (organization != null)
+          CardRow(sOrganization, content: organization.name),
+        if (organization != null)
+          CardRow(sCreator, content: organization.creator.name.fullName),
         MyButton(label: sEdit, onPressed: onEdit),
         MyButton(
           label: sDeactivateAccount,

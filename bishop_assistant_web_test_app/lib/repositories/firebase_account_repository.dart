@@ -143,4 +143,10 @@ class FirebaseAccountRepository extends FirestoreHelper
   Future<bool> logout() async {
     return await FirebaseAuthentication.logout();
   }
+
+  @override
+  Stream<Account> findStreamed(AccountID id) {
+    return getSingleDocumentStreamed(id)
+        .map<Account>((Map<String, dynamic>? map) => Account.fromMap(map!));
+  }
 }

@@ -34,7 +34,8 @@ class FirebaseOrganizationRepository extends FirestoreHelper
             (List<Map<String, dynamic>> documents) async {
       List<Organization> organizations = [];
       for (Map<String, dynamic> map in documents) {
-        organizations.add(Organization.fromMap(map));
+        if (map[Organization.idKey] != null)
+          organizations.add(Organization.fromMap(map));
       }
       return organizations;
     });
@@ -73,15 +74,6 @@ class FirebaseOrganizationRepository extends FirestoreHelper
     map[OrganizationMemberRelationship.idKey] = id;
     return updateDocument(map, RelationshipID(id),
         path: FirestoreCollectionPath.organization_members);
-  }
-
-  Future<Member?> findCreator(MemberID id) async {
-    Map<String, dynamic>? map =
-        await getSingleDocument(id, path: FirestoreCollectionPath.members);
-    if (map != null) {
-      return Member.fromMap(map);
-    }
-    return null;
   }
 
   @override
@@ -163,4 +155,12 @@ class FirebaseOrganizationRepository extends FirestoreHelper
           OrganizationMemberRelationship relationship) =>
       removeDocument(relationship.id,
           path: FirestoreCollectionPath.organization_members);
+
+  @override
+  Stream<Organization> findStreamed(OrganizationID id) {
+    return getSingleDocumentStreamed(id)
+        .map<Organization>((Map<String, dynamic>? map) {
+      return Organization.fromMap(map!);
+    });
+  }
 }

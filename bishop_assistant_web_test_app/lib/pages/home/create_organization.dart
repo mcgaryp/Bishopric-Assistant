@@ -12,9 +12,10 @@ import 'package:models/models/organization.dart';
 
 /// [CreateOrganization] allows the user to create an organization them selves
 class CreateOrganization extends StatefulWidget {
-  final Function fun;
+  final void Function() onOrganizationCreationCallback;
 
-  const CreateOrganization(this.fun, {Key? key}) : super(key: key);
+  const CreateOrganization(this.onOrganizationCreationCallback, {Key? key})
+      : super(key: key);
 
   @override
   _CreateOrganizationState createState() => _CreateOrganizationState();
@@ -22,7 +23,6 @@ class CreateOrganization extends StatefulWidget {
 
 class _CreateOrganizationState extends State<CreateOrganization> {
   final TextEditingController name = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
   bool _isWaiting = false;
 
   @override
@@ -30,26 +30,25 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     return MyCard(
         child: Column(children: [
       Form(
-          key: _formKey,
           child: Column(
-            children: [
-              InputField.border(
-                sNameOfOrganization,
-                controller: name,
-                validator: Validators.standard,
-                onSubmit: _onSubmit,
-              ),
-              if (_isWaiting)
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: SpinKitCircle(color: dark),
-                ),
-              AbsorbPointer(
-                absorbing: _isWaiting,
-                child: MyButton(label: sCreate, onPressed: _createOrganization),
-              ),
-            ],
-          )),
+        children: [
+          InputField.border(
+            sNameOfOrganization,
+            controller: name,
+            validator: Validators.standard,
+            onSubmit: _onSubmit,
+          ),
+          if (_isWaiting)
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: SpinKitCircle(color: dark),
+            ),
+          AbsorbPointer(
+            absorbing: _isWaiting,
+            child: MyButton(label: sCreate, onPressed: _createOrganization),
+          ),
+        ],
+      )),
     ]));
   }
 
@@ -61,20 +60,13 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       DefaultCreateOrganizationUseCase useCase =
           DefaultCreateOrganizationUseCase(FirebaseAccountRepository(),
               FirebaseOrganizationRepository(), FirebaseMemberRepository());
-      StateContainerState container = StateContainer.of(context);
-      AccountID accountID = StateContainer.of(context).account.id;
 
+      AccountID accountID = StateContainer.of(context).account.id;
       OrganizationMember organizationMember =
           await useCase.execute(creatorId: accountID, name: name.text);
-
-      container.setOrganization(organizationMember);
-
+      widget.onOrganizationCreationCallback();
       MyToast.toastSuccess(
           "Successfully Created ${organizationMember.organization.name}");
-
-      name.clear();
-
-      widget.fun(() {});
     } catch (e) {
       if (kDebugMode) print(e);
       MyToast.toastError(e.toString());

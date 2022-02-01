@@ -10,3 +10,4 @@ export 'firebase_assignment_repo.dart';
 export 'firebase_event_repo.dart';
 export 'firebase_member_repository.dart';
 export 'firebase_organization_repository.dart';
+export 'preferences_state_repository.dart';

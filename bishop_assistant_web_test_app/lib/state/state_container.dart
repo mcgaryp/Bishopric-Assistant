@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/account.dart';
@@ -56,62 +58,74 @@ class StateContainer extends StatefulWidget {
 }
 
 class StateContainerState extends State<StateContainer> {
-  // This is the session. Place variables here that should be known as session
-  // variables
-  /// [_account] of the user containing information about the user specifically
+  PackageInfo? _packageInfo;
+  UserState _state = UserState.loadingIn;
   Account? _account;
   Organization? _organization;
   Member? _member;
-  PackageInfo? _packageInfo;
 
-  bool _isAuthenticated = false;
-  bool hasOrganization = false;
-  bool _isMember = false;
+  static Name _mockName = Name(first: "Unauthenticated", last: "Account");
 
-  int? organizationRequests;
+  static Contact _mockContact = Contact(
+    email: "fake@email.com",
+    phone: "(123) 456-7890",
+  );
 
-  Stream? _requestStream;
+  static Credentials _mockCredentials = Credentials(
+    username: "unauthenticated",
+    password: "none",
+  );
 
-  bool _hasStartedNotifications = false;
+  static Member _mockMember = Member(
+    name: _mockName,
+    contact: _mockContact,
+    role: Role.creator(),
+    id: MemberID("Fake ID"),
+  );
 
-  Name _mockName = Name(first: "Unauthenticated", last: "Account");
-  Contact _mockContact =
-      Contact(email: "fake@email.com", phone: "(123) 456-7890");
+  static Organization _mockOrganization = Organization(
+    creator: _mockMember,
+    name: "Fake Organization",
+    id: OrganizationID("Fake ID"),
+  );
+
+  static Account _mockAccount = Account(
+    name: _mockName,
+    contact: _mockContact,
+    credentials: _mockCredentials,
+  );
 
   /// [account] retrieves the account or notifies that an account is not valid
   /// and login is required
   Account get account {
-    if (isAuthenticated) return _account!;
-    if (kDebugMode)
-      return Account(
-          name: _mockName,
-          contact: _mockContact,
-          credentials:
-              Credentials(username: "unauthenticated", password: "none"));
-    throw PermissionDeniedError(reason: "UnAuthenticated User");
+    if (_account == null) {
+      if (kDebugMode) return _mockAccount;
+      throw PermissionDeniedError(
+          reason: "StateContainer UnAuthenticated User");
+    }
+
+    return _account!;
   }
 
   Organization get organization {
-    if (hasOrganization) return _organization!;
-    if (kDebugMode)
-      return Organization(
-          creator: Member(
-              name: _mockName,
-              contact: _mockContact,
-              role: Role.creator(),
-              id: MemberID("Fake ID")),
-          name: "Fake Organization");
-    throw PermissionDeniedError(reason: "No Organizational Relationship");
+    if (_organization == null) {
+      if (kDebugMode) return _mockOrganization;
+      throw PermissionDeniedError(
+          reason: "StateContainer No Organizational Relationship");
+    }
+    return _organization!;
   }
 
   Member get member {
-    if (isMember) return _member!;
-    throw PermissionDeniedError(reason: "Not a Member of an organization");
+    if (_member == null) {
+      if (kDebugMode) return _mockMember;
+      throw PermissionDeniedError(
+          reason: "StateContainer Not a Member of an organization");
+    }
+    return _member!;
   }
 
-  bool get isAuthenticated => _isAuthenticated;
-
-  bool get isMember => _isMember;
+  UserState get state => _state;
 
   String get now {
     DateTime time = DateTime.now();
@@ -128,70 +142,15 @@ class StateContainerState extends State<StateContainer> {
 
   @override
   void initState() {
-    super.initState();
     _initPackageInfo();
+    _initState();
+    super.initState();
   }
 
   Future<void> _initPackageInfo() async {
     final info = await PackageInfo.fromPlatform();
     setState(() {
       this._packageInfo = info;
-    });
-  }
-
-  void updateAccount(Account account) => setState(() {
-        _account = account;
-      });
-
-  void login(Account account) => setState(() {
-        _account = account;
-        _isAuthenticated = true;
-      });
-
-  void logout(Function callback) async {
-    LogoutAccountUseCase useCase =
-        DefaultLogoutAccountUseCase(FirebaseAccountRepository());
-    if (await useCase.execute()) {
-      setState(() {
-        _account = null;
-        callback();
-      });
-    }
-  }
-
-  void setOrganization(OrganizationMember? org) => setState(() {
-        if (org != null) {
-          _organization = org.organization;
-          _member = org.member;
-          hasOrganization = true;
-          _isMember = true;
-        }
-        if (org == null) {
-          _requestStream = null;
-          _organization = null;
-          _member = null;
-          hasOrganization = false;
-          _isMember = false;
-        }
-      });
-
-  void startNotifications() {
-    if (hasOrganization && !_hasStartedNotifications) {
-      _hasStartedNotifications = true;
-      FirebaseOrganizationRepository repo = FirebaseOrganizationRepository();
-      _requestStream = repo.findAllRequestsStreamed(organization.id);
-      _requestStream!.listen((event) {
-        setOrganizationRequests(event.length);
-      });
-    }
-  }
-
-  void setOrganizationRequests(int requests) {
-    setState(() {
-      if (requests <= 0)
-        organizationRequests = null;
-      else
-        organizationRequests = requests;
     });
   }
 
@@ -209,9 +168,118 @@ class StateContainerState extends State<StateContainer> {
   }
 
   bool sameAs(StateContainerState other) {
-    return this.hasOrganization == other.hasOrganization &&
-        this.organizationRequests == other.organizationRequests &&
-        this.isMember == other.isMember &&
-        this.isAuthenticated == other.isAuthenticated;
+    return this._account == other._account &&
+        this._organization == other._organization &&
+        this._member == other._member &&
+        this._state == other._state;
+  }
+
+  /*****************************************************************************
+   * Streaming Setup
+   ****************************************************************************/
+  Stream<Account>? _accountStream;
+  Stream<Organization>? _organizationStream;
+  Stream<Member>? _memberStream;
+
+  StreamSubscription? _accountSub;
+  StreamSubscription? _organizationSub;
+  StreamSubscription? _memberSub;
+
+  /// Login Process
+  Future<void> login(Credentials credentials) async {
+    FirebaseAccountRepository accountRepo = FirebaseAccountRepository();
+    AuthenticateAccountUseCase useCase =
+        DefaultAuthenticateAccountUseCase(accountRepo);
+    Account account = await useCase.execute(credentials);
+    _updateAccount(account);
+    _accountStream = accountRepo.findStreamed(account.id);
+    _accountSub =
+        _accountStream?.listen((Account account) => _updateAccount(account));
+    _updateState(UserState.authenticated);
+    await findOrganization();
+  }
+
+  Future<void> findOrganization() async {
+    HasAssociatedOrganizationUseCase useCase =
+        DefaultHasAssociatedOrganizationUseCase(FirebaseMemberRepository());
+    OrganizationMember? relationship =
+        await useCase.execute(accountID: account.id);
+    relationship == null ? _noOrganization() : __organization(relationship);
+  }
+
+  Future<void> _noOrganization() async {
+    nullOrganization();
+    _updateState(UserState.noOrganization);
+  }
+
+  void nullOrganization() {
+    _memberSub?.cancel();
+    _organizationSub?.cancel();
+    _organization = null;
+    _member = null;
+  }
+
+  void _nullAccount() {
+    _accountSub?.cancel();
+    _account = null;
+  }
+
+  Future<void> __organization(OrganizationMember relationship) async {
+    FirebaseMemberRepository memberRepo = FirebaseMemberRepository();
+    FirebaseOrganizationRepository orgRepo = FirebaseOrganizationRepository();
+    _memberStream = memberRepo.findStreamed(relationship.member.id);
+    _memberSub =
+        _memberStream?.listen((Member member) => _updateMember(member));
+    _organizationStream = orgRepo.findStreamed(relationship.organization.id);
+    _organizationSub = _organizationStream?.listen(
+        (Organization organization) => _updateOrganization(organization));
+    _updateState(UserState.inOrganization);
+  }
+
+  void _updateMember(Member member) => setState(() => _member = member);
+
+  void _updateOrganization(Organization organization) =>
+      setState(() => _organization = organization);
+
+  void _updateAccount(Account account) => setState(() => _account = account);
+
+  void _updateState(UserState state) => setState(() {
+        _state = state;
+      });
+
+  /// Logout Process
+  Future<void> logout() async {
+    LogoutAccountUseCase useCase =
+        DefaultLogoutAccountUseCase(FirebaseAccountRepository());
+    if (await useCase.execute()) {
+      _nullAccount();
+      nullOrganization();
+      _updateState(UserState.unauthenticated);
+      await _disposeState();
+    }
+  }
+
+  Future<void> _initState() async {
+    try {
+      GetStateUseCase useCase =
+          DefaultGetStateUseCase(PreferencesStateRepository());
+      _state = await useCase.execute();
+    } catch (e) {
+      if (kDebugMode) print(e);
+      _state = UserState.unauthenticated;
+    }
+  }
+
+  Future<void> _disposeState() async {
+    SaveStateUseCase useCase =
+        DefaultSaveStateUseCase(PreferencesStateRepository());
+    if (!(await useCase.execute(_state))) {}
+  }
+
+  @override
+  void dispose() {
+    _disposeState();
+    logout();
+    super.dispose();
   }
 }

@@ -29,6 +29,7 @@ class DefaultAuthenticateAccountUseCase implements AuthenticateAccountUseCase {
 
   @override
   Future<Account> execute(Credentials credentials) async {
+    // Find the account
     Account? accountFromBeyond =
         await _accountRepository.findByUsername(credentials.username);
 
@@ -36,8 +37,10 @@ class DefaultAuthenticateAccountUseCase implements AuthenticateAccountUseCase {
 
     Credentials credentialsFromBeyond = accountFromBeyond.credentials;
 
+    // Check that passwords and usernames match
     if (credentials == credentialsFromBeyond) {
       if (await _accountRepository.login(accountFromBeyond))
+        // Return streamed account
         return accountFromBeyond;
     }
 

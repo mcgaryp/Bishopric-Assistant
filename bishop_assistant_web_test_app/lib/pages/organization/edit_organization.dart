@@ -1,5 +1,7 @@
 import 'package:bishop_assistant_web_test_app/pages/organization/delete_organization_confirmation_dialog.dart';
+import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
+import 'package:models/models/organization.dart';
 
 ///
 /// edit_organization.dart
@@ -19,30 +21,48 @@ class EditOrganization extends StatefulWidget {
 }
 
 class _EditOrganizationState extends State<EditOrganization> {
+  TextEditingController nameControl = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return ListView(children: [
       Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Flexible(
-              child: InputField.floating(
-            StateContainer.of(context).organization.name,
-            // TODO: Add controller and other needs
-          )),
-          MyButton(
-            label: sSave,
-            onPressed: () {
-              // TODO: Save organization
-              widget.onPress();
-            },
-            isExpanded: false,
-            style: MyButtonStyle.text,
-          ),
-          MyButton(
-            label: sDelete,
-            onPressed: () => _confirmDeleteOrganization(context),
-            isExpanded: false,
-            style: MyButtonStyle.errorText,
+          StateContainer.of(context).member ==
+                  StateContainer.of(context).organization.creator
+              ? Flexible(
+                  child: InputField.floating(
+                  StateContainer.of(context).organization.name,
+                  controller: nameControl,
+                ))
+              : Text(
+                  StateContainer.of(context).organization.name,
+                  style: titleDark,
+                ),
+          Row(
+            children: [
+              MyButton(
+                label: sSave,
+                onPressed: () async => _changeOrganizationName(),
+                isExpanded: false,
+                style: MyButtonStyle.text,
+              ),
+              MyButton(
+                label: sCancel,
+                onPressed: widget.onPress,
+                style: MyButtonStyle.text,
+                isExpanded: false,
+              ),
+              if (StateContainer.of(context).member ==
+                  StateContainer.of(context).organization.creator)
+                MyButton(
+                  label: sDelete,
+                  onPressed: () => _confirmDeleteOrganization(context),
+                  isExpanded: false,
+                  style: MyButtonStyle.errorText,
+                ),
+            ],
           ),
         ],
       ),
@@ -53,5 +73,27 @@ class _EditOrganizationState extends State<EditOrganization> {
     showDialog(
         context: context,
         builder: (BuildContext context) => ConfirmDeleteOrganizationDialog());
+  }
+
+  Future<void> _changeOrganizationName() async {
+    try {
+      if (nameControl.text.isEmpty) {
+        widget.onPress();
+        return;
+      }
+      ChangeOrganizationNameUseCase useCase =
+          DefaultChangeOrganizationNameUseCase(
+              FirebaseOrganizationRepository(), FirebaseMemberRepository());
+      MemberID accessorId = StateContainer.of(context).member.id;
+      if (await useCase.execute(
+          accessorId: accessorId, name: nameControl.text)) {
+        MyToast.toastSuccess(
+            "Organization name changed to `${nameControl.text}`");
+        widget.onPress();
+      }
+    } catch (e) {
+      if (kDebugMode) print(e);
+      MyToast.toastError(e.toString());
+    }
   }
 }

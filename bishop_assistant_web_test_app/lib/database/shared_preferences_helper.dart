@@ -20,20 +20,27 @@ class SharedPreferencesHelper {
 
   /// [insert] inserts a value at a location of key in the preferences returning
   /// a boolean of success or failure
-  static Future<bool> insert(String key, String value) async {
+  Future<bool> insertString(String key, String value) async {
     SharedPreferences preferences = await _prefs;
     return await preferences.setString(key, value);
   }
 
   /// [find]s a String value from location [key] if no value is found null is
   /// returned
-  static Future<String?> find(String key) async {
+  Future<String?> findString(String key) async {
     SharedPreferences preferences = await _prefs;
     return preferences.getString(key);
   }
 
+  /// [removeString] a value from the location [key] returns a successful true
+  /// or failure false
+  Future<bool> removeString(String key) async {
+    SharedPreferences preferences = await _prefs;
+    return preferences.remove(key);
+  }
+
   /// [findMap] locates and returns information stored as a string in json form
-  static Future<Map<String, dynamic>> findMap(String key) async {
+  Future<Map<String, dynamic>> findMap(String key) async {
     SharedPreferences preferences = await _prefs;
     String? string = preferences.getString(key);
     if (string == null)
