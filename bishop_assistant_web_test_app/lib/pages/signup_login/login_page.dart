@@ -122,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
     } on VerifyEmailError catch (e) {
       _errorMsg = null;
       setState(() => _canRequestEmailVerification = true);
-      MyToast.toastError(e.toString());
+      MyToast.toastError(e);
     } catch (e) {
       _error(e.toString());
       if (kDebugMode) print(e.toString());

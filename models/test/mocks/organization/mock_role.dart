@@ -10,7 +10,7 @@ import 'package:models/models/organization.dart';
 
 class MockRole {
   static final String mockAnonymous = "Mock Role";
-  static final Permissions mockPermissions = Permissions.creator;
+  static final Permissions mockPermissions = Permissions.Creator;
 
   late final Role role;
 

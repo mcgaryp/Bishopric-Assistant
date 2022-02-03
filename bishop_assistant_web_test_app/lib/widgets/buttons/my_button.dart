@@ -71,7 +71,8 @@ class MyButton extends StatelessWidget {
               isExpanded ? BoxConstraints(minWidth: double.infinity) : null,
           decoration: decor,
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: padding8),
+            padding:
+                EdgeInsets.symmetric(vertical: icon == null ? padding8 : 0),
             child: TextButton(
                 onPressed: onPressed,
                 style: ButtonStyle(

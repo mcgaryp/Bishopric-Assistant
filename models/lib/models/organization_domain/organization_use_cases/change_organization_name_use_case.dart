@@ -31,7 +31,7 @@ class DefaultChangeOrganizationNameUseCase
       {required MemberID accessorId, required String name}) async {
     Member? accessor = await _memberRepository.find(accessorId);
     if (accessor == null) throw MemberNotFoundError();
-    if (accessor.role.permissions < Permissions.creator)
+    if (accessor.role.permissions < Permissions.Creator)
       throw PermissionDeniedError(
           reason: "Creator Permissions required to Change Organization Name");
 

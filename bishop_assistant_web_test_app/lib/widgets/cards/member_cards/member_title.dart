@@ -24,20 +24,16 @@ class MemberTitle extends StatelessWidget {
           padding: const EdgeInsets.only(left: padding8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
             children: [
               Text(
                 member.name.fullName,
                 style: subheadDark,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
               ),
-              FittedBox(
-                fit: BoxFit.contain,
-                child: Text(
-                  member.role.anonymous,
-                  style: footnoteDark,
-                  softWrap: true,
-                ),
+              Text(
+                member.role.anonymous,
+                style: footnoteDark,
               )
             ],
           ),

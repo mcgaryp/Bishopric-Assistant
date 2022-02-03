@@ -7,14 +7,14 @@
 ///
 
 /// [Permissions] security levels to visualizing information
-enum Permissions { viewer, reporter, maintainer, creator }
+enum Permissions { Viewer, Reporter, Maintainer, Creator }
 
 extension PermissionsExtension on Permissions {
   static Permissions fromString(String string) {
-    if (string == Permissions.creator.string) return Permissions.creator;
-    if (string == Permissions.maintainer.string) return Permissions.maintainer;
-    if (string == Permissions.reporter.string) return Permissions.reporter;
-    return Permissions.viewer;
+    if (string == Permissions.Creator.string) return Permissions.Creator;
+    if (string == Permissions.Maintainer.string) return Permissions.Maintainer;
+    if (string == Permissions.Reporter.string) return Permissions.Reporter;
+    return Permissions.Viewer;
   }
 
   String get string {

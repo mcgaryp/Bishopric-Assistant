@@ -22,20 +22,43 @@ mixin RemoveMemberFromOrganizationUseCase {
 
 class DefaultRemoveMemberFromOrganizationUseCase
     implements RemoveMemberFromOrganizationUseCase {
-  final MemberRepository _repository;
+  final MemberRepository _memberRepository;
+  final OrganizationRepository _organizationRepository;
 
-  DefaultRemoveMemberFromOrganizationUseCase(this._repository);
+  DefaultRemoveMemberFromOrganizationUseCase(
+      this._memberRepository, this._organizationRepository);
 
   @override
   Future<bool> execute(
       {required MemberID accessorId, required MemberID memberID}) async {
-    Member? accessor = await _repository.find(accessorId);
+    Member? accessor = await _memberRepository.find(accessorId);
     if (accessor == null) throw MemberNotFoundError();
-    if (accessor.role.permissions < Permissions.maintainer)
+    if (accessor.role.permissions < Permissions.Maintainer)
       throw PermissionDeniedError(
           reason:
               "Maintainer permissions required to Remove Members from an Organization");
 
-    return await _repository.remove(memberID);
+    Organization? organization =
+        await _memberRepository.findOrganization(memberID);
+    organization ?? (throw OrganizationNotFoundError());
+
+    List<OrganizationMemberRelationship> relationships =
+        await _organizationRepository.findAllRelationships(organization.id);
+
+    for (OrganizationMemberRelationship relationship in relationships) {
+      if (relationship.memberID == memberID &&
+          relationship.organizationID == organization.id) {
+        if (await _organizationRepository.removeRelationship(relationship)) {
+          return await _memberRepository.remove(memberID);
+        } else {
+          // TODO: place member back in repository
+          throw FailedToRemoveError(
+              forEntity: "RemoveMemberFromOrganizationUseCase");
+        }
+      }
+    }
+    // TODO: place member back in repository
+    throw FailedToRemoveError(
+        forEntity: "RemoveMemberFromOrganizationUseCase: Relationship");
   }
 }

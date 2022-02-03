@@ -2,6 +2,7 @@ import 'package:bishop_assistant_web_test_app/firebase_options.dart';
 import 'package:bishop_assistant_web_test_app/pages/signup_login/login_page.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 
 ///
 /// main.dart
@@ -23,6 +24,9 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
+    // Hide bottom navigation on android and top status bar
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+
     return MaterialApp(
       title: sTitle,
       theme: theme,

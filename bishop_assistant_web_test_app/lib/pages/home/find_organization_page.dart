@@ -38,34 +38,39 @@ class _FindOrganizationPageState extends State<FindOrganizationPage> {
             if (organizations != null && organizations!.isEmpty)
               organizations = allOrganizations;
 
-            return Column(children: [
-              CreateOrganization(() async {
-                await StateContainer.of(context).findOrganization();
-                Navigator.of(context).pushReplacementNamed(rHome);
-              }),
-              SearchBar<Organization>(
-                filter: (Organization org, String? str) {
-                  if (str == null) return false;
-                  return org.name.toLowerCase().contains(str.toLowerCase());
-                },
-                onChange: (Result<List<Organization>> result) {
-                  if (result.isError) {
-                    setState(() {
-                      errors = Error404(msg: result.asError!.error.toString());
-                      organizations = null;
-                    });
-                  } else {
-                    setState(() {
-                      organizations = result.asValue!.value;
-                      if (errors != null) errors = null;
-                    });
-                  }
-                },
-                searchableItems: allOrganizations,
-              ),
-              errors ?? Container(),
-              if (organizations != null) ListOfOrganizations(organizations!),
-            ]);
+            return Padding(
+              padding: const EdgeInsets.only(top: padding8),
+              child: Column(children: [
+                CreateOrganization(() async {
+                  await StateContainer.of(context).findOrganization();
+                  Navigator.of(context).pushReplacementNamed(rHome);
+                }),
+                SearchBar<Organization>(
+                  filter: (Organization org, String? str) {
+                    if (str == null) return false;
+                    return org.name.toLowerCase().contains(str.toLowerCase());
+                  },
+                  onChange: (Result<List<Organization>> result) {
+                    if (result.isError) {
+                      setState(() {
+                        errors =
+                            Error404(msg: result.asError!.error.toString());
+                        organizations = null;
+                      });
+                    } else {
+                      setState(() {
+                        organizations = result.asValue!.value;
+                        if (errors != null) errors = null;
+                      });
+                    }
+                  },
+                  searchableItems: allOrganizations,
+                ),
+                errors ?? Container(),
+                MyDivider(color: dark),
+                if (organizations != null) ListOfOrganizations(organizations!),
+              ]),
+            );
           }
 
           if (snapshot.hasError)

@@ -106,6 +106,13 @@ class ThemePage extends StatelessWidget {
               searchableItems: [])
         ]),
       ),
+      Section(title: "Animations", children: [
+        SpinKitThreeBounce(color: dark, size: 25),
+        SpinKitCircle(color: dark),
+        SpinKitPulse(color: dark),
+        SpinKitDoubleBounce(color: dark),
+        SpinKitChasingDots(color: dark, size: 35),
+      ]),
       Section(title: "Dialogs", children: [
         ConfirmationDialog(
             onConfirm: () {},
@@ -136,7 +143,8 @@ class ThemePage extends StatelessWidget {
                     content:
                         "Some information in the content area of the column"),
                 CardRow("Card Row",
-                    content: "Some contents in the content area of the row"),
+                    content: "Some contents in the content area of the row"
+                        " that have a tendency to be very long information sometimes"),
                 CardDateTimeRow((DateTime time) {}),
                 CardTextFieldRow("Card Text Field Row"),
               ]))
@@ -156,7 +164,7 @@ class ThemePage extends StatelessWidget {
       id: MemberID("fakeID"),
       name: name,
       contact: contact,
-      role: Role(Permissions.maintainer, anonymous: "Fake Member Role"));
+      role: Role(Permissions.Maintainer, anonymous: "Fake Member Role"));
 
   Organization get organization => Organization(
       id: OrganizationID("Fake Org ID"),

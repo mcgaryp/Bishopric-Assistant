@@ -20,7 +20,7 @@ class Role extends ValueObject<Role> {
     __anonymous = anonymous;
   }
 
-  Role.creator() : permissions = Permissions.creator {
+  Role.creator() : permissions = Permissions.Creator {
     __anonymous = "Owner";
   }
 

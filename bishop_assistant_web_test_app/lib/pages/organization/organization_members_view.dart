@@ -11,6 +11,10 @@ import 'package:models/models/organization.dart';
 ///
 
 class OrganizationMembersView extends StatelessWidget {
+  final bool _editing;
+
+  const OrganizationMembersView(this._editing, {Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     DefaultAllOrganizationMembersUseCase useCase =
@@ -26,12 +30,18 @@ class OrganizationMembersView extends StatelessWidget {
           if (members == null) return Container();
           return Column(
               children: members
-                  .map<MemberDetailsCardView>(
-                      (Stream<Member> member) => MemberDetailsCardView(member))
+                  .map<MemberDetailsCardView>((Stream<Member> member) =>
+                      _editing
+                          ? MemberDetailsCardView.editing(member)
+                          : MemberDetailsCardView(member))
                   .toList());
         }
 
-        if (snapshot.hasError) Error404(msg: snapshot.error!.toString());
+        if (snapshot.hasError) {
+          if (kDebugMode)
+            print("Error: organization_member_view.dart => ${snapshot.error}");
+          Error404(msg: snapshot.error!.toString());
+        }
 
         return SpinKitCircle(color: dark);
       },

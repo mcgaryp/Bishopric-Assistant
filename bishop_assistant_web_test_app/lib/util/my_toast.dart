@@ -9,8 +9,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 ///
 
 class MyToast {
-  static void toastError(String msg) => Fluttertoast.showToast(
-      msg: msg,
+  static void toastError(dynamic msg) => Fluttertoast.showToast(
+      msg: msg.toString(),
       webBgColor: "linear-gradient(to right, #e36359, #a62c2b)",
       timeInSecForIosWeb: 5);
 

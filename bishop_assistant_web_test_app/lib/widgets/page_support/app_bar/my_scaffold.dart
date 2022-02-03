@@ -63,8 +63,7 @@ class MyScaffold {
           title: MyTitle(),
         ),
         body: Padding(
-          padding: const EdgeInsets.only(
-              top: padding8, left: padding8, right: padding8),
+          padding: const EdgeInsets.only(left: padding8, right: padding8),
           child: Center(child: _child),
         ),
       );

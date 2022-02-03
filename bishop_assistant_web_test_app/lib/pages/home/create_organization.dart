@@ -69,7 +69,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
           "Successfully Created ${organizationMember.organization.name}");
     } catch (e) {
       if (kDebugMode) print(e);
-      MyToast.toastError(e.toString());
+      MyToast.toastError(e);
     }
     _setIsWaiting(false);
   }

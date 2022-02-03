@@ -26,7 +26,15 @@ class CardRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(label, style: bodyDark),
-          Text(content, style: bodyDark)
+          SizedBox(width: 15),
+          Flexible(
+              child: Text(
+            content,
+            style: bodyDark,
+            overflow: TextOverflow.fade,
+            maxLines: null,
+            textAlign: TextAlign.right,
+          ))
         ],
       ),
     );

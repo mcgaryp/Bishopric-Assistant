@@ -89,7 +89,7 @@ class _JoinRequestDetailsViewState extends State<JoinRequestDetailsView> {
           "Successfully added ${widget.details.name.fullName}");
     } catch (e) {
       if (kDebugMode) print(e);
-      MyToast.toastError(e.toString());
+      MyToast.toastError(e);
     }
   }
 
@@ -102,7 +102,7 @@ class _JoinRequestDetailsViewState extends State<JoinRequestDetailsView> {
           "Rejected ${widget.details.name.fullName}'s Request");
     } catch (e) {
       if (kDebugMode) print(e);
-      MyToast.toastError(e.toString());
+      MyToast.toastError(e);
     }
   }
 }

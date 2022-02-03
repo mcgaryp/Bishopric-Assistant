@@ -16,6 +16,7 @@ class InputField extends StatelessWidget {
   final String? errorMsg;
   final TextInputType? inputType;
   final String? Function(String?)? validator;
+  final String? Function(String?)? onChange;
   final void Function(String?)? onSubmit;
   final List<TextInputFormatter> formattingList;
   final TextEditingController? controller;
@@ -39,6 +40,7 @@ class InputField extends StatelessWidget {
       this.errorColorIsDark = true,
       this.padding = padding8,
       this.focus,
+      this.onChange,
       Key? key})
       : super(key: key) {
     this._isFloating = false;
@@ -57,6 +59,7 @@ class InputField extends StatelessWidget {
       this.errorColorIsDark = false,
       this.padding = padding16,
       this.focus,
+      this.onChange,
       Key? key})
       : super(key: key) {
     this._isFloating = true;
@@ -75,6 +78,7 @@ class InputField extends StatelessWidget {
       this.errorColorIsDark = true,
       this.padding = 0.0,
       this.focus,
+      this.onChange,
       Key? key})
       : super(key: key) {
     _isFloating = null;
@@ -108,6 +112,7 @@ class InputField extends StatelessWidget {
                     : _border(),
             validator: validator,
             onFieldSubmitted: onSubmit,
+            onChanged: onChange,
           ),
         ],
       ),

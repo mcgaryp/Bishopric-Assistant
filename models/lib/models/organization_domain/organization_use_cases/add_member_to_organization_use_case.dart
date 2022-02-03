@@ -41,7 +41,7 @@ class DefaultAddMemberToOrganizationUseCase
   }) async {
     Member? accessor = await _memberRepository.find(accessorId);
     if (accessor == null) throw MemberNotFoundError();
-    if (accessor.role.permissions < Permissions.maintainer)
+    if (accessor.role.permissions < Permissions.Maintainer)
       throw PermissionDeniedError(
           reason:
               "Maintainer permissions required to Add Members to Organization");

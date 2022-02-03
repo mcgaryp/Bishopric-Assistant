@@ -57,7 +57,7 @@ class DisplayProfile extends StatelessWidget {
       }
     } catch (e) {
       if (kDebugMode) print(e);
-      MyToast.toastError(e.toString());
+      MyToast.toastError(e);
     }
   }
 }

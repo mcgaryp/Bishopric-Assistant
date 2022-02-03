@@ -19,6 +19,9 @@ class OrganizationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AllOrganizationRequestsUseCase useCase =
+        DefaultAllOrganizationRequestsUseCase(FirebaseOrganizationRepository());
+
     return MyCard(
         child: Column(children: [
       Row(
@@ -32,11 +35,30 @@ class OrganizationCard extends StatelessWidget {
               Text(organization.creator.name.fullName, style: captionDark),
             ]),
           ),
-          MyButton(
-              label: sJoin,
-              onPressed: () => _joinOrganization(context),
-              style: MyButtonStyle.text,
-              isExpanded: false),
+          StreamBuilder<List<JoinRequest>>(
+              stream: useCase.execute(organization.id),
+              builder: (BuildContext context, snapshot) {
+                if (snapshot.hasData) {
+                  List<JoinRequest> requests = snapshot.data ?? [];
+                  for (JoinRequest request in requests) {
+                    if (request.accountID ==
+                        StateContainer.of(context).account.id)
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(sAwaiting, style: bodyDark),
+                      );
+                  }
+                  return MyButton(
+                      label: sJoin,
+                      onPressed: () => _joinOrganization(context),
+                      style: MyButtonStyle.text,
+                      isExpanded: false);
+                }
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SpinKitThreeBounce(color: dark, size: 25),
+                );
+              }),
         ],
       ),
     ]));
@@ -55,7 +77,7 @@ class OrganizationCard extends StatelessWidget {
         MyToast.toastError("Failed to send request");
     } catch (e) {
       if (kDebugMode) print(e);
-      MyToast.toastError(e.toString());
+      MyToast.toastError(e);
     }
   }
 }

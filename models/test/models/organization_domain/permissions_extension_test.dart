@@ -11,107 +11,107 @@ import 'package:models/models/organization.dart';
 
 class PermissionsExtensionTest {
   static void shouldReturnTrueWhenPermissionIsLessThanAnother() {
-    bool result = Permissions.maintainer < Permissions.creator;
+    bool result = Permissions.Maintainer < Permissions.Creator;
     expect(result, true);
-    result = Permissions.reporter < Permissions.maintainer;
+    result = Permissions.Reporter < Permissions.Maintainer;
     expect(result, true);
-    result = Permissions.viewer < Permissions.reporter;
+    result = Permissions.Viewer < Permissions.Reporter;
     expect(result, true);
-    result = Permissions.viewer < Permissions.creator;
+    result = Permissions.Viewer < Permissions.Creator;
     expect(result, true);
   }
 
   static void shouldReturnFalseWhenPermissionIsNotLessThanAnother() {
-    bool result = Permissions.creator < Permissions.maintainer;
+    bool result = Permissions.Creator < Permissions.Maintainer;
     expect(result, false);
-    result = Permissions.maintainer < Permissions.reporter;
+    result = Permissions.Maintainer < Permissions.Reporter;
     expect(result, false);
-    result = Permissions.reporter < Permissions.viewer;
+    result = Permissions.Reporter < Permissions.Viewer;
     expect(result, false);
-    result = Permissions.creator < Permissions.viewer;
+    result = Permissions.Creator < Permissions.Viewer;
     expect(result, false);
   }
 
   static void shouldReturnTrueWhenPermissionIsGreaterThanAnother() {
-    bool result = Permissions.creator > Permissions.maintainer;
+    bool result = Permissions.Creator > Permissions.Maintainer;
     expect(result, true);
-    result = Permissions.maintainer > Permissions.reporter;
+    result = Permissions.Maintainer > Permissions.Reporter;
     expect(result, true);
-    result = Permissions.reporter > Permissions.viewer;
+    result = Permissions.Reporter > Permissions.Viewer;
     expect(result, true);
-    result = Permissions.creator > Permissions.viewer;
+    result = Permissions.Creator > Permissions.Viewer;
     expect(result, true);
   }
 
   static void shouldReturnFalseWhenPermissionIsNotGreaterThanAnother() {
-    bool result = Permissions.maintainer > Permissions.creator;
+    bool result = Permissions.Maintainer > Permissions.Creator;
     expect(result, false);
-    result = Permissions.reporter > Permissions.maintainer;
+    result = Permissions.Reporter > Permissions.Maintainer;
     expect(result, false);
-    result = Permissions.viewer > Permissions.reporter;
+    result = Permissions.Viewer > Permissions.Reporter;
     expect(result, false);
-    result = Permissions.viewer > Permissions.creator;
+    result = Permissions.Viewer > Permissions.Creator;
     expect(result, false);
   }
 
   static void shouldReturnTrueWhenPermissionIsLessThanOrEqualToAnother() {
-    bool result = Permissions.creator <= Permissions.creator;
+    bool result = Permissions.Creator <= Permissions.Creator;
     expect(result, true);
-    result = Permissions.maintainer <= Permissions.creator;
+    result = Permissions.Maintainer <= Permissions.Creator;
     expect(result, true);
-    result = Permissions.maintainer <= Permissions.maintainer;
+    result = Permissions.Maintainer <= Permissions.Maintainer;
     expect(result, true);
-    result = Permissions.reporter <= Permissions.maintainer;
+    result = Permissions.Reporter <= Permissions.Maintainer;
     expect(result, true);
-    result = Permissions.reporter <= Permissions.reporter;
+    result = Permissions.Reporter <= Permissions.Reporter;
     expect(result, true);
-    result = Permissions.viewer <= Permissions.reporter;
+    result = Permissions.Viewer <= Permissions.Reporter;
     expect(result, true);
-    result = Permissions.viewer <= Permissions.viewer;
+    result = Permissions.Viewer <= Permissions.Viewer;
     expect(result, true);
-    result = Permissions.viewer <= Permissions.creator;
+    result = Permissions.Viewer <= Permissions.Creator;
     expect(result, true);
   }
 
   static void shouldReturnFalseWhenPermissionIsNotLessThanOrEqualToAnother() {
-    bool result = Permissions.creator <= Permissions.maintainer;
+    bool result = Permissions.Creator <= Permissions.Maintainer;
     expect(result, false);
-    result = Permissions.maintainer <= Permissions.reporter;
+    result = Permissions.Maintainer <= Permissions.Reporter;
     expect(result, false);
-    result = Permissions.reporter <= Permissions.viewer;
+    result = Permissions.Reporter <= Permissions.Viewer;
     expect(result, false);
-    result = Permissions.creator <= Permissions.viewer;
+    result = Permissions.Creator <= Permissions.Viewer;
     expect(result, false);
   }
 
   static void shouldReturnTrueWhenPermissionIsGreaterThanOrEqualToAnother() {
-    bool result = Permissions.creator >= Permissions.creator;
+    bool result = Permissions.Creator >= Permissions.Creator;
     expect(result, true);
-    result = Permissions.creator >= Permissions.maintainer;
+    result = Permissions.Creator >= Permissions.Maintainer;
     expect(result, true);
-    result = Permissions.maintainer >= Permissions.maintainer;
+    result = Permissions.Maintainer >= Permissions.Maintainer;
     expect(result, true);
-    result = Permissions.maintainer >= Permissions.reporter;
+    result = Permissions.Maintainer >= Permissions.Reporter;
     expect(result, true);
-    result = Permissions.reporter >= Permissions.reporter;
+    result = Permissions.Reporter >= Permissions.Reporter;
     expect(result, true);
-    result = Permissions.reporter >= Permissions.viewer;
+    result = Permissions.Reporter >= Permissions.Viewer;
     expect(result, true);
-    result = Permissions.viewer >= Permissions.viewer;
+    result = Permissions.Viewer >= Permissions.Viewer;
     expect(result, true);
-    result = Permissions.creator >= Permissions.viewer;
+    result = Permissions.Creator >= Permissions.Viewer;
     expect(result, true);
   }
 
   static void
       shouldReturnFalseWhenPermissionIsNotGreaterThanOrEqualToAnother() {
-    bool result = Permissions.maintainer >= Permissions.creator;
+    bool result = Permissions.Maintainer >= Permissions.Creator;
     expect(result, false);
-    result = Permissions.reporter >= Permissions.maintainer;
+    result = Permissions.Reporter >= Permissions.Maintainer;
     expect(result, false);
-    result = Permissions.viewer >= Permissions.reporter;
+    result = Permissions.Viewer >= Permissions.Reporter;
     expect(result, false);
-    result = Permissions.viewer >= Permissions.creator;
+    result = Permissions.Viewer >= Permissions.Creator;
     expect(result, false);
   }
 }

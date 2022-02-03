@@ -16,7 +16,7 @@ class ConfirmDeleteOrganizationDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConfirmationDialog(
-      title: "Confirm Delete",
+      title: sConfirmDelete,
       content: "Are you sure that you want to delete "
           "`${StateContainer.of(context).organization.name}`? Removing the "
           "organization will delete all member, assignment, and event "
@@ -46,7 +46,7 @@ class ConfirmDeleteOrganizationDialog extends StatelessWidget {
       }
     } catch (e) {
       if (kDebugMode) print(e);
-      MyToast.toastError(e.toString());
+      MyToast.toastError(e);
     }
     await StateContainer.of(context).findOrganization();
   }

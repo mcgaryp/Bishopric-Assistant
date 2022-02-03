@@ -38,7 +38,7 @@ class DefaultChangeMemberRoleInOrganizationUseCase
   }) async {
     Member? accessor = await _memberRepository.find(accessorID);
     if (accessor == null) throw MemberNotFoundError();
-    if (accessor.role.permissions < Permissions.maintainer)
+    if (accessor.role.permissions < Permissions.Maintainer)
       return throw PermissionDeniedError(
           reason:
               "Maintainer permissions required to change a Role of Organization Member");

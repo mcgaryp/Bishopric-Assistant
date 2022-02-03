@@ -1,4 +1,5 @@
 import 'package:bishop_assistant_web_test_app/pages/organization/delete_organization_confirmation_dialog.dart';
+import 'package:bishop_assistant_web_test_app/pages/organization/organization_members_view.dart';
 import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/organization.dart';
@@ -22,50 +23,56 @@ class EditOrganization extends StatefulWidget {
 
 class _EditOrganizationState extends State<EditOrganization> {
   TextEditingController nameControl = TextEditingController();
+  String name = "";
 
   @override
   Widget build(BuildContext context) {
     return ListView(children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          StateContainer.of(context).member ==
-                  StateContainer.of(context).organization.creator
-              ? Flexible(
-                  child: InputField.floating(
-                  StateContainer.of(context).organization.name,
-                  controller: nameControl,
-                ))
-              : Text(
-                  StateContainer.of(context).organization.name,
-                  style: titleDark,
-                ),
-          Row(
-            children: [
-              MyButton(
-                label: sSave,
-                onPressed: () async => _changeOrganizationName(),
-                isExpanded: false,
-                style: MyButtonStyle.text,
-              ),
-              MyButton(
-                label: sCancel,
-                onPressed: widget.onPress,
-                style: MyButtonStyle.text,
-                isExpanded: false,
-              ),
-              if (StateContainer.of(context).member ==
-                  StateContainer.of(context).organization.creator)
+      Padding(
+        padding: const EdgeInsets.only(top: 8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            StateContainer.of(context).member ==
+                    StateContainer.of(context).organization.creator
+                ? Flexible(
+                    child: InputField.floating(
+                    StateContainer.of(context).organization.name,
+                    controller: nameControl,
+                    onChange: (String? str) {
+                      setState(() {
+                        name = str ?? "";
+                      });
+                    },
+                  ))
+                : Text(
+                    StateContainer.of(context).organization.name,
+                    style: titleDark,
+                  ),
+            Row(
+              children: [
                 MyButton(
-                  label: sDelete,
-                  onPressed: () => _confirmDeleteOrganization(context),
+                  label: name.isEmpty ? sCancel : sSave,
+                  onPressed: () async => name.isEmpty
+                      ? widget.onPress()
+                      : _changeOrganizationName(),
                   isExpanded: false,
-                  style: MyButtonStyle.errorText,
+                  style: MyButtonStyle.text,
                 ),
-            ],
-          ),
-        ],
+                if (StateContainer.of(context).member ==
+                    StateContainer.of(context).organization.creator)
+                  MyButton(
+                    label: sDelete,
+                    onPressed: () => _confirmDeleteOrganization(context),
+                    isExpanded: false,
+                    style: MyButtonStyle.errorText,
+                  ),
+              ],
+            ),
+          ],
+        ),
       ),
+      OrganizationMembersView(true),
     ]);
   }
 
@@ -93,7 +100,7 @@ class _EditOrganizationState extends State<EditOrganization> {
       }
     } catch (e) {
       if (kDebugMode) print(e);
-      MyToast.toastError(e.toString());
+      MyToast.toastError(e);
     }
   }
 }

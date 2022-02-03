@@ -15,7 +15,7 @@ class MockMember {
   static String mockLast = "Test";
   static String mockEmail = "member@mock.com";
   static String mockPhone = "1234567890";
-  static Role mockRole = Role(Permissions.creator, anonymous: "Creator");
+  static Role mockRole = Role(Permissions.Creator, anonymous: "Creator");
   static Contact mockContact = Contact(email: mockEmail, phone: mockPhone);
   static Name mockName = Name(first: mockFirst, last: mockLast);
 

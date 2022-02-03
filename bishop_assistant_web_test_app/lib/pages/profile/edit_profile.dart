@@ -121,7 +121,7 @@ class _EditProfileState extends State<EditProfile> {
           widget.onSave();
         }
       } catch (e) {
-        MyToast.toastError(e.toString());
+        MyToast.toastError(e);
         if (kDebugMode) print(e.toString());
       }
     }
