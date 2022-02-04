@@ -85,4 +85,10 @@ class FirebaseAssignmentRepo extends FirestoreHelper
   Future<bool> remove(AssignmentID assignmentID) {
     return removeDocument(assignmentID);
   }
+
+  @override
+  Future<List<Assignment>> findAll(OrganizationID organizationID) {
+    // TODO: implement findAll
+    throw UnimplementedError();
+  }
 }

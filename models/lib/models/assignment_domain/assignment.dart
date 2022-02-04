@@ -15,7 +15,7 @@ class Assignment extends Entity<Assignment> {
   late String _title;
   bool _isArchived;
   late DateTime _dueDate;
-  final Assignee assignee;
+  Assignee assignee;
   final Permissions visiblePermissions;
   final Creator creator;
   final Note note;

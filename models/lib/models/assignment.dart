@@ -15,3 +15,4 @@ export 'assignment_domain/creator.dart';
 export 'assignment_domain/note.dart';
 export 'assignment_domain/organization_assignment_relationship.dart';
 export 'assignment_domain/person.dart';
+export 'assignment_domain/assignment_use_cases.dart';

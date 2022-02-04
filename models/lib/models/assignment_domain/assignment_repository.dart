@@ -17,6 +17,8 @@ mixin AssignmentRepository {
 
   Future<Assignment?> find(AssignmentID assignmentID);
 
+  Future<List<Assignment>> findAll(OrganizationID organizationID);
+
   Stream<Assignment> findStream(AssignmentID assignmentID);
 
   Future<bool> update(Assignment assignment);
