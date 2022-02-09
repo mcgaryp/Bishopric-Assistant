@@ -21,7 +21,7 @@ class CardNavigationButton extends NavigationButton {
     return TextButton(
       child: Padding(
           padding: const EdgeInsets.all(padding8),
-          child: Text(label, style: bodyDark)),
+          child: Text(label, style: body)),
       onPressed: () => navigate(context),
       style: textButtonStyle,
     );

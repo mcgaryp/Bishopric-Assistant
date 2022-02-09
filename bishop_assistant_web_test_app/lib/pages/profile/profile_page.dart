@@ -32,26 +32,33 @@ class _ProfilePageState extends State<ProfilePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: [
-            Row(children: [
-              Spacer(),
-              MyButton(
-                label: sLogout,
-                onPressed: () {
-                  StateContainer.of(context).logout();
-                  Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    rLogin,
-                    (Route route) => route.isFirst,
-                  );
-                },
-                style: MyButtonStyle.text,
-                isExpanded: false,
-              ),
-            ]),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Row(children: [
+                Spacer(),
+                MyButton(
+                  label: sLogout,
+                  onPressed: () {
+                    StateContainer.of(context).logout();
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      rLogin,
+                      (Route route) => route.isFirst,
+                    );
+                  },
+                  style: MyButtonStyle.text,
+                  isExpanded: false,
+                ),
+              ]),
+            ),
             MemberIcon(Icons.person, size: 65),
-            Text(account.name.fullName, style: titleDark),
+            Text(
+              account.name.fullName,
+              style: title,
+              textAlign: TextAlign.center,
+            ),
             if (StateContainer.of(context).state >= UserState.inOrganization)
-              Text(member.role.anonymous, style: subheadDark),
+              Text(member.role.anonymous, style: subhead),
             MyConstrainedBox300(children: [
               MyDivider(color: dark),
               Padding(

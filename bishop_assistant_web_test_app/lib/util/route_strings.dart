@@ -1,5 +1,7 @@
+import 'package:bishop_assistant_web_test_app/pages/assignment/assignment_page.dart';
 import 'package:bishop_assistant_web_test_app/pages/footer/legal.dart';
 import 'package:bishop_assistant_web_test_app/pages/footer/privacy.dart';
+import 'package:bishop_assistant_web_test_app/pages/footer/site_map_page.dart';
 import 'package:bishop_assistant_web_test_app/pages/home/home.dart';
 import 'package:bishop_assistant_web_test_app/pages/organization/organization_page.dart';
 import 'package:bishop_assistant_web_test_app/pages/profile/profile_page.dart';
@@ -39,20 +41,22 @@ const String rPrivacy = "/privacy";
 const String rProfile = "/profile";
 const String rReactivateAccount = "/reactivate";
 const String rSignup = "/signup";
+const String rSiteMap = "/sitemap";
 const String rTheme = "/theme";
 
 final Map<String, Widget Function(BuildContext)> routes = {
+  rAssignments: (context) => Authenticate(child: AssignmentPage()),
+  // rChangePassword: (context) => ChangePassword(),
   rHome: (context) => Authenticate(child: HomePage()),
+  rLegal: (context) => Legal(),
   rLogin: (context) => LoginPage(),
-  rSignup: (context) => SignupPage(),
-  // TODO: Uncomment
+  rOrganization: (context) => Authenticate(child: OrganizationPage()),
   // rPasswordRequest: (context) => RequestPasswordReset(),
   // rPIN: (context) => PinView(),
-  // rChangePassword: (context) => ChangePassword(),
-  rOrganization: (context) => Authenticate(child: OrganizationPage()),
-  rProfile: (context) => Authenticate(child: ProfilePage()),
-  rLegal: (context) => Legal(),
   rPrivacy: (context) => Privacy(),
+  rProfile: (context) => Authenticate(child: ProfilePage()),
   rReactivateAccount: (context) => ReactivateAccount(),
+  rSignup: (context) => SignupPage(),
+  rSiteMap: (context) => SiteMapPage(),
   rTheme: (context) => ThemePage(),
 };

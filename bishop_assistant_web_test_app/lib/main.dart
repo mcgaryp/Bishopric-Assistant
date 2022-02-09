@@ -12,6 +12,9 @@ import 'package:flutter/services.dart';
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
 
+/// Flutter Design Patterns
+/// https://mkobuolys.medium.com/flutter-design-patterns-0-introduction-5e88cfff6792
+
 void main() async {
   runApp(StateContainer(child: App()));
 }

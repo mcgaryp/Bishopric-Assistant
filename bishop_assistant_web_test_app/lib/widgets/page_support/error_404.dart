@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 ///
 
 class Error404 extends StatelessWidget {
-  final String? msg;
+  final Object? msg;
 
   const Error404({Key? key, this.msg}) : super(key: key);
 
@@ -21,6 +21,6 @@ class Error404 extends StatelessWidget {
     String text = sPage404;
     if (msg != null) text = "Error: $msg";
     if (kDebugMode) print(text);
-    return Text(text, style: bodyDark);
+    return Text(text, style: bodyRed);
   }
 }

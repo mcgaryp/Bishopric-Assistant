@@ -13,6 +13,6 @@ class Legal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LightPage(child: ComingSoon());
+    return LightPage(child: Center(child: ComingSoon()));
   }
 }

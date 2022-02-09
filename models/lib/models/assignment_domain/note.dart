@@ -22,6 +22,12 @@ class Note extends ValueObject<Note> {
             content: map[contentKey],
             permissions: PermissionsExtension.fromString(map[permissionsKey]));
 
+  // Who can view the Notes?
+  // - Those Equal to or greater than the permission level of the note
+  bool canView(Permissions permissions) {
+    return permissions >= this.permissions;
+  }
+
   @override
   bool sameValueAs(Note other) {
     return this.content == other.content &&

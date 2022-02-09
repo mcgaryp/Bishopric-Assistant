@@ -40,6 +40,18 @@ const BoxDecoration floatingDarkCircleBox = BoxDecoration(
   shape: BoxShape.circle,
 );
 
+const BoxDecoration floatingDarkBox = BoxDecoration(
+  boxShadow: _boxShadow,
+  color: dark,
+  borderRadius: _borderRadius20,
+);
+
+const BoxDecoration floatingWarningBox = BoxDecoration(
+  boxShadow: _boxShadow,
+  color: warning,
+  borderRadius: _borderRadius20,
+);
+
 /// Flat Boxes
 const BoxDecoration darkPrimaryBox = BoxDecoration(color: darkPrimary);
 const BoxDecoration lightBox = BoxDecoration(color: light);

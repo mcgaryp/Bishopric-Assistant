@@ -13,9 +13,18 @@ import 'package:flutter/widgets.dart';
 class CardRow extends StatelessWidget {
   final String label;
   final String content;
+  final TextStyle _labelStyle;
+  final TextStyle _contentStyle;
 
   const CardRow(this.label, {required this.content, Key? key})
-      : super(key: key);
+      : this._labelStyle = subhead,
+        this._contentStyle = body,
+        super(key: key);
+
+  const CardRow.light(this.label, {required this.content, Key? key})
+      : this._labelStyle = subheadLight,
+        this._contentStyle = bodyLight,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +34,12 @@ class CardRow extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: bodyDark),
+          Text(label, style: _labelStyle),
           SizedBox(width: 15),
           Flexible(
               child: Text(
             content,
-            style: bodyDark,
+            style: _contentStyle,
             overflow: TextOverflow.fade,
             maxLines: null,
             textAlign: TextAlign.right,

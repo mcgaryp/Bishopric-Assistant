@@ -36,19 +36,15 @@ class FirebaseAssignmentRepo extends FirestoreHelper
       OrganizationID orgID) {
     Stream<List<Map<String, dynamic>>> streamedDocuments =
         getCollectionOfDocumentsStreamed(
-            path: FirestoreCollectionPath.organization_assignments,
-            field: OrganizationAssignmentRelationship.organizationKey,
-            isEqualTo: orgID.id);
-    Stream<List<Stream<Assignment>>> assignmentsStream = streamedDocuments
-        .asyncMap<List<Stream<Assignment>>>(
-            (List<Map<String, dynamic>> snapshot) async {
-      List<Stream<Assignment>> assignments = [];
-      snapshot.forEach((element) {
-        assignments.add(findStream(AssignmentID(element[Assignment.idKey])));
-      });
-      return assignments;
-    });
-    return assignmentsStream;
+            path: FirestoreCollectionPath.assignments,
+            field: Assignment.orgIDKey,
+            isEqualTo: orgID.id,
+            sortBy: Assignment.dueDateKey);
+    return streamedDocuments.map<List<Stream<Assignment>>>(
+        (List<Map<String, dynamic>> list) => list
+            .map<Stream<Assignment>>((Map<String, dynamic> map) =>
+                findStream(AssignmentID(map[Assignment.idKey])))
+            .toList());
   }
 
   @override
@@ -71,24 +67,19 @@ class FirebaseAssignmentRepo extends FirestoreHelper
   }
 
   @override
-  Future<bool> insertRelationship(
-      OrganizationAssignmentRelationship organizationAssignment) async {
-    String? id = await addDocument(organizationAssignment.toMap,
-        path: FirestoreCollectionPath.organization_assignments);
-    if (id == null)
-      throw FailedToSaveError(
-          forEntity: "Organization Assignment Relationship");
-    return true;
-  }
-
-  @override
   Future<bool> remove(AssignmentID assignmentID) {
     return removeDocument(assignmentID);
   }
 
   @override
-  Future<List<Assignment>> findAll(OrganizationID organizationID) {
-    // TODO: implement findAll
-    throw UnimplementedError();
+  Future<List<Assignment>> findAll(OrganizationID organizationID) async {
+    List<Map<String, dynamic>> documents = await getCollectionOfDocuments(
+        field: Assignment.orgIDKey,
+        isEqualTo: organizationID.id,
+        sortBy: Assignment.dueDateKey);
+
+    return documents
+        .map<Assignment>((Map<String, dynamic> map) => Assignment.fromMap(map))
+        .toList();
   }
 }

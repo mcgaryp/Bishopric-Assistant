@@ -19,7 +19,7 @@ class RowTitle extends StatelessWidget {
       children: [
         Align(
             alignment: Alignment.centerLeft,
-            child: Text(label, style: smallTitleDark)),
+            child: Text(label, style: smallTitle)),
         MyDivider(color: darkText)
       ],
     );

@@ -15,6 +15,6 @@ class Brand extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AutoText(sBrand, style: largeTitle, isExpanded: isExpanded);
+    return AutoText(sBrand, style: largeTitleLight, isExpanded: isExpanded);
   }
 }

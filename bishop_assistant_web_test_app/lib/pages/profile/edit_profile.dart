@@ -60,13 +60,14 @@ class _EditProfileState extends State<EditProfile> {
                     validator: (str) =>
                         Validators.validateEmail(str, isUpdating: true),
                     onSubmit: _onSave,
+                    errorStyle: captionRed,
                   ),
                   InputField.floating(
                     account.contact.phone,
                     controller: phoneControl,
                     validator: (str) =>
                         Validators.standard(str, isUpdating: true),
-                    errorColorIsDark: true,
+                    errorStyle: captionRed,
                     formattingList: [Validators.phoneFilter],
                     onSubmit: _onSave,
                   ),
@@ -76,6 +77,7 @@ class _EditProfileState extends State<EditProfile> {
                     controller: passwordControl,
                     validator: (str) =>
                         Validators.validatePassword(str, isUpdating: true),
+                    errorStyle: captionRed,
                     onSubmit: _onSave,
                     //errorMsg: _errorMsg
                   ),
@@ -86,6 +88,7 @@ class _EditProfileState extends State<EditProfile> {
                     validator: (text) => Validators.validateConfirmPassword(
                         text, passwordControl.text,
                         isUpdating: true),
+                    errorStyle: captionRed,
                     //errorMsg: _errorMsg,
                     onSubmit: _onSave,
                   ), //add

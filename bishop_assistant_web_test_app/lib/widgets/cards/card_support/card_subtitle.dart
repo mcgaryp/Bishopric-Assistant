@@ -13,9 +13,19 @@ import 'package:intl/intl.dart';
 class CardSubtitle extends StatelessWidget {
   final DateTime dateTime;
   final String? location;
+  final TextStyle _style;
 
   const CardSubtitle(this.dateTime, {this.location, Key? key})
-      : super(key: key);
+      : this._style = caption,
+        super(key: key);
+
+  const CardSubtitle.light(this.dateTime, {this.location, Key? key})
+      : this._style = captionLight,
+        super(key: key);
+
+  const CardSubtitle.dark(this.dateTime, {this.location, Key? key})
+      : this._style = calloutDark,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +38,13 @@ class CardSubtitle extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Text(date, style: captionLight),
-            Text(time, style: captionLight),
+            Text(date, style: _style),
+            Text(time, style: _style),
           ]),
           if (location != null)
             Text(
               location!,
-              style: captionLight,
+              style: _style,
             )
         ],
       ),

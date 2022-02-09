@@ -14,13 +14,27 @@ mixin FindAllAssignmentsUseCase {
   Stream<List<Stream<Assignment>>> execute(OrganizationID id);
 }
 
-class DefaultAllAssignmentsUseCase implements FindAllAssignmentsUseCase {
+class DefaultFindAllAssignmentsUseCase implements FindAllAssignmentsUseCase {
   final AssignmentRepository _assignmentRepository;
 
-  DefaultAllAssignmentsUseCase(this._assignmentRepository);
+  DefaultFindAllAssignmentsUseCase(this._assignmentRepository);
 
   @override
   Stream<List<Stream<Assignment>>> execute(OrganizationID id) {
-    return _assignmentRepository.findAllStreamedByOrganizationID(id);
+    Stream<List<Stream<Assignment>>> stream =
+        _assignmentRepository.findAllStreamedByOrganizationID(id);
+
+    // Filter out of the list the assignments that are archived
+    return stream
+        .map<List<Stream<Assignment>>>((List<Stream<Assignment>> list) {
+      List<Stream<Assignment>> theList = [];
+      for (Stream<Assignment> stream in list) {
+        theList.add(stream.where((assignment) {
+          return assignment.isNotArchived;
+        }));
+      }
+
+      return theList;
+    });
   }
 }

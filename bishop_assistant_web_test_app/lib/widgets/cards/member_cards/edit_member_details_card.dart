@@ -47,20 +47,19 @@ class _EditMemberDetailsCardState extends State<EditMemberDetailsCard> {
                       ? sCancel
                       : sSave
                   : sEdit,
-              style: bodyDark),
+              style: body),
           onExpansionChanged: (bool status) {
             if (!status && permission != null) _save();
             setState(() {
               isOpen = status;
             });
           },
-          // title: MemberTitle(widget.member),
           leading: MemberIcon(Icons.person),
           tilePadding: EdgeInsets.all(0),
           childrenPadding: EdgeInsets.all(0),
           title: Text(
             widget.member.name.fullName,
-            style: subheadDark,
+            style: subhead,
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
           ),
@@ -87,7 +86,7 @@ class _EditMemberDetailsCardState extends State<EditMemberDetailsCard> {
                         DropdownMenuItem(
                             child: Text(
                                 permission == null ? sRole : permission.name,
-                                style: bodyDark),
+                                style: body),
                             value:
                                 permission == null ? 0 : permission.index + 1))
                     .toList()),

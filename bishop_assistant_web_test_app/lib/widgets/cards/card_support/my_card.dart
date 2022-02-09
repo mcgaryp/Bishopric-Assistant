@@ -10,16 +10,19 @@ import 'package:flutter/material.dart';
 ///
 
 class MyCard extends StatelessWidget {
-  final Widget? child;
+  final Widget child;
+  final BoxDecoration decoration;
 
-  const MyCard({this.child, Key? key}) : super(key: key);
+  const MyCard({required this.child, BoxDecoration? decoration, Key? key})
+      : this.decoration = decoration ?? floatingLightBox,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: padding8),
       child: Container(
-        decoration: floatingLightBox,
+        decoration: decoration,
         child: Padding(
           padding: const EdgeInsets.all(padding8),
           child: child,

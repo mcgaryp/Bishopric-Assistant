@@ -29,6 +29,14 @@ class Assignee extends Person {
             id: MemberID(map[idKey]),
             permissions: PermissionsExtension.fromString(map[permissionsKey]));
 
+  Assignee.fromMember(Member member)
+      : this(
+          contact: member.contact,
+          name: member.name,
+          id: member.id,
+          permissions: member.role.permissions,
+        );
+
   @override
   bool sameValueAs(Person other) {
     return other.name == this.name &&

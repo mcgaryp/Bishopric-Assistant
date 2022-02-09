@@ -16,29 +16,16 @@ class MemberTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        MemberIcon(Icons.person),
-        Padding(
-          padding: const EdgeInsets.only(left: padding8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                member.name.fullName,
-                style: subheadDark,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-              ),
-              Text(
-                member.role.anonymous,
-                style: footnoteDark,
-              )
-            ],
-          ),
-        )
-      ],
+    return ListTile(
+      leading: MemberIcon(Icons.person),
+      title: Text(
+        member.name.fullName,
+        style: subhead,
+      ),
+      subtitle: Text(
+        member.role.anonymous,
+        style: captionDark,
+      ),
     );
   }
 }

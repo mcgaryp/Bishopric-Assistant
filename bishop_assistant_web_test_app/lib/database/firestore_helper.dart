@@ -40,13 +40,24 @@ abstract class FirestoreHelper {
   /// [getCollectionOfDocuments] retrieves a collection of rows from a single
   /// table
   Future<List<Map<String, dynamic>>> getCollectionOfDocuments(
-      {FirestoreCollectionPath? path, String? field, Object? isEqualTo}) async {
+      {FirestoreCollectionPath? path,
+      String? field,
+      Object? isEqualTo,
+      String? sortBy}) async {
     QuerySnapshot<Map<String, dynamic>> snapshot;
     if (field != null) {
-      snapshot = await _firestore
-          .collection((path ?? mPath).string)
-          .where(field, isEqualTo: isEqualTo)
-          .get();
+      if (sortBy != null) {
+        snapshot = await _firestore
+            .collection((path ?? mPath).string)
+            .orderBy(sortBy, descending: false)
+            .where(field, isEqualTo: isEqualTo)
+            .get();
+      } else {
+        snapshot = await _firestore
+            .collection((path ?? mPath).string)
+            .where(field, isEqualTo: isEqualTo)
+            .get();
+      }
     } else
       snapshot = await _firestore.collection((path ?? mPath).string).get();
     return snapshot.docs.map<Map<String, dynamic>>((document) {
@@ -62,13 +73,24 @@ abstract class FirestoreHelper {
   /// [getCollectionOfDocumentsStreamed] gives a new collection of rows from a
   /// specific table everytime there is a change to the information in the table
   Stream<List<Map<String, dynamic>>> getCollectionOfDocumentsStreamed(
-      {FirestoreCollectionPath? path, String? field, Object? isEqualTo}) {
+      {FirestoreCollectionPath? path,
+      String? field,
+      Object? isEqualTo,
+      String? sortBy}) {
     Stream<QuerySnapshot<Map<String, dynamic>>> snapshot;
     if (field != null) {
-      snapshot = _firestore
-          .collection((path ?? mPath).string)
-          .where(field, isEqualTo: isEqualTo)
-          .snapshots();
+      if (sortBy != null) {
+        snapshot = _firestore
+            .collection((path ?? mPath).string)
+            .where(field, isEqualTo: isEqualTo)
+            .orderBy(sortBy, descending: false)
+            .snapshots();
+      } else {
+        snapshot = _firestore
+            .collection((path ?? mPath).string)
+            .where(field, isEqualTo: isEqualTo)
+            .snapshots();
+      }
     } else {
       snapshot = _firestore.collection((path ?? mPath).string).snapshots();
     }

@@ -30,7 +30,7 @@ class _JoinRequestDetailsViewState extends State<JoinRequestDetailsView> {
       children: [
         Padding(
           padding: const EdgeInsets.only(bottom: padding8),
-          child: Text(widget.details.name.fullName, style: subheadDark),
+          child: Text(widget.details.name.fullName, style: subhead),
         ),
         MyDropdown(
             hint: sRole,

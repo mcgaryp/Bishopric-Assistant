@@ -14,9 +14,16 @@ class LightPage extends StatelessWidget {
   final Widget child;
   final bool hasActionButton;
   final String? path;
+  final BottomNavigationBar? navbar;
+  final TabBar? tabBar;
 
   const LightPage(
-      {required this.child, this.hasActionButton = false, this.path, Key? key})
+      {required this.child,
+      this.hasActionButton = false,
+      this.path,
+      this.navbar,
+      this.tabBar,
+      Key? key})
       : super(key: key);
 
   @override
@@ -43,6 +50,7 @@ class LightPage extends StatelessWidget {
     return SafeArea(
         bottom: false,
         top: false,
-        child: MyScaffold.currentScaffold(context, actions, child));
+        child: MyScaffold.currentScaffold(context, actions, child,
+            navigationBar: navbar, tabBar: tabBar));
   }
 }

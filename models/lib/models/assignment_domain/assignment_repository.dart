@@ -23,8 +23,5 @@ mixin AssignmentRepository {
 
   Future<bool> update(Assignment assignment);
 
-  Future<bool> insertRelationship(
-      OrganizationAssignmentRelationship assignmentOrganization);
-
   Future<bool> remove(AssignmentID assignmentID);
 }

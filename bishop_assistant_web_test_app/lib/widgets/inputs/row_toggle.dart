@@ -11,24 +11,44 @@ import 'package:flutter/material.dart';
 
 class RowToggle extends StatefulWidget {
   final String label;
+  final void Function(bool)? onChanged;
+  final bool value;
+  final TextStyle _style;
+  final Color _color;
 
-  const RowToggle(this.label, {Key? key}) : super(key: key);
+  const RowToggle(this.label, {required this.value, this.onChanged, Key? key})
+      : _style = body,
+        _color = darkPrimary,
+        super(key: key);
+
+  const RowToggle.light(this.label,
+      {required this.value, this.onChanged, Key? key})
+      : _style = bodyLight,
+        _color = light,
+        super(key: key);
 
   @override
   _RowToggleState createState() => _RowToggleState();
 }
 
 class _RowToggleState extends State<RowToggle> {
-  bool isOn = true;
+  bool isOn = false;
+
+  @override
+  void initState() {
+    isOn = widget.value;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      Text(widget.label, style: bodyDark),
+      Text(widget.label, style: widget._style),
       Switch(
-          activeColor: darkPrimary,
-          value: isOn,
-          onChanged: (value) => setState(() => isOn = value))
+        activeColor: widget._color,
+        value: isOn,
+        onChanged: widget.onChanged,
+      )
     ]);
   }
 }

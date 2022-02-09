@@ -64,42 +64,11 @@ class StateContainerState extends State<StateContainer> {
   Organization? _organization;
   Member? _member;
 
-  static Name _mockName = Name(first: "Unauthenticated", last: "Account");
-
-  static Contact _mockContact = Contact(
-    email: "fake@email.com",
-    phone: "(123) 456-7890",
-  );
-
-  static Credentials _mockCredentials = Credentials(
-    username: "unauthenticated",
-    password: "none",
-  );
-
-  static Member _mockMember = Member(
-    name: _mockName,
-    contact: _mockContact,
-    role: Role.creator(),
-    id: MemberID("Fake ID"),
-  );
-
-  static Organization _mockOrganization = Organization(
-    creator: _mockMember,
-    name: "Fake Organization",
-    id: OrganizationID("Fake ID"),
-  );
-
-  static Account _mockAccount = Account(
-    name: _mockName,
-    contact: _mockContact,
-    credentials: _mockCredentials,
-  );
-
   /// [account] retrieves the account or notifies that an account is not valid
   /// and login is required
   Account get account {
     if (_account == null) {
-      if (kDebugMode) return _mockAccount;
+      if (kDebugMode) return Mocks().mockAccount;
       throw PermissionDeniedError(
           reason: "StateContainer UnAuthenticated User");
     }
@@ -109,7 +78,7 @@ class StateContainerState extends State<StateContainer> {
 
   Organization get organization {
     if (_organization == null) {
-      if (kDebugMode) return _mockOrganization;
+      if (kDebugMode) return Mocks().mockOrganization;
       throw PermissionDeniedError(
           reason: "StateContainer No Organizational Relationship");
     }
@@ -118,7 +87,7 @@ class StateContainerState extends State<StateContainer> {
 
   Member get member {
     if (_member == null) {
-      if (kDebugMode) return _mockMember;
+      if (kDebugMode) return Mocks().mockMember;
       throw PermissionDeniedError(
           reason: "StateContainer Not a Member of an organization");
     }

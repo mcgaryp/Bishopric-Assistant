@@ -22,10 +22,10 @@ class InputField extends StatelessWidget {
   final TextEditingController? controller;
   final bool maxLines;
   final bool isPassword;
-  final bool errorColorIsDark;
   final double padding;
-  late final bool? _isFloating;
+  final bool? _isFloating;
   final FocusNode? focus;
+  final TextStyle errorStyle;
 
   InputField.border(this.label,
       {this.hint = "",
@@ -37,14 +37,13 @@ class InputField extends StatelessWidget {
       this.validator,
       this.errorMsg,
       this.onSubmit,
-      this.errorColorIsDark = true,
       this.padding = padding8,
       this.focus,
       this.onChange,
+      this.errorStyle = captionRed,
       Key? key})
-      : super(key: key) {
-    this._isFloating = false;
-  }
+      : this._isFloating = false,
+        super(key: key);
 
   InputField.floating(this.hint,
       {this.label = "",
@@ -56,14 +55,13 @@ class InputField extends StatelessWidget {
       this.validator,
       this.errorMsg,
       this.onSubmit,
-      this.errorColorIsDark = false,
       this.padding = padding16,
+      this.errorStyle = captionLight,
       this.focus,
       this.onChange,
       Key? key})
-      : super(key: key) {
-    this._isFloating = true;
-  }
+      : this._isFloating = true,
+        super(key: key);
 
   InputField.plain(this.hint,
       {this.label = "",
@@ -75,14 +73,13 @@ class InputField extends StatelessWidget {
       this.validator,
       this.errorMsg,
       this.onSubmit,
-      this.errorColorIsDark = true,
       this.padding = 0.0,
+      this.errorStyle = captionRed,
       this.focus,
       this.onChange,
       Key? key})
-      : super(key: key) {
-    _isFloating = null;
-  }
+      : _isFloating = null,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +123,7 @@ class InputField extends StatelessWidget {
       enabledBorder: InputBorder.none,
       errorBorder: errorRedInputBorder,
       disabledBorder: InputBorder.none,
-      errorStyle: errorColorIsDark ? calloutDark : calloutLight,
+      errorStyle: errorStyle,
       hintText: hint,
       hintStyle: captionDark,
       labelStyle: bodyDark,
@@ -140,7 +137,7 @@ class InputField extends StatelessWidget {
       focusedBorder: lightPrimaryInputBorder,
       enabledBorder: darkPrimaryInputBorder,
       errorBorder: errorRedInputBorder,
-      errorStyle: errorColorIsDark ? calloutDark : calloutLight,
+      errorStyle: errorStyle,
       hintText: hint,
       hintStyle: captionLight,
       labelText: label,
@@ -155,7 +152,7 @@ class InputField extends StatelessWidget {
       enabledBorder: InputBorder.none,
       errorBorder: errorRedInputBorder,
       disabledBorder: InputBorder.none,
-      errorStyle: errorColorIsDark ? calloutDark : calloutLight,
+      errorStyle: errorStyle,
       hintText: hint,
       hintStyle: captionDark,
       labelStyle: bodyDark,

@@ -19,9 +19,12 @@ class Privacy extends StatelessWidget {
         (Permissions permission) => DataColumn(label: Text(permission.name))));
 
     return LightPage(
-        child: DataTable(
-      columns: columns,
-      rows: Features.rows,
+        child: SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: DataTable(
+        columns: columns,
+        rows: Features.rows,
+      ),
     ));
   }
 }

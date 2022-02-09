@@ -11,8 +11,19 @@ import 'package:intl/intl.dart';
 
 class CardDateTimeRow extends StatefulWidget {
   final Function(DateTime) onChange;
+  final TextStyle _style;
+  final Color _iconColor;
+  final bool dateOnly;
 
-  const CardDateTimeRow(this.onChange, {Key? key}) : super(key: key);
+  const CardDateTimeRow(this.onChange, {this.dateOnly = false, Key? key})
+      : this._style = body,
+        this._iconColor = dark,
+        super(key: key);
+
+  const CardDateTimeRow.light(this.onChange, {this.dateOnly = false, Key? key})
+      : this._style = bodyLight,
+        this._iconColor = light,
+        super(key: key);
 
   @override
   _CardDateTimeRowState createState() => _CardDateTimeRowState();
@@ -31,26 +42,33 @@ class _CardDateTimeRowState extends State<CardDateTimeRow> {
           children: [
             Text(
               DateFormat.MMMMEEEEd().format(selectedDate),
-              style: bodyDark,
+              style: widget._style,
               overflow: TextOverflow.ellipsis,
             ),
             MyButton.icon(
-                icon: Icon(Icons.calendar_today_outlined),
+                icon: Icon(
+                  Icons.calendar_today_outlined,
+                  color: widget._iconColor,
+                ),
                 onPressed: () => _showDatePicker(context)),
           ]),
-      Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              selectedTime.format(context),
-              style: bodyDark,
-              overflow: TextOverflow.ellipsis,
-            ),
-            MyButton.icon(
-                icon: Icon(Icons.access_time),
-                onPressed: () => _showTimePicker(context)),
-          ])
+      if (!widget.dateOnly)
+        Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                selectedTime.format(context),
+                style: widget._style,
+                overflow: TextOverflow.ellipsis,
+              ),
+              MyButton.icon(
+                  icon: Icon(
+                    Icons.access_time,
+                    color: widget._iconColor,
+                  ),
+                  onPressed: () => _showTimePicker(context)),
+            ])
     ]);
   }
 

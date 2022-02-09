@@ -12,9 +12,9 @@ export 'package:flutter_spinkit/flutter_spinkit.dart';
 
 export '../state/state.dart';
 export 'buttons/buttons.dart';
+export 'calendar/calendar.dart';
 export 'cards/cards.dart';
 export 'dialogs/dialogs.dart';
-export 'footer/footer.dart';
 export 'inputs/firebase_multi_select_field.dart';
 export 'inputs/inputs.dart';
 export 'page_support/page_support.dart';

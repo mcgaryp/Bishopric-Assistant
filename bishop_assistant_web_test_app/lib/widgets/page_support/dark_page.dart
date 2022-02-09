@@ -30,21 +30,25 @@ class DarkPage extends StatelessWidget {
           Text(_container.copyRight, style: bodyLight)
         ],
         backgroundColor: darkPrimary,
-        body: Center(
-          child: SingleChildScrollView(
-              child: Padding(
-                  padding: const EdgeInsets.all(padding8),
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        MyTitle(),
-                        MyConstrainedBox600(children: [MyDivider()]),
-                        MyConstrainedBox300(
-                          children: inputs,
-                        ),
-                        showSpinner ? SpinKitCircle(color: light) : MySpacer(),
-                        MyConstrainedBox200(children: buttons)
-                      ]))),
+        body: SafeArea(
+          child: Center(
+            child: SingleChildScrollView(
+                child: Padding(
+                    padding: const EdgeInsets.all(padding8),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          MyTitle(),
+                          MyConstrainedBox600(children: [MyDivider()]),
+                          MyConstrainedBox300(
+                            children: inputs,
+                          ),
+                          showSpinner
+                              ? SpinKitCircle(color: light)
+                              : MySpacer(),
+                          MyConstrainedBox200(children: buttons)
+                        ]))),
+          ),
         ));
   }
 }

@@ -14,9 +14,14 @@ class MyScaffold {
   static List<Widget> _actions = [];
   static late Widget _child;
   static late StateContainerState _container;
+  static BottomNavigationBar? _bottomNav;
+  static TabBar? _tabBar;
 
   static Scaffold currentScaffold(
-      BuildContext context, List<ActionModel> models, Widget child) {
+      BuildContext context, List<ActionModel> models, Widget child,
+      {BottomNavigationBar? navigationBar, TabBar? tabBar}) {
+    _tabBar = tabBar;
+    _bottomNav = navigationBar;
     _container = StateContainer.of(context);
     _compactActions = [MyDrawerHeader(_container.account)];
     _child = child;
@@ -27,22 +32,40 @@ class MyScaffold {
       for (ActionModel model in models) {
         if (model.label != null) _compactActions.add(model.compactButton);
       }
-      return _compact;
+      return _compact(context);
     } else
       _actions = models.map((e) => e.webButton).toList();
-    return _large;
+    return _large(context);
   }
 
   // Footer
-  static final List<Widget> _footer = [
-    FooterButton(label: sLegal, path: rLegal),
-    FooterButton(label: sPrivacy, path: rPrivacy),
-    FooterButton(label: sSiteMap, path: rHome),
-    Text(_container.version, style: bodyDark),
-    Text(_container.copyRight, style: bodyDark),
-  ];
+  static List<Widget> _footer(BuildContext context) => [
+        MyButton(
+          label: sLegal,
+          onPressed: () => _navigate(context, rLegal),
+          style: MyButtonStyle.text,
+          isExpanded: false,
+        ),
+        MyButton(
+          label: sPrivacy,
+          onPressed: () => _navigate(context, rPrivacy),
+          style: MyButtonStyle.text,
+          isExpanded: false,
+        ),
+        MyButton(
+          label: sSiteMap,
+          onPressed: () => _navigate(context, rSiteMap),
+          style: MyButtonStyle.text,
+          isExpanded: false,
+        ),
+        Text(_container.version, style: body),
+        Text(_container.copyRight, style: body),
+      ];
 
-  static Scaffold get _compact => Scaffold(
+  static void _navigate(BuildContext context, String path) =>
+      Navigator.pushNamed(context, path);
+
+  static Scaffold _compact(BuildContext context) => Scaffold(
         backgroundColor: lightGrey,
         drawer: SafeArea(
           child: Drawer(
@@ -54,7 +77,7 @@ class MyScaffold {
                   alignment: WrapAlignment.center,
                   runAlignment: WrapAlignment.center,
                   spacing: 20.0,
-                  children: _footer),
+                  children: _footer(context)),
             ],
           )),
         ),
@@ -64,13 +87,15 @@ class MyScaffold {
         ),
         body: Padding(
           padding: const EdgeInsets.only(left: padding8, right: padding8),
-          child: Center(child: _child),
+          child: _child,
         ),
+        bottomNavigationBar: _bottomNav,
       );
 
-  static Scaffold get _large => Scaffold(
+  static Scaffold _large(BuildContext context) => Scaffold(
         backgroundColor: lightGrey,
         appBar: AppBar(
+          bottom: _tabBar,
           backgroundColor: darkPrimary,
           leading: Logo(),
           centerTitle: false,
@@ -78,10 +103,9 @@ class MyScaffold {
           actions: _actions,
         ),
         body: Padding(
-          padding: const EdgeInsets.only(
-              top: padding8, left: padding8, right: padding8),
-          child: Center(child: _child),
+          padding: const EdgeInsets.symmetric(horizontal: padding8),
+          child: _child,
         ),
-        persistentFooterButtons: _footer,
+        persistentFooterButtons: _footer(context),
       );
 }

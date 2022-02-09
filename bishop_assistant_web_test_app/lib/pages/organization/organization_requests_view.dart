@@ -18,41 +18,46 @@ class OrganizationRequestsView extends StatelessWidget {
         DefaultAllOrganizationRequestsUseCase(FirebaseOrganizationRepository());
 
     OrganizationID id = StateContainer.of(context).organization.id;
+    Permissions currentUserPermissions =
+        StateContainer.of(context).member.role.permissions;
 
-    return StreamBuilder(
-        stream: useCase.execute(id),
-        builder:
-            (BuildContext context, AsyncSnapshot<List<JoinRequest>> snapshot) {
-          if (snapshot.hasData) {
-            List<JoinRequest> requests = snapshot.data ?? [];
-            return Container(
-              height: 55,
-              width: 55,
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.center,
-                    child: OrganizationNotificationCircle(requests),
-                  ),
-                  if (requests.length > 0)
+    if (currentUserPermissions >= Permissions.Maintainer)
+      return StreamBuilder(
+          stream: useCase.execute(id),
+          builder: (BuildContext context,
+              AsyncSnapshot<List<JoinRequest>> snapshot) {
+            if (snapshot.hasData) {
+              List<JoinRequest> requests = snapshot.data ?? [];
+              return Container(
+                height: 55,
+                width: 55,
+                child: Stack(
+                  children: [
                     Align(
-                      alignment: Alignment.topRight,
-                      child: Container(
-                          decoration: BoxDecoration(
-                              color: errorRed, shape: BoxShape.circle),
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.5),
-                            child: Text("${requests.length}", style: bodyLight),
-                          )),
+                      alignment: Alignment.center,
+                      child: OrganizationNotificationCircle(requests),
                     ),
-                ],
-              ),
-            );
-          }
+                    if (requests.length > 0)
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: Container(
+                            decoration: BoxDecoration(
+                                color: errorRed, shape: BoxShape.circle),
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.5),
+                              child:
+                                  Text("${requests.length}", style: bodyLight),
+                            )),
+                      ),
+                  ],
+                ),
+              );
+            }
 
-          if (snapshot.hasError && kDebugMode) print(snapshot.error);
+            if (snapshot.hasError && kDebugMode) print(snapshot.error);
 
-          return OrganizationNotificationCircle([]);
-        });
+            return OrganizationNotificationCircle([]);
+          });
+    return Container();
   }
 }

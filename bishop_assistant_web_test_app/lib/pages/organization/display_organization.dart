@@ -22,22 +22,25 @@ class DisplayOrganization extends StatelessWidget {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              Text(
-                StateContainer.of(context).organization.name,
-                style: titleDark,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-              if (StateContainer.of(context).member.role.permissions >=
-                  Permissions.Maintainer)
-                MyButton(
-                    label: sEdit,
-                    onPressed: onPress,
-                    isExpanded: false,
-                    style: MyButtonStyle.darkText),
-            ],
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Row(
+              children: [
+                Text(
+                  StateContainer.of(context).organization.name,
+                  style: title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                if (StateContainer.of(context).member.role.permissions >=
+                    Permissions.Maintainer)
+                  MyButton(
+                      label: sEdit,
+                      onPressed: onPress,
+                      isExpanded: false,
+                      style: MyButtonStyle.smallText),
+              ],
+            ),
           ),
           OrganizationRequestsView(),
         ],

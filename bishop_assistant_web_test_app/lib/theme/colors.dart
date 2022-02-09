@@ -15,6 +15,8 @@ const Color lightGrey = Color.fromRGBO(230, 230, 230, 1);
 
 // DarkBackground
 const Color dark = Color.fromRGBO(11, 83, 112, 1);
+const Color green = Colors.green;
+const Color warning = Colors.amberAccent;
 
 // Shadows
 const Color shadow = Color.fromRGBO(0, 0, 0, 0.35);

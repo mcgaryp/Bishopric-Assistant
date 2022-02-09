@@ -12,15 +12,17 @@ import 'package:models/shared/exceptions.dart';
 ///
 
 class Assignment extends Entity<Assignment> {
-  late String _title;
-  bool _isArchived;
-  late DateTime _dueDate;
   Assignee assignee;
+  bool _isArchived;
+  bool _isCompleted;
+  late bool _isOverDue;
+  late DateTime _dueDate;
+  late String _title;
   final Permissions visiblePermissions;
   final Creator creator;
   final Note note;
-  bool _isCompleted;
   final AssignmentID? _id;
+  final OrganizationID orgID;
 
   static final String titleKey = "Assignment title";
   static final String isArchivedKey = "Assignment isArchived";
@@ -31,6 +33,7 @@ class Assignment extends Entity<Assignment> {
   static final String noteKey = "Assignment Note";
   static final String isCompletedKey = "Assignment isCompleted";
   static final String idKey = "Assignment ID";
+  static final String orgIDKey = "Assignment Organization Key";
 
   Assignment({
     AssignmentID? id,
@@ -41,6 +44,7 @@ class Assignment extends Entity<Assignment> {
     required this.note,
     required String title,
     required DateTime dueDate,
+    required this.orgID,
   })  : this._id = id,
         this.visiblePermissions = assignee.permissions,
         this._isArchived = isArchived,
@@ -60,11 +64,11 @@ class Assignment extends Entity<Assignment> {
           note: Note.fromMap(map[noteKey]),
           title: map[titleKey],
           dueDate: DateTime.fromMicrosecondsSinceEpoch(map[dueDateKey]),
+          orgID: OrganizationID(map[orgIDKey]),
         );
 
   set dueDate(DateTime date) {
-    if (date.day < DateTime.now().day)
-      throw InvalidDateError(forObject: "Assignment due date");
+    _isOverDue = date.isBefore(DateTime.now());
     _dueDate = date;
   }
 
@@ -80,6 +84,16 @@ class Assignment extends Entity<Assignment> {
   void markComplete() => _isCompleted = true;
 
   void markIncomplete() => _isCompleted = false;
+
+  // Who can view?
+  // - Creators of the Assignment
+  // - Assignees assigned to the Assignment
+  // - Permission level of or equal to the Assignment
+  bool canView({MemberID? memberID, Permissions? permissions}) {
+    if (memberID == creator.id || memberID == assignee.id) return true;
+    if (permissions != null && permissions >= visiblePermissions) return true;
+    return false;
+  }
 
   @override
   bool sameIdentityAs(Assignment other) {
@@ -109,16 +123,24 @@ class Assignment extends Entity<Assignment> {
         creatorKey: creator.toMap,
         noteKey: note.toMap,
         isCompletedKey: isCompleted,
-        idKey: id.id,
+        idKey: _id?.id,
+        orgIDKey: orgID.id,
       };
 
   String get title => _title;
 
   DateTime get dueDate => _dueDate;
 
-  bool get isArchived => _isArchived;
-
-  bool get isCompleted => _isCompleted;
+  // TODO: Unit test
+  bool get isNotArchived => _isArchived == false;
+  // TODO: Unit test
+  bool get isArchived => _isArchived == true;
+  // TODO: Unit test
+  bool get isNotCompleted => _isCompleted == false;
+  // TODO: Unit test
+  bool get isCompleted => _isCompleted == true;
+  // TODO: Unit test
+  bool get isOverDue => _isOverDue;
 
   AssignmentID get id {
     if (_id == null) throw IdDoesNotExistError(forObject: "Assignment");

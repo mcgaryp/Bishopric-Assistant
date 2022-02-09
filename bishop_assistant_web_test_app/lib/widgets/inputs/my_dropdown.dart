@@ -58,7 +58,7 @@ class _MyDropdownState extends State<MyDropdown> {
             onChanged: _onChanged,
             items: widget.collection,
             icon: Icon(Icons.keyboard_arrow_down_rounded, color: darkText),
-            style: bodyDark,
+            style: body,
             // hint: Text(widget.hint, style: bodyDark),
           ),
         ],

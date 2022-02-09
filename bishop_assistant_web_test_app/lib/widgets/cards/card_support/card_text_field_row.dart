@@ -26,7 +26,7 @@ class CardTextFieldRow extends StatelessWidget {
       children: [
         AutoText(
           label,
-          style: bodyDark,
+          style: body,
         ),
         Flexible(
           child: Padding(

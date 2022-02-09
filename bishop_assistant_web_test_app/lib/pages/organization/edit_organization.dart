@@ -29,15 +29,17 @@ class _EditOrganizationState extends State<EditOrganization> {
   Widget build(BuildContext context) {
     return ListView(children: [
       Padding(
-        padding: const EdgeInsets.only(top: 8.0),
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             StateContainer.of(context).member ==
                     StateContainer.of(context).organization.creator
                 ? Flexible(
                     child: InputField.floating(
                     StateContainer.of(context).organization.name,
+                    padding: 0,
                     controller: nameControl,
                     onChange: (String? str) {
                       setState(() {

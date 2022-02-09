@@ -12,9 +12,18 @@ import 'package:flutter/material.dart';
 class CardColumn extends StatelessWidget {
   final String label;
   final String content;
+  final TextStyle _labelStyle;
+  final TextStyle _contentStyle;
 
   const CardColumn(this.label, {required this.content, Key? key})
-      : super(key: key);
+      : this._labelStyle = subhead,
+        this._contentStyle = body,
+        super(key: key);
+
+  const CardColumn.light(this.label, {required this.content, Key? key})
+      : this._labelStyle = subheadLight,
+        this._contentStyle = bodyLight,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +33,8 @@ class CardColumn extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: subheadDark),
-          Text(content, style: bodyDark)
+          Text(label, style: _labelStyle),
+          Text(content, style: _contentStyle),
         ],
       ),
     );

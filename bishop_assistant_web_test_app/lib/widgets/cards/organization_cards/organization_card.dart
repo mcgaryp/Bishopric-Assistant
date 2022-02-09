@@ -45,7 +45,7 @@ class OrganizationCard extends StatelessWidget {
                         StateContainer.of(context).account.id)
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(sAwaiting, style: bodyDark),
+                        child: Text(sAwaiting, style: body),
                       );
                   }
                   return MyButton(

@@ -26,7 +26,7 @@ class MobileNavigationButton extends NavigationButton {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(label, style: bodyDark),
+            Text(label, style: body),
             Icon(Icons.arrow_forward_rounded, color: dark)
           ],
         ),

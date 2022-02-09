@@ -13,6 +13,7 @@ import 'package:models/shared/uuid.dart';
 /// Copyright 2022 Po. All rights reserved.
 ///
 
+@Deprecated("There are no more relationships!")
 class OrganizationMemberRelationship {
   static const String orgIdKey = "OrganizationID";
   static const String memberIdKey = "MemberID";
