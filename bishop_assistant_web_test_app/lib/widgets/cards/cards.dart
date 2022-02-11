@@ -12,6 +12,7 @@ export 'assignment_card/assignment_incomplete.dart';
 export 'assignment_card/assignment_title.dart';
 export 'assignment_card/confirm_assignment_archive_dialog.dart';
 export 'assignment_card/confirm_delete_assignment_dialog.dart';
+export 'assignment_card/confirm_unarchive_assignment_dialog.dart';
 export 'assignment_card/create_assignment_card.dart';
 export 'assignment_card/edit_assignment_card.dart';
 export 'assignment_card/over_due_assignment_card.dart';

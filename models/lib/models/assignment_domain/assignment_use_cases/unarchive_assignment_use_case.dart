@@ -36,13 +36,13 @@ class DefaultUnarchiveAssignmentUseCase implements UnarchiveAssignmentUseCase {
     Assignment? assignment = await _assignmentRepository.find(assignmentID);
     assignment ?? (throw AssignmentNotFoundError());
 
-    if (accessor.role.permissions <= assignment.visiblePermissions)
-      throw PermissionDeniedError(
-          reason:
-              "Accessor does not have rights to retrieve assignment from archive");
+    if (assignment.canArchive(
+        memberID: accessor.id, permissions: accessor.role.permissions)) {
+      assignment.unArchive();
+      return _assignmentRepository.update(assignment);
+    }
 
-    assignment.unArchive();
-
-    return true;
+    throw PermissionDeniedError(
+        reason: "Insufficient Permissions to unarchive ${assignment.title}");
   }
 }

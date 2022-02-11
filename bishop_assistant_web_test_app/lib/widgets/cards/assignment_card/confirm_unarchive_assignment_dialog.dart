@@ -4,18 +4,18 @@ import 'package:flutter/foundation.dart';
 import 'package:models/models/assignment.dart';
 
 ///
-/// confirm_assignment_archive_dialog.dart
+/// confirm_unarchive_assignment_dialog.dart
 /// bishopric-assistant
 ///
-/// Created by Porter McGary on 2/4/22
+/// Created by Porter McGary on 2/10/22
 /// Copyright 2022 Porter McGary. All rights reserved.
 ///
 
-class ConfirmAssignmentArchiveDialog extends StatelessWidget {
+class ConfirmUnarchiveAssignmentDialog extends StatelessWidget {
   final String name;
   final AssignmentID assignmentID;
 
-  const ConfirmAssignmentArchiveDialog(
+  const ConfirmUnarchiveAssignmentDialog(
       {required this.name, required this.assignmentID, Key? key})
       : super(key: key);
 
@@ -24,13 +24,14 @@ class ConfirmAssignmentArchiveDialog extends StatelessWidget {
     return ConfirmationDialog(
         onConfirm: () async {
           try {
-            ArchiveAssignmentUseCase useCase = DefaultArchiveAssignmentUseCase(
-                FirebaseMemberRepository(), FirebaseAssignmentRepo());
-            bool movedToArchive = await useCase.execute(
+            UnarchiveAssignmentUseCase useCase =
+                DefaultUnarchiveAssignmentUseCase(
+                    FirebaseMemberRepository(), FirebaseAssignmentRepo());
+            bool isUnarchived = await useCase.execute(
                 memberID: StateContainer.of(context).member.id,
                 assignmentID: assignmentID);
-            if (movedToArchive) {
-              MyToast.toastSuccess("$name has been Archived");
+            if (isUnarchived) {
+              MyToast.toastSuccess("Successfully unarchived $name");
               Navigator.pop(context);
             }
           } catch (error) {
@@ -38,11 +39,8 @@ class ConfirmAssignmentArchiveDialog extends StatelessWidget {
             MyToast.toastError(error);
           }
         },
-        title: sConfirmArchive,
-        content: "Are you sure you want to archive '$name'? Doing so will not "
-            "allow any member of the organization to change or "
-            "edit the assignment, unless it is unarchived.\n\n**Regular viewing "
-            "permissions will continue to safe guard the Assignments private "
-            "information.**");
+        title: sConfirmUnarchive,
+        content: "Are you sure you would like to unarchive '$name'? Doing so "
+            "will allow others to view and also edit this assignment.");
   }
 }

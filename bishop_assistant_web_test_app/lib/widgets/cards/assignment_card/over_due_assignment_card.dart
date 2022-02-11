@@ -35,8 +35,8 @@ class OverDueAssignmentCard extends AssignmentCard {
             onPressed: () {
               showDialog(
                   context: context,
-                  builder: (dialogCon) =>
-                      ConfirmAssignmentArchiveDialog(assignment.title));
+                  builder: (dialogCon) => ConfirmAssignmentArchiveDialog(
+                      name: assignment.title, assignmentID: assignment.id));
             },
             style: MyButtonStyle.lightText,
           ),

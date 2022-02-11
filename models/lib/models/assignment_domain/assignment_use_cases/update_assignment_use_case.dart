@@ -45,16 +45,21 @@ class DefaultUpdateAssignmentUseCase implements UpdateAssignmentUseCase {
       String? noteContent}) async {
     Assignment? assignment = await _assignmentRepository.find(assignmentID);
     assignment ?? (throw AssignmentNotFoundError());
-    Member? member = await _memberRepository.find(memberID);
-    member ?? (throw MemberNotFoundError());
-    if (member.role.permissions < assignment.creator.permissions) {
-      throw PermissionDeniedError(
-          reason: "Not enough permission to update assignment");
+
+    Member? accessor = await _memberRepository.find(memberID);
+    accessor ?? (throw MemberNotFoundError());
+
+    if (assignment.canEdit(
+        memberID: accessor.id, permissions: accessor.role.permissions)) {
+      assignment.title = title ?? assignment.title;
+      assignment.dueDate = dueDate ?? assignment.dueDate;
+      assignment.assignee = assignee ?? assignment.assignee;
+      assignment.note.content = noteContent ?? assignment.note.content;
+
+      return _assignmentRepository.update(assignment);
     }
-    assignment.title = title ?? assignment.title;
-    assignment.dueDate = dueDate ?? assignment.dueDate;
-    assignment.assignee = assignee ?? assignment.assignee;
-    assignment.note.content = noteContent ?? assignment.note.content;
-    return _assignmentRepository.update(assignment);
+
+    throw PermissionDeniedError(
+        reason: "Insufficient permissions to update ${assignment.title}");
   }
 }

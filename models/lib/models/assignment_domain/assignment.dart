@@ -85,15 +85,49 @@ class Assignment extends Entity<Assignment> {
 
   void markIncomplete() => _isCompleted = false;
 
-  // Who can view?
-  // - Creators of the Assignment
-  // - Assignees assigned to the Assignment
-  // - Permission level of or equal to the Assignment
+  /// Who can view?
+  ///
+  /// - Creators of the Assignment
+  /// - Assignees assigned to the Assignment
+  /// - Permission level of or equal to the Assignment
+  // TODO: Unit Test
   bool canView({MemberID? memberID, Permissions? permissions}) {
     if (memberID == creator.id || memberID == assignee.id) return true;
     if (permissions != null && permissions >= visiblePermissions) return true;
     return false;
   }
+
+  /// Who can archive an assignment?
+  ///
+  /// - Creators of the assignment
+  /// - Assignees assigned to the Assignment
+  /// - Permission level of or equal to the Assignment
+  // TODO: Unit Test
+  bool canArchive({MemberID? memberID, Permissions? permissions}) =>
+      canView(memberID: memberID, permissions: permissions);
+
+  /// Who can mark an assignment complete?
+  ///
+  /// - Creator of organization
+  /// - Maintainers of organization
+  /// - Assignee of Assignment
+  /// - Creator of Assignment
+  // TODO: Unit Test
+  bool canComplete({MemberID? memberID, Permissions? permissions}) {
+    if (memberID == creator.id || memberID == assignee.id) return true;
+    if (permissions != null && permissions >= Permissions.Maintainer)
+      return true;
+    return false;
+  }
+
+  /// Who can edit an assignment?
+  ///
+  /// - Creator of Assignment
+  /// - Assignee of Assignment
+  /// - Maintainers or higher Permissions
+  // TODO: Unit Test
+  bool canEdit({MemberID? memberID, Permissions? permissions}) =>
+      canComplete(memberID: memberID, permissions: permissions);
 
   @override
   bool sameIdentityAs(Assignment other) {
@@ -133,12 +167,16 @@ class Assignment extends Entity<Assignment> {
 
   // TODO: Unit test
   bool get isNotArchived => _isArchived == false;
+
   // TODO: Unit test
   bool get isArchived => _isArchived == true;
+
   // TODO: Unit test
   bool get isNotCompleted => _isCompleted == false;
+
   // TODO: Unit test
   bool get isCompleted => _isCompleted == true;
+
   // TODO: Unit test
   bool get isOverDue => _isOverDue;
 

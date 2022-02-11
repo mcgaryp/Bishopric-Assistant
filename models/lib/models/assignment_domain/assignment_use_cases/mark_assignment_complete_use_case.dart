@@ -37,12 +37,14 @@ class DefaultMarkAssignmentCompleteUseCase
     Assignment? assignment = await _assignmentRepository.find(assignmentID);
     assignment ?? (throw AssignmentNotFoundError());
 
-    if (accessor.role.permissions <= assignment.visiblePermissions)
-      throw PermissionDeniedError(
-          reason: "Accessor does not have rights to mark assignment complete");
+    if (assignment.canComplete(
+        permissions: accessor.role.permissions, memberID: accessor.id)) {
+      assignment.markComplete();
+      return true;
+    }
 
-    assignment.markComplete();
-
-    return true;
+    throw PermissionDeniedError(
+        reason:
+            "Insufficient permissions to mark ${assignment.title} complete");
   }
 }

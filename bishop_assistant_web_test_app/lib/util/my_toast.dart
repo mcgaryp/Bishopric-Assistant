@@ -1,3 +1,4 @@
+import 'package:bishop_assistant_web_test_app/theme/colors.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 ///
@@ -11,9 +12,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 class MyToast {
   static void toastError(dynamic msg) => Fluttertoast.showToast(
       msg: msg.toString(),
+      backgroundColor: errorRed,
       webBgColor: "linear-gradient(to right, #e36359, #a62c2b)",
       timeInSecForIosWeb: 5);
 
-  static void toastSuccess(String msg) =>
-      Fluttertoast.showToast(msg: msg, timeInSecForIosWeb: 5);
+  static void toastSuccess(String msg) => Fluttertoast.showToast(
+      msg: msg, timeInSecForIosWeb: 5, backgroundColor: green);
 }

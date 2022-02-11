@@ -29,8 +29,8 @@ class ArchivedAssignmentCard extends AssignmentCard {
                 onPressed: () {
                   showDialog(
                       context: context,
-                      builder: (context) =>
-                          ConfirmUnarchiveAssignmentDialog(assignment.title));
+                      builder: (context) => ConfirmUnarchiveAssignmentDialog(
+                          name: assignment.title, assignmentID: assignment.id));
                 }),
             MyButton(
                 isExpanded: false,
@@ -39,8 +39,10 @@ class ArchivedAssignmentCard extends AssignmentCard {
                 onPressed: () {
                   showDialog(
                       context: context,
-                      builder: (context) =>
-                          ConfirmDeleteAssignmentDialog(assignment.title));
+                      builder: (context) => ConfirmDeleteAssignmentDialog(
+                            name: assignment.title,
+                            assignmentID: assignment.id,
+                          ));
                 }),
             Spacer(),
             assignment.isCompleted
@@ -52,22 +54,4 @@ class ArchivedAssignmentCard extends AssignmentCard {
 
   @override
   BoxDecoration? get decoration => floatingWarningBox;
-}
-
-class ConfirmUnarchiveAssignmentDialog extends StatelessWidget {
-  final String name;
-
-  const ConfirmUnarchiveAssignmentDialog(this.name, {Key? key})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ConfirmationDialog(
-        onConfirm: () {
-          // TODO: Unarchive UseCase
-        },
-        title: sConfirmUnarchive,
-        content:
-            "Are you sure you would like to unarchive '$name'? Doing so will allow others to view and also edit this assignment.");
-  }
 }

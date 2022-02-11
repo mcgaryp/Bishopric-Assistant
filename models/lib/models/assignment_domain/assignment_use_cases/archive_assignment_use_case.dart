@@ -39,15 +39,13 @@ class DefaultArchiveAssignmentUseCase implements ArchiveAssignmentUseCase {
     assignment ?? (throw AssignmentNotFoundError());
 
     // check member permissions
-    if (accessor.role.permissions <= assignment.visiblePermissions)
-      throw PermissionDeniedError(
-          reason:
-              "Accessor does not have rights to send assignment to archive");
+    if (assignment.canArchive(
+        permissions: accessor.role.permissions, memberID: accessor.id)) {
+      assignment.archive();
+      return _assignmentRepository.update(assignment);
+    }
 
-    // archive the assignment
-    assignment.archive();
-
-    // notify
-    return true;
+    throw PermissionDeniedError(
+        reason: "Insufficient permissions to archive ${assignment.title}");
   }
 }
