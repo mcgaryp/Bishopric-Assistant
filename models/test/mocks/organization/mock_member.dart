@@ -1,6 +1,10 @@
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
 
+import '../account/mock_contact.dart';
+import '../account/mock_name.dart';
+import 'mock_role.dart';
+
 ///
 /// mock_member.dart
 /// bishopric-assistant
@@ -10,14 +14,9 @@ import 'package:models/models/organization.dart';
 ///
 
 class MockMember {
-  static MemberID mockId = MemberID("Mock Member ID");
-  static String mockFirst = "Mock";
-  static String mockLast = "Test";
-  static String mockEmail = "member@mock.com";
-  static String mockPhone = "1234567890";
-  static Role mockRole = Role(Permissions.Creator, anonymous: "Creator");
-  static Contact mockContact = Contact(email: mockEmail, phone: mockPhone);
-  static Name mockName = Name(first: mockFirst, last: mockLast);
+  static Role mockRole = MockRole().role;
+  static Contact mockContact = MockContact().contact;
+  static Name mockName = MockName().name;
 
   late Member member;
 
@@ -30,9 +29,18 @@ class MockMember {
     Role? role,
   }) {
     member = Member(
-        id: id ?? mockId,
+        id: id,
         role: role ?? mockRole,
         contact: contact ?? mockContact,
         name: name ?? mockName);
+  }
+}
+
+class MockMemberID {
+  static String mockID = "Mock account ID";
+  late MemberID id;
+
+  MockMemberID({String? id}) {
+    this.id = MemberID(id ?? mockID);
   }
 }

@@ -1,5 +1,5 @@
 import 'package:models/shared/domain_driven_design/value_object.dart';
-import 'package:models/shared/exceptions.dart';
+import 'package:models/shared/exceptions/exceptions.dart';
 
 ///
 /// uuid.dart

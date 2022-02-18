@@ -3,7 +3,7 @@ import 'package:bishop_assistant_web_test_app/repositories/firebase_member_repos
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/assignment.dart';
 import 'package:models/models/organization.dart';
-import 'package:models/shared/exceptions.dart';
+import 'package:models/shared/exceptions/exceptions.dart';
 
 ///
 /// create_assignment_card.dart
@@ -102,9 +102,9 @@ class _CreateAssignmentCardState extends State<CreateAssignmentCard> {
   void _save() async {
     try {
       if (assignee == null)
-        throw FailedToSaveError(forEntity: "Assignee is not selected");
+        throw FailedToSaveError(reason: "Assignee is not selected");
       if (permissions == null)
-        throw FailedToSaveError(forEntity: "Note Permissions is not selected");
+        throw FailedToSaveError(reason: "Note Permissions is not selected");
       CreateAssignmentUseCase useCase = DefaultCreateAssignmentUseCase(
           FirebaseAssignmentRepo(), FirebaseMemberRepository());
 

@@ -15,6 +15,5 @@ export 'account_domain/contact.dart';
 export 'account_domain/credentials.dart';
 export 'account_domain/name.dart';
 export 'account_domain/pin.dart';
-export 'account_domain/smtp.dart';
 export 'account_domain/user_state/state_repository.dart';
 export 'account_domain/user_state/user_state.dart';

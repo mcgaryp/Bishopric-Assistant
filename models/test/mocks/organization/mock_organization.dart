@@ -1,5 +1,6 @@
 import 'package:models/models/organization.dart';
 
+import '../account/mock_account.dart';
 import 'mock_member.dart';
 
 ///
@@ -11,16 +12,28 @@ import 'mock_member.dart';
 ///
 
 class MockOrganization {
-  static final Member mockCreator = MockMember(role: Role.creator()).member;
   static final String mockName = "Mock Organization";
-  static final OrganizationID mockId = OrganizationID("Mock Organization ID");
+  static final OrganizationMemberRelationship mockMemberRelationship =
+      OrganizationMemberRelationship(
+          accountID: MockAccountID().id,
+          organizationID: MockOrganizationID().id,
+          memberID: MockMemberID().id);
 
   late final Organization organization;
 
   MockOrganization({OrganizationID? id, String? name, Member? creator}) {
     organization = Organization(
-        id: id ?? mockId,
+        id: id,
         name: name ?? mockName,
-        creator: creator ?? mockCreator);
+        creator: creator ?? MockMember(id: MockMemberID().id).member);
+  }
+}
+
+class MockOrganizationID {
+  static String mockId = "Mock organization ID";
+  late OrganizationID id;
+
+  MockOrganizationID({String? id}) {
+    this.id = OrganizationID(id ?? mockId);
   }
 }

@@ -1,6 +1,6 @@
-import 'package:models/shared/specification/specification.dart';
+import 'package:models/shared/specification/specification_mixin.dart';
 
-export 'specification.dart';
+export 'specification_mixin.dart';
 
 ///
 /// abstract_specification.dart

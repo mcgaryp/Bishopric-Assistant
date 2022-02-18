@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:models/shared/exceptions.dart';
+import 'package:models/shared/exceptions/exceptions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 ///

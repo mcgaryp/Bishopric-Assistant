@@ -1,6 +1,6 @@
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
-import 'package:models/shared/exceptions.dart';
+import 'package:models/shared/exceptions/exceptions.dart';
 
 ///
 /// create_organization.dart
@@ -36,17 +36,22 @@ class DefaultCreateOrganizationUseCase implements CreateOrganizationUseCase {
       String? anonymous}) async {
     Account? accessor = await _accountRepository.find(creatorId);
     if (accessor == null) throw AccountNotFoundError();
+
     Organization? organizationFromBeyond =
         await _organizationRepository.findByName(name);
     if (organizationFromBeyond != null) throw OrganizationAlreadyExistsError();
+
     Member creator = Member(
         name: accessor.name, contact: accessor.contact, role: Role.creator());
+
     Member? creatorWithID = await _memberRepository.insert(creator);
+
     if (creatorWithID != null) {
       Organization organization =
           Organization(name: name, creator: creatorWithID);
       Organization? organizationWithID =
           await _organizationRepository.insert(organization);
+
       if (organizationWithID != null) {
         OrganizationMemberRelationship relationship =
             OrganizationMemberRelationship(
@@ -54,14 +59,14 @@ class DefaultCreateOrganizationUseCase implements CreateOrganizationUseCase {
           organizationID: organizationWithID.id,
           memberID: creatorWithID.id,
         );
+
         if (await _organizationRepository.insertRelationship(relationship)) {
           return OrganizationMember(
               organization: organizationWithID, member: creatorWithID);
         } else {
           if (await _removeCreator(creatorWithID.id) &&
               await _removeOrganization(organizationWithID.id)) {
-            throw FailedToSaveError(
-                forEntity: "Organization Member Relationship");
+            throw FailedToSaveError(reason: "Organization Member Relationship");
           } else {
             throw FailedToRemoveError(
                 forEntity: "The Organization and Creator");
@@ -69,13 +74,13 @@ class DefaultCreateOrganizationUseCase implements CreateOrganizationUseCase {
         }
       } else {
         if (await _removeCreator(creatorWithID.id)) {
-          throw FailedToSaveError(forEntity: "The Organization");
+          throw FailedToSaveError(reason: "The Organization");
         } else {
           throw FailedToRemoveError(forEntity: "The Organization Creator");
         }
       }
     } else {
-      throw FailedToSaveError(forEntity: "Creator of Organization");
+      throw FailedToSaveError(reason: "Creator of Organization");
     }
   }
 

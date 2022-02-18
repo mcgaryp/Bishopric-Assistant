@@ -1,5 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:models/models/account.dart';
+import 'package:models/shared/exceptions/exceptions.dart';
+import 'package:models/shared/test.dart';
 
 import '../../mocks/account/mock_account.dart';
 
@@ -11,35 +13,20 @@ import '../../mocks/account/mock_account.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-class AccountTest {
-  static void shouldReturnValidID() {
-    AccountID id = AccountID("Mock Account ID");
-    AccountID result = MockAccount().account.id;
-    expect(result, id);
+class AccountTest implements Test {
+  static void verifyID() {
+    MockAccount(id: MockAccountID().id).account.id;
+    try {
+      MockAccount().account.id;
+      Test.fallthrough(notes: "Does not notify of null id");
+    } catch (error) {
+      expect(error.toString(),
+          IdDoesNotExistError(forObject: "Account").toString());
+    }
   }
 
-  static void shouldReturnValidName() {
-    Name name = Name(first: "Mock", last: "Test");
-    Name result = MockAccount(name: name).account.name;
-    expect(result, name);
-  }
-
-  static void shouldReturnValidContact() {
-    Contact contact = Contact(email: "mock@me.com", phone: "1234567890");
-    Contact result = MockAccount(contact: contact).account.contact;
-    expect(result, contact);
-  }
-
-  static void shouldReturnValidCredentials() {
-    Credentials credentials =
-        Credentials(password: "password", username: "username");
-    Credentials results =
-        MockAccount(credentials: credentials).account.credentials;
-    expect(results, credentials);
-  }
-
-  static void shouldReturnTrueWhenGivenSameEntity() {
-    AccountID id = AccountID("same");
+  static void verifySameIdentityAs() {
+    AccountID id = MockAccountID(id: "same").id;
     Account account = MockAccount(id: id).account;
     bool results = account.sameIdentityAs(account);
     expect(results, true);
@@ -69,23 +56,32 @@ class AccountTest {
     bool results = leftAccount == rightAccount;
     expect(results, false);
   }
+
+  static void verifyMapping() {
+    Account accountWithoutID = MockAccount().account;
+    Map<String, dynamic> mapWithoutID = accountWithoutID.toMap;
+    Account account = Account.fromMap(mapWithoutID);
+    expect(account == accountWithoutID, true);
+
+    Account accountWithID = MockAccount(id: MockAccountID().id).account;
+    Map<String, dynamic> mapWithID = accountWithID.toMap;
+    Account secondAccount = Account.fromMap(mapWithID);
+    expect(accountWithID == secondAccount, true);
+
+    expect(account != secondAccount, true);
+  }
 }
 
 runAccountTests() {
   group("Account", () {
-    test("should return valid ID", AccountTest.shouldReturnValidID);
-    test("should return valid Name", AccountTest.shouldReturnValidName);
-    test("should return valid Contact", AccountTest.shouldReturnValidContact);
-    test("should return valid Credentials",
-        AccountTest.shouldReturnValidCredentials);
-    // test("should return valid role", AccountTest.shouldReturnValidRole);
-    test("should return true with same entity",
-        AccountTest.shouldReturnFalseWhenGivenNotSameEntity);
+    test("should return valid ID", AccountTest.verifyID);
+    test("verify sameIdentityAs", AccountTest.verifySameIdentityAs);
     test("should return false with same entity",
         AccountTest.shouldReturnFalseWhenGivenNotSameEntity);
     test("should return true with equivalence operator",
         AccountTest.shouldReturnTrueWhenGivenSameEntityEquivalence);
     test("should return false with equivalence operator",
         AccountTest.shouldReturnFalseWhenGivenNotSameEntityEquivalence);
+    test("verify Mapping", AccountTest.verifyMapping);
   });
 }

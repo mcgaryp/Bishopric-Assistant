@@ -1,6 +1,6 @@
 import 'package:models/models/assignment.dart';
 import 'package:models/models/organization.dart';
-import 'package:models/shared/exceptions.dart';
+import 'package:models/shared/exceptions/exceptions.dart';
 
 ///
 /// get_assignment_from_archive_use_case.dart

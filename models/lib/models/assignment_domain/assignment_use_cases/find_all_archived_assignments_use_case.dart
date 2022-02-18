@@ -25,7 +25,8 @@ class DefaultFindAllArchivedAssignmentsUseCase
     Stream<List<Stream<Assignment>>> stream =
         _assignmentRepository.findAllStreamedByOrganizationID(id);
 
-    // Filter out of the list the assignments that are unarchived
+    // Filter out of the list the assignments that are not archived
+    //TODO: Check permissions of both assignment and user accessing to make sure user is higher or equal to the assignment
     return stream
         .map<List<Stream<Assignment>>>((List<Stream<Assignment>> list) {
       List<Stream<Assignment>> theList = [];

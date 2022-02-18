@@ -1,3 +1,5 @@
+import 'package:flutter_test/flutter_test.dart';
+
 ///
 /// event_test.dart
 /// bishopric-assistant
@@ -6,9 +8,10 @@
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-class event_test {}
+class EventTests {}
 
-main() {
-  // TODO: Implement
-  throw UnimplementedError();
+runEventTests() {
+  group("Event Tests", () {
+    test("", () => throw UnimplementedError());
+  });
 }

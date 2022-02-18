@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:models/models/account.dart';
-import 'package:models/shared/exceptions.dart';
+import 'package:models/shared/exceptions/exceptions.dart';
 import 'package:models/shared/test.dart';
 
 import '../../mocks/account/mock_credentials.dart';
@@ -34,7 +34,7 @@ class CredentialsTest with Test {
           EmptyStringError(forObject: "Credentials Password").toString());
       return;
     }
-    Test.fallthrough;
+    Test.fallthrough();
   }
 
   static void shouldReturnEmptyStringErrorWhenInvalidUsername() {
@@ -45,7 +45,7 @@ class CredentialsTest with Test {
           EmptyStringError(forObject: "Credentials Username").toString());
       return;
     }
-    Test.fallthrough;
+    Test.fallthrough();
   }
 }
 

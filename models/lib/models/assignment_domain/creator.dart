@@ -1,5 +1,6 @@
 import 'package:models/models/account.dart';
 import 'package:models/models/assignment_domain/person.dart';
+import 'package:models/models/organization_domain/member.dart';
 import 'package:models/models/organization_domain/member_id.dart';
 import 'package:models/models/organization_domain/permissions.dart';
 
@@ -29,6 +30,14 @@ class Creator extends Person {
             name: Name.fromMap(map[nameKey]),
             id: MemberID(map[idKey]),
             permissions: PermissionsExtension.fromString(map[permissionsKey]));
+
+  Creator.fromMember(Member member)
+      : this(
+          contact: member.contact,
+          name: member.name,
+          id: member.id,
+          permissions: member.role.permissions,
+        );
 
   @override
   bool sameValueAs(Person other) {

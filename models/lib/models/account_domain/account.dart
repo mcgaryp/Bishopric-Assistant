@@ -41,7 +41,7 @@ class Account extends Entity<Account> {
 
   Account.fromMap(Map<String, dynamic> map)
       : this(
-            id: AccountID(map[idKey]),
+            id: map[idKey] == null ? null : AccountID(map[idKey]),
             credentials: Credentials.fromMap(map[credentialsKey]),
             contact: Contact.fromMap(map[contactKey]),
             name: Name.fromMap(map[nameKey]));
@@ -53,7 +53,10 @@ class Account extends Entity<Account> {
 
   @override
   bool sameIdentityAs(Account other) {
-    return other.id == this.id;
+    return other._id == this._id &&
+        other.name == this.name &&
+        other.contact == this.contact &&
+        other.credentials == this.credentials;
   }
 
   @override

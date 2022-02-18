@@ -9,5 +9,11 @@ import 'package:flutter_test/flutter_test.dart';
 ///
 
 mixin Test {
-  static void get fallthrough => expect(false, true);
+  static void fallthrough({String? notes}) {
+    String value = "Test entered a failure state";
+    if (notes != null) {
+      value += ": $notes";
+    }
+    expect(false, value);
+  }
 }

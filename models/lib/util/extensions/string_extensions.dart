@@ -1,4 +1,4 @@
-import 'package:models/shared/exceptions.dart';
+import 'package:models/shared/exceptions/exceptions.dart';
 
 ///
 /// string_extensions.dart

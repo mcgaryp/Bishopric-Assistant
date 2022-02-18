@@ -1,5 +1,5 @@
 import 'package:models/models/organization.dart';
-import 'package:models/shared/exceptions.dart';
+import 'package:models/shared/exceptions/exceptions.dart';
 
 ///
 /// change_organization_name.dart
@@ -31,18 +31,25 @@ class DefaultChangeOrganizationNameUseCase
       {required MemberID accessorId, required String name}) async {
     Member? accessor = await _memberRepository.find(accessorId);
     if (accessor == null) throw MemberNotFoundError();
-    if (accessor.role.permissions < Permissions.Creator)
-      throw PermissionDeniedError(
-          reason: "Creator Permissions required to Change Organization Name");
 
     Organization? organization =
         await _memberRepository.findOrganization(accessor.id);
     if (organization == null) throw OrganizationNotFoundError();
+
+    if (!organization.canEdit(
+        permissions: accessor.role.permissions, id: accessorId))
+      throw PermissionDeniedError(
+          reason: "Must be organization Creator to change name "
+              "or have status of creator");
+
     if (organization.name == name)
-      throw Exception(
-          "Failed to Save: New Organization Name cannot be the same as the previous.");
+      throw FailedToSaveError(
+          reason: "New organization name cannot be same as previous");
+
     organization.name = name;
+
     if (await _organizationRepository.update(organization)) return true;
-    throw FailedToSaveError(forEntity: "Organization");
+
+    throw FailedToSaveError(reason: "Organization name failed to update");
   }
 }

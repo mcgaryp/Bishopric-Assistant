@@ -1,6 +1,6 @@
 import 'package:bishop_assistant_web_test_app/database/firestore_helper.dart';
 import 'package:models/models/organization.dart';
-import 'package:models/shared/exceptions.dart';
+import 'package:models/shared/exceptions/exceptions.dart';
 
 ///
 /// firebase_organization_repository.dart
@@ -70,7 +70,7 @@ class FirebaseOrganizationRepository extends FirestoreHelper
         path: FirestoreCollectionPath.organization_members);
     id ??
         (throw FailedToSaveError(
-            forEntity: "Organization Member Relationship"));
+            reason: "Organization Member Relationship"));
     map[OrganizationMemberRelationship.idKey] = id;
     return updateDocument(map, RelationshipID(id),
         path: FirestoreCollectionPath.organization_members);
@@ -102,7 +102,7 @@ class FirebaseOrganizationRepository extends FirestoreHelper
     Map<String, dynamic> map = request.toMap;
     String? id = await addDocument(map,
         path: FirestoreCollectionPath.organization_requests);
-    if (id == null) throw FailedToSaveError(forEntity: "Join Request");
+    if (id == null) throw FailedToSaveError(reason: "Join Request");
     map[JoinRequest.idKey] = id;
     JoinRequest newRequest = JoinRequest.fromMap(map);
     return updateDocument(newRequest.toMap, newRequest.id!,

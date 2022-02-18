@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:models/models/organization.dart';
+import 'package:models/shared/test.dart';
 
 ///
 /// permissions_extension_test.dart
@@ -9,7 +10,7 @@ import 'package:models/models/organization.dart';
 /// Copyright 2021 Po. All rights reserved.
 ///
 
-class PermissionsExtensionTest {
+class PermissionsExtensionTest implements Test {
   static void shouldReturnTrueWhenPermissionIsLessThanAnother() {
     bool result = Permissions.Maintainer < Permissions.Creator;
     expect(result, true);

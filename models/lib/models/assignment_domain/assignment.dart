@@ -1,17 +1,28 @@
 import 'package:models/models/assignment.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/shared/domain_driven_design/entity.dart';
-import 'package:models/shared/exceptions.dart';
+import 'package:models/shared/exceptions/exceptions.dart';
 
 ///
 /// assignment.dart
 /// bishopric-assistant
 ///
-/// Created by Joshua Bee on 9/22/21
+/// Created by Joshua Bee on 1/18/22
 /// Copyright 2021 Joshua Bee. All rights reserved.
 ///
 
 class Assignment extends Entity<Assignment> {
+  static final String titleKey = "Assignment title";
+  static final String isArchivedKey = "Assignment isArchived";
+  static final String dueDateKey = "Assignment dueDate";
+  static final String assigneeKey = "Assignment Assignee";
+  static final String visiblePermissionsKey = "Assignment Visible";
+  static final String creatorKey = "Assignment Creator";
+  static final String noteKey = "Assignment Note";
+  static final String isCompletedKey = "Assignment isCompleted";
+  static final String idKey = "Assignment ID";
+  static final String orgIDKey = "Assignment Organization Key";
+
   Assignee assignee;
   bool _isArchived;
   bool _isCompleted;
@@ -23,17 +34,6 @@ class Assignment extends Entity<Assignment> {
   final Note note;
   final AssignmentID? _id;
   final OrganizationID orgID;
-
-  static final String titleKey = "Assignment title";
-  static final String isArchivedKey = "Assignment isArchived";
-  static final String dueDateKey = "Assignment dueDate";
-  static final String assigneeKey = "Assignment Assignee";
-  static final String visiblePermissionsKey = "Assignment Visible";
-  static final String creatorKey = "Assignment Creator";
-  static final String noteKey = "Assignment Note";
-  static final String isCompletedKey = "Assignment isCompleted";
-  static final String idKey = "Assignment ID";
-  static final String orgIDKey = "Assignment Organization Key";
 
   Assignment({
     AssignmentID? id,
@@ -90,7 +90,6 @@ class Assignment extends Entity<Assignment> {
   /// - Creators of the Assignment
   /// - Assignees assigned to the Assignment
   /// - Permission level of or equal to the Assignment
-  // TODO: Unit Test
   bool canView({MemberID? memberID, Permissions? permissions}) {
     if (memberID == creator.id || memberID == assignee.id) return true;
     if (permissions != null && permissions >= visiblePermissions) return true;
@@ -102,7 +101,6 @@ class Assignment extends Entity<Assignment> {
   /// - Creators of the assignment
   /// - Assignees assigned to the Assignment
   /// - Permission level of or equal to the Assignment
-  // TODO: Unit Test
   bool canArchive({MemberID? memberID, Permissions? permissions}) =>
       canView(memberID: memberID, permissions: permissions);
 
@@ -112,7 +110,6 @@ class Assignment extends Entity<Assignment> {
   /// - Maintainers of organization
   /// - Assignee of Assignment
   /// - Creator of Assignment
-  // TODO: Unit Test
   bool canComplete({MemberID? memberID, Permissions? permissions}) {
     if (memberID == creator.id || memberID == assignee.id) return true;
     if (permissions != null && permissions >= Permissions.Maintainer)
@@ -125,7 +122,6 @@ class Assignment extends Entity<Assignment> {
   /// - Creator of Assignment
   /// - Assignee of Assignment
   /// - Maintainers or higher Permissions
-  // TODO: Unit Test
   bool canEdit({MemberID? memberID, Permissions? permissions}) =>
       canComplete(memberID: memberID, permissions: permissions);
 
@@ -165,23 +161,23 @@ class Assignment extends Entity<Assignment> {
 
   DateTime get dueDate => _dueDate;
 
-  // TODO: Unit test
   bool get isNotArchived => _isArchived == false;
 
-  // TODO: Unit test
   bool get isArchived => _isArchived == true;
 
-  // TODO: Unit test
   bool get isNotCompleted => _isCompleted == false;
 
-  // TODO: Unit test
   bool get isCompleted => _isCompleted == true;
 
-  // TODO: Unit test
   bool get isOverDue => _isOverDue;
 
   AssignmentID get id {
     if (_id == null) throw IdDoesNotExistError(forObject: "Assignment");
     return _id!;
+  }
+
+  @override
+  String toString() {
+    return toMap.toString();
   }
 }

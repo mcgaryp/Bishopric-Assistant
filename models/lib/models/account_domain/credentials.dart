@@ -32,7 +32,7 @@ class Credentials extends ValueObject<Credentials> {
 
   /// [__password] private setter to ensure the [_password] is hashed and not
   ///   empty
-  /// TODO: Ensure password is hashed
+  // TODO: Ensure password is hashed
   set __password(String password) {
     if (password.isEmpty)
       throw EmptyStringError(forObject: "Credentials Password");

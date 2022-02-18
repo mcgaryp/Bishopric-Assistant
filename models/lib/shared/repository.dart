@@ -12,9 +12,13 @@ export 'package:async/src/result/result.dart';
 ///
 
 /// [Repository] is a class that interfaces with a database of some kind
+///
 /// Type [Entity] must be some form of Entity
 /// Type [UUID] must be some form of UUID
 /// Type [AlternativeUUID] must be some form of UUID that is not equivalent to [UUID]
+@Deprecated("Repositories should not extend this class. Repositories should "
+    "use what ever is needed and required and should not be subjected to a "
+    "parent class")
 abstract class Repository<Entity, UUID, AlternativeUUID> {
   /// [find] an [Entity] in the database
   ///

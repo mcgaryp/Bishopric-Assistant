@@ -14,7 +14,7 @@ class Organization extends Entity<Organization> {
   /// Variables
   ///
   /// [id] of the organization
-  late final OrganizationID? _id;
+  final OrganizationID? _id;
 
   /// [_creator] the initial member and user of the organization
   final Member creator;
@@ -40,7 +40,7 @@ class Organization extends Entity<Organization> {
 
   Organization.fromMap(Map<String, dynamic> map)
       : this(
-            id: OrganizationID(map[idKey]),
+            id: map[idKey] == null ? null : OrganizationID(map[idKey]),
             name: map[nameKey],
             creator: Member.fromMap(map[creatorKey]));
 
@@ -61,9 +61,30 @@ class Organization extends Entity<Organization> {
   /// Getters
   String get name => _name;
 
+  // Who can add and remove members from the organization?
+  // - Creators and Maintainer and Owners
+  bool canAddRemove({Permissions? permissions, MemberID? id}) {
+    if (id != null && id == creator.id) return true;
+    if (permissions != null && permissions >= Permissions.Maintainer)
+      return true;
+    return false;
+  }
+
+  // Who can edit member roles in the organization?
+  bool canEditRoles({Permissions? permissions, MemberID? id}) {
+    return canAddRemove(permissions: permissions, id: id);
+  }
+
+  // Who can edit the organizations name and general specifics
+  bool canEdit({Permissions? permissions, MemberID? id}) {
+    return (creator.id == id || permissions == Permissions.Creator);
+  }
+
   @override
   bool sameIdentityAs(Organization other) {
-    return this.id == other.id;
+    return this._id == other._id &&
+        this.name == other.name &&
+        this.creator == other.creator;
   }
 
   @override
@@ -74,6 +95,6 @@ class Organization extends Entity<Organization> {
 
   @override
   String toString() {
-    return "Name: $name\nCreator: $creator\nID: $id";
+    return "Name: $name\nCreator: $creator\nID: ${_id?.id}";
   }
 }

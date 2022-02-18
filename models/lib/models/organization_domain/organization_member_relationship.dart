@@ -2,7 +2,7 @@ import 'package:models/models/account.dart';
 import 'package:models/models/assignment.dart';
 import 'package:models/models/organization_domain/member_id.dart';
 import 'package:models/models/organization_domain/organization_id.dart';
-import 'package:models/shared/exceptions.dart';
+import 'package:models/shared/exceptions/exceptions.dart';
 import 'package:models/shared/uuid.dart';
 
 ///

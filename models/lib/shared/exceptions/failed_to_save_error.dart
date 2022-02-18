@@ -8,15 +8,13 @@
 
 class FailedToSaveError implements Exception {
   final String msg = "Failed to save";
-  late final String? _forEntity;
+  final String? _reason;
 
-  FailedToSaveError({String? forEntity}) {
-    _forEntity = forEntity;
-  }
+  FailedToSaveError({String? reason}) : _reason = reason;
 
   @override
   String toString() {
-    if (_forEntity != null) return "$msg the entity $_forEntity";
+    if (_reason != null) return "$msg: $_reason";
     return msg;
   }
 }

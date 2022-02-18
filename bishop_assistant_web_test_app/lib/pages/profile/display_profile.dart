@@ -49,9 +49,10 @@ class DisplayProfile extends StatelessWidget {
   void _deactivate(context) async {
     try {
       Account account = StateContainer.of(context).account;
-      DefaultDeleteAccountUseCase useCase =
-          DefaultDeleteAccountUseCase(FirebaseAccountRepository());
-      if (await useCase.execute(account.id, account.id)) {
+      DefaultDeactivateAccountUseCase useCase =
+          DefaultDeactivateAccountUseCase(FirebaseAccountRepository());
+      if (await useCase.execute(
+          accessorID: account.id, accountID: account.id)) {
         MyToast.toastSuccess("Deactivated Your Account");
         Navigator.pushReplacementNamed(context, rLogin);
       }

@@ -36,10 +36,13 @@ class DefaultChangeContactUseCase implements ChangeContactUseCase {
 
     if (account == null) throw AccountNotFoundError();
 
+    if (account.contact == contact)
+      throw PermissionDeniedError(reason: "No contact information was changed");
+
     account.contact = contact;
 
     if (await _accountRepository.update(account)) return true;
 
-    throw FailedToSaveError(forEntity: _entity);
+    throw FailedToSaveError(reason: _entity);
   }
 }

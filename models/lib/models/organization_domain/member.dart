@@ -1,7 +1,7 @@
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/shared/domain_driven_design/entity.dart';
-import 'package:models/shared/exceptions.dart';
+import 'package:models/shared/exceptions/exceptions.dart';
 
 ///
 /// member.dart
@@ -36,7 +36,7 @@ class Member extends Entity<Member> {
           name: Name.fromMap(map[nameKey]),
           contact: Contact.fromMap(map[contactKey]),
           role: Role.fromMap(map[roleKey]),
-          id: MemberID(map[idKey]),
+          id: map[idKey] == null ? null : MemberID(map[idKey]),
         );
 
   Map<String, dynamic> get toMap => {
@@ -55,7 +55,10 @@ class Member extends Entity<Member> {
 
   @override
   bool sameIdentityAs(Member other) {
-    return this.id == other.id;
+    return this._id == other._id &&
+        this.name == other.name &&
+        this.contact == other.contact &&
+        this.role == other.role;
   }
 
   @override

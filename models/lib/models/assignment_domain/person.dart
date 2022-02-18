@@ -1,7 +1,6 @@
 import 'package:models/models/account_domain/contact.dart';
 import 'package:models/models/account_domain/name.dart';
 import 'package:models/models/organization.dart';
-import 'package:models/shared/domain_driven_design/entity.dart';
 import 'package:models/shared/domain_driven_design/value_object.dart';
 
 ///
@@ -15,7 +14,7 @@ import 'package:models/shared/domain_driven_design/value_object.dart';
 abstract class Person implements ValueObject<Person> {
   final Name name;
   final Contact contact;
-  final UUID id;
+  final MemberID id;
   final Permissions permissions;
 
   Person(

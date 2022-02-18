@@ -43,6 +43,6 @@ class DefaultCreateAccountUseCase implements CreateAccountUseCase {
     Account? insertedAccount = await _accountRepository.insert(account);
     if (insertedAccount != null) return insertedAccount;
 
-    throw FailedToSaveError(forEntity: _entity);
+    throw FailedToSaveError(reason: _entity);
   }
 }

@@ -1,5 +1,7 @@
 import 'package:models/models/organization.dart';
 
+import 'mock_permissions.dart';
+
 ///
 /// mock_role.dart
 /// bishopric-assistant
@@ -10,12 +12,11 @@ import 'package:models/models/organization.dart';
 
 class MockRole {
   static final String mockAnonymous = "Mock Role";
-  static final Permissions mockPermissions = Permissions.Creator;
 
   late final Role role;
 
   MockRole({Permissions? permissions, String? anonymous}) {
-    role = Role(permissions ?? mockPermissions,
+    role = Role(permissions ?? MockPermissions().permissions,
         anonymous: anonymous ?? mockAnonymous);
   }
 }

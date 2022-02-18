@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:models/models/account.dart';
-import 'package:models/shared/exceptions.dart';
+import 'package:models/shared/exceptions/exceptions.dart';
 import 'package:models/shared/test.dart';
 
 import '../../mocks/account/mock_name.dart';
@@ -60,26 +60,22 @@ class NameTest with Test {
     try {
       MockName(first: "");
     } catch (result) {
-      expect(
-          result.toString(),
-          EmptyStringError(forObject: "String Attempt to capitalize")
-              .toString());
+      expect(result.toString(),
+          EmptyStringError(forObject: "First Name").toString());
       return;
     }
-    Test.fallthrough;
+    Test.fallthrough();
   }
 
   static void shouldReturnEmptyStringErrorWhenEmptyLastName() {
     try {
       MockName(last: "");
     } catch (result) {
-      expect(
-          result.toString(),
-          EmptyStringError(forObject: "String Attempt to capitalize")
-              .toString());
+      expect(result.toString(),
+          EmptyStringError(forObject: "Last Name").toString());
       return;
     }
-    Test.fallthrough;
+    Test.fallthrough();
   }
 }
 

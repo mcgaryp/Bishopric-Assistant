@@ -1,6 +1,6 @@
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
-import 'package:models/shared/exceptions.dart';
+import 'package:models/shared/exceptions/exceptions.dart';
 
 ///
 /// add_member_to_organization.dart
@@ -41,7 +41,13 @@ class DefaultAddMemberToOrganizationUseCase
   }) async {
     Member? accessor = await _memberRepository.find(accessorId);
     if (accessor == null) throw MemberNotFoundError();
-    if (accessor.role.permissions < Permissions.Maintainer)
+
+    Organization? organization =
+        await _organizationRepository.find(request.organizationID);
+    organization ?? (throw OrganizationNotFoundError());
+
+    if (!organization.canAddRemove(
+        permissions: accessor.role.permissions, id: accessorId))
       throw PermissionDeniedError(
           reason:
               "Maintainer permissions required to Add Members to Organization");
@@ -54,6 +60,7 @@ class DefaultAddMemberToOrganizationUseCase
 
     Member? memberWithID = await _memberRepository.insert(member);
     if (memberWithID != null) {
+      // TODO: When reworking strip
       OrganizationMemberRelationship relationship =
           OrganizationMemberRelationship(
               organizationID: request.organizationID,
@@ -66,9 +73,10 @@ class DefaultAddMemberToOrganizationUseCase
         } else
           throw FailedToRemoveError(forEntity: "Join Request");
       } else
+        // TODO: When reworking strip
         throw FailedToSaveError(
-            forEntity: "Member Account Organization Relationship");
+            reason: "Member Account Organization Relationship");
     }
-    throw FailedToSaveError(forEntity: "Member to Organization");
+    throw FailedToSaveError(reason: "Member to Organization");
   }
 }

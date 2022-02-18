@@ -1,5 +1,9 @@
 import 'package:models/models/account.dart';
 
+import 'mock_contact.dart';
+import 'mock_credentials.dart';
+import 'mock_name.dart';
+
 ///
 /// mock_account.dart
 /// bishopric-assistant
@@ -9,18 +13,6 @@ import 'package:models/models/account.dart';
 ///
 
 class MockAccount {
-  static String mockFirst = "Mock";
-  static String mockLast = "Test";
-  static String mockEmail = "member@mock.com";
-  static String mockPhone = "1234567890";
-  static String mockPassword = "mockPassw0rd!";
-  static String mockUsername = "member@mock.com";
-  static AccountID mockId = AccountID("Mock Account ID");
-  static Name mockName = Name(first: mockFirst, last: mockLast);
-  static Contact mockContact = Contact(email: mockEmail, phone: mockPhone);
-  static Credentials mockCredentials =
-      Credentials(password: mockPassword, username: mockUsername);
-
   late Account account;
 
   MockAccount({
@@ -30,10 +22,19 @@ class MockAccount {
     Credentials? credentials,
   }) {
     account = Account(
-      id: id ?? mockId,
-      name: name ?? mockName,
-      contact: contact ?? mockContact,
-      credentials: credentials ?? mockCredentials,
+      id: id,
+      name: name ?? MockName().name,
+      contact: contact ?? MockContact().contact,
+      credentials: credentials ?? MockCredentials().credentials,
     );
+  }
+}
+
+class MockAccountID {
+  static String mockID = "Mock account ID";
+  late AccountID id;
+
+  MockAccountID({String? id}) {
+    this.id = AccountID(id ?? mockID);
   }
 }

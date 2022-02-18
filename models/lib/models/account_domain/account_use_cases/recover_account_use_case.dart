@@ -14,8 +14,9 @@ import 'package:models/shared/foundation.dart';
 mixin RecoverAccountUseCase {
   /// [execute] recovers an account given [usernameOrPhone] and
   ///   [secondaryAuthentication] is successful
+  ///   [recoveryStr] can be a username, phone, or email
   @required
-  Future<Contact> execute(String string);
+  Future<Contact> execute(String recoveryStr);
 }
 
 /// [DefaultRecoverAccountUseCase] to recover an account
@@ -26,10 +27,12 @@ class DefaultRecoverAccountUseCase implements RecoverAccountUseCase {
   DefaultRecoverAccountUseCase(this._accountRepository);
 
   @override
-  Future<Contact> execute(String string) async {
-    Account? account = await _accountRepository.findByUsername(string);
-    if (account == null) account = await _accountRepository.findByPhone(string);
-    if (account == null) account = await _accountRepository.findByEmail(string);
+  Future<Contact> execute(String recoveryStr) async {
+    Account? account = await _accountRepository.findByUsername(recoveryStr);
+    if (account == null)
+      account = await _accountRepository.findByPhone(recoveryStr);
+    if (account == null)
+      account = await _accountRepository.findByEmail(recoveryStr);
 
     if (account == null) throw AccountNotFoundError();
 

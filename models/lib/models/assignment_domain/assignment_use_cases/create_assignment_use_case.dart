@@ -1,6 +1,6 @@
 import 'package:models/models/assignment.dart';
 import 'package:models/models/organization.dart';
-import 'package:models/shared/exceptions.dart';
+import 'package:models/shared/exceptions/exceptions.dart';
 
 ///
 /// create_assignment_use_case.dart
@@ -80,7 +80,7 @@ class DefaultCreateAssignmentUseCase implements CreateAssignmentUseCase {
       bool hasDuplicates = assignments.every((Assignment a) => assignment == a);
       if (hasDuplicates) {
         throw FailedToSaveError(
-            forEntity:
+            reason:
                 "Cannot create assignment because assignment already exists");
       }
     }
@@ -89,8 +89,7 @@ class DefaultCreateAssignmentUseCase implements CreateAssignmentUseCase {
         await _assignmentRepository.insert(assignment);
 
     assignmentWithID ??
-        (throw FailedToSaveError(
-            forEntity: "create_assignment_use_case Insert"));
+        (throw FailedToSaveError(reason: "create_assignment_use_case Insert"));
 
     return assignmentWithID;
   }

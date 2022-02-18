@@ -30,10 +30,16 @@ class Name extends ValueObject<Name> {
       : this(first: map[firstKey], last: map[lastKey]);
 
   /// [__last] private setter to ensure that [_last] is not empty and capitalized
-  set __last(String name) => _last = name.capitalize;
+  set __last(String name) {
+    if (name.isEmpty) throw EmptyStringError(forObject: "Last Name");
+    _last = name.capitalize;
+  }
 
   /// [__first] private setter to ensure that [_first] is not empty and capitalized
-  set __first(String name) => _first = name.capitalize;
+  set __first(String name) {
+    if (name.isEmpty) throw EmptyStringError(forObject: "First Name");
+    _first = name.capitalize;
+  }
 
   /// [fullName] public getter that combines [first] and [last]
   String get fullName => "$first $last";

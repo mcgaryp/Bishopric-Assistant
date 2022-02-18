@@ -2,7 +2,7 @@ import 'package:bishop_assistant_web_test_app/database/firestore_helper.dart';
 import 'package:bishop_assistant_web_test_app/state/firebase_authentication.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:models/models/account.dart';
-import 'package:models/shared/exceptions.dart';
+import 'package:models/shared/exceptions/exceptions.dart';
 
 ///
 /// firebase_account_repository.dart
@@ -75,7 +75,7 @@ class FirebaseAccountRepository extends FirestoreHelper
         email: account.contact.email,
         password: account.credentials.password);
     if (user == null)
-      throw FailedToSaveError(forEntity: "Account in Firebase Auth");
+      throw FailedToSaveError(reason: "Account in Firebase Auth");
     // TODO: Create ActionCodeSetting that is sent with emailVerification
     // https://firebase.flutter.dev/docs/auth/usage/#open-link-in-app
     user.sendEmailVerification();

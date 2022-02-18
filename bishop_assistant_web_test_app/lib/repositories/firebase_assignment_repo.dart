@@ -1,7 +1,7 @@
 import 'package:bishop_assistant_web_test_app/database/firestore_helper.dart';
 import 'package:models/models/assignment.dart';
 import 'package:models/models/organization_domain/organization_id.dart';
-import 'package:models/shared/exceptions.dart';
+import 'package:models/shared/exceptions/exceptions.dart';
 
 ///
 /// firebase_assignment_repo.dart
@@ -51,14 +51,14 @@ class FirebaseAssignmentRepo extends FirestoreHelper
   Future<Assignment?> insert(Assignment assignment) async {
     Map<String, dynamic> map = assignment.toMap;
     String? id = await addDocument(map);
-    if (id == null) throw FailedToSaveError(forEntity: "Assignment");
+    if (id == null) throw FailedToSaveError(reason: "Assignment");
     map[Assignment.idKey] = id;
     Assignment newAssignment = Assignment.fromMap(map);
     if (await update(newAssignment))
       return newAssignment;
     else
       remove(AssignmentID(id));
-    throw FailedToSaveError(forEntity: "Assignment");
+    throw FailedToSaveError(reason: "Assignment");
   }
 
   @override

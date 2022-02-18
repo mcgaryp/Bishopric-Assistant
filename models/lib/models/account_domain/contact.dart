@@ -62,7 +62,7 @@ class Contact extends ValueObject<Contact> {
 
   @override
   String toString() {
-    return "$email $phone";
+    return "Email: $email Phone: $phone";
   }
 
   @override

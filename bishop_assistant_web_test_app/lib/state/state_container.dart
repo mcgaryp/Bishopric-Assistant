@@ -4,7 +4,7 @@ import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
-import 'package:models/shared/exceptions.dart';
+import 'package:models/shared/exceptions/exceptions.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 ///

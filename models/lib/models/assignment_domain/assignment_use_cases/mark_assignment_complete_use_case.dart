@@ -1,6 +1,6 @@
 import 'package:models/models/assignment.dart';
 import 'package:models/models/organization.dart';
-import 'package:models/shared/exceptions.dart';
+import 'package:models/shared/exceptions/exceptions.dart';
 
 ///
 /// mark_assignment_complete_use_case.dart
@@ -40,7 +40,7 @@ class DefaultMarkAssignmentCompleteUseCase
     if (assignment.canComplete(
         permissions: accessor.role.permissions, memberID: accessor.id)) {
       assignment.markComplete();
-      return true;
+      return _assignmentRepository.update(assignment);
     }
 
     throw PermissionDeniedError(

@@ -1,5 +1,5 @@
 import 'package:models/models/organization.dart';
-import 'package:models/shared/exceptions.dart';
+import 'package:models/shared/exceptions/exceptions.dart';
 
 ///
 /// change_member_role_in_organization.dart
@@ -36,17 +36,31 @@ class DefaultChangeMemberRoleInOrganizationUseCase
     required MemberID memberID,
     required Role role,
   }) async {
+    Organization? accessorOrganization =
+        await _memberRepository.findOrganization(accessorID);
+    accessorOrganization ?? (throw OrganizationNotFoundError());
+
+    Organization? memberOrganization =
+        await _memberRepository.findOrganization(memberID);
+    memberOrganization ?? (throw OrganizationNotFoundError());
+
+    if (memberOrganization != accessorOrganization)
+      throw PermissionDeniedError(
+          reason: "Accessor is not in the same organization as the member");
+
     Member? accessor = await _memberRepository.find(accessorID);
     if (accessor == null) throw MemberNotFoundError();
-    if (accessor.role.permissions < Permissions.Maintainer)
-      return throw PermissionDeniedError(
-          reason:
-              "Maintainer permissions required to change a Role of Organization Member");
+
+    if (!memberOrganization.canEditRoles(
+        permissions: accessor.role.permissions, id: accessor.id))
+      throw PermissionDeniedError(
+          reason: "Insufficient permission to change member role");
 
     Member? member = await _memberRepository.find(memberID);
     if (member == null) throw MemberNotFoundError();
+
     member.role = role;
     if (await _memberRepository.update(member)) return true;
-    throw FailedToSaveError(forEntity: "Organization");
+    throw FailedToSaveError(reason: "Organization");
   }
 }

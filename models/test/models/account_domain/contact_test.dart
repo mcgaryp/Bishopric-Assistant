@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:models/models/account.dart';
-import 'package:models/shared/exceptions.dart';
+import 'package:models/shared/exceptions/exceptions.dart';
 import 'package:models/shared/test.dart';
 
 import '../../mocks/account/mock_contact.dart';
@@ -28,7 +28,7 @@ class ContactTest with Test {
           EmptyStringError(forObject: "Contact Email").toString());
       return;
     }
-    Test.fallthrough;
+    Test.fallthrough();
   }
 
   static void shouldReturnPhoneWithValidPhone() {
@@ -45,7 +45,7 @@ class ContactTest with Test {
           EmptyStringError(forObject: "Contact Phone").toString());
       return;
     }
-    Test.fallthrough;
+    Test.fallthrough();
   }
 }
 

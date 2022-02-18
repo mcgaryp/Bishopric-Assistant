@@ -1,8 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:models/models/organization.dart';
-import 'package:models/shared/exceptions.dart';
+import 'package:models/shared/exceptions/exceptions.dart';
 import 'package:models/shared/test.dart';
 
+import '../../mocks/organization/mock_permissions.dart';
 import '../../mocks/organization/mock_role.dart';
 
 ///
@@ -17,7 +18,7 @@ class RoleTest with Test {
   static void shouldReturnPermissionWhenValid() {
     Role role = MockRole().role;
     Permissions result = role.permissions;
-    expect(result, MockRole.mockPermissions);
+    expect(result, MockPermissions().permissions);
   }
 
   static void shouldReturnAnonymousWhenValid() {
@@ -34,7 +35,7 @@ class RoleTest with Test {
           EmptyStringError(forObject: "Role Anonymous").toString());
       return;
     }
-    Test.fallthrough;
+    Test.fallthrough();
   }
 }
 

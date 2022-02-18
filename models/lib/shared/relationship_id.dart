@@ -8,6 +8,7 @@ import 'package:models/shared/uuid.dart';
 /// Copyright 2022 Porter McGary. All rights reserved.
 ///
 
+@Deprecated("Relationships are no more")
 class RelationshipID extends UUID {
   RelationshipID(String id) : super(id);
 }

@@ -24,9 +24,6 @@ class DefaultChangePasswordUseCase implements ChangePasswordUseCase {
   /// [_accountRepository] private variable with access to repository
   AccountRepository _accountRepository;
 
-  /// [_entity] of attempting to change
-  final String _entity = "Account";
-
   DefaultChangePasswordUseCase(this._accountRepository);
 
   @override
@@ -48,6 +45,6 @@ class DefaultChangePasswordUseCase implements ChangePasswordUseCase {
 
     if (await _accountRepository.update(account)) return true;
 
-    throw FailedToSaveError(forEntity: _entity);
+    throw FailedToSaveError(reason: "Account Password");
   }
 }

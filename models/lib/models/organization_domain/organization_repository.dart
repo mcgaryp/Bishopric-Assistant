@@ -15,11 +15,14 @@ export 'package:models/models/account_domain/account_id.dart';
 /// organization Repository
 mixin OrganizationRepository
     implements Repository<Organization, OrganizationID, void> {
+  @Deprecated("No more Relationships")
   Future<bool> insertRelationship(OrganizationMemberRelationship relationship);
 
+  @Deprecated("No more Relationships")
   Future<List<OrganizationMemberRelationship>> findAllRelationships(
       OrganizationID organizationID);
 
+  @Deprecated("No more Relationships")
   Future<bool> removeRelationship(OrganizationMemberRelationship relationship);
 
   Stream<List<JoinRequest>> findAllRequestsStreamed(

@@ -1,6 +1,4 @@
 import 'models/models_test.dart';
-import 'shared/shared_test.dart';
-import 'use_cases/use_case_test.dart';
 import 'util/util_test.dart';
 
 ///
@@ -13,7 +11,5 @@ import 'util/util_test.dart';
 
 main() {
   runModelsTests();
-  runSharedTests();
-  runUseCaseTests();
   runUtilTests();
 }
