@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:crypt/crypt.dart';
 import 'package:models/models/account.dart';
@@ -100,7 +100,8 @@ class _SignupPageState extends State<SignupPage> {
         child: MyButton(
             label: sLogin,
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pushNamedAndRemoveUntil(
+                  context, rLogin, ModalRoute.withName('/'));
             }),
       ),
     ]);

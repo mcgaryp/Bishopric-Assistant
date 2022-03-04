@@ -1,3 +1,4 @@
+import 'package:bishop_assistant_web_test_app/firebase/firebase_instances.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:models/models/account.dart';
 
@@ -12,11 +13,11 @@ import 'package:models/models/account.dart';
 // TODO: Update the email or password safely... with FirebaseAuth errors are the following
 // The user's credential is no longer valid. The user must sign in again.
 class FirebaseAuthentication {
-  static FirebaseAuth auth = FirebaseAuth.instance;
+  static final FirebaseAuth auth = FirebaseInstances.auth;
 
   static User get user {
     if (auth.currentUser != null) return auth.currentUser!;
-    throw ErrorDescription("User is empty!");
+    throw Exception("User is empty!");
   }
 
   static Future<User?> registerUsingEmailPassword({
@@ -31,17 +32,27 @@ class FirebaseAuthentication {
       );
       await user.updateDisplayName(name);
       await user.reload();
+      return user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         if (kDebugMode) print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
+      }
+
+      if (e.code == 'email-already-in-use') {
         if (kDebugMode) print('The account already exists for that email.');
       }
+
+      if (e.code == 'internal-error') {
+        if (kDebugMode) print(e.message);
+        throw Exception(e.message);
+      }
+
+      if (kDebugMode) print(e);
+      throw e.code;
     } catch (e) {
       if (kDebugMode) print(e);
       throw e;
     }
-    return user;
   }
 
   static Future<User?> signInUsingEmailPassword({

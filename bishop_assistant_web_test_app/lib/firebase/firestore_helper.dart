@@ -1,3 +1,4 @@
+import 'package:bishop_assistant_web_test_app/firebase/firebase_instances.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:models/shared/uuid.dart';
 
@@ -13,12 +14,13 @@ import 'package:models/shared/uuid.dart';
 /// https://pub.dev/documentation/cloud_firestore/latest/cloud_firestore/cloud_firestore-library.html)
 
 /// [FirestoreHelper] Is intended to abstract the Firestore from any other
-///   pieces in the software. This class retrieves from the database basic
+///   pieces in the software. This class retrieves from the firebase basic
 ///   information that is returned in a generic form of Document or Mapping.
 ///
 /// URL to help with FireFlutter https://firebase.flutter.dev/docs/firestore/usage
 abstract class FirestoreHelper {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  static final FirebaseFirestore _firestore = FirebaseInstances.firestore;
+
   final FirestoreCollectionPath mPath;
   static const String documentID = "Document ID";
 
@@ -26,7 +28,7 @@ abstract class FirestoreHelper {
 
   /// Once time accessors: [getSingleDocument], [getCollectionOfDocuments]
   ///
-  /// These accessors will pull once and only once form the database
+  /// These accessors will pull once and only once form the firebase
   /// [getSingleDocument] retrieves a single row from a specific table
   Future<Map<String, dynamic>?> getSingleDocument(UUID uuid,
       {FirestoreCollectionPath? path}) async {
@@ -113,7 +115,7 @@ abstract class FirestoreHelper {
     });
   }
 
-  /// [addDocument] to the database
+  /// [addDocument] to the firebase
   Future<String?> addDocument(Map<String, Object?> map,
       {UUID? id, FirestoreCollectionPath? path}) async {
     String? result;
@@ -157,7 +159,7 @@ abstract class FirestoreHelper {
   }
 }
 
-/// [FirestoreCollectionPath] paths to specific tables in the database
+/// [FirestoreCollectionPath] paths to specific tables in the firebase
 /// Keep these in alphabetical order
 enum FirestoreCollectionPath {
   accounts,
@@ -179,8 +181,8 @@ extension FirestoreCollectionPathExtension on FirestoreCollectionPath {
   String get string => this.toString().split('.').last;
 }
 
-/// [Util] is a helper class to access the one table in the database that holds
-/// the id and other utilities in the database
+/// [Util] is a helper class to access the one table in the firebase that holds
+/// the id and other utilities in the firebase
 class Util {
   static final _UtilID email = _UtilID("email");
 }

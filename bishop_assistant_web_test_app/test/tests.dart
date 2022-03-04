@@ -17,7 +17,7 @@ import 'sign_up_tests/sign_up_page_test.dart';
 
 void exampleTest() {
   testWidgets('Example Tests', (WidgetTester tester) async {
-    expect(true,true);
+    expect(true, true);
     // Build our app and trigger a frame.
     // await tester.pumpWidget(App());
     //

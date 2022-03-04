@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:crypt/crypt.dart';
 import 'package:models/models/account.dart';
@@ -136,7 +136,7 @@ class _EditProfileState extends State<EditProfile> {
   Future<void> _changePassword() async {
     String hashPassword =
         Crypt.sha256(passwordControl.text, salt: "bishopric").toString();
-    // Get encrypted Password from database
+    // Get encrypted Password from firebase
     FirebaseAccountRepository _accountRepository = FirebaseAccountRepository();
     DefaultChangePasswordUseCase newPassword =
         DefaultChangePasswordUseCase(_accountRepository);

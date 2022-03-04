@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>186294908532-cj0jga445oeh3tkth3goe8fr5rnmc61p.apps.googleusercontent.com</string>
+	<string>186294908532-e49plrjje32rae36tfen2o73ed44nmj1.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.186294908532-cj0jga445oeh3tkth3goe8fr5rnmc61p</string>
+	<string>com.googleusercontent.apps.186294908532-e49plrjje32rae36tfen2o73ed44nmj1</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCd46DY2Q6_6LLCGxHcbEOwPRlr1-_xets</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.bishopAssistantWebTestApp</string>
+	<string>com.mjolnir.assistant</string>
 	<key>PROJECT_ID</key>
 	<string>bishopric-assistant-dev</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:186294908532:ios:3c7570aebf729e9f7a4321</string>
+	<string>1:186294908532:ios:f4ff61950f27561e7a4321</string>
 </dict>
 </plist>

@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "348825822593",
+    "project_id": "bishopric-assistant-prod",
+    "storage_bucket": "bishopric-assistant-prod.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:348825822593:android:f7f5dc142e913a28b8f480",
+        "android_client_info": {
+          "package_name": "com.mjolnir.assistant.prod"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "348825822593-pjspt3cgc6hgcds1lpi7tlc9tgub45sm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOA41oROJMZk6C3ByoBllz4esXRX29fj0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "348825822593-pjspt3cgc6hgcds1lpi7tlc9tgub45sm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "348825822593-44a991fihmda65s9tf0ot4tdv47psu1d.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.assistant.prod"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

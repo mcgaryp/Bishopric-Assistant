@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/database/firestore_helper.dart';
+import 'package:bishop_assistant_web_test_app/firebase/firestore_helper.dart';
 import 'package:models/models/assignment.dart';
 import 'package:models/models/organization_domain/organization_id.dart';
 import 'package:models/shared/exceptions/exceptions.dart';

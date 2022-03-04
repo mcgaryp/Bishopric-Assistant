@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/main.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
@@ -14,6 +15,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 /// Created by Porter McGary on 12/1/21
 /// Copyright 2021 Porter McGary. All rights reserved.
 ///
+
+const String copyright = "\u00A9";
 
 /// For reference https://ericwindmill.com/articles/inherited_widget/
 
@@ -102,11 +105,17 @@ class StateContainerState extends State<StateContainer> {
   }
 
   String get copyRight {
-    return "\u00A9 ${DateTime.now().year.toString()} ${sAppName}";
+    return "$copyright ${DateTime.now().year.toString()} ${sAppName}";
   }
 
   String get version {
-    return _packageInfo?.version ?? "";
+    String v = _packageInfo?.version ?? "";
+    if (v.isNotEmpty) v = "V $v";
+    if (kIsWeb) {
+      if (isBeta) return v + "-β";
+      if (!isProd) return v + "-dev";
+    }
+    return v;
   }
 
   @override

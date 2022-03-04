@@ -1,7 +1,8 @@
-import 'package:bishop_assistant_web_test_app/firebase_options.dart';
+import 'package:bishop_assistant_web_test_app/firebase/firebase_instances.dart';
 import 'package:bishop_assistant_web_test_app/pages/signup_login/login_page.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 ///
@@ -13,9 +14,22 @@ import 'package:flutter/services.dart';
 ///
 
 /// Flutter Design Patterns
-/// https://mkobuolys.medium.com/flutter-design-patterns-0-introduction-5e88cfff6792
+///   https://mkobuolys.medium.com/flutter-design-patterns-0-introduction-5e88cfff6792
 
-void main() async {
+/// Managing hosting
+///   https://firebase.google.com/docs/hosting/manage-hosting-resources#preview-channel-expiration
+
+/// Firebase Flavoring with Android & iOS
+///   https://medium.com/@animeshjain/build-flavors-in-flutter-android-and-ios-with-different-firebase-projects-per-flavor-27c5c5dac10b
+///   https://github.com/animeshjain/flavor_test
+/// Firebase Flavoring help checkout for Web
+///   https://stackoverflow.com/questions/66560305/flutter-firebase-setting-different-deployment-targets-for-ios-android-and-w
+
+// Environment variables for flavoring
+const bool isBeta = bool.fromEnvironment('beta');
+const bool isProd = bool.fromEnvironment('prod');
+
+void main() {
   runApp(StateContainer(child: App()));
 }
 
@@ -36,26 +50,36 @@ class _AppState extends State<App> {
       routes: routes,
       onGenerateRoute: (RouteSettings settings) {
         return MaterialPageRoute(builder: (context) {
-          return FutureBuilder(
+          if (FirebaseInstances.isInitialized) return LoginPage();
+
+          return FutureBuilder<FirebaseApp>(
               future: _initFirebase(),
               builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done)
+                if (snapshot.hasData) {
                   return LoginPage();
+                }
 
                 if (snapshot.hasError)
                   Error404Page(msg: snapshot.error.toString(), canLogin: false);
 
                 return DarkPage(
-                    inputs: [], buttons: [SpinKitCircle(color: Colors.white)]);
+                  showSpinner: true,
+                );
               });
         });
       },
     );
   }
 
-  _initFirebase() async {
+  Future<FirebaseApp> _initFirebase() async {
     WidgetsFlutterBinding.ensureInitialized();
-    FirebaseOptions options = await DevFirebaseOptions.currentPlatform;
-    await Firebase.initializeApp(options: options);
+    try {
+      await FirebaseInstances.init();
+      return FirebaseInstances.app;
+    } catch (e) {
+      if (kDebugMode) print(e);
+      MyToast.toastError(e);
+      throw e;
+    }
   }
 }

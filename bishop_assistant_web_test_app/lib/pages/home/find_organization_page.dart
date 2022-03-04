@@ -1,6 +1,6 @@
+import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/pages/home/create_organization.dart';
 import 'package:bishop_assistant_web_test_app/pages/home/list_of_organizations.dart';
-import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/organization.dart';
 

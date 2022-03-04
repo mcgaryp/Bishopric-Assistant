@@ -10,6 +10,7 @@ import 'package:bishop_assistant_web_test_app/pages/signup_login/reactivate_acco
 import 'package:bishop_assistant_web_test_app/pages/signup_login/sign_up_page.dart';
 import 'package:bishop_assistant_web_test_app/theme/theme_page.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/authentication/authenticate.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -58,5 +59,5 @@ final Map<String, Widget Function(BuildContext)> routes = {
   rReactivateAccount: (context) => ReactivateAccount(),
   rSignup: (context) => SignupPage(),
   rSiteMap: (context) => SiteMapPage(),
-  rTheme: (context) => ThemePage(),
+  if (kDebugMode) rTheme: (context) => ThemePage(),
 };

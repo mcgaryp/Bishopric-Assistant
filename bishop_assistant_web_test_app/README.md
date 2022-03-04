@@ -1,16 +1,41 @@
-# bishop_assistant_web_test_app
+## Flavor of Builds
+Each flavor separates different environments and target audiences. Any debug "scenario" can be 
+created of any environments.
+1. Production - the stage that runs the flutter app the way end-users will see the application.
+   `flutter run --dart-define=prod=true`
+2. Beta - the staging ground for new features that need to run through our testing crowd.
+   `flutter run --dart-define=beta=true`
+3. Development - the stage and environment safe for experimentation and new feature development
+   `flutter run`
 
-Application to test the firebase connection and Firebase webhosting capabilities with a web app in Flutter & Dart
+### Add Separate Run/Debug Configurations with Flavors
+Before beginning: 
+   - ensure Android Studio with Flutter and Dart plugins are installed. 
+   - ensure the correct `.env` files are located in the project directory. Files should be named as 
+     follows:
+      - Development Environment `dev.env`
+      - Beta Environment `beta.env`
+      - Production Environment `prod.env`
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. <b>OPEN</b> `assistant` App in Android Studio.
+2. In the top menu bar of Android Studio, <b>CLICK</b> on the drop down menu next to the green 
+   Run/Debug Triangle button.
+3. In the drop down menu, <b>CLICK</b> `Edit Configurations`. A popup box entitled. 
+   `Run/Debug Configurations` should display.
+4. On the top left hand side of the popup <b>CLICK</b> the `+` button. A dropdown menu should appear
+5. From the drop down menu <b>CLICK</b> `Flutter`. A new form should appear in the right hand side 
+   of the popup box.
+6. Give your configuration a `Name`.
+7. As the `Dart entrypoint` enter 
+   `local_path_to_project/bishopric-assistant/bishop_assistant_web_test_app/lib/main.dart`
+8. As the `Additional run args` enter only one of the following for each configuration: 
+   - `--dart-define=prod=true` for Production Environment
+   - `--dart-define=beta=true` for Beta Environment
+   - `` for Developer Environment
+9. Repeat steps 2-8 for each environment. Ensure each configuration has a distinct name.
+10. Repeat step 2.
+11. Select the environment configuration you would like to run/debug.
+12. Select the device dropdown to the left of the run/debug configuration dropdown. Select the 
+    device you would like to run the application on.
+11. Select the green Run/Debug Triangle button to run the application on it's selected device and 
+    environment.

@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';

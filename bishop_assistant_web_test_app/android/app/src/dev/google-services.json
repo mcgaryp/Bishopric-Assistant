@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:186294908532:android:18dd5324b6b484af7a4321",
+        "mobilesdk_app_id": "1:186294908532:android:c5c44373505341957a4321",
         "android_client_info": {
-          "package_name": "com.example.bishop_assistant_web_test_app"
+          "package_name": "com.mjolnir.assistant"
         }
       },
       "oauth_client": [

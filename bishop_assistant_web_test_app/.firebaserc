@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "bishopric-assistant-dev"
+    "default": "bishopric-assistant-dev",
+    "beta": "bishopric-assistant-beta-test",
+    "prod": "bishopric-assistant-prod"
   }
 }

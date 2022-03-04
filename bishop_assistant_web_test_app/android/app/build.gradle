@@ -43,14 +43,31 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.bishop_assistant_web_test_app"
-// todo        minSdkVersion flutterMinSdkVersion
-// todo       targetSdkVersion flutterTargetSdkVersion
+        applicationId "com.mjolnir.assistant"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+    }
+
+    flavorDimensions "version"
+    productFlavors {
+        dev {
+            dimension "version"
+            resValue "string", "app_name", "Assistant-Dev"
+            versionNameSuffix ".dev"
+        }
+        beta {
+            dimension "version"
+            applicationIdSuffix ".beta"
+            resValue "string", "app_name", "Assistant \u03B2"
+            versionNameSuffix " \u03B2"
+        }
+        prod {
+            dimension "version"
+            applicationIdSuffix ".prod"
+            resValue "string", "app_name", "Assistant"
+        }
     }
 
     buildTypes {

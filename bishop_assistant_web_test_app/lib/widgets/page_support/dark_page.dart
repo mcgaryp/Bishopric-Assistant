@@ -14,8 +14,8 @@ class DarkPage extends StatelessWidget {
   final bool showSpinner;
 
   const DarkPage(
-      {required this.inputs,
-      required this.buttons,
+      {this.inputs = const [],
+      this.buttons = const [],
       this.showSpinner = false,
       Key? key})
       : super(key: key);
