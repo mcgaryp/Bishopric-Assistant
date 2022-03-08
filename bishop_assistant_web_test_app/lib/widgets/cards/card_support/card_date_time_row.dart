@@ -10,17 +10,20 @@ import 'package:intl/intl.dart';
 ///
 
 class CardDateTimeRow extends StatefulWidget {
+  final DateTime? initialDateTime;
   final Function(DateTime) onChange;
   final TextStyle _style;
   final Color _iconColor;
   final bool dateOnly;
 
-  const CardDateTimeRow(this.onChange, {this.dateOnly = false, Key? key})
+  const CardDateTimeRow(this.onChange,
+      {this.dateOnly = false, this.initialDateTime, Key? key})
       : this._style = body,
         this._iconColor = dark,
         super(key: key);
 
-  const CardDateTimeRow.light(this.onChange, {this.dateOnly = false, Key? key})
+  const CardDateTimeRow.light(this.onChange,
+      {this.dateOnly = false, this.initialDateTime, Key? key})
       : this._style = bodyLight,
         this._iconColor = light,
         super(key: key);
@@ -30,8 +33,16 @@ class CardDateTimeRow extends StatefulWidget {
 }
 
 class _CardDateTimeRowState extends State<CardDateTimeRow> {
-  DateTime selectedDate = DateTime.now();
-  TimeOfDay selectedTime = TimeOfDay.now();
+  late DateTime selectedDate;
+  late TimeOfDay selectedTime;
+
+  @override
+  void initState() {
+    selectedDate = widget.initialDateTime ?? DateTime.now();
+    selectedTime =
+        TimeOfDay.fromDateTime(widget.initialDateTime ?? DateTime.now());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +85,7 @@ class _CardDateTimeRowState extends State<CardDateTimeRow> {
 
   void _showDatePicker(BuildContext context) async {
     DateTime initialDate = selectedDate;
-    DateTime firstDate = DateTime.now();
+    DateTime firstDate = selectedDate.subtract(Duration(days: 1));
     DateTime lastDate = DateTime(2030);
     DateTime? pick = await showDatePicker(
       context: context,

@@ -1,4 +1,6 @@
+import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
+import 'package:flutter/foundation.dart';
 import 'package:models/models/assignment.dart';
 import 'package:models/models/organization_domain/permissions.dart';
 
@@ -22,34 +24,114 @@ class EditAssignmentCard extends StatefulWidget {
 }
 
 class _EditAssignmentCardState extends State<EditAssignmentCard> {
+  late TextEditingController title;
+  late TextEditingController notes;
+  late DateTime selectedDate;
+  late Assignee assignee;
+
+  @override
+  void initState() {
+    selectedDate = widget.assignment.dueDate;
+    assignee = widget.assignment.assignee;
+    notes = TextEditingController.fromValue(
+        TextEditingValue(text: widget.assignment.note.content));
+    title = TextEditingController.fromValue(
+        TextEditingValue(text: widget.assignment.title));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Permissions currentUserPermissions =
         StateContainer.of(context).member.role.permissions;
 
+    AllAssigneesUseCase useCase =
+        DefaultAllAssigneesUseCase(FirebaseMemberRepository());
+
     return MyCard(
         child: Form(
             child: Wrap(children: [
-      InputField.border(widget.assignment.title),
+      InputField.plain(widget.assignment.title, controller: title),
       Text(sDueDate, style: body),
-      CardDateTimeRow((DateTime newDate) {}),
-      MyDropdown(
-        hint: widget.assignment.assignee.name.fullName,
-      ),
+      CardDateTimeRow((DateTime newDate) {
+        setState(() {
+          selectedDate = newDate;
+        });
+      }, initialDateTime: selectedDate),
+      FutureBuilder<List<Assignee>>(
+          future: useCase.execute(StateContainer.of(context).organization.id),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              List<Assignee> assignees = snapshot.data!;
+              return MyDropdown(
+                hint: widget.assignment.assignee.name.fullName,
+                onchange: (int value) {
+                  for (Assignee element in assignees) {
+                    if (element.id.id.hashCode == value) {
+                      setState(() {
+                        assignee = element;
+                      });
+                      break;
+                    }
+                  }
+                },
+                collection: assignees
+                    .map<DropdownMenuItem<int>>((Assignee assignee) =>
+                        DropdownMenuItem(
+                            child: Text(assignee.name.fullName),
+                            value: assignee.id.id.hashCode))
+                    .toList(),
+              );
+            }
+            return SpinKitThreeBounce(size: 25, color: dark);
+          }),
       if (widget.assignment.note.canView(currentUserPermissions))
         Text(sNotes, style: subhead),
       if (widget.assignment.note.canView(currentUserPermissions))
-        InputField.plain(widget.assignment.note.content, maxLines: true),
-      Align(
-        alignment: Alignment.centerRight,
-        child: MyButton(
+        InputField.plain(widget.assignment.note.content,
+            maxLines: true, controller: notes),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          MyButton(
             isExpanded: false,
-            label: sSave,
-            onPressed: () {
-              // TODO: Update Assignment Use Case
-              widget.toggle();
-            }),
+            label: sCancel,
+            onPressed: widget.toggle,
+            style: MyButtonStyle.text,
+          ),
+          MyButton(
+              isExpanded: false,
+              label: sSave,
+              onPressed: () async {
+                if (await _update()) {
+                  widget.toggle();
+                }
+              }),
+        ],
       ),
     ])));
+  }
+
+  Future<bool> _update() async {
+    try {
+      UpdateAssignmentUseCase useCase = DefaultUpdateAssignmentUseCase(
+          FirebaseAssignmentRepo(), FirebaseMemberRepository());
+
+      bool result = await useCase.execute(
+        assignmentID: widget.assignment.id,
+        memberID: StateContainer.of(context).member.id,
+        title: title.text,
+        dueDate: selectedDate,
+        assignee: assignee,
+        noteContent: notes.text,
+      );
+
+      return result;
+    } catch (error) {
+      if (kDebugMode) print(error);
+      MyToast.toastError(error);
+    }
+
+    return false;
   }
 }
