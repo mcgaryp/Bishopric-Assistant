@@ -1,5 +1,6 @@
 import 'package:bishop_assistant_web_test_app/firebase/firebase_options.dart';
 import 'package:bishop_assistant_web_test_app/main.dart';
+import 'package:bishop_assistant_web_test_app/util/my_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -18,42 +19,44 @@ class FirebaseInstances {
 
   // Init that will only initialize the firebase once and only once
   static Future<void> init() async {
-    if (_isInitialized) {
+    try {
       List<FirebaseApp> apps = Firebase.apps;
       if (kDebugMode) print("Current FirebaseApps: $apps");
-      return;
-    }
-
-    try {
-      final dev = DevFirebaseOptions();
-      FirebaseOptions options = await dev.currentPlatform;
-      if (kDebugMode)
-        print("Attempting to initialize FirebaseApp: \'${dev.name}\'");
-      await Firebase.initializeApp(options: options);
-      if (kDebugMode) print("Initialized FirebaseApp: \'${dev.name}\'");
-
-      if (isBeta) {
-        final beta = BetaFirebaseOptions();
-        options = await beta.currentPlatform;
-        if (kDebugMode)
-          print("Attempting to initialize FirebaseApp: \'${beta.name}\'");
-        await Firebase.initializeApp(options: options, name: beta.name);
-        if (kDebugMode) print("Initialized FirebaseApp: \'${beta.name}\'");
-      }
-
-      if (isProd) {
-        final prod = ProdFirebaseOptions();
-        options = await prod.currentPlatform;
-        if (kDebugMode)
-          print("Attempting to initialize FirebaseApp: \'${prod.name}\'");
-        await Firebase.initializeApp(options: options, name: prod.name);
-        if (kDebugMode) print("Initialized FirebaseApp: \'${prod.name}\'");
-      }
-
       _isInitialized = true;
-    } catch (e) {
-      if (kDebugMode) print(e);
-      throw e;
+      return;
+    } catch(e) {
+      // not Initialized
+      try {
+        final dev = DevFirebaseOptions();
+        FirebaseOptions options = await dev.currentPlatform;
+        if (kDebugMode)
+          print("Attempting to initialize FirebaseApp: \'${dev.name}\'");
+        await Firebase.initializeApp(options: options);
+        if (kDebugMode) print("Initialized FirebaseApp: \'${dev.name}\'");
+
+        if (isBeta) {
+          final beta = BetaFirebaseOptions();
+          options = await beta.currentPlatform;
+          if (kDebugMode)
+            print("Attempting to initialize FirebaseApp: \'${beta.name}\'");
+          await Firebase.initializeApp(options: options, name: beta.name);
+          if (kDebugMode) print("Initialized FirebaseApp: \'${beta.name}\'");
+        }
+
+        if (isProd) {
+          final prod = ProdFirebaseOptions();
+          options = await prod.currentPlatform;
+          if (kDebugMode)
+            print("Attempting to initialize FirebaseApp: \'${prod.name}\'");
+          await Firebase.initializeApp(options: options, name: prod.name);
+          if (kDebugMode) print("Initialized FirebaseApp: \'${prod.name}\'");
+        }
+
+        _isInitialized = true;
+      } catch (e) {
+        if (kDebugMode) print(e);
+        throw e;
+      }
     }
   }
 

@@ -62,7 +62,7 @@ class StateContainer extends StatefulWidget {
 
 class StateContainerState extends State<StateContainer> {
   PackageInfo? _packageInfo;
-  UserState _state = UserState.loadingIn;
+  UserState _state = UserState.unauthenticated;
   Account? _account;
   Organization? _organization;
   Member? _member;
@@ -120,6 +120,7 @@ class StateContainerState extends State<StateContainer> {
 
   @override
   void initState() {
+    _state = UserState.loadingIn;
     _initPackageInfo();
     _initState();
     super.initState();
