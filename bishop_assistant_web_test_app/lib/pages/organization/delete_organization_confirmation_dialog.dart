@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/new_repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/organization.dart';
 
@@ -28,10 +28,10 @@ class ConfirmDeleteOrganizationDialog extends StatelessWidget {
   void _deleteOrganization(BuildContext context) async {
     try {
       DeleteOrganizationUseCase useCase = DefaultDeleteOrganizationUseCase(
-          FirebaseOrganizationRepository(),
-          FirebaseMemberRepository(),
-          FirebaseAssignmentRepo(),
-          FirebaseEventRepo());
+          FirestoreOrganizationRepository(),
+          FirestoreMemberRepository(),
+          FirestoreAssignmentRepository(),
+          FirestoreEventRepository());
       MemberID creatorID = StateContainer.of(context).member.id;
       OrganizationID organizationID =
           StateContainer.of(context).organization.id;

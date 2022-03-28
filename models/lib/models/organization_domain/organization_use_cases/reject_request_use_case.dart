@@ -1,5 +1,4 @@
 import 'package:models/models/organization.dart';
-import 'package:models/shared/foundation.dart';
 
 ///
 /// reject_request_use_case.dart
@@ -11,17 +10,16 @@ import 'package:models/shared/foundation.dart';
 
 mixin RejectRequestUseCase {
   @required
-  Future<void> execute(JoinRequest request);
+  Future<bool> execute(JoinRequestID id);
 }
 
 class DefaultRejectRequestUseCase implements RejectRequestUseCase {
-  final OrganizationRepository _organizationRepository;
+  final JoinRequestRepository _requestRepository;
 
-  DefaultRejectRequestUseCase(this._organizationRepository);
+  DefaultRejectRequestUseCase(this._requestRepository);
 
   @override
-  Future<void> execute(JoinRequest request) async {
-    if (!await _organizationRepository.removeRequestToJoinOrganization(request))
-      throw FailedToRemoveError(forEntity: "Join Request");
+  Future<bool> execute(JoinRequestID id) async {
+    return _requestRepository.remove(id);
   }
 }

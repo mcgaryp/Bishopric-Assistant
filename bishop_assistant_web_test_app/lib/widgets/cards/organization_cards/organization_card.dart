@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/new_repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
@@ -19,8 +19,6 @@ class OrganizationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AllOrganizationRequestsUseCase useCase =
-        DefaultAllOrganizationRequestsUseCase(FirebaseOrganizationRepository());
 
     return MyCard(
         child: Column(children: [
@@ -36,7 +34,7 @@ class OrganizationCard extends StatelessWidget {
             ]),
           ),
           StreamBuilder<List<JoinRequest>>(
-              stream: useCase.execute(organization.id),
+              stream: FirestoreJoinRequestRepository().findAllStreamed(organization.id),
               builder: (BuildContext context, snapshot) {
                 if (snapshot.hasData) {
                   List<JoinRequest> requests = snapshot.data ?? [];
@@ -68,7 +66,7 @@ class OrganizationCard extends StatelessWidget {
     try {
       Account account = StateContainer.of(context).account;
       DefaultJoinOrganizationUseCase useCase =
-          DefaultJoinOrganizationUseCase(FirebaseOrganizationRepository());
+          DefaultJoinOrganizationUseCase(FirestoreJoinRequestRepository());
       if (await useCase.execute(
           accountID: account.id, organizationID: organization.id))
         MyToast.toastSuccess(

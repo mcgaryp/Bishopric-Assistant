@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/new_repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/main.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/account.dart';
@@ -66,6 +66,8 @@ class StateContainerState extends State<StateContainer> {
   Account? _account;
   Organization? _organization;
   Member? _member;
+  List<Authorization>? _authorizations;
+  List<Role>? _roles;
 
   /// [account] retrieves the account or notifies that an account is not valid
   /// and login is required
@@ -118,6 +120,16 @@ class StateContainerState extends State<StateContainer> {
     return v;
   }
 
+  List<Authorization> get authorizations {
+    _authorizations ?? (throw Exception("Authorizations is Null"));
+    return _authorizations!;
+  }
+
+  List<Role> get roles {
+    _roles ?? (throw Exception("Roles is Null"));
+    return _roles!;
+  }
+
   @override
   void initState() {
     _state = UserState.loadingIn;
@@ -166,23 +178,27 @@ class StateContainerState extends State<StateContainer> {
 
   /// Login Process
   Future<void> login(Credentials credentials) async {
-    FirebaseAccountRepository accountRepo = FirebaseAccountRepository();
+    AccountRepository accountRepo = FirestoreAccountRepository();
     AuthenticateAccountUseCase useCase =
         DefaultAuthenticateAccountUseCase(accountRepo);
     Account account = await useCase.execute(credentials);
     _updateAccount(account);
-    _accountStream = accountRepo.findStreamed(account.id);
-    _accountSub =
-        _accountStream?.listen((Account account) => _updateAccount(account));
+    // TODO: Figure out streamed with account
+    // _accountStream = accountRepo.findStreamed(account.id);
+    // _accountSub =
+    //     _accountStream?.listen((Account account) => _updateAccount(account));
     _updateState(UserState.authenticated);
+
     await findOrganization();
   }
 
   Future<void> findOrganization() async {
+    FirestoreMemberRepository repository = FirestoreMemberRepository();
     HasAssociatedOrganizationUseCase useCase =
-        DefaultHasAssociatedOrganizationUseCase(FirebaseMemberRepository());
+        DefaultHasAssociatedOrganizationUseCase(repository);
     OrganizationMember? relationship =
         await useCase.execute(accountID: account.id);
+
     relationship == null ? _noOrganization() : __organization(relationship);
   }
 
@@ -204,8 +220,10 @@ class StateContainerState extends State<StateContainer> {
   }
 
   Future<void> __organization(OrganizationMember relationship) async {
-    FirebaseMemberRepository memberRepo = FirebaseMemberRepository();
-    FirebaseOrganizationRepository orgRepo = FirebaseOrganizationRepository();
+    _initAuthorizations(relationship.organization.id);
+    _initRoles(relationship.organization.id);
+    FirestoreMemberRepository memberRepo = FirestoreMemberRepository();
+    FirestoreOrganizationRepository orgRepo = FirestoreOrganizationRepository();
     _memberStream = memberRepo.findStreamed(relationship.member.id);
     _memberSub =
         _memberStream?.listen((Member member) => _updateMember(member));
@@ -227,15 +245,17 @@ class StateContainerState extends State<StateContainer> {
       });
 
   /// Logout Process
-  Future<void> logout() async {
+  Future<bool> logout() async {
     LogoutAccountUseCase useCase =
-        DefaultLogoutAccountUseCase(FirebaseAccountRepository());
+        DefaultLogoutAccountUseCase(FirestoreAccountRepository());
     if (await useCase.execute()) {
       _nullAccount();
       nullOrganization();
       _updateState(UserState.unauthenticated);
       await _disposeState();
+      return true;
     }
+    return false;
   }
 
   Future<void> _initState() async {
@@ -247,6 +267,21 @@ class StateContainerState extends State<StateContainer> {
       if (kDebugMode) print(e);
       _state = UserState.unauthenticated;
     }
+  }
+
+  Future<void> _initAuthorizations(OrganizationID id) async {
+    if (kDebugMode) print("Initializing Authorizations");
+    FirestoreAuthorizationRepository repository =
+        FirestoreAuthorizationRepository();
+    this._authorizations = await repository.findAll(id);
+    if (kDebugMode) print("Authorizations Initialized: $_authorizations");
+  }
+
+  Future<void> _initRoles(OrganizationID id) async {
+    if (kDebugMode) print("Initializing Roles");
+    FirestoreRoleRepository repository = FirestoreRoleRepository();
+    this._roles = await repository.findAll(id);
+    if (kDebugMode) print("Roles Initialized: $_roles");
   }
 
   Future<void> _disposeState() async {

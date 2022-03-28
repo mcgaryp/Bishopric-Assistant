@@ -21,10 +21,12 @@ class DefaultHasAssociatedOrganizationUseCase
 
   @override
   Future<OrganizationMember?> execute({required AccountID accountID}) async {
-    // find members associated with account
-    List<Member>? members =
+    // find member associated with account
+    List<Member> members =
         await _memberRepository.findAllWithAccountID(accountID);
-    if (members == null) return null;
+
+    if (members.isEmpty) return null;
+
     // for each member
     for (Member member in members) {
       Organization? organization =

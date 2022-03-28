@@ -42,7 +42,7 @@ class ReactivateAccountUseCaseTests {
 
     expect(mockRepo.logoutFlag, false);
 
-    expect(mockRepo.removeFlag, false);
+    expect(mockRepo.deactivateFlag, false);
 
     expect(mockRepo.updateFlag, false);
   }

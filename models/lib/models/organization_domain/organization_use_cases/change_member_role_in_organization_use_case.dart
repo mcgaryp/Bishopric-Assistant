@@ -36,31 +36,42 @@ class DefaultChangeMemberRoleInOrganizationUseCase
     required MemberID memberID,
     required Role role,
   }) async {
+    // Check the accessors Organization
     Organization? accessorOrganization =
         await _memberRepository.findOrganization(accessorID);
     accessorOrganization ?? (throw OrganizationNotFoundError());
 
+    // Member Organization
     Organization? memberOrganization =
         await _memberRepository.findOrganization(memberID);
     memberOrganization ?? (throw OrganizationNotFoundError());
 
+    // Ensure they are the same
     if (memberOrganization != accessorOrganization)
       throw PermissionDeniedError(
           reason: "Accessor is not in the same organization as the member");
 
+    // Check accessor validity
     Member? accessor = await _memberRepository.find(accessorID);
     if (accessor == null) throw MemberNotFoundError();
 
+    // Check that member can change the role of members
     if (!memberOrganization.canEditRoles(
-        permissions: accessor.role.permissions, id: accessor.id))
+        authorization: accessor.role.authorization, id: accessor.id))
       throw PermissionDeniedError(
           reason: "Insufficient permission to change member role");
 
+    // Find the member that is going to change
     Member? member = await _memberRepository.find(memberID);
     if (member == null) throw MemberNotFoundError();
 
+    //change the role
     member.role = role;
+
+    // Update
     if (await _memberRepository.update(member)) return true;
+
+    // Notify of fail to save
     throw FailedToSaveError(reason: "Organization");
   }
 }

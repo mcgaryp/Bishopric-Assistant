@@ -20,7 +20,7 @@ class GetJoinRequestDetailsUseCaseTest implements Test {
     GetJoinRequestDetailsUseCase useCase =
         DefaultGetJoinRequestDetailsUseCase(accountRepo);
 
-    await useCase.execute(MockJointRequest().request);
+    await useCase.execute(MockJoinRequest().request);
 
     expect(accountRepo.activateFlag, false);
     expect(accountRepo.findFlag, true);
@@ -31,7 +31,7 @@ class GetJoinRequestDetailsUseCaseTest implements Test {
     expect(accountRepo.insertFlag, false);
     expect(accountRepo.loginFlag, false);
     expect(accountRepo.logoutFlag, false);
-    expect(accountRepo.removeFlag, false);
+    expect(accountRepo.deactivateFlag, false);
     expect(accountRepo.updateFlag, false);
   }
 

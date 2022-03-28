@@ -38,7 +38,7 @@ class ChangePasswordUseCaseTest implements Test {
     expect(mockRepo.insertFlag, false);
     expect(mockRepo.loginFlag, false);
     expect(mockRepo.logoutFlag, false);
-    expect(mockRepo.removeFlag, false);
+    expect(mockRepo.deactivateFlag, false);
     expect(mockRepo.updateFlag, true);
   }
 

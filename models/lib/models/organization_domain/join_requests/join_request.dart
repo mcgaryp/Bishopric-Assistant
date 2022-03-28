@@ -10,15 +10,16 @@ import 'package:models/shared/foundation.dart';
 ///
 
 class JoinRequest extends Entity<JoinRequest> {
-  final JoinRequestID? id;
-  final AccountID accountID;
-  final OrganizationID organizationID;
   static const accountIDKey = "Join Request Account ID";
   static const organizationIDKey = "Join Request Organization ID";
   static const idKey = "Join Request ID";
 
-  JoinRequest({required this.accountID, required this.organizationID, this.id})
-      : super(JoinRequestID("Invalid ID"));
+  final JoinRequestID? _id;
+  final AccountID accountID;
+  final OrganizationID organizationID;
+
+  JoinRequest({required this.accountID, required this.organizationID, JoinRequestID? id})
+      : this._id = id, super(JoinRequestID("Invalid ID"));
 
   JoinRequest.fromMap(Map<String, dynamic> map)
       : this(
@@ -26,18 +27,23 @@ class JoinRequest extends Entity<JoinRequest> {
             accountID: AccountID(map[accountIDKey]),
             organizationID: OrganizationID(map[organizationIDKey]));
 
+  JoinRequestID get id {
+    _id ?? (throw IdDoesNotExistError(forObject: "Join Request ID"));
+    return _id!;
+  }
+
+  @override
+  Map<String, dynamic> get toMap => {
+    accountIDKey: accountID.id,
+    organizationIDKey: organizationID.id,
+    idKey: _id?.id
+  };
+
   @override
   bool operator ==(Object other) {
     if (other.runtimeType != JoinRequest) return false;
     return sameIdentityAs(other as JoinRequest);
   }
-
-  @override
-  Map<String, dynamic> get toMap => {
-        accountIDKey: accountID.id,
-        organizationIDKey: organizationID.id,
-        idKey: id?.id
-      };
 
   @override
   bool sameIdentityAs(JoinRequest other) {

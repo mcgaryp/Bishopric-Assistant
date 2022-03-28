@@ -1,4 +1,10 @@
-import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/new_repositories/firestore_account_repository.dart';
+import 'package:bishop_assistant_web_test_app/firebase/new_repositories/firestore_authorization_repository.dart';
+import 'package:bishop_assistant_web_test_app/firebase/new_repositories/firestore_member_repository.dart';
+import 'package:bishop_assistant_web_test_app/firebase/new_repositories/firestore_organization_repository.dart';
+import 'package:bishop_assistant_web_test_app/firebase/new_repositories/firestore_role_repository.dart';
+import 'package:bishop_assistant_web_test_app/pages/home/organization_authorization_input.dart';
+import 'package:bishop_assistant_web_test_app/pages/home/organization_roles_input.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/organization.dart';
 
@@ -22,8 +28,26 @@ class CreateOrganization extends StatefulWidget {
 }
 
 class _CreateOrganizationState extends State<CreateOrganization> {
+  static final Authorization _authorization =
+      Authorization(name: sUnclassified, rank: 0);
+  static final Role _role = Role(authorization: _authorization, name: sOwner);
   final TextEditingController name = TextEditingController();
+  List<Authorization> authorizations = [_authorization];
+
+  List<Role?> roles = [_role];
+
   bool _isWaiting = false;
+
+  String tempRole = "";
+  String tempAuth = "";
+
+  @override
+  void initState() {
+    if (kDebugMode) {
+      name.text = "Developers";
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +62,22 @@ class _CreateOrganizationState extends State<CreateOrganization> {
             validator: Validators.standard,
             onSubmit: _onSubmit,
           ),
+          OrganizationAuthorizationInput(
+            authorizations: authorizations,
+            onChange: (List<Authorization> auths) {
+              setState(() {
+                authorizations = auths;
+              });
+            },
+          ),
+          OrganizationRolesInput(
+              roles: roles,
+              authorizations: authorizations,
+              onChange: (List<Role?> roles) {
+                setState(() {
+                  this.roles = roles;
+                });
+              }),
           if (_isWaiting)
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
@@ -58,15 +98,31 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     _setIsWaiting(true);
     try {
       DefaultCreateOrganizationUseCase useCase =
-          DefaultCreateOrganizationUseCase(FirebaseAccountRepository(),
-              FirebaseOrganizationRepository(), FirebaseMemberRepository());
+          DefaultCreateOrganizationUseCase(
+        FirestoreAccountRepository(),
+        FirestoreOrganizationRepository(),
+        FirestoreMemberRepository(),
+        FirestoreRoleRepository(),
+        FirestoreAuthorizationRepository(),
+      );
+
+      List<Role> lst = [];
+      for(Role? role in roles) {
+        if (role != null)
+          lst.add(role);
+      }
 
       AccountID accountID = StateContainer.of(context).account.id;
-      OrganizationMember organizationMember =
-          await useCase.execute(creatorId: accountID, name: name.text);
-      widget.onOrganizationCreationCallback();
-      MyToast.toastSuccess(
-          "Successfully Created ${organizationMember.organization.name}");
+      if (await useCase.execute(
+        creatorId: accountID,
+        name: name.text,
+        roles: lst,
+        authorizations: authorizations,
+        creatorRole: lst.first,
+      )) {
+        widget.onOrganizationCreationCallback();
+        MyToast.toastSuccess("Successfully Created ${name.text}");
+      }
     } catch (e) {
       if (kDebugMode) print(e);
       MyToast.toastError(e);

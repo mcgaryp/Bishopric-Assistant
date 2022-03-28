@@ -39,7 +39,7 @@ class LogoutAccountUseCaseTests {
 
     expect(mockRepo.logoutFlag, true);
 
-    expect(mockRepo.removeFlag, false);
+    expect(mockRepo.deactivateFlag, false);
 
     expect(mockRepo.updateFlag, false);
   }

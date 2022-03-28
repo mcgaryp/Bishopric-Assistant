@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/new_repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:models/models/assignment.dart';
@@ -25,8 +25,8 @@ class ConfirmUnarchiveAssignmentDialog extends StatelessWidget {
         onConfirm: () async {
           try {
             UnarchiveAssignmentUseCase useCase =
-                DefaultUnarchiveAssignmentUseCase(
-                    FirebaseMemberRepository(), FirebaseAssignmentRepo());
+                DefaultUnarchiveAssignmentUseCase(FirestoreMemberRepository(),
+                    FirestoreAssignmentRepository());
             bool isUnarchived = await useCase.execute(
                 memberID: StateContainer.of(context).member.id,
                 assignmentID: assignmentID);

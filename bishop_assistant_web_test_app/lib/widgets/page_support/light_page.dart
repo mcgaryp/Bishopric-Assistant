@@ -33,8 +33,8 @@ class LightPage extends StatelessWidget {
     // Action items
     final List<ActionModel> actions = [
       ActionModel(label: sHome, path: rHome),
-      if (container == UserState.inOrganization)
-        ActionModel(label: sEvents, path: rEvents),
+      // if (container == UserState.inOrganization)
+      //   ActionModel(label: sEvents, path: rEvents),
       if (container == UserState.inOrganization)
         ActionModel(label: sAssignments, path: rAssignments),
       if (container == UserState.inOrganization)

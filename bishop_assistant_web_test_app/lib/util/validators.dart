@@ -37,6 +37,7 @@ class Validators {
   // - Cannot be empty
   static String? validateMultiSelect(List<Object?>? list) {
     if (list == null || list.isEmpty) return "Must select at least 1";
+    return null;
   }
 
   // Password Validation
@@ -81,6 +82,7 @@ class Validators {
 
       return returnValue;
     }
+    return null;
   }
 
   // Verify email

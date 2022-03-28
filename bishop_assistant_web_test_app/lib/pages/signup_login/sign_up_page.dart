@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/new_repositories/firestore_account_repository.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:crypt/crypt.dart';
 import 'package:models/models/account.dart';
@@ -33,6 +33,21 @@ class _SignupPageState extends State<SignupPage> {
 
   // Is the Widget waiting for a callback function to complete
   bool _isWaiting = false;
+
+  @override
+  void initState() {
+    if (kDebugMode) {
+      fNameControl.text = "Developer";
+      lNameControl.text = "Account One";
+      emailControl.text = "teachrockstothink@gmail.com";
+      phoneControl.text = "(479) 696-1637";
+      passwordControl.text = "password1";
+      confirmControl.text = "password1";
+      usernameControl.text = "dev";
+    }
+
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -129,7 +144,7 @@ class _SignupPageState extends State<SignupPage> {
           Crypt.sha256(passwordControl.text, salt: "bishopric").toString();
 
       try {
-        FirebaseAccountRepository _accountRepo = FirebaseAccountRepository();
+        AccountRepository _accountRepo = FirestoreAccountRepository();
         DefaultCreateAccountUseCase createAccount =
             DefaultCreateAccountUseCase(_accountRepo);
         Name name = Name(first: fNameControl.text, last: lNameControl.text);
@@ -137,20 +152,22 @@ class _SignupPageState extends State<SignupPage> {
             Contact(phone: phoneControl.text, email: emailControl.text);
         Credentials credentials =
             Credentials(username: usernameControl.text, password: hashPassword);
-        Account account = await createAccount.execute(
-            name: name, contact: contact, credentials: credentials);
-        _success(account);
+        if (await createAccount.execute(
+            name: name, contact: contact, credentials: credentials)) {
+          _success(name);
+        }
       } catch (e) {
         _error(e.toString());
         if (kDebugMode) print(e.toString());
       }
-    } else
+    } else {
       _setIsWaiting(false);
+    }
   }
 
   /// Should the process succeed
-  void _success(Account account) {
-    MyToast.toastSuccess("Welcome ${account.name.fullName}!");
+  void _success(Name name) {
+    MyToast.toastSuccess("Welcome ${name.fullName}!");
     _setIsWaiting(false);
     Navigator.pop(context);
   }

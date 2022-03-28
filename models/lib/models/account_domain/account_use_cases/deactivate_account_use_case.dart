@@ -35,6 +35,6 @@ class DefaultDeactivateAccountUseCase implements DeactivateAccountUseCase {
     if (accessorID != accountID)
       throw PermissionDeniedError(
           reason: "Attempting to deactivate an others account");
-    return await _accountRepository.remove(account.id);
+    return await _accountRepository.deactivate(account.id);
   }
 }

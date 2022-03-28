@@ -1,6 +1,5 @@
 import 'package:models/models/organization.dart';
 
-import '../account/mock_account.dart';
 import 'mock_member.dart';
 
 ///
@@ -13,12 +12,6 @@ import 'mock_member.dart';
 
 class MockOrganization {
   static final String mockName = "Mock Organization";
-  static final OrganizationMemberRelationship mockMemberRelationship =
-      OrganizationMemberRelationship(
-          accountID: MockAccountID().id,
-          organizationID: MockOrganizationID().id,
-          memberID: MockMemberID().id);
-
   late final Organization organization;
 
   MockOrganization({OrganizationID? id, String? name, Member? creator}) {

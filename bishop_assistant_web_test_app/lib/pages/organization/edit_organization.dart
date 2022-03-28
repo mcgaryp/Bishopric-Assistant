@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/new_repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/pages/organization/delete_organization_confirmation_dialog.dart';
 import 'package:bishop_assistant_web_test_app/pages/organization/organization_members_view.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
@@ -45,6 +45,7 @@ class _EditOrganizationState extends State<EditOrganization> {
                       setState(() {
                         name = str ?? "";
                       });
+                      return str;
                     },
                   ))
                 : Text(
@@ -92,7 +93,7 @@ class _EditOrganizationState extends State<EditOrganization> {
       }
       ChangeOrganizationNameUseCase useCase =
           DefaultChangeOrganizationNameUseCase(
-              FirebaseOrganizationRepository(), FirebaseMemberRepository());
+              FirestoreOrganizationRepository(), FirestoreMemberRepository());
       MemberID accessorId = StateContainer.of(context).member.id;
       if (await useCase.execute(
           accessorId: accessorId, name: nameControl.text)) {

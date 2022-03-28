@@ -30,12 +30,15 @@ abstract class FirestoreHelper {
   ///
   /// These accessors will pull once and only once form the firebase
   /// [getSingleDocument] retrieves a single row from a specific table
-  Future<Map<String, dynamic>?> getSingleDocument(UUID uuid,
+  Future<Map<String, dynamic>> getSingleDocument(UUID uuid,
       {FirestoreCollectionPath? path}) async {
     DocumentSnapshot<Map<String, dynamic>> snapshot =
-        await _firestore.collection((path ?? mPath).string).doc(uuid.id).get();
+        await _firestore.collection((path ?? mPath).name).doc(uuid.id).get();
     Map<String, dynamic>? map = snapshot.data();
-    if (map == null) return null;
+    if (map == null) {
+      throw Exception(
+          "Firestore could not find the document with id: `${uuid.id}` at path `${(path ?? mPath).name}`");
+    }
     return map;
   }
 
@@ -50,18 +53,18 @@ abstract class FirestoreHelper {
     if (field != null) {
       if (sortBy != null) {
         snapshot = await _firestore
-            .collection((path ?? mPath).string)
+            .collection((path ?? mPath).name)
             .orderBy(sortBy, descending: false)
             .where(field, isEqualTo: isEqualTo)
             .get();
       } else {
         snapshot = await _firestore
-            .collection((path ?? mPath).string)
+            .collection((path ?? mPath).name)
             .where(field, isEqualTo: isEqualTo)
             .get();
       }
     } else
-      snapshot = await _firestore.collection((path ?? mPath).string).get();
+      snapshot = await _firestore.collection((path ?? mPath).name).get();
     return snapshot.docs.map<Map<String, dynamic>>((document) {
       return document.data();
     }).toList();
@@ -83,18 +86,18 @@ abstract class FirestoreHelper {
     if (field != null) {
       if (sortBy != null) {
         snapshot = _firestore
-            .collection((path ?? mPath).string)
+            .collection((path ?? mPath).name)
             .where(field, isEqualTo: isEqualTo)
             .orderBy(sortBy, descending: false)
             .snapshots();
       } else {
         snapshot = _firestore
-            .collection((path ?? mPath).string)
+            .collection((path ?? mPath).name)
             .where(field, isEqualTo: isEqualTo)
             .snapshots();
       }
     } else {
-      snapshot = _firestore.collection((path ?? mPath).string).snapshots();
+      snapshot = _firestore.collection((path ?? mPath).name).snapshots();
     }
     return snapshot.asyncMap<List<Map<String, dynamic>>>(
         (event) => event.docs.map<Map<String, dynamic>>((document) {
@@ -107,7 +110,7 @@ abstract class FirestoreHelper {
   Stream<Map<String, dynamic>?> getSingleDocumentStreamed(UUID uuid,
       {FirestoreCollectionPath? path}) {
     Stream<DocumentSnapshot<Map<String, dynamic>>> stream =
-        _firestore.collection((path ?? mPath).string).doc(uuid.id).snapshots();
+        _firestore.collection((path ?? mPath).name).doc(uuid.id).snapshots();
     return stream.asyncMap<Map<String, dynamic>?>((event) {
       Map<String, dynamic>? map = event.data();
       if (map == null) return null;
@@ -122,7 +125,7 @@ abstract class FirestoreHelper {
     String? strId = id == null ? null : id.id;
 
     DocumentReference ref =
-        await _firestore.collection((path ?? mPath).string).doc(strId);
+        _firestore.collection((path ?? mPath).name).doc(strId);
 
     result = (ref.id);
 
@@ -137,7 +140,7 @@ abstract class FirestoreHelper {
     bool result = true;
 
     await _firestore
-        .collection((path ?? mPath).string)
+        .collection((path ?? mPath).name)
         .doc(uuid.id)
         .update(map)
         .onError<bool>((error, stackTrace) => result = false);
@@ -150,7 +153,7 @@ abstract class FirestoreHelper {
     bool result = true;
 
     await _firestore
-        .collection((path ?? mPath).string)
+        .collection((path ?? mPath).name)
         .doc(id.id)
         .delete()
         .onError<bool>((error, stackTrace) => result = false);
@@ -164,21 +167,23 @@ abstract class FirestoreHelper {
 enum FirestoreCollectionPath {
   accounts,
   assignments,
+  authorizations,
+  contact,
+  credentials,
   events,
   members,
+  name,
+  notes,
+  @Deprecated("")
   organization_assignments,
+  @Deprecated("")
   organization_members,
+  @Deprecated("")
   organization_requests,
   organizations,
+  requests,
+  roles,
   util
-}
-
-/// [FirestoreCollectionPathExtension] adds additional getters, functions to the
-/// [FirestoreCollectionPath] enum
-extension FirestoreCollectionPathExtension on FirestoreCollectionPath {
-  /// [string] turns the enum into a string value exactly the way it is spelt in
-  /// the enum
-  String get string => this.toString().split('.').last;
 }
 
 /// [Util] is a helper class to access the one table in the firebase that holds

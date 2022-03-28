@@ -29,27 +29,34 @@ class DefaultChangeOrganizationNameUseCase
   @override
   Future<bool> execute(
       {required MemberID accessorId, required String name}) async {
+    // Verify Accessor
     Member? accessor = await _memberRepository.find(accessorId);
     if (accessor == null) throw MemberNotFoundError();
 
+    // Verify Organization
     Organization? organization =
         await _memberRepository.findOrganization(accessor.id);
     if (organization == null) throw OrganizationNotFoundError();
 
+    // Verify Permission to edit
     if (!organization.canEdit(
-        permissions: accessor.role.permissions, id: accessorId))
+        authorization: accessor.role.authorization, id: accessorId))
       throw PermissionDeniedError(
           reason: "Must be organization Creator to change name "
               "or have status of creator");
 
+    // Verify Name change
     if (organization.name == name)
       throw FailedToSaveError(
           reason: "New organization name cannot be same as previous");
 
+    // Change name
     organization.name = name;
 
+    // Update name
     if (await _organizationRepository.update(organization)) return true;
 
+    // notify if fails to update
     throw FailedToSaveError(reason: "Organization name failed to update");
   }
 }

@@ -4,8 +4,8 @@ import 'package:models/models/organization.dart';
 
 import '../account/mock_contact.dart';
 import '../account/mock_name.dart';
+import '../organization/mock_authorization.dart';
 import '../organization/mock_member.dart';
-import '../organization/mock_permissions.dart';
 
 ///
 /// mock_assignee.dart
@@ -19,11 +19,11 @@ class MockAssignee {
   late final Assignee assignee;
 
   MockAssignee(
-      {Contact? contact, Name? name, MemberID? id, Permissions? permissions}) {
+      {Contact? contact, Name? name, MemberID? id, Authorization? authorization}) {
     assignee = Assignee(
         contact: contact ?? MockContact().contact,
         name: name ?? MockName().name,
         id: id ?? MockMemberID().id,
-        permissions: permissions ?? MockPermissions().permissions);
+        authorization: authorization ?? MockAuthorization().authorization);
   }
 }

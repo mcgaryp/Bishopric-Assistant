@@ -60,26 +60,26 @@ class DefaultDeleteOrganizationUseCase implements DeleteOrganizationUseCase {
       }
 
       // Remove member account organization relationships
-      List<OrganizationMemberRelationship> relationships =
-          await _organizationRepository.findAllRelationships(organizationID);
-
-      for (OrganizationMemberRelationship relationship in relationships) {
-        if (!(await _organizationRepository.removeRelationship(relationship)))
-          // TODO: Failed to remove single relationship
-          throw FailedToRemoveError(
-              forEntity: "Delete Organization Relationship $relationship");
-      }
+      // List<OrganizationMemberRelationship> relationships =
+      //     await _organizationRepository.findAllRelationships(organizationID);
+      //
+      // for (OrganizationMemberRelationship relationship in relationships) {
+      //   if (!(await _organizationRepository.removeRelationship(relationship)))
+      //     // TODO: Failed to remove single relationship
+      //     throw FailedToRemoveError(
+      //         forEntity: "Delete Organization Relationship $relationship");
+      // }
 
       // Remove Join Requests
-      List<JoinRequest> requests =
-          await _organizationRepository.findAllRequests(organizationID);
-      for (JoinRequest request in requests) {
-        if (!(await _organizationRepository
-            .removeRequestToJoinOrganization(request)))
-          // TODO: Failed to remove single join request
-          throw FailedToRemoveError(
-              forEntity: "Delete Organization Join Request");
-      }
+      // List<JoinRequest> requests =
+      //     await _organizationRepository.findAllRequests(organizationID);
+      // for (JoinRequest request in requests) {
+      //   if (!(await _organizationRepository
+      //       .removeRequestToJoinOrganization(request)))
+      //     // TODO: Failed to remove single join request
+      //     throw FailedToRemoveError(
+      //         forEntity: "Delete Organization Join Request");
+      // }
 
       // TODO: Remove all Assignments
       // List<Assignment> assignments = await _assignmentRepository.findAll(organizationID);

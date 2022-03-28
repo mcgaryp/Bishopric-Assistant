@@ -23,7 +23,7 @@ class MemberTitle extends StatelessWidget {
         style: subhead,
       ),
       subtitle: Text(
-        member.role.anonymous,
+        member.role.name,
         style: captionDark,
       ),
     );

@@ -22,19 +22,20 @@ class DefaultFindAllArchivedAssignmentsUseCase
 
   @override
   Stream<List<Stream<Assignment>>> execute(OrganizationID id) {
-    Stream<List<Stream<Assignment>>> stream =
-        _assignmentRepository.findAllStreamedByOrganizationID(id);
-
-    // Filter out of the list the assignments that are not archived
-    //TODO: Check permissions of both assignment and user accessing to make sure user is higher or equal to the assignment
-    return stream
-        .map<List<Stream<Assignment>>>((List<Stream<Assignment>> list) {
-      List<Stream<Assignment>> theList = [];
-      for (Stream<Assignment> stream in list) {
-        theList.add(stream.where((assignment) => assignment.isArchived));
-      }
-
-      return theList;
-    });
+    // Stream<List<Stream<Assignment>>> stream =
+    //     _assignmentRepository.findAllStreamedByOrganizationID(id);
+    //
+    // // Filter out of the list the assignments that are not archived
+    // //TODO: Check permissions of both assignment and user accessing to make sure user is higher or equal to the assignment
+    // return stream
+    //     .map<List<Stream<Assignment>>>((List<Stream<Assignment>> list) {
+    //   List<Stream<Assignment>> theList = [];
+    //   for (Stream<Assignment> stream in list) {
+    //     theList.add(stream.where((assignment) => assignment.isArchived));
+    //   }
+    //
+    //   return theList;
+    // });
+    throw UnimplementedError("Find All Archived Assignments Use Case");
   }
 }

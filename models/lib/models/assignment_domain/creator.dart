@@ -1,8 +1,6 @@
 import 'package:models/models/account.dart';
 import 'package:models/models/assignment_domain/person.dart';
-import 'package:models/models/organization_domain/member.dart';
-import 'package:models/models/organization_domain/member_id.dart';
-import 'package:models/models/organization_domain/permissions.dart';
+import 'package:models/models/organization.dart';
 
 ///
 /// creator.dart
@@ -15,28 +13,28 @@ class Creator extends Person {
   static final String nameKey = "Creator Name";
   static final String contactKey = "Creator Contact";
   static final String idKey = "Creator ID";
-  static final String permissionsKey = "Creator Permissions";
+  static final String authorizationKey = "Creator Permissions";
 
   Creator(
       {required Contact contact,
       required Name name,
       required MemberID id,
-      required Permissions permissions})
-      : super(contact: contact, name: name, id: id, permissions: permissions);
+      required Authorization authorization})
+      : super(contact: contact, name: name, id: id, authorization: authorization);
 
   Creator.fromMap(Map<String, dynamic> map)
       : this(
             contact: Contact.fromMap(map[contactKey]),
             name: Name.fromMap(map[nameKey]),
             id: MemberID(map[idKey]),
-            permissions: PermissionsExtension.fromString(map[permissionsKey]));
+            authorization: Authorization.fromMap(map[authorizationKey]));
 
   Creator.fromMember(Member member)
       : this(
           contact: member.contact,
           name: member.name,
           id: member.id,
-          permissions: member.role.permissions,
+          authorization: member.role.authorization,
         );
 
   @override
@@ -44,7 +42,7 @@ class Creator extends Person {
     return other.contact == this.contact &&
         other.name == this.name &&
         other.id == this.id &&
-        other.permissions == this.permissions;
+        other.authorization == this.authorization;
   }
 
   @override
@@ -58,6 +56,6 @@ class Creator extends Person {
         nameKey: name.toMap,
         contactKey: contact.toMap,
         idKey: id.id,
-        permissionsKey: permissions.string,
+        authorizationKey: authorization.toMap,
       };
 }

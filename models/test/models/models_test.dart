@@ -14,7 +14,6 @@ import 'account_domain/use_cases/deactivate_account_use_case_test.dart';
 import 'account_domain/use_cases/get_state_use_case_tests.dart';
 import 'account_domain/use_cases/logout_account_use_case_tests.dart';
 import 'account_domain/use_cases/reactivate_account_use_case_tests.dart';
-import 'account_domain/use_cases/recover_account_use_case_test.dart';
 import 'account_domain/use_cases/save_state_use_case_tests.dart';
 import 'account_domain/user_state_test.dart';
 import 'assignment_domain/assignee_test.dart';
@@ -33,12 +32,8 @@ import 'assignment_domain/use_cases/unarchive_assignment_use_case_test.dart';
 import 'assignment_domain/use_cases/update_assignment_use_case_test.dart';
 import 'organization_domain/member_test.dart';
 import 'organization_domain/organization_test.dart';
-import 'organization_domain/permissions_extension_test.dart';
 import 'organization_domain/role_test.dart';
 import 'organization_domain/use_cases/add_member_to_organization_use_case_test.dart';
-import 'organization_domain/use_cases/all_organization_members_use_case_test.dart';
-import 'organization_domain/use_cases/all_organization_requests_use_case_test.dart';
-import 'organization_domain/use_cases/all_organizations_use_case_test.dart';
 import 'organization_domain/use_cases/change_member_role_in_organization_use_case_test.dart';
 import 'organization_domain/use_cases/change_organization_name_use_case_test.dart';
 import 'organization_domain/use_cases/create_organization_use_case_test.dart';
@@ -70,7 +65,6 @@ runModelsTests() {
         runGetStateUseCaseTests();
         runLogoutAccountUseCaseTests();
         runReactivateAccountUseCaseTests();
-        runRecoverAccountUseCaseTest();
         runSaveStateUseCaseTests();
       });
       runAccountTests();
@@ -102,9 +96,6 @@ runModelsTests() {
     group("Organization Tests", () {
       group("Use Case Tests", () {
         runAddMemberToOrganizationUseCaseTest();
-        runAllOrganizationMembersUseCaseTest();
-        runAllOrganizationRequestsUseCaseTest();
-        runAllOrganizationsUseCaseTest();
         runChangeMemberRoleInOrganizationUseCaseTest();
         runChangeOrganizationNameUseCaseTest();
         runCreateOrganizationUseCaseTest();
@@ -119,7 +110,6 @@ runModelsTests() {
         runMemberTests();
       });
       runOrganizationTests();
-      runPermissionTests();
       runRoleTests();
     });
   });

@@ -15,9 +15,9 @@ mixin JoinOrganizationUseCase {
 }
 
 class DefaultJoinOrganizationUseCase implements JoinOrganizationUseCase {
-  final OrganizationRepository _organizationRepository;
+  final JoinRequestRepository _requestRepository;
 
-  DefaultJoinOrganizationUseCase(this._organizationRepository);
+  DefaultJoinOrganizationUseCase(this._requestRepository);
 
   @override
   Future<bool> execute(
@@ -26,6 +26,6 @@ class DefaultJoinOrganizationUseCase implements JoinOrganizationUseCase {
     JoinRequest request =
         JoinRequest(accountID: accountID, organizationID: organizationID);
 
-    return _organizationRepository.requestToJoinOrganization(request);
+    return _requestRepository.insert(request);
   }
 }

@@ -38,7 +38,7 @@ class AuthenticateAccountUseCaseTest with Test {
     expect(mockRepo.findStreamedFlag, false);
     expect(mockRepo.insertFlag, false);
     expect(mockRepo.logoutFlag, false);
-    expect(mockRepo.removeFlag, false);
+    expect(mockRepo.deactivateFlag, false);
     expect(mockRepo.updateFlag, false);
   }
 

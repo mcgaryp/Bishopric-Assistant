@@ -47,13 +47,10 @@ const String rTheme = "/theme";
 
 final Map<String, Widget Function(BuildContext)> routes = {
   rAssignments: (context) => Authenticate(child: AssignmentPage()),
-  // rChangePassword: (context) => ChangePassword(),
   rHome: (context) => Authenticate(child: HomePage()),
   rLegal: (context) => Legal(),
   rLogin: (context) => LoginPage(),
   rOrganization: (context) => Authenticate(child: OrganizationPage()),
-  // rPasswordRequest: (context) => RequestPasswordReset(),
-  // rPIN: (context) => PinView(),
   rPrivacy: (context) => Privacy(),
   rProfile: (context) => Authenticate(child: ProfilePage()),
   rReactivateAccount: (context) => ReactivateAccount(),

@@ -1,12 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:models/models/assignment.dart';
-import 'package:models/models/organization.dart';
 import 'package:models/shared/exceptions/exceptions.dart';
 import 'package:models/shared/test.dart';
 
-import '../../mocks/assignment/mock_assignee.dart';
 import '../../mocks/assignment/mock_assignment.dart';
-import '../../mocks/organization/mock_member.dart';
 
 ///
 /// assignment_test.dart
@@ -122,169 +119,27 @@ class AssignmentTest implements Test {
     expect(assignment.isOverDue, true);
   }
 
-  static final creator = Permissions.Creator;
-  static final maintainer = Permissions.Maintainer;
-  static final reporter = Permissions.Reporter;
-  static final viewer = Permissions.Viewer;
-
   // Check that canView works properly
   static verifyCanView() {
-    Assignment assignment =
-        MockAssignment(assignee: MockAssignee(permissions: creator).assignee)
-            .assignment;
-
-    expect(assignment.canView(memberID: MockMemberID().id), true);
-    expect(assignment.canView(memberID: MockMemberID(id: "Some other guys").id),
-        false);
-
-    expect(assignment.canView(permissions: creator), true);
-    expect(assignment.canView(permissions: maintainer), false);
-    expect(assignment.canView(permissions: reporter), false);
-    expect(assignment.canView(permissions: viewer), false);
-
-    assignment =
-        MockAssignment(assignee: MockAssignee(permissions: maintainer).assignee)
-            .assignment;
-    expect(assignment.canView(permissions: creator), true);
-    expect(assignment.canView(permissions: maintainer), true);
-    expect(assignment.canView(permissions: reporter), false);
-    expect(assignment.canView(permissions: viewer), false);
-
-    assignment =
-        MockAssignment(assignee: MockAssignee(permissions: reporter).assignee)
-            .assignment;
-    expect(assignment.canView(permissions: creator), true);
-    expect(assignment.canView(permissions: maintainer), true);
-    expect(assignment.canView(permissions: reporter), true);
-    expect(assignment.canView(permissions: viewer), false);
-
-    assignment =
-        MockAssignment(assignee: MockAssignee(permissions: viewer).assignee)
-            .assignment;
-    expect(assignment.canView(permissions: creator), true);
-    expect(assignment.canView(permissions: maintainer), true);
-    expect(assignment.canView(permissions: reporter), true);
-    expect(assignment.canView(permissions: viewer), true);
+    // TODO: Create New Test
   }
 
   // Check that canArchive works properly
   static verifyCanArchive() {
-    Assignment assignment =
-        MockAssignment(assignee: MockAssignee(permissions: creator).assignee)
-            .assignment;
+    // TODO: Create New Test
 
-    expect(assignment.canView(memberID: MockMemberID().id), true);
-    expect(assignment.canView(memberID: MockMemberID(id: "Some other guys").id),
-        false);
-
-    expect(assignment.canArchive(permissions: creator), true);
-    expect(assignment.canArchive(permissions: maintainer), false);
-    expect(assignment.canArchive(permissions: reporter), false);
-    expect(assignment.canArchive(permissions: viewer), false);
-
-    assignment =
-        MockAssignment(assignee: MockAssignee(permissions: maintainer).assignee)
-            .assignment;
-    expect(assignment.canArchive(permissions: creator), true);
-    expect(assignment.canArchive(permissions: maintainer), true);
-    expect(assignment.canArchive(permissions: reporter), false);
-    expect(assignment.canArchive(permissions: viewer), false);
-
-    assignment =
-        MockAssignment(assignee: MockAssignee(permissions: reporter).assignee)
-            .assignment;
-    expect(assignment.canArchive(permissions: creator), true);
-    expect(assignment.canArchive(permissions: maintainer), true);
-    expect(assignment.canArchive(permissions: reporter), true);
-    expect(assignment.canArchive(permissions: viewer), false);
-
-    assignment =
-        MockAssignment(assignee: MockAssignee(permissions: viewer).assignee)
-            .assignment;
-    expect(assignment.canArchive(permissions: creator), true);
-    expect(assignment.canArchive(permissions: maintainer), true);
-    expect(assignment.canArchive(permissions: reporter), true);
-    expect(assignment.canArchive(permissions: viewer), true);
   }
 
   // Check that canComplete works properly
   static verifyCanComplete() {
-    Assignment assignment =
-        MockAssignment(assignee: MockAssignee(permissions: creator).assignee)
-            .assignment;
+    // TODO: Create New Test
 
-    expect(assignment.canView(memberID: MockMemberID().id), true);
-    expect(assignment.canView(memberID: MockMemberID(id: "Some other guys").id),
-        false);
-
-    expect(assignment.canComplete(permissions: creator), true);
-    expect(assignment.canComplete(permissions: maintainer), true);
-    expect(assignment.canComplete(permissions: reporter), false);
-    expect(assignment.canComplete(permissions: viewer), false);
-
-    assignment =
-        MockAssignment(assignee: MockAssignee(permissions: maintainer).assignee)
-            .assignment;
-    expect(assignment.canComplete(permissions: creator), true);
-    expect(assignment.canComplete(permissions: maintainer), true);
-    expect(assignment.canComplete(permissions: reporter), false);
-    expect(assignment.canComplete(permissions: viewer), false);
-
-    assignment =
-        MockAssignment(assignee: MockAssignee(permissions: reporter).assignee)
-            .assignment;
-    expect(assignment.canComplete(permissions: creator), true);
-    expect(assignment.canComplete(permissions: maintainer), true);
-    expect(assignment.canComplete(permissions: reporter), false);
-    expect(assignment.canComplete(permissions: viewer), false);
-
-    assignment =
-        MockAssignment(assignee: MockAssignee(permissions: viewer).assignee)
-            .assignment;
-    expect(assignment.canComplete(permissions: creator), true);
-    expect(assignment.canComplete(permissions: maintainer), true);
-    expect(assignment.canComplete(permissions: reporter), false);
-    expect(assignment.canComplete(permissions: viewer), false);
   }
 
   // Check that canEdit works properly
   static verifyCanEdit() {
-    Assignment assignment =
-        MockAssignment(assignee: MockAssignee(permissions: creator).assignee)
-            .assignment;
+    // TODO: Create New Test
 
-    expect(assignment.canView(memberID: MockMemberID().id), true);
-    expect(assignment.canView(memberID: MockMemberID(id: "Some other guys").id),
-        false);
-
-    expect(assignment.canEdit(permissions: creator), true);
-    expect(assignment.canEdit(permissions: maintainer), true);
-    expect(assignment.canEdit(permissions: reporter), false);
-    expect(assignment.canEdit(permissions: viewer), false);
-
-    assignment =
-        MockAssignment(assignee: MockAssignee(permissions: maintainer).assignee)
-            .assignment;
-    expect(assignment.canEdit(permissions: creator), true);
-    expect(assignment.canEdit(permissions: maintainer), true);
-    expect(assignment.canEdit(permissions: reporter), false);
-    expect(assignment.canEdit(permissions: viewer), false);
-
-    assignment =
-        MockAssignment(assignee: MockAssignee(permissions: reporter).assignee)
-            .assignment;
-    expect(assignment.canEdit(permissions: creator), true);
-    expect(assignment.canEdit(permissions: maintainer), true);
-    expect(assignment.canEdit(permissions: reporter), false);
-    expect(assignment.canEdit(permissions: viewer), false);
-
-    assignment =
-        MockAssignment(assignee: MockAssignee(permissions: viewer).assignee)
-            .assignment;
-    expect(assignment.canEdit(permissions: creator), true);
-    expect(assignment.canEdit(permissions: maintainer), true);
-    expect(assignment.canEdit(permissions: reporter), false);
-    expect(assignment.canEdit(permissions: viewer), false);
   }
 }
 

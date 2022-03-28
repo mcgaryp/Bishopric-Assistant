@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/new_repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/shared/foundation.dart';
@@ -22,9 +22,12 @@ class JoinRequestDetailsView extends StatefulWidget {
 
 class _JoinRequestDetailsViewState extends State<JoinRequestDetailsView> {
   Role? role;
+  late List<Role> roles;
 
   @override
   Widget build(BuildContext context) {
+    roles = StateContainer.of(context).roles;
+
     return MyCard(
         child: Column(
       children: [
@@ -35,9 +38,11 @@ class _JoinRequestDetailsViewState extends State<JoinRequestDetailsView> {
         MyDropdown(
             hint: sRole,
             validator: Validators.validateDropDown,
-            collection: Permissions.values
-                .map<DropdownMenuItem<int>>((e) =>
-                    DropdownMenuItem(child: Text(e.string), value: e.index))
+            collection: roles
+                .map<DropdownMenuItem<int>>((Role role) =>
+                    DropdownMenuItem(
+                        child: Text(role.name),
+                        value: role.id.id.hashCode))
                 .toList(),
             onchange: _onRoleSelected),
         Row(
@@ -66,8 +71,7 @@ class _JoinRequestDetailsViewState extends State<JoinRequestDetailsView> {
       throw PermissionDeniedError(
           reason: "Must select a role to accept new member");
     setState(() {
-      Permissions permission = Permissions.values[value];
-      role = Role(permission, anonymous: permission.string);
+      role = roles.find(value);
     });
   }
 
@@ -77,8 +81,12 @@ class _JoinRequestDetailsViewState extends State<JoinRequestDetailsView> {
         throw PermissionDeniedError(
             reason: "Must select a role to accept new member");
       DefaultAddMemberToOrganizationUseCase useCase =
-          DefaultAddMemberToOrganizationUseCase(FirebaseAccountRepository(),
-              FirebaseOrganizationRepository(), FirebaseMemberRepository());
+          DefaultAddMemberToOrganizationUseCase(
+        FirestoreAccountRepository(),
+        FirestoreOrganizationRepository(),
+        FirestoreMemberRepository(),
+        FirestoreJoinRequestRepository(),
+      );
 
       await useCase.execute(
           accessorId: StateContainer.of(context).member.id,
@@ -96,8 +104,8 @@ class _JoinRequestDetailsViewState extends State<JoinRequestDetailsView> {
   void _reject() {
     try {
       DefaultRejectRequestUseCase useCase =
-          DefaultRejectRequestUseCase(FirebaseOrganizationRepository());
-      useCase.execute(widget.details.request);
+          DefaultRejectRequestUseCase(FirestoreJoinRequestRepository());
+      useCase.execute(widget.details.request.id);
       MyToast.toastSuccess(
           "Rejected ${widget.details.name.fullName}'s Request");
     } catch (e) {

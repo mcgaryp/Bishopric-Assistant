@@ -1,6 +1,6 @@
 import 'package:models/models/organization.dart';
 
-import 'mock_permissions.dart';
+import 'mock_authorization.dart';
 
 ///
 /// mock_role.dart
@@ -15,8 +15,10 @@ class MockRole {
 
   late final Role role;
 
-  MockRole({Permissions? permissions, String? anonymous}) {
-    role = Role(permissions ?? MockPermissions().permissions,
-        anonymous: anonymous ?? mockAnonymous);
+  MockRole({Authorization? authorization, String? anonymous}) {
+    role = Role(
+      name: anonymous ?? mockAnonymous,
+      authorization: authorization ?? MockAuthorization().authorization,
+    );
   }
 }

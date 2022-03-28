@@ -41,21 +41,8 @@ class MockAssignmentRepository implements AssignmentRepository {
   @override
   Future<List<Assignment>> findAll(OrganizationID organizationID) {
     findAllFlag = true;
-    print(_isEmptyList);
+
     return Future.value(_isEmptyList ? [] : List.filled(2, assignment));
-  }
-
-  @override
-  Stream<List<Stream<Assignment>>> findAllStreamedByOrganizationID(
-      OrganizationID orgID) {
-    findAllStreamedByOrganizationIDFlag = true;
-    return Stream.value(List.filled(2, Stream.value(assignment)));
-  }
-
-  @override
-  Stream<Assignment> findStream(AssignmentID assignmentID) {
-    findStreamFlag = true;
-    return Stream.value(assignment);
   }
 
   @override

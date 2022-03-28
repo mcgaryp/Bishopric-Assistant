@@ -1,5 +1,4 @@
-import 'package:bishop_assistant_web_test_app/firebase/repositories/firebase_assignment_repo.dart';
-import 'package:bishop_assistant_web_test_app/firebase/repositories/firebase_member_repository.dart';
+import 'package:bishop_assistant_web_test_app/firebase/new_repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:models/models/assignment.dart';
@@ -26,7 +25,7 @@ class ConfirmDeleteAssignmentDialog extends StatelessWidget {
       onConfirm: () async {
         try {
           DeleteAssignmentUseCase useCase = DefaultDeleteAssignmentUseCase(
-              FirebaseAssignmentRepo(), FirebaseMemberRepository());
+              FirestoreAssignmentRepository(), FirestoreMemberRepository());
           bool didDelete = await useCase.execute(
               assignmentID: assignmentID,
               memberID: StateContainer.of(context).member.id);

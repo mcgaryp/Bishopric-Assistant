@@ -1,7 +1,8 @@
-import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/new_repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/pages/organization/confirm_member_removal_dialog.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/organization.dart';
+import 'package:models/util/extensions/extensions.dart';
 
 ///
 /// edit_member_details_card.dart
@@ -21,19 +22,15 @@ class EditMemberDetailsCard extends StatefulWidget {
 }
 
 class _EditMemberDetailsCardState extends State<EditMemberDetailsCard> {
-  List<Permissions?> get permissions {
-    List<Permissions?> lst = [null];
-    lst.addAll(Permissions.values);
-    return lst;
-  }
-
-  Permissions? permission;
+  Role? role;
+  late List<Role> roles;
   late MemberID accessorID;
   late bool isOpen = false;
 
   @override
   Widget build(BuildContext context) {
     accessorID = StateContainer.of(context).member.id;
+    roles = StateContainer.of(context).roles;
 
     if (StateContainer.of(context).organization.creator == widget.member)
       return Container();
@@ -43,13 +40,13 @@ class _EditMemberDetailsCardState extends State<EditMemberDetailsCard> {
       child: ExpansionTile(
           trailing: Text(
               isOpen
-                  ? permission == null
+                  ? role == null
                       ? sCancel
                       : sSave
                   : sEdit,
               style: body),
           onExpansionChanged: (bool status) {
-            if (!status && permission != null) _save();
+            if (!status && role != null) _save();
             setState(() {
               isOpen = status;
             });
@@ -64,7 +61,7 @@ class _EditMemberDetailsCardState extends State<EditMemberDetailsCard> {
             maxLines: 2,
           ),
           subtitle: Text(
-            widget.member.role.anonymous,
+            widget.member.role.name,
             style: footnoteDark,
           ),
           controlAffinity: ListTileControlAffinity.trailing,
@@ -74,21 +71,19 @@ class _EditMemberDetailsCardState extends State<EditMemberDetailsCard> {
                 hint: sRole,
                 onchange: (int? index) {
                   setState(() {
-                    permission = null;
+                    role = null;
                     if (index != null) {
                       if (index != 0)
-                        permission = Permissions.values[index - 1];
+                        role = roles.find(index);
                     }
                   });
                 },
-                collection: permissions
-                    .map<DropdownMenuItem<int>>((Permissions? permission) =>
+                collection: roles
+                    .map<DropdownMenuItem<int>>((Role? r) =>
                         DropdownMenuItem(
-                            child: Text(
-                                permission == null ? sRole : permission.name,
+                            child: Text(r == null ? sRole : r.name,
                                 style: body),
-                            value:
-                                permission == null ? 0 : permission.index + 1))
+                            value: r == null ? 0 : r.id.id.hashCode))
                     .toList()),
             if (StateContainer.of(context).member ==
                 StateContainer.of(context).organization.creator)
@@ -104,13 +99,12 @@ class _EditMemberDetailsCardState extends State<EditMemberDetailsCard> {
 
   void _save() async {
     try {
-      if (permission == null) return;
+      if (role == null) return;
       ChangeMemberRoleInOrganizationUseCase useCase =
           DefaultChangeMemberRoleInOrganizationUseCase(
-              FirebaseMemberRepository());
-      Role role = Role(permission!, anonymous: permission!.name);
+              FirestoreMemberRepository());
       if (!(await useCase.execute(
-          accessorID: accessorID, memberID: widget.member.id, role: role))) {
+          accessorID: accessorID, memberID: widget.member.id, role: role!))) {
         MyToast.toastSuccess("${widget.member.name}'s new role $role");
       }
     } catch (e) {

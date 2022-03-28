@@ -4,6 +4,7 @@ import 'package:models/models/organization.dart';
 
 import '../account/mock_contact.dart';
 import '../account/mock_name.dart';
+import '../organization/mock_authorization.dart';
 import '../organization/mock_member.dart';
 
 ///
@@ -18,11 +19,11 @@ class MockCreator {
   late final Creator creator;
 
   MockCreator(
-      {Contact? contact, Name? name, MemberID? id, Permissions? permissions}) {
+      {Contact? contact, Name? name, MemberID? id, Authorization? authorization}) {
     creator = Creator(
         contact: contact ?? MockContact().contact,
         name: name ?? MockName().name,
         id: id ?? MockMemberID().id,
-        permissions: permissions ?? Permissions.Creator);
+        authorization: authorization ?? MockAuthorization().authorization);
   }
 }

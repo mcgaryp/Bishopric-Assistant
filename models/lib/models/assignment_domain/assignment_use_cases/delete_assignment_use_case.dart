@@ -33,7 +33,7 @@ class DefaultDeleteAssignmentUseCase implements DeleteAssignmentUseCase {
     member ?? (throw MemberNotFoundError());
 
     if (assignment.canView(
-        permissions: member.role.permissions, memberID: member.id)) {
+        authorization: member.role.authorization, memberID: member.id)) {
       return _assignmentRepository.remove(assignmentID);
     }
 

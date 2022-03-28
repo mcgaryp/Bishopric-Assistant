@@ -38,13 +38,17 @@ class _ProfilePageState extends State<ProfilePage> {
                 Spacer(),
                 MyButton(
                   label: sLogout,
-                  onPressed: () {
-                    StateContainer.of(context).logout();
-                    Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      rLogin,
-                      (Route route) => route.isFirst,
-                    );
+                  onPressed: () async {
+                    try {
+                      await StateContainer.of(context).logout();
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        rLogin,
+                        (Route route) => route.isCurrent,
+                      );
+                    } catch (e) {
+                      MyToast.toastError(e);
+                    }
                   },
                   style: MyButtonStyle.text,
                   isExpanded: false,
@@ -58,7 +62,7 @@ class _ProfilePageState extends State<ProfilePage> {
               textAlign: TextAlign.center,
             ),
             if (StateContainer.of(context).state >= UserState.inOrganization)
-              Text(member.role.anonymous, style: subhead),
+              Text(member.role.name, style: subhead),
             MyConstrainedBox300(children: [
               MyDivider(color: dark),
               Padding(

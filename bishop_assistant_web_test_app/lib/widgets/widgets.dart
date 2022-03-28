@@ -19,3 +19,4 @@ export 'inputs/firebase_multi_select_field.dart';
 export 'inputs/inputs.dart';
 export 'page_support/page_support.dart';
 export 'title/title.dart';
+export 'lists/lists.dart';

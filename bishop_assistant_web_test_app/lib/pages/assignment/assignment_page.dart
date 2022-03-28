@@ -2,7 +2,7 @@ import 'package:bishop_assistant_web_test_app/pages/assignment/archive_assignmen
 import 'package:bishop_assistant_web_test_app/pages/assignment/assignments_view.dart';
 import 'package:bishop_assistant_web_test_app/pages/assignment/create_assignment_view.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
-import 'package:models/models/organization_domain/permissions.dart';
+import 'package:models/models/organization.dart';
 
 ///
 /// assignment_page.dart
@@ -34,8 +34,8 @@ class _AssignmentPageState extends State<AssignmentPage>
 
   @override
   Widget build(BuildContext context) {
-    Permissions currentUserPermissions =
-        StateContainer.of(context).member.role.permissions;
+    Authorization currentUserPermissions =
+        StateContainer.of(context).member.role.authorization;
 
     width = MediaQuery.of(context).size.width;
     isMobile = width < 700;
@@ -44,7 +44,7 @@ class _AssignmentPageState extends State<AssignmentPage>
 
     children = [
       AssignmentsView(),
-      if (isMobile && currentUserPermissions >= Permissions.Reporter)
+      if (isMobile && currentUserPermissions.rank >= 0)
         CreateAssignmentView(),
       ArchiveAssignmentView(),
     ];
@@ -56,7 +56,7 @@ class _AssignmentPageState extends State<AssignmentPage>
             items: [
               BottomNavigationBarItem(
                   icon: Icon(Icons.list), label: sAssignments),
-              if (currentUserPermissions >= Permissions.Reporter)
+              if (currentUserPermissions.rank >= 0)
                 BottomNavigationBarItem(
                     icon: Icon(Icons.create), label: sCreate),
               BottomNavigationBarItem(

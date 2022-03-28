@@ -50,7 +50,7 @@ class DeactivateAccountUseCaseTest with Test {
 
     expect(mockRepo.logoutFlag, false);
 
-    expect(mockRepo.removeFlag, true);
+    expect(mockRepo.deactivateFlag, true);
 
     expect(mockRepo.updateFlag, false);
   }

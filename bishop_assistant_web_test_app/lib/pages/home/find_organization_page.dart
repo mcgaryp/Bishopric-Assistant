@@ -1,4 +1,5 @@
-import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/new_repositories/firestore_organization_repository.dart';
+import 'package:bishop_assistant_web_test_app/firebase/new_repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/pages/home/create_organization.dart';
 import 'package:bishop_assistant_web_test_app/pages/home/list_of_organizations.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
@@ -25,11 +26,9 @@ class _FindOrganizationPageState extends State<FindOrganizationPage> {
 
   @override
   Widget build(BuildContext context) {
-    DefaultAllOrganizationsUseCase useCase =
-        DefaultAllOrganizationsUseCase(FirebaseOrganizationRepository());
 
     return StreamBuilder(
-        stream: useCase.execute(),
+        stream: FirestoreOrganizationRepository().allStreamed(),
         builder:
             (BuildContext context, AsyncSnapshot<List<Organization>> snapshot) {
           if (snapshot.hasData && snapshot.data != null) {
@@ -40,7 +39,7 @@ class _FindOrganizationPageState extends State<FindOrganizationPage> {
 
             return Padding(
               padding: const EdgeInsets.only(top: padding8),
-              child: Column(children: [
+              child: ListView(children: [
                 CreateOrganization(() async {
                   await StateContainer.of(context).findOrganization();
                   Navigator.of(context).pushReplacementNamed(rHome);
@@ -66,8 +65,8 @@ class _FindOrganizationPageState extends State<FindOrganizationPage> {
                   },
                   searchableItems: allOrganizations,
                 ),
-                errors ?? Container(),
                 MyDivider(color: dark),
+                errors ?? Container(),
                 if (organizations != null) ListOfOrganizations(organizations!),
               ]),
             );

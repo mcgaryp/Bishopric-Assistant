@@ -46,7 +46,7 @@ class DefaultCreateAssignmentUseCase implements CreateAssignmentUseCase {
 
     member ?? (throw MemberNotFoundError());
 
-    if (member.role.permissions < Permissions.Reporter) {
+    if (member.role.authorization.rank < 0) {
       throw PermissionDeniedError(
           reason: "Insufficient privilege to create assignment");
     }
@@ -63,7 +63,7 @@ class DefaultCreateAssignmentUseCase implements CreateAssignmentUseCase {
         contact: member.contact,
         name: member.name,
         id: member.id,
-        permissions: member.role.permissions);
+        authorization: member.role.authorization);
 
     Assignment assignment = Assignment(
       creator: creator,

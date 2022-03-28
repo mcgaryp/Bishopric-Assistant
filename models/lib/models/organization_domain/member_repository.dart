@@ -1,5 +1,4 @@
 import 'package:models/models/organization.dart';
-import 'package:models/shared/repository.dart';
 
 ///
 /// member_repository.dart
@@ -10,16 +9,29 @@ import 'package:models/shared/repository.dart';
 ///
 
 /// [MemberRepository] manages the data of a repository regarding membership
-mixin MemberRepository implements Repository<Member, MemberID, OrganizationID> {
-  Future<Organization?> findOrganization(MemberID memberID);
+mixin MemberRepository {
+  @required
+  Future<Member?> find(MemberID id);
 
-  Future<Member?> findWithAccountID(AccountID accountID);
+  @required
+  Future<List<Member>> findAll(OrganizationID id);
 
-  Stream<List<Stream<Member>>> findAllStreamed(OrganizationID organizationID);
+  @required
+  Future<Organization?> findOrganization(MemberID id);
 
-  Stream<Member> findStreamed(MemberID memberID);
+  @required
+  Future<Member?> findWithAccountID(AccountID id);
 
-  Future<List<Member>> findAll(OrganizationID organizationID);
+  @required
+  Future<List<Member>> findAllWithAccountID(AccountID accountID);
 
-  Future<List<Member>?> findAllWithAccountID(AccountID accountID);
+  @required
+  Future<bool> insert(Member member, OrganizationID organizationID,
+      AccountID accountID);
+
+  @required
+  Future<bool> remove(MemberID id);
+
+  @required
+  Future<bool> update(Member member);
 }

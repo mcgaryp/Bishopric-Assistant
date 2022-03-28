@@ -1,4 +1,4 @@
-import 'package:models/models/organization_domain/permissions.dart';
+import 'package:models/models/organization.dart';
 import 'package:models/shared/domain_driven_design/value_object.dart';
 
 ///
@@ -11,27 +11,27 @@ import 'package:models/shared/domain_driven_design/value_object.dart';
 
 class Note extends ValueObject<Note> {
   static final String contentKey = "note content";
-  static final String permissionsKey = "note permissions";
+  static final String authorizationKey = "Note Authorization";
   String content;
-  final Permissions permissions;
+  final Authorization authorization;
 
-  Note({required this.content, required this.permissions});
+  Note({required this.content, required this.authorization});
 
   Note.fromMap(Map<String, dynamic> map)
       : this(
             content: map[contentKey],
-            permissions: PermissionsExtension.fromString(map[permissionsKey]));
+            authorization: Authorization.fromMap(map[authorizationKey]));
 
   // Who can view the Notes?
   // - Those Equal to or greater than the permission level of the note
-  bool canView(Permissions permissions) {
-    return permissions >= this.permissions;
+  bool canView(Authorization authorization) {
+    return authorization >= this.authorization;
   }
 
   @override
   bool sameValueAs(Note other) {
     return this.content == other.content &&
-        this.permissions == other.permissions;
+        this.authorization == other.authorization;
   }
 
   @override
@@ -41,6 +41,8 @@ class Note extends ValueObject<Note> {
   }
 
   @override
-  Map<String, dynamic> get toMap =>
-      {contentKey: content, permissionsKey: permissions.string};
+  Map<String, dynamic> get toMap => {
+        contentKey: content,
+        authorizationKey: authorization.toMap,
+      };
 }

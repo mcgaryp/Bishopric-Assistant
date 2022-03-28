@@ -1,8 +1,7 @@
-import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/new_repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
-import 'package:flutter/foundation.dart';
 import 'package:models/models/assignment.dart';
-import 'package:models/models/organization_domain/permissions.dart';
+import 'package:models/models/organization.dart';
 
 ///
 /// edit_assignment_card.dart
@@ -42,11 +41,11 @@ class _EditAssignmentCardState extends State<EditAssignmentCard> {
 
   @override
   Widget build(BuildContext context) {
-    Permissions currentUserPermissions =
-        StateContainer.of(context).member.role.permissions;
+    Authorization currentUserPermissions =
+        StateContainer.of(context).member.role.authorization;
 
     AllAssigneesUseCase useCase =
-        DefaultAllAssigneesUseCase(FirebaseMemberRepository());
+        DefaultAllAssigneesUseCase(FirestoreMemberRepository());
 
     return MyCard(
         child: Form(
@@ -65,7 +64,7 @@ class _EditAssignmentCardState extends State<EditAssignmentCard> {
               List<Assignee> assignees = snapshot.data!;
               return MyDropdown(
                 hint: widget.assignment.assignee.name.fullName,
-                onchange: (int value) {
+                onchange: (int? value) {
                   for (Assignee element in assignees) {
                     if (element.id.id.hashCode == value) {
                       setState(() {
@@ -115,7 +114,7 @@ class _EditAssignmentCardState extends State<EditAssignmentCard> {
   Future<bool> _update() async {
     try {
       UpdateAssignmentUseCase useCase = DefaultUpdateAssignmentUseCase(
-          FirebaseAssignmentRepo(), FirebaseMemberRepository());
+          FirestoreAssignmentRepository(), FirestoreMemberRepository());
 
       bool result = await useCase.execute(
         assignmentID: widget.assignment.id,

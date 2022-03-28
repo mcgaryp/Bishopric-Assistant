@@ -20,7 +20,7 @@ class MockAccountRepository implements AccountRepository {
   bool insertFlag = false;
   bool loginFlag = false;
   bool logoutFlag = false;
-  bool removeFlag = false;
+  bool deactivateFlag = false;
   bool updateFlag = false;
 
   final Account account;
@@ -47,20 +47,6 @@ class MockAccountRepository implements AccountRepository {
   }
 
   @override
-  Future<Account?> findByEmail(String email) {
-    findByEmailFlag = true;
-    if (email == account.contact.email) return Future.value(account);
-    return Future.value(null);
-  }
-
-  @override
-  Future<Account?> findByPhone(String phone) {
-    findByPhoneFlag = true;
-    if (phone == account.contact.phone) return Future.value(account);
-    return Future.value(null);
-  }
-
-  @override
   Future<Account?> findByUsername(String username) {
     findByUsernameFlag = true;
     if (username == account.credentials.username) return Future.value(account);
@@ -68,20 +54,13 @@ class MockAccountRepository implements AccountRepository {
   }
 
   @override
-  Stream<Account> findStreamed(AccountID id) {
-    findStreamedFlag = true;
-    return Stream.value(account);
-  }
-
-  @override
-  Future<Account?> insert(Account m) {
+  Future<bool> insert(Account account) {
     insertFlag = true;
-    if (shouldFail) return Future.value(null);
-    return Future.value(account);
+    return Future.value(_succeed);
   }
 
   @override
-  Future<bool> login(Account account) {
+  Future<bool> login(AccountID id) {
     loginFlag = true;
     return Future.value(_succeed);
   }
@@ -93,14 +72,14 @@ class MockAccountRepository implements AccountRepository {
   }
 
   @override
-  Future<bool> remove(AccountID i) {
-    removeFlag = true;
+  Future<bool> update(Account m) {
+    updateFlag = true;
     return Future.value(_succeed);
   }
 
   @override
-  Future<bool> update(Account m) {
-    updateFlag = true;
+  Future<bool> deactivate(AccountID id) {
+    deactivateFlag = true;
     return Future.value(_succeed);
   }
 }

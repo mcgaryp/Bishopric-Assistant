@@ -1,5 +1,4 @@
-import 'package:bishop_assistant_web_test_app/firebase/repositories/firebase_assignment_repo.dart';
-import 'package:bishop_assistant_web_test_app/firebase/repositories/firebase_member_repository.dart';
+import 'package:bishop_assistant_web_test_app/firebase/new_repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/assignment.dart';
 import 'package:models/models/organization.dart';
@@ -27,12 +26,15 @@ class _CreateAssignmentCardState extends State<CreateAssignmentCard> {
   TextEditingController content = TextEditingController();
   DateTime dueDate = DateTime.now();
   Assignee? assignee;
-  Permissions? permissions;
+  Authorization? authorization;
+  List<Authorization> authorizations = [];
 
   @override
   Widget build(BuildContext context) {
     AllAssigneesUseCase useCase =
-        DefaultAllAssigneesUseCase(FirebaseMemberRepository());
+        DefaultAllAssigneesUseCase(FirestoreMemberRepository());
+
+    authorizations = StateContainer.of(context).authorizations;
 
     return MyCard(
         child: Form(
@@ -58,7 +60,7 @@ class _CreateAssignmentCardState extends State<CreateAssignmentCard> {
                 List<Assignee> assignees = snapshot.data!;
                 return MyDropdown(
                   hint: sAssignee,
-                  onchange: (int value) {
+                  onchange: (int? value) {
                     for (Assignee element in assignees) {
                       if (element.id.id.hashCode == value) {
                         setState(() {
@@ -80,14 +82,14 @@ class _CreateAssignmentCardState extends State<CreateAssignmentCard> {
             }),
         MyDropdown(
           hint: sNotesViewPermission,
-          onchange: (int value) {
+          onchange: (int? value) {
             setState(() {
-              permissions = Permissions.values[value];
+              // TODO Manage authorizations
             });
           },
-          collection: Permissions.values
-              .map<DropdownMenuItem<int>>((Permissions p) =>
-                  DropdownMenuItem(child: Text(p.name), value: p.index))
+          collection: authorizations
+              .map<DropdownMenuItem<int>>((Authorization p) =>
+                  DropdownMenuItem(child: Text(p.name), value: p.rank))
               .toList(),
         ),
         InputField.plain(sNotes, maxLines: true, controller: content),
@@ -103,14 +105,14 @@ class _CreateAssignmentCardState extends State<CreateAssignmentCard> {
     try {
       if (assignee == null)
         throw FailedToSaveError(reason: "Assignee is not selected");
-      if (permissions == null)
+      if (authorization == null)
         throw FailedToSaveError(reason: "Note Permissions is not selected");
       CreateAssignmentUseCase useCase = DefaultCreateAssignmentUseCase(
-          FirebaseAssignmentRepo(), FirebaseMemberRepository());
+          FirestoreAssignmentRepository(), FirestoreMemberRepository());
 
       MemberID memberID = StateContainer.of(context).member.id;
 
-      Note note = Note(content: content.text, permissions: permissions!);
+      Note note = Note(content: content.text, authorization: authorization!);
 
       Assignment assignment = await useCase.execute(
         title: title.text,

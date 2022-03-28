@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/new_repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:models/models/assignment.dart';
@@ -25,7 +25,7 @@ class ConfirmAssignmentArchiveDialog extends StatelessWidget {
         onConfirm: () async {
           try {
             ArchiveAssignmentUseCase useCase = DefaultArchiveAssignmentUseCase(
-                FirebaseMemberRepository(), FirebaseAssignmentRepo());
+                FirestoreMemberRepository(), FirestoreAssignmentRepository());
             bool movedToArchive = await useCase.execute(
                 memberID: StateContainer.of(context).member.id,
                 assignmentID: assignmentID);

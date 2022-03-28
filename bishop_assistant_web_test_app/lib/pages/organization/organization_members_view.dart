@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/firebase/repositories/firebase_member_repository.dart';
+import 'package:bishop_assistant_web_test_app/firebase/new_repositories/firestore_member_repository.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/organization.dart';
 
@@ -17,12 +17,11 @@ class OrganizationMembersView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DefaultAllOrganizationMembersUseCase useCase =
-        DefaultAllOrganizationMembersUseCase(FirebaseMemberRepository());
+    FirestoreMemberRepository memberRepository = FirestoreMemberRepository();
     Organization organization = StateContainer.of(context).organization;
 
     return StreamBuilder<List<Stream<Member>>>(
-      stream: useCase.execute(organization.id),
+      stream: memberRepository.findAllStreamed(organization.id),
       builder:
           (BuildContext context, AsyncSnapshot<List<Stream<Member>>> snapshot) {
         if (snapshot.hasData) {

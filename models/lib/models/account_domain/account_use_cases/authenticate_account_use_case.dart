@@ -39,7 +39,7 @@ class DefaultAuthenticateAccountUseCase implements AuthenticateAccountUseCase {
 
     // Check that passwords and usernames match
     if (credentials == credentialsFromBeyond) {
-      if (await _accountRepository.login(accountFromBeyond))
+      if (await _accountRepository.login(accountFromBeyond.id))
         // Return streamed account
         return accountFromBeyond;
     }

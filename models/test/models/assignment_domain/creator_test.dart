@@ -38,7 +38,7 @@ class CreatorTest implements Test {
     Creator expected = Creator(
       name: member.name,
       contact: member.contact,
-      permissions: member.role.permissions,
+      authorization: member.role.authorization,
       id: member.id,
     );
     Creator creatorFromMember = Creator.fromMember(member);

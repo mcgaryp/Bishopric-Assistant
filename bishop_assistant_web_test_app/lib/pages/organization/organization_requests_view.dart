@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/new_repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/pages/organization/organization_notification_circle.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/organization.dart';
@@ -14,16 +14,19 @@ import 'package:models/models/organization.dart';
 class OrganizationRequestsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    DefaultAllOrganizationRequestsUseCase useCase =
-        DefaultAllOrganizationRequestsUseCase(FirebaseOrganizationRepository());
+    FirestoreJoinRequestRepository requestRepository =
+        FirestoreJoinRequestRepository();
 
     OrganizationID id = StateContainer.of(context).organization.id;
-    Permissions currentUserPermissions =
-        StateContainer.of(context).member.role.permissions;
+    Authorization currentUserAuthorization =
+        StateContainer.of(context).member.role.authorization;
 
-    if (currentUserPermissions >= Permissions.Maintainer)
+    List<Authorization> authorizations =
+        StateContainer.of(context).authorizations;
+
+    if (currentUserAuthorization >= authorizations.first)
       return StreamBuilder(
-          stream: useCase.execute(id),
+          stream: requestRepository.findAllStreamed(id),
           builder: (BuildContext context,
               AsyncSnapshot<List<JoinRequest>> snapshot) {
             if (snapshot.hasData) {

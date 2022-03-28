@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/new_repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/account.dart';
 
@@ -36,7 +36,7 @@ class ReactivateAccount extends StatelessWidget {
 
   void _yes(BuildContext context, AccountID id) async {
     DefaultReactivateAccountUseCase useCase =
-        DefaultReactivateAccountUseCase(FirebaseAccountRepository());
+        DefaultReactivateAccountUseCase(FirestoreAccountRepository());
     if (await useCase.execute(id)) {
       MyToast.toastSuccess("Account Activated");
       Navigator.pushReplacementNamed(context, rLogin);

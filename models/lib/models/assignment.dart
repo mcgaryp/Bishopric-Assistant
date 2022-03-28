@@ -15,3 +15,6 @@ export 'assignment_domain/assignment_use_cases.dart';
 export 'assignment_domain/creator.dart';
 export 'assignment_domain/note.dart';
 export 'assignment_domain/person.dart';
+export 'assignment_domain/note_id.dart';
+export 'assignment_domain/db_assignments/db_assignments.dart';
+export 'assignment_domain/note_repository.dart';

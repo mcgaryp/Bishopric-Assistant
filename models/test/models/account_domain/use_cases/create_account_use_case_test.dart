@@ -57,7 +57,7 @@ class CreateAccountUseCaseTest with Test {
 
     expect(mockRepo.logoutFlag, false);
 
-    expect(mockRepo.removeFlag, false);
+    expect(mockRepo.deactivateFlag, false);
 
     expect(mockRepo.updateFlag, false);
   }
@@ -80,11 +80,11 @@ class CreateAccountUseCaseTest with Test {
         MockAccountRepository(account: _mockAccount);
     CreateAccountUseCase useCase = DefaultCreateAccountUseCase(mockRepo);
 
-    Account account = await useCase.execute(
+    bool result = await useCase.execute(
         name: MockName().name,
         credentials: MockCredentials().credentials,
         contact: MockContact().contact);
-    expect(account == mockRepo.account, true);
+    expect(result, true);
 
     // Failed to Save account Error
     try {
@@ -92,11 +92,11 @@ class CreateAccountUseCaseTest with Test {
           MockAccountRepository(account: _mockAccount, shouldFail: true);
       CreateAccountUseCase useCase = DefaultCreateAccountUseCase(mockRepo);
 
-      Account account = await useCase.execute(
+      await useCase.execute(
           name: MockName().name,
           credentials: MockCredentials().credentials,
           contact: MockContact().contact);
-      expect(account == mockRepo.account, true);
+
       Test.fallthrough(
           notes: "Account does not notify user with a failure to "
               "save the account");

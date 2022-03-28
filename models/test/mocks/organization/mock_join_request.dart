@@ -11,10 +11,10 @@ import 'mock_organization.dart';
 /// Copyright 2022 Porter McGary. All rights reserved.
 ///
 
-class MockJointRequest {
+class MockJoinRequest {
   final JoinRequest request;
 
-  MockJointRequest({AccountID? accountID, OrganizationID? organizationID})
+  MockJoinRequest({AccountID? accountID, OrganizationID? organizationID})
       : this.request = JoinRequest(
           accountID: accountID ?? MockAccountID().id,
           organizationID: organizationID ?? MockOrganizationID().id,

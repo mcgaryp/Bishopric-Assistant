@@ -1,5 +1,4 @@
 import 'package:models/models/organization.dart';
-import 'package:models/shared/repository.dart';
 
 export 'package:models/models/account_domain/account_id.dart';
 
@@ -13,30 +12,22 @@ export 'package:models/models/account_domain/account_id.dart';
 
 /// [OrganizationRepository] manages the access and manipulation of the
 /// organization Repository
-mixin OrganizationRepository
-    implements Repository<Organization, OrganizationID, void> {
-  @Deprecated("No more Relationships")
-  Future<bool> insertRelationship(OrganizationMemberRelationship relationship);
+mixin OrganizationRepository {
+  @required
+  Future<Organization?> find(OrganizationID id);
 
-  @Deprecated("No more Relationships")
-  Future<List<OrganizationMemberRelationship>> findAllRelationships(
-      OrganizationID organizationID);
+  @required
+  Future<List<Organization>> findAll();
 
-  @Deprecated("No more Relationships")
-  Future<bool> removeRelationship(OrganizationMemberRelationship relationship);
-
-  Stream<List<JoinRequest>> findAllRequestsStreamed(
-      OrganizationID organizationID);
-
-  Future<List<JoinRequest>> findAllRequests(OrganizationID organizationID);
-
-  Stream<List<Organization>> findAll();
-
-  Stream<Organization> findStreamed(OrganizationID id);
-
-  Future<bool> requestToJoinOrganization(JoinRequest joinRequest);
-
-  Future<bool> removeRequestToJoinOrganization(JoinRequest request);
-
+  @required
   Future<Organization?> findByName(String name);
+
+  @required
+  Future<OrganizationID?> insert(String name);
+
+  @required
+  Future<bool> remove(OrganizationID id);
+
+  @required
+  Future<bool> update(Organization organization);
 }

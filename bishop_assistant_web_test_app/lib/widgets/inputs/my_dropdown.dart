@@ -15,7 +15,7 @@ class MyDropdown extends StatefulWidget {
   final double? padding;
   final String? Function(dynamic)? validator;
   final List<DropdownMenuItem<int>> collection;
-  final void Function(int)? onchange;
+  final void Function(int?)? onchange;
 
   const MyDropdown({
     Key? key,
@@ -41,6 +41,12 @@ class _MyDropdownState extends State<MyDropdown> {
 
   @override
   Widget build(BuildContext context) {
+    Set<DropdownMenuItem<int>> collectionSet = widget.collection.toSet();
+    List<DropdownMenuItem<int>> collection = collectionSet.toList();
+
+    if (dropdownValue != null && dropdownValue! >= collection.length)
+      dropdownValue = null;
+
     return Padding(
       padding: EdgeInsets.only(bottom: widget.padding!),
       child: Stack(
@@ -56,7 +62,7 @@ class _MyDropdownState extends State<MyDropdown> {
             validator: widget.validator,
             value: dropdownValue,
             onChanged: _onChanged,
-            items: widget.collection,
+            items: collection,
             icon: Icon(Icons.keyboard_arrow_down_rounded, color: darkText),
             style: body,
             // hint: Text(widget.hint, style: bodyDark),
@@ -69,7 +75,7 @@ class _MyDropdownState extends State<MyDropdown> {
   void _onChanged(newValue) {
     if (this.mounted) {
       setState(() {
-        dropdownValue = newValue!;
+        dropdownValue = newValue;
       });
       if (widget.onchange != null) widget.onchange!(newValue);
     }

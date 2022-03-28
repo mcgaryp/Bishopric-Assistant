@@ -13,4 +13,13 @@ class OrganizationMember {
   final Member member;
 
   OrganizationMember({required this.member, required this.organization});
+
+  @override
+  String toString() {
+    return """
+    $organization
+    
+    $member
+    """;
+  }
 }

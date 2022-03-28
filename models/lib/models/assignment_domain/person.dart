@@ -15,11 +15,11 @@ abstract class Person implements ValueObject<Person> {
   final Name name;
   final Contact contact;
   final MemberID id;
-  final Permissions permissions;
+  final Authorization authorization;
 
   Person(
       {required this.name,
       required this.contact,
       required this.id,
-      required this.permissions});
+      required this.authorization});
 }

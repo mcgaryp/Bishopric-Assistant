@@ -1,7 +1,3 @@
-import 'package:models/models/organization.dart';
-import 'package:models/shared/repository.dart';
-
-import '../event.dart';
 
 ///
 /// event_repository.dart
@@ -12,4 +8,4 @@ import '../event.dart';
 ///
 
 /// TODO: Implement EventRepository, Refer to [ReadMe.md](old_models_deprecated/README.md)
-mixin EventRepository implements Repository<Event, EventID, OrganizationID> {}
+mixin EventRepository {}

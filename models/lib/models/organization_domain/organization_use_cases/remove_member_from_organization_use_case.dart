@@ -33,7 +33,8 @@ class DefaultRemoveMemberFromOrganizationUseCase
       {required MemberID accessorId, required MemberID memberID}) async {
     Member? accessor = await _memberRepository.find(accessorId);
     if (accessor == null) throw MemberNotFoundError();
-    if (accessor.role.permissions < Permissions.Maintainer)
+    // TODO: Set permission denied right
+    if (accessor.role.authorization.rank < 0)
       throw PermissionDeniedError(
           reason:
               "Maintainer permissions required to Remove Members from an Organization");
@@ -42,21 +43,21 @@ class DefaultRemoveMemberFromOrganizationUseCase
         await _memberRepository.findOrganization(memberID);
     organization ?? (throw OrganizationNotFoundError());
 
-    List<OrganizationMemberRelationship> relationships =
-        await _organizationRepository.findAllRelationships(organization.id);
+    // List<OrganizationMemberRelationship> relationships =
+    //     await _organizationRepository.findAllRelationships(organization.id);
 
-    for (OrganizationMemberRelationship relationship in relationships) {
-      if (relationship.memberID == memberID &&
-          relationship.organizationID == organization.id) {
-        if (await _organizationRepository.removeRelationship(relationship)) {
-          return await _memberRepository.remove(memberID);
-        } else {
-          // TODO: place member back in repository
-          throw FailedToRemoveError(
-              forEntity: "RemoveMemberFromOrganizationUseCase");
-        }
-      }
-    }
+    // for (OrganizationMemberRelationship relationship in relationships) {
+    //   if (relationship.memberID == memberID &&
+    //       relationship.organizationID == organization.id) {
+    //     if (await _organizationRepository.removeRelationship(relationship)) {
+    //       return await _memberRepository.remove(memberID);
+    //     } else {
+    //       // TODO: place member back in repository
+    //       throw FailedToRemoveError(
+    //           forEntity: "RemoveMemberFromOrganizationUseCase");
+    //     }
+    //   }
+    // }
     // TODO: place member back in repository
     throw FailedToRemoveError(
         forEntity: "RemoveMemberFromOrganizationUseCase: Relationship");

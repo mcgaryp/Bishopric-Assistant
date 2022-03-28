@@ -1,5 +1,5 @@
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
-import 'package:models/models/organization_domain/permissions.dart';
+import 'package:models/models/organization.dart';
 
 ///
 /// create_assignment_view.dart
@@ -23,8 +23,8 @@ class _CreateAssignmentViewState extends State<CreateAssignmentView> {
 
   @override
   Widget build(BuildContext context) {
-    Permissions currentUserPermissions =
-        StateContainer.of(context).member.role.permissions;
+    Authorization currentUserPermissions =
+        StateContainer.of(context).member.role.authorization;
 
     width = MediaQuery.of(context).size.width;
     isMobile = width < 700;
@@ -38,7 +38,7 @@ class _CreateAssignmentViewState extends State<CreateAssignmentView> {
         ),
       if (!isCreating &&
           !isMobile &&
-          currentUserPermissions >= Permissions.Reporter)
+          currentUserPermissions.rank >= 0)
         MyButton(
           label: sCreateAssignment,
           onPressed: () {

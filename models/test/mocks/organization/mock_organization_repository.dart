@@ -1,6 +1,5 @@
 import 'package:models/models/organization.dart';
 
-import 'mock_join_request.dart';
 import 'mock_organization.dart';
 
 ///
@@ -43,30 +42,9 @@ class MockOrganizationRepository implements OrganizationRepository {
   }
 
   @override
-  Stream<List<Organization>> findAll() {
+  Future<List<Organization>> findAll() {
     findAllFlag = true;
-    return Stream.value(List.filled(2, organization));
-  }
-
-  @override
-  Future<List<OrganizationMemberRelationship>> findAllRelationships(
-      OrganizationID organizationID) {
-    findAllRelationshipsFlag = true;
-    return Future.value(
-        List.filled(2, MockOrganization.mockMemberRelationship));
-  }
-
-  @override
-  Future<List<JoinRequest>> findAllRequests(OrganizationID organizationID) {
-    findAllRequestsFlag = true;
-    return Future.value(List.filled(2, MockJointRequest().request));
-  }
-
-  @override
-  Stream<List<JoinRequest>> findAllRequestsStreamed(
-      OrganizationID organizationID) {
-    findAllRequestsStreamedFlag = true;
-    return Stream.value(List.filled(2, MockJointRequest().request));
+    return Future.value(List.filled(2, organization));
   }
 
   @override
@@ -77,45 +55,14 @@ class MockOrganizationRepository implements OrganizationRepository {
   }
 
   @override
-  Stream<Organization> findStreamed(OrganizationID id) {
-    findStreamedFlag = true;
-    return Stream.value(organization);
-  }
-
-  @override
-  Future<Organization?> insert(Organization m) {
+  Future<OrganizationID> insert(String name) {
     insertFlag = true;
-    if (shouldSucceed) return Future.value(organization);
-    return Future.value(null);
-  }
-
-  @override
-  Future<bool> insertRelationship(OrganizationMemberRelationship relationship) {
-    insertRelationshipFlag = true;
-    return Future.value(shouldSucceed);
+    return Future.value(organization.id);
   }
 
   @override
   Future<bool> remove(OrganizationID i) {
     removeFlag = true;
-    return Future.value(shouldSucceed);
-  }
-
-  @override
-  Future<bool> removeRelationship(OrganizationMemberRelationship relationship) {
-    removeRelationshipFlag = true;
-    return Future.value(shouldSucceed);
-  }
-
-  @override
-  Future<bool> removeRequestToJoinOrganization(JoinRequest request) {
-    removeRequestToJoinOrganizationFlag = true;
-    return Future.value(shouldSucceed);
-  }
-
-  @override
-  Future<bool> requestToJoinOrganization(JoinRequest joinRequest) {
-    requestToJoinOrganizationFlag = true;
     return Future.value(shouldSucceed);
   }
 

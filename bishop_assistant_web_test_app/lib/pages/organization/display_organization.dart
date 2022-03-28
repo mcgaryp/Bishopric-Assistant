@@ -1,7 +1,6 @@
 import 'package:bishop_assistant_web_test_app/pages/organization/organization_members_view.dart';
 import 'package:bishop_assistant_web_test_app/pages/organization/organization_requests_view.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
-import 'package:models/models/organization.dart';
 
 ///
 /// display_organization.dart
@@ -32,8 +31,8 @@ class DisplayOrganization extends StatelessWidget {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
-                if (StateContainer.of(context).member.role.permissions >=
-                    Permissions.Maintainer)
+                if (StateContainer.of(context).member.role.authorization.rank >=
+                    0)
                   MyButton(
                       label: sEdit,
                       onPressed: onPress,

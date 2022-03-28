@@ -40,7 +40,7 @@ class DefaultArchiveAssignmentUseCase implements ArchiveAssignmentUseCase {
 
     // check member permissions
     if (assignment.canArchive(
-        permissions: accessor.role.permissions, memberID: accessor.id)) {
+        authorization: accessor.role.authorization, memberID: accessor.id)) {
       assignment.archive();
       return _assignmentRepository.update(assignment);
     }

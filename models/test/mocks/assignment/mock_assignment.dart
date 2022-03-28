@@ -4,9 +4,9 @@ import 'package:models/models/organization.dart';
 
 import '../account/mock_contact.dart';
 import '../account/mock_name.dart';
+import '../organization/mock_authorization.dart';
 import '../organization/mock_member.dart';
 import '../organization/mock_organization.dart';
-import '../organization/mock_permissions.dart';
 import 'mock_assignee.dart';
 import 'mock_note.dart';
 
@@ -23,7 +23,7 @@ class MockAssignment {
   static final Name mockName = MockName().name;
   static final AssignmentID mockID = MockAssignmentID().id;
   static final MemberID mockMemberID = MockMemberID().id;
-  static final Permissions mockPermissions = MockPermissions().permissions;
+  static final Authorization mockAuthorization = MockAuthorization().authorization;
   static final DateTime mockDueDate = DateTime.now();
 
   late final Assignment assignment;
@@ -68,12 +68,12 @@ class MockCreator {
 
   MockCreator(
       {Name? name,
-      Permissions? permissions,
+      Authorization? authorization,
       Contact? contact,
       MemberID? memberID}) {
     creator = Creator(
       name: name ?? MockName().name,
-      permissions: permissions ?? MockPermissions().permissions,
+      authorization: authorization ?? MockAuthorization().authorization,
       contact: contact ?? MockContact().contact,
       id: memberID ?? MockMemberID().id,
     );

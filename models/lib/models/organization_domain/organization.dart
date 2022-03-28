@@ -11,6 +11,11 @@ import 'package:models/shared/foundation.dart';
 
 /// [Organization] is the entity that groups members together.
 class Organization extends Entity<Organization> {
+  /// Json Keys
+  static const String nameKey = "Organization Name";
+  static const String creatorKey = "Organization Creator";
+  static const String idKey = "Organization ID";
+
   /// Variables
   ///
   /// [id] of the organization
@@ -21,10 +26,6 @@ class Organization extends Entity<Organization> {
 
   /// [_name] the name of the organization
   late String _name;
-
-  static const String nameKey = "Organization Name";
-  static const String creatorKey = "Organization Creator";
-  static const String idKey = "Organization ID";
 
   /// Constructor
   ///
@@ -38,46 +39,52 @@ class Organization extends Entity<Organization> {
     this.name = name;
   }
 
+  /// Convert Organization from Json
+  ///
+  /// [map] mapped json
   Organization.fromMap(Map<String, dynamic> map)
       : this(
             id: map[idKey] == null ? null : OrganizationID(map[idKey]),
             name: map[nameKey],
             creator: Member.fromMap(map[creatorKey]));
 
-  @override
-  Map<String, dynamic> get toMap =>
-      {creatorKey: creator.toMap, nameKey: name, idKey: _id?.id};
-
   /// Setters
   ///
   /// [__name] private setter for name
   set name(String name) => _name = name.capitalize;
 
+  @override
+  Map<String, dynamic> get toMap =>
+      {creatorKey: creator.toMap, nameKey: name, idKey: _id?.id};
+
+  /// Get an ID without running into a null value
   OrganizationID get id {
     if (_id == null) throw IdDoesNotExistError(forObject: "Organization");
     return _id!;
   }
 
-  /// Getters
+  /// Get the [name] of the organization
   String get name => _name;
 
-  // Who can add and remove members from the organization?
-  // - Creators and Maintainer and Owners
-  bool canAddRemove({Permissions? permissions, MemberID? id}) {
+  /// Who can add and remove members from the organization?
+  bool canAddRemove({Authorization? authorization, MemberID? id}) {
+    // The creator
     if (id != null && id == creator.id) return true;
-    if (permissions != null && permissions >= Permissions.Maintainer)
+    // TODO: This should be based off the Organization Settings
+    if (authorization != null && authorization.rank >= 1)
       return true;
     return false;
   }
 
-  // Who can edit member roles in the organization?
-  bool canEditRoles({Permissions? permissions, MemberID? id}) {
-    return canAddRemove(permissions: permissions, id: id);
+  /// Who can edit member roles in the organization?
+  bool canEditRoles({Authorization? authorization, MemberID? id}) {
+    return canAddRemove(authorization: authorization, id: id);
   }
 
-  // Who can edit the organizations name and general specifics
-  bool canEdit({Permissions? permissions, MemberID? id}) {
-    return (creator.id == id || permissions == Permissions.Creator);
+  /// Who can edit the organizations name and general specifics
+  bool canEdit({Authorization? authorization, MemberID? id}) {
+    // TODO: This should be based off the Organization Settings
+    return (creator.id == id || (authorization != null && authorization.rank == 0));
   }
 
   @override

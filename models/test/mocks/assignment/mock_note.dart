@@ -1,5 +1,7 @@
 import 'package:models/models/assignment.dart';
-import 'package:models/models/organization_domain/permissions.dart';
+import 'package:models/models/organization.dart';
+
+import '../organization/mock_authorization.dart';
 
 ///
 /// mock_note.dart
@@ -11,12 +13,13 @@ import 'package:models/models/organization_domain/permissions.dart';
 
 class MockNote {
   static final String mockContent = "There are no strings on me!";
-  static final Permissions mockPermissions = Permissions.Maintainer;
+  static final Authorization mockAuthorization =
+      MockAuthorization().authorization;
   late final Note note;
 
-  MockNote({String? content, Permissions? permissions}) {
+  MockNote({String? content, Authorization? authorization}) {
     note = Note(
         content: content ?? mockContent,
-        permissions: permissions ?? mockPermissions);
+        authorization: authorization ?? mockAuthorization);
   }
 }

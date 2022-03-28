@@ -26,14 +26,18 @@ class Mocks {
   Member get mockMember => Member(
         name: _mockName,
         contact: _mockContact,
-        role: Role.creator(),
+        role: Role(
+            name: "Fake Role",
+            authorization: Authorization(rank: 0, name: 'Some Authorization')),
         id: MemberID("Fake ID"),
       );
 
   Member get _mockMember2 => Member(
         name: _mockName,
         contact: _mockContact,
-        role: Role.creator(),
+        role: Role(
+            name: "Fake Role",
+            authorization: Authorization(rank: 0, name: 'Some Authorization')),
         id: MemberID("Fake Member ID"),
       );
 
@@ -53,14 +57,14 @@ class Mocks {
         contact: _mockContact,
         name: _mockName,
         id: MemberID("Fake Member ID"),
-        permissions: Permissions.Creator,
+        authorization: Authorization(rank: 0, name: 'Creator'),
       );
 
   Assignee get _mockAssignee => Assignee(
         contact: _mockContact,
         name: _mockName,
         id: MemberID("Fake Member ID"),
-        permissions: Permissions.Creator,
+        authorization: Authorization(rank: 0, name: 'Creator')
       );
 
   Note get _mockNote => Note(
@@ -71,7 +75,7 @@ class Mocks {
             "That one was a tab character. There are so many awesome things "
             "that i never know what i should put next in my text Hey guess what "
             "i found out that my dead cat died.",
-        permissions: Permissions.Creator,
+        authorization: Authorization(rank: 0, name: 'Creator'),
       );
 
   Assignment get mockAssignment => Assignment(

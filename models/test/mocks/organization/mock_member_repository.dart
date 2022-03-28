@@ -47,13 +47,7 @@ class MockMemberRepository implements MemberRepository {
   }
 
   @override
-  Stream<List<Stream<Member>>> findAllStreamed(OrganizationID organizationID) {
-    findAllStreamedFlag = true;
-    return Stream.value(List.filled(2, Stream.value(member)));
-  }
-
-  @override
-  Future<List<Member>?> findAllWithAccountID(AccountID accountID) {
+  Future<List<Member>> findAllWithAccountID(AccountID accountID) {
     findAllWithAccountIDFlag = true;
     return Future.value(List.filled(2, member));
   }
@@ -66,12 +60,6 @@ class MockMemberRepository implements MemberRepository {
   }
 
   @override
-  Stream<Member> findStreamed(MemberID memberID) {
-    findStreamedFlag = true;
-    return Stream.value(member);
-  }
-
-  @override
   Future<Member?> findWithAccountID(AccountID accountID) {
     findWithAccountIDFlag = true;
     if (shouldSucceed) return Future.value(member);
@@ -79,10 +67,9 @@ class MockMemberRepository implements MemberRepository {
   }
 
   @override
-  Future<Member?> insert(Member m) {
+  Future<bool> insert(Member member, OrganizationID organizationID, AccountID accountID) {
     insertFlag = true;
-    if (shouldSucceed) return Future.value(member);
-    return Future.value(null);
+    return Future.value(shouldSucceed);
   }
 
   @override

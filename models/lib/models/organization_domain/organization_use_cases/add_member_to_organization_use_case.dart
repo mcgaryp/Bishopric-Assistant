@@ -26,12 +26,16 @@ mixin AddMemberToOrganizationUseCase {
 
 class DefaultAddMemberToOrganizationUseCase
     implements AddMemberToOrganizationUseCase {
-  AccountRepository _accountRepository;
-  OrganizationRepository _organizationRepository;
+  final AccountRepository _accountRepository;
+  final OrganizationRepository _organizationRepository;
   final MemberRepository _memberRepository;
+  final JoinRequestRepository _requestRepository;
 
-  DefaultAddMemberToOrganizationUseCase(this._accountRepository,
-      this._organizationRepository, this._memberRepository);
+  DefaultAddMemberToOrganizationUseCase(
+      this._accountRepository,
+      this._organizationRepository,
+      this._memberRepository,
+      this._requestRepository);
 
   @override
   Future<bool> execute({
@@ -39,44 +43,36 @@ class DefaultAddMemberToOrganizationUseCase
     required JoinRequest request,
     required Role role,
   }) async {
+    // verify accessor
     Member? accessor = await _memberRepository.find(accessorId);
     if (accessor == null) throw MemberNotFoundError();
 
+    // Verify Organization
     Organization? organization =
         await _organizationRepository.find(request.organizationID);
     organization ?? (throw OrganizationNotFoundError());
 
+    // Verify accessor has permission to add or remove member from organization
     if (!organization.canAddRemove(
-        permissions: accessor.role.permissions, id: accessorId))
+        authorization: accessor.role.authorization, id: accessorId))
       throw PermissionDeniedError(
           reason:
               "Maintainer permissions required to Add Members to Organization");
 
+    // Find new member account
     Account? account = await _accountRepository.find(request.accountID);
     if (account == null) throw AccountNotFoundError();
 
+    // Create new Member
     Member member =
         Member(name: account.name, role: role, contact: account.contact);
 
-    Member? memberWithID = await _memberRepository.insert(member);
-    if (memberWithID != null) {
-      // TODO: When reworking strip
-      OrganizationMemberRelationship relationship =
-          OrganizationMemberRelationship(
-              organizationID: request.organizationID,
-              memberID: memberWithID.id,
-              accountID: request.accountID);
-      if (await _organizationRepository.insertRelationship(relationship)) {
-        if (await _organizationRepository
-            .removeRequestToJoinOrganization(request)) {
-          return true;
-        } else
-          throw FailedToRemoveError(forEntity: "Join Request");
-      } else
-        // TODO: When reworking strip
-        throw FailedToSaveError(
-            reason: "Member Account Organization Relationship");
+    // Insert new member
+    if (await _memberRepository.insert(member, organization.id, account.id)) {
+      // remove join request
+      return _requestRepository.remove(request.id);
     }
-    throw FailedToSaveError(reason: "Member to Organization");
+
+    throw FailedToSaveError(reason: "Member");
   }
 }

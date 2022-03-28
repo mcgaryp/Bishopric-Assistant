@@ -29,7 +29,7 @@ class Assignment extends Entity<Assignment> {
   late bool _isOverDue;
   late DateTime _dueDate;
   late String _title;
-  final Permissions visiblePermissions;
+  final Authorization visiblePermissions;
   final Creator creator;
   final Note note;
   final AssignmentID? _id;
@@ -46,7 +46,7 @@ class Assignment extends Entity<Assignment> {
     required DateTime dueDate,
     required this.orgID,
   })  : this._id = id,
-        this.visiblePermissions = assignee.permissions,
+        this.visiblePermissions = assignee.authorization,
         this._isArchived = isArchived,
         this._isCompleted = isCompleted,
         super(id) {
@@ -90,9 +90,9 @@ class Assignment extends Entity<Assignment> {
   /// - Creators of the Assignment
   /// - Assignees assigned to the Assignment
   /// - Permission level of or equal to the Assignment
-  bool canView({MemberID? memberID, Permissions? permissions}) {
+  bool canView({MemberID? memberID, Authorization? authorization}) {
     if (memberID == creator.id || memberID == assignee.id) return true;
-    if (permissions != null && permissions >= visiblePermissions) return true;
+    if (authorization != null && authorization.rank >= 0) return true;
     return false;
   }
 
@@ -101,8 +101,8 @@ class Assignment extends Entity<Assignment> {
   /// - Creators of the assignment
   /// - Assignees assigned to the Assignment
   /// - Permission level of or equal to the Assignment
-  bool canArchive({MemberID? memberID, Permissions? permissions}) =>
-      canView(memberID: memberID, permissions: permissions);
+  bool canArchive({MemberID? memberID, Authorization? authorization}) =>
+      canView(memberID: memberID, authorization: authorization);
 
   /// Who can mark an assignment complete?
   ///
@@ -110,9 +110,9 @@ class Assignment extends Entity<Assignment> {
   /// - Maintainers of organization
   /// - Assignee of Assignment
   /// - Creator of Assignment
-  bool canComplete({MemberID? memberID, Permissions? permissions}) {
+  bool canComplete({MemberID? memberID, Authorization? authorization}) {
     if (memberID == creator.id || memberID == assignee.id) return true;
-    if (permissions != null && permissions >= Permissions.Maintainer)
+    if (authorization != null && authorization.rank >= 0)
       return true;
     return false;
   }
@@ -122,8 +122,8 @@ class Assignment extends Entity<Assignment> {
   /// - Creator of Assignment
   /// - Assignee of Assignment
   /// - Maintainers or higher Permissions
-  bool canEdit({MemberID? memberID, Permissions? permissions}) =>
-      canComplete(memberID: memberID, permissions: permissions);
+  bool canEdit({MemberID? memberID, Authorization? authorization}) =>
+      canComplete(memberID: memberID, authorization: authorization);
 
   @override
   bool sameIdentityAs(Assignment other) {
@@ -149,7 +149,7 @@ class Assignment extends Entity<Assignment> {
         isArchivedKey: isArchived,
         dueDateKey: dueDate.microsecondsSinceEpoch,
         assigneeKey: assignee.toMap,
-        visiblePermissionsKey: visiblePermissions.string,
+        visiblePermissionsKey: visiblePermissions.toMap,
         creatorKey: creator.toMap,
         noteKey: note.toMap,
         isCompletedKey: isCompleted,

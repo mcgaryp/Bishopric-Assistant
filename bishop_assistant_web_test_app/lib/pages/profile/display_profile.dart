@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/new_repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
@@ -50,7 +50,7 @@ class DisplayProfile extends StatelessWidget {
     try {
       Account account = StateContainer.of(context).account;
       DefaultDeactivateAccountUseCase useCase =
-          DefaultDeactivateAccountUseCase(FirebaseAccountRepository());
+          DefaultDeactivateAccountUseCase(FirestoreAccountRepository());
       if (await useCase.execute(
           accessorID: account.id, accountID: account.id)) {
         MyToast.toastSuccess("Deactivated Your Account");

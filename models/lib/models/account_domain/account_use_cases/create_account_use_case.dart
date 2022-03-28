@@ -15,7 +15,7 @@ mixin CreateAccountUseCase {
   /// [execute] creates an account given a valid [name], [contact], and
   ///   [credentials]
   @required
-  Future<Account> execute(
+  Future<bool> execute(
       {required Name name,
       required Contact contact,
       required Credentials credentials});
@@ -32,7 +32,7 @@ class DefaultCreateAccountUseCase implements CreateAccountUseCase {
   DefaultCreateAccountUseCase(this._accountRepository);
 
   @override
-  Future<Account> execute(
+  Future<bool> execute(
       {required Name name,
       required Contact contact,
       required Credentials credentials}) async {
@@ -40,8 +40,9 @@ class DefaultCreateAccountUseCase implements CreateAccountUseCase {
       throw AccountAlreadyExistsError();
     Account account =
         Account(name: name, contact: contact, credentials: credentials);
-    Account? insertedAccount = await _accountRepository.insert(account);
-    if (insertedAccount != null) return insertedAccount;
+    if (await _accountRepository.insert(account)) {
+      return true;
+    }
 
     throw FailedToSaveError(reason: _entity);
   }

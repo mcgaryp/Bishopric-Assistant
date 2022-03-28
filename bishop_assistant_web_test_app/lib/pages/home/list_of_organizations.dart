@@ -20,6 +20,6 @@ class ListOfOrganizations extends StatelessWidget {
     List<Widget> children = [];
     organizations.forEach(
         (element) => children.add(OrganizationCard(organization: element)));
-    return Flexible(child: ListView(children: children));
+    return Column(children: children);
   }
 }

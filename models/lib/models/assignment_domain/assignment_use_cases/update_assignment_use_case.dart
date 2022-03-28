@@ -50,7 +50,7 @@ class DefaultUpdateAssignmentUseCase implements UpdateAssignmentUseCase {
     accessor ?? (throw MemberNotFoundError());
 
     if (assignment.canEdit(
-        memberID: accessor.id, permissions: accessor.role.permissions)) {
+        memberID: accessor.id, authorization: accessor.role.authorization)) {
       assignment.title = title ?? assignment.title;
       assignment.dueDate = dueDate ?? assignment.dueDate;
       assignment.assignee = assignee ?? assignment.assignee;
