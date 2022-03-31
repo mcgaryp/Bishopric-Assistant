@@ -1,5 +1,5 @@
 import 'package:bishop_assistant_web_test_app/firebase/firestore_helper.dart';
-import 'package:bishop_assistant_web_test_app/firebase/new_repositories/firestore_role_repository.dart';
+import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/shared/exceptions/exceptions.dart';
@@ -18,7 +18,6 @@ class FirestoreMemberRepository extends FirestoreHelper
 
   FirestoreCollectionPath _namePath = FirestoreCollectionPath.name;
   FirestoreCollectionPath _contactPath = FirestoreCollectionPath.contact;
-  FirestoreCollectionPath _rolePath = FirestoreCollectionPath.roles;
   FirestoreCollectionPath _organizationPath =
       FirestoreCollectionPath.organizations;
 
@@ -57,9 +56,23 @@ class FirestoreMemberRepository extends FirestoreHelper
   }
 
   @override
-  Future<List<Member>> findAll(OrganizationID id) {
-    // TODO: implement findAll
-    throw UnimplementedError("Member FindAll");
+  Future<List<Member>> findAll(OrganizationID id) async {
+    // get maps
+    List<Map<String, dynamic>> maps = await getCollectionOfDocuments(
+        field: DBMember.organizationIDKey, isEqualTo: id.id);
+
+    // Convert to DB Members
+    List<DBMember> dbMembers = maps
+        .map<DBMember>((Map<String, dynamic> map) => DBMember.fromMap(map))
+        .toList();
+
+    // Convert to members
+    List<Member> members = [];
+    for (DBMember dbMember in dbMembers) {
+      members.add(await find(dbMember.toMemberID));
+    }
+
+    return members;
   }
 
   @override
@@ -142,16 +155,20 @@ class FirestoreMemberRepository extends FirestoreHelper
 
   @override
   Future<bool> remove(MemberID id) {
-    // TODO: implement remove
-    throw UnimplementedError("Member Remove");
+    return removeDocument(id);
   }
 
   @override
-  Future<bool> update(Member) {
-    // Update role
+  Future<bool> update(Member member) async {
+    // Find Document convert to DB Member
+    DBMember dbMember = DBMember.fromMap(await getSingleDocument(member.id));
 
-    // TODO: implement update
-    throw UnimplementedError("Member Update");
+    // NOTE: the only thing that ever changes is the role, all other properties
+    //  are IDs
+    dbMember.roleID = member.role.id.id;
+
+    // update
+    return updateDocument(dbMember.toMap, dbMember.toMemberID);
   }
 
   Stream<Member> findStreamed(MemberID id) {

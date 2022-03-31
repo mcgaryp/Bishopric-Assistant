@@ -1,6 +1,5 @@
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/assignment_domain/assignment.dart';
-import 'package:models/models/organization.dart';
 
 ///
 /// over_due_assignment_card.dart
@@ -17,15 +16,10 @@ class OverDueAssignmentCard extends AssignmentCard {
 
   @override
   List<Widget> children(BuildContext context) {
-    Authorization currentUserPermissions =
-        StateContainer.of(context).member.role.authorization;
-
     return [
       AssignmentTitle.light(assignment, toggle: toggle),
-      CardRow.light(sAssignee, content: assignment.assignee.name.fullName),
-      if (assignment.note.canView(currentUserPermissions) &&
-          assignment.note.content.isNotEmpty)
-        CardColumn.light(sNotes, content: assignment.note.content),
+      CardRow.light(sAssignee, content: assignment.assignee.name),
+      CardColumn.light(sNotes, content: assignment.note),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

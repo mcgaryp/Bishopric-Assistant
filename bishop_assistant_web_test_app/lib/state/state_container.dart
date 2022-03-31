@@ -1,6 +1,8 @@
+// ignore_for_file: unused_field
+
 import 'dart:async';
 
-import 'package:bishop_assistant_web_test_app/firebase/new_repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/main.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/account.dart';
@@ -270,18 +272,14 @@ class StateContainerState extends State<StateContainer> {
   }
 
   Future<void> _initAuthorizations(OrganizationID id) async {
-    if (kDebugMode) print("Initializing Authorizations");
     FirestoreAuthorizationRepository repository =
         FirestoreAuthorizationRepository();
     this._authorizations = await repository.findAll(id);
-    if (kDebugMode) print("Authorizations Initialized: $_authorizations");
   }
 
   Future<void> _initRoles(OrganizationID id) async {
-    if (kDebugMode) print("Initializing Roles");
     FirestoreRoleRepository repository = FirestoreRoleRepository();
     this._roles = await repository.findAll(id);
-    if (kDebugMode) print("Roles Initialized: $_roles");
   }
 
   Future<void> _disposeState() async {

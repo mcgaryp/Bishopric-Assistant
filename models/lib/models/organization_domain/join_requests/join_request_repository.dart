@@ -10,6 +10,9 @@ import 'package:models/models/organization.dart';
 
 mixin JoinRequestRepository {
   @required
+  Future<List<JoinRequest>> findAll(OrganizationID id);
+
+  @required
   Future<JoinRequest> find(JoinRequestID id);
 
   @required

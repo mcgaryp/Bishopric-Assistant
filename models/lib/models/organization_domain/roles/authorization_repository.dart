@@ -15,4 +15,7 @@ mixin AuthorizationRepository {
   @required
   Future<bool> insert(
       Authorization authorization, OrganizationID organizationID);
+
+  @required
+  Future<bool> remove(AuthorizationID authorizationID);
 }

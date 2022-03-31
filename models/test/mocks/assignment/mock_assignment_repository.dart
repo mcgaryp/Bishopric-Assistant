@@ -14,8 +14,6 @@ import 'mock_assignment.dart';
 class MockAssignmentRepository implements AssignmentRepository {
   bool findFlag = false;
   bool findAllFlag = false;
-  bool findAllStreamedByOrganizationIDFlag = false;
-  bool findStreamFlag = false;
   bool insertFlag = false;
   bool removeFlag = false;
   bool updateFlag = false;
@@ -46,9 +44,9 @@ class MockAssignmentRepository implements AssignmentRepository {
   }
 
   @override
-  Future<Assignment?> insert(Assignment assignment) {
+  Future<bool> insert(Assignment assignment) {
     insertFlag = true;
-    return Future.value(assignment);
+    return Future.value(true);
   }
 
   @override

@@ -22,31 +22,38 @@ class Assignment extends Entity<Assignment> {
   static final String isCompletedKey = "Assignment isCompleted";
   static final String idKey = "Assignment ID";
   static final String orgIDKey = "Assignment Organization Key";
+  static final String reassignableKey = "Assignment Reassignable";
+  static final String editableKey = "Assignment Editable";
+  static final String viewersKey = "Assignment Viewers";
 
-  Assignee assignee;
-  bool _isArchived;
-  bool _isCompleted;
-  late bool _isOverDue;
   late DateTime _dueDate;
   late String _title;
-  final Authorization visiblePermissions;
-  final Creator creator;
-  final Note note;
+  late bool _isOverDue;
+  bool _isArchived;
+  bool _isCompleted;
+  bool editable;
+  bool reassignable;
+  String note;
+  List<Role> viewers;
+  Role assignee;
+  final Role creator;
   final AssignmentID? _id;
   final OrganizationID orgID;
 
   Assignment({
     AssignmentID? id,
-    required this.creator,
     required bool isArchived,
-    required this.assignee,
     required bool isCompleted,
     required this.note,
+    required this.creator,
     required String title,
     required DateTime dueDate,
     required this.orgID,
+    required this.assignee,
+    required this.reassignable,
+    required this.editable,
+    required this.viewers,
   })  : this._id = id,
-        this.visiblePermissions = assignee.authorization,
         this._isArchived = isArchived,
         this._isCompleted = isCompleted,
         super(id) {
@@ -57,14 +64,17 @@ class Assignment extends Entity<Assignment> {
   Assignment.fromMap(Map<String, dynamic> map)
       : this(
           id: AssignmentID(map[idKey]),
-          creator: Creator.fromMap(map[creatorKey]),
           isArchived: map[isArchivedKey],
-          assignee: Assignee.fromMap(map[assigneeKey]),
+          assignee: Role.fromMap(map[assigneeKey]),
           isCompleted: map[isCompletedKey],
-          note: Note.fromMap(map[noteKey]),
           title: map[titleKey],
           dueDate: DateTime.fromMicrosecondsSinceEpoch(map[dueDateKey]),
           orgID: OrganizationID(map[orgIDKey]),
+          creator: Role.fromMap(map[creatorKey]),
+          note: map[noteKey],
+          editable: map[editableKey],
+          reassignable: map[reassignableKey],
+          viewers: map[viewersKey],
         );
 
   set dueDate(DateTime date) {
@@ -90,9 +100,12 @@ class Assignment extends Entity<Assignment> {
   /// - Creators of the Assignment
   /// - Assignees assigned to the Assignment
   /// - Permission level of or equal to the Assignment
-  bool canView({MemberID? memberID, Authorization? authorization}) {
-    if (memberID == creator.id || memberID == assignee.id) return true;
-    if (authorization != null && authorization.rank >= 0) return true;
+  bool canView(
+      {RoleID? roleID,
+      @Deprecated("not in use") MemberID? memberID,
+      @Deprecated("Not in use") Authorization? authorization}) {
+    if (roleID == creator.id || roleID == assignee.id) return true;
+    // if (authorization != null && authorization.rank >= 0) return true;
     return false;
   }
 
@@ -101,8 +114,11 @@ class Assignment extends Entity<Assignment> {
   /// - Creators of the assignment
   /// - Assignees assigned to the Assignment
   /// - Permission level of or equal to the Assignment
-  bool canArchive({MemberID? memberID, Authorization? authorization}) =>
-      canView(memberID: memberID, authorization: authorization);
+  bool canArchive(
+          {RoleID? roleID,
+          @Deprecated("not in use") MemberID? memberID,
+          @Deprecated("not in use") Authorization? authorization}) =>
+      canView(roleID: roleID);
 
   /// Who can mark an assignment complete?
   ///
@@ -110,10 +126,12 @@ class Assignment extends Entity<Assignment> {
   /// - Maintainers of organization
   /// - Assignee of Assignment
   /// - Creator of Assignment
-  bool canComplete({MemberID? memberID, Authorization? authorization}) {
-    if (memberID == creator.id || memberID == assignee.id) return true;
-    if (authorization != null && authorization.rank >= 0)
-      return true;
+  bool canComplete(
+      {RoleID? roleID,
+      @Deprecated("not in use") MemberID? memberID,
+      @Deprecated("not in use") Authorization? authorization}) {
+    if (roleID == creator.id || roleID == assignee.id) return true;
+    // if (authorization != null && authorization.rank >= 0) return true;
     return false;
   }
 
@@ -122,8 +140,18 @@ class Assignment extends Entity<Assignment> {
   /// - Creator of Assignment
   /// - Assignee of Assignment
   /// - Maintainers or higher Permissions
-  bool canEdit({MemberID? memberID, Authorization? authorization}) =>
-      canComplete(memberID: memberID, authorization: authorization);
+  bool canEdit(
+          {RoleID? roleID,
+          @Deprecated("not in use") MemberID? memberID,
+          @Deprecated("not in use") Authorization? authorization}) =>
+      canComplete(roleID: roleID);
+
+  /// Who can reassign the Assignment
+  bool canReassign({RoleID? roleID}) {
+    if (roleID == creator.id || (roleID == assignee.id && reassignable))
+      return true;
+    return false;
+  }
 
   @override
   bool sameIdentityAs(Assignment other) {
@@ -131,10 +159,11 @@ class Assignment extends Entity<Assignment> {
         other.isArchived == this.isArchived &&
         other.dueDate == this.dueDate &&
         other.assignee == this.assignee &&
-        other.visiblePermissions == this.visiblePermissions &&
         other.creator == this.creator &&
         other.note == this.note &&
-        other.isCompleted == this.isCompleted;
+        other.isCompleted == this.isCompleted &&
+        other.reassignable == this.reassignable &&
+        other.editable == this.editable;
   }
 
   @override
@@ -149,12 +178,14 @@ class Assignment extends Entity<Assignment> {
         isArchivedKey: isArchived,
         dueDateKey: dueDate.microsecondsSinceEpoch,
         assigneeKey: assignee.toMap,
-        visiblePermissionsKey: visiblePermissions.toMap,
         creatorKey: creator.toMap,
-        noteKey: note.toMap,
+        noteKey: note,
         isCompletedKey: isCompleted,
         idKey: _id?.id,
         orgIDKey: orgID.id,
+        reassignableKey: reassignable,
+        editableKey: editable,
+        viewersKey: viewers
       };
 
   String get title => _title;

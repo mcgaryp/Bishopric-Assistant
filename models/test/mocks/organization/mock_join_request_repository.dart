@@ -26,4 +26,10 @@ class MockJoinRequestRepository implements JoinRequestRepository {
     // TODO: implement remove
     throw UnimplementedError();
   }
+
+  @override
+  Future<List<JoinRequest>> findAll(OrganizationID id) {
+    // TODO: implement findAll
+    throw UnimplementedError();
+  }
 }

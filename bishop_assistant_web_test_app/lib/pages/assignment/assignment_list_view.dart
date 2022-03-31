@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/firebase/new_repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/pages/assignment/assignment_detail_view.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/assignment.dart';
@@ -16,9 +16,9 @@ class AssignmentListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return StreamBuilder<List<Stream<Assignment>>>(
-        stream: FirestoreAssignmentRepository().findAllStreamed(StateContainer.of(context).organization.id),
+        stream: FirestoreAssignmentRepository()
+            .findAllStreamed(StateContainer.of(context).organization.id),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<Stream<Assignment>> assignments = snapshot.data!;

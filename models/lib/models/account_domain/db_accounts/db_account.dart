@@ -64,12 +64,19 @@ class DBAccount {
   }
 
   AccountID get toContactID {
-    contactID ?? (throw IdDoesNotExistError(forObject: "DB Account Contact ID"));
+    contactID ??
+        (throw IdDoesNotExistError(forObject: "DB Account Contact ID"));
     return AccountID(contactID!);
   }
 
+  AccountID get toNameID {
+    nameID ?? (throw IdDoesNotExistError(forObject: "DB Account Name ID"));
+    return AccountID(nameID!);
+  }
+
   AccountID get toCredentialsID {
-    credentialsID ?? (throw IdDoesNotExistError(forObject: "DB Account Credentials ID"));
+    credentialsID ??
+        (throw IdDoesNotExistError(forObject: "DB Account Credentials ID"));
     return AccountID(credentialsID!);
   }
 }

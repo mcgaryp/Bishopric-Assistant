@@ -1,5 +1,5 @@
 import 'package:bishop_assistant_web_test_app/firebase/firestore_helper.dart';
-import 'package:bishop_assistant_web_test_app/firebase/new_repositories/firestore_authorization_repository.dart';
+import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/util/extensions/authorization_list_extension.dart';
 
@@ -22,11 +22,11 @@ class FirestoreRoleRepository extends FirestoreHelper
 
     // find Authorization
     FirestoreAuthorizationRepository authorizationRepository =
-    FirestoreAuthorizationRepository();
+        FirestoreAuthorizationRepository();
     List<Authorization> authorizations =
-    await authorizationRepository.findAll(orgID);
+        await authorizationRepository.findAll(orgID);
     Authorization authorization =
-    authorizations.find(int.parse(dbRole.toAuthorizationID));
+        authorizations.find(int.parse(dbRole.toAuthorizationID));
 
     // convert to role
     Role role = Role(
@@ -55,7 +55,7 @@ class FirestoreRoleRepository extends FirestoreHelper
 
   Future<List<Role>> findAll(OrganizationID id) async {
     List<Future<Role>> futures = (await getCollectionOfDocuments(
-        field: DBRole.organizationIDKey, isEqualTo: id.id))
+            field: DBRole.organizationIDKey, isEqualTo: id.id))
         .map<Future<Role>>((Map<String, dynamic> map) async {
       DBRole dbRole = DBRole.fromMap(map);
       return await find(dbRole.toRoleID, id);
@@ -67,5 +67,10 @@ class FirestoreRoleRepository extends FirestoreHelper
     }
 
     return roles;
+  }
+
+  @override
+  Future<bool> remove(RoleID roleID) {
+    return removeDocument(roleID);
   }
 }

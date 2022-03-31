@@ -45,8 +45,6 @@ class ArchiveAssignmentUseCaseTest implements Test {
     ///Assignment Repository Checks
     expect(assignmentRepository.findFlag, true);
     expect(assignmentRepository.findAllFlag, false);
-    expect(assignmentRepository.findAllStreamedByOrganizationIDFlag, false);
-    expect(assignmentRepository.findStreamFlag, false);
     expect(assignmentRepository.insertFlag, false);
     expect(assignmentRepository.removeFlag, false);
     expect(assignmentRepository.updateFlag, true);

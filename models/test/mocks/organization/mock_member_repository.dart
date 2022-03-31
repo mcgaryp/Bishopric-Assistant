@@ -67,7 +67,8 @@ class MockMemberRepository implements MemberRepository {
   }
 
   @override
-  Future<bool> insert(Member member, OrganizationID organizationID, AccountID accountID) {
+  Future<bool> insert(
+      Member member, OrganizationID organizationID, AccountID accountID) {
     insertFlag = true;
     return Future.value(shouldSucceed);
   }

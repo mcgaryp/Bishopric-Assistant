@@ -19,6 +19,7 @@ class MockRole {
     role = Role(
       name: anonymous ?? mockAnonymous,
       authorization: authorization ?? MockAuthorization().authorization,
+      id: RoleID("Fake Role ID"),
     );
   }
 }

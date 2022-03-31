@@ -28,17 +28,25 @@ class DefaultDeleteOrganizationUseCase implements DeleteOrganizationUseCase {
   final MemberRepository _memberRepository;
   final AssignmentRepository _assignmentRepository;
   final EventRepository _eventRepository;
+  final JoinRequestRepository _requestRepository;
+  final AuthorizationRepository _authorizationRepository;
+  final RoleRepository _roleRepository;
 
   DefaultDeleteOrganizationUseCase(
-      this._organizationRepository,
-      this._memberRepository,
-      this._assignmentRepository,
-      this._eventRepository);
+    this._organizationRepository,
+    this._memberRepository,
+    this._assignmentRepository,
+    this._eventRepository,
+    this._requestRepository,
+    this._authorizationRepository,
+    this._roleRepository,
+  );
 
   @override
   Future<bool> execute(
       {required MemberID creatorID,
       required OrganizationID organizationID}) async {
+    // verify creator
     Member? creator = await _memberRepository.find(creatorID);
     if (creator == null) throw MemberNotFoundError();
     Organization? organization =
@@ -54,43 +62,43 @@ class DefaultDeleteOrganizationUseCase implements DeleteOrganizationUseCase {
       List<Member> members = await _memberRepository.findAll(organizationID);
       for (Member member in members) {
         if (!(await _memberRepository.remove(member.id)))
-          // TODO: Failed to remove a single member
+          // Failed to remove a single member
           throw FailedToRemoveError(
               forEntity: "Delete Organization Member $member");
       }
 
-      // Remove member account organization relationships
-      // List<OrganizationMemberRelationship> relationships =
-      //     await _organizationRepository.findAllRelationships(organizationID);
-      //
-      // for (OrganizationMemberRelationship relationship in relationships) {
-      //   if (!(await _organizationRepository.removeRelationship(relationship)))
-      //     // TODO: Failed to remove single relationship
-      //     throw FailedToRemoveError(
-      //         forEntity: "Delete Organization Relationship $relationship");
-      // }
-
       // Remove Join Requests
-      // List<JoinRequest> requests =
-      //     await _organizationRepository.findAllRequests(organizationID);
-      // for (JoinRequest request in requests) {
-      //   if (!(await _organizationRepository
-      //       .removeRequestToJoinOrganization(request)))
-      //     // TODO: Failed to remove single join request
-      //     throw FailedToRemoveError(
-      //         forEntity: "Delete Organization Join Request");
-      // }
+      List<JoinRequest> requests =
+          await _requestRepository.findAll(organizationID);
+      for (JoinRequest request in requests) {
+        if (!(await _requestRepository.remove(request.id)))
+          // Failed to remove single join request
+          throw FailedToRemoveError(
+              forEntity: "Delete Organization Join Request");
+      }
 
-      // TODO: Remove all Assignments
-      // List<Assignment> assignments = await _assignmentRepository.findAll(organizationID);
-      // for (Assignment assignment in assignments) {
-      //   if (!(await _assignmentRepository.remove(assignment.id)))
-      //     // TODO: Failed to remove single assignment
-      //     throw FailedToRemoveError(forEntity: "Delete Organization Assignment");
-      //   if (!(await _assignmentRepository.removeRelationship(assignment.id)))
-      //     // TODO: Failed to remove single assignment relationship
-      //     throw FailedToRemoveError(forEntity: "Delete Organization Assignment Relationship");
-      // }
+      // Remove all Assignments
+      List<Assignment> assignments =
+          await _assignmentRepository.findAll(organizationID);
+      for (Assignment assignment in assignments) {
+        if (!(await _assignmentRepository.remove(assignment.id)))
+          // Failed to remove single assignment
+          throw FailedToRemoveError(
+              forEntity: "Delete Organization Assignment");
+      }
+
+      // Remove all Roles
+      List<Role> roles = await _roleRepository.findAll(organizationID);
+      for (Role role in roles) {
+        await _roleRepository.remove(role.id);
+      }
+
+      // Remove all Authorizations
+      List<Authorization> authorizations =
+          await _authorizationRepository.findAll(organizationID);
+      for (Authorization authorization in authorizations) {
+        await _authorizationRepository.remove(authorization.id);
+      }
 
       // TODO: Remove all Events
       // List<Event> events = await _eventRepository.findAll(organizationID);
@@ -105,7 +113,7 @@ class DefaultDeleteOrganizationUseCase implements DeleteOrganizationUseCase {
 
       return true;
     } else {
-      // TODO: Failed to remove organization
+      // Failed to remove organization
       throw FailedToRemoveError(forEntity: "Delete Organization $organization");
     }
   }

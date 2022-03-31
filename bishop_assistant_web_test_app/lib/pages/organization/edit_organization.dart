@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/firebase/new_repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/pages/organization/delete_organization_confirmation_dialog.dart';
 import 'package:bishop_assistant_web_test_app/pages/organization/organization_members_view.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';

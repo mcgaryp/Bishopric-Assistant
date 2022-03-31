@@ -71,8 +71,9 @@ class AssignmentTest implements Test {
   }
 
   static comparisonTests() {
-    Assignment assignment = MockAssignment().assignment;
-    Assignment secondAssignment = MockAssignment().assignment;
+    DateTime now = DateTime.now();
+    Assignment assignment = MockAssignment(dueDate: now).assignment;
+    Assignment secondAssignment = MockAssignment(dueDate: now).assignment;
     expect(assignment == secondAssignment, true);
     expect(secondAssignment == assignment, true);
     expect(assignment.sameIdentityAs(secondAssignment), true);
@@ -127,19 +128,16 @@ class AssignmentTest implements Test {
   // Check that canArchive works properly
   static verifyCanArchive() {
     // TODO: Create New Test
-
   }
 
   // Check that canComplete works properly
   static verifyCanComplete() {
     // TODO: Create New Test
-
   }
 
   // Check that canEdit works properly
   static verifyCanEdit() {
     // TODO: Create New Test
-
   }
 }
 

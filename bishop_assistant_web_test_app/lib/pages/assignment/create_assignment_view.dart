@@ -36,9 +36,7 @@ class _CreateAssignmentViewState extends State<CreateAssignmentView> {
           padding: const EdgeInsets.only(bottom: padding8),
           child: Text(sCreateAssignment, style: title),
         ),
-      if (!isCreating &&
-          !isMobile &&
-          currentUserPermissions.rank >= 0)
+      if (!isCreating && !isMobile && currentUserPermissions.rank >= 0)
         MyButton(
           label: sCreateAssignment,
           onPressed: () {

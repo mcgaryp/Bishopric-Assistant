@@ -23,8 +23,11 @@ mixin UpdateAssignmentUseCase {
     required MemberID memberID,
     String? title,
     DateTime? dueDate,
-    Assignee? assignee,
+    Role? assignee,
     String? noteContent,
+    bool? editable,
+    bool? reassignable,
+    List<Role>? viewers,
   });
 }
 
@@ -36,25 +39,34 @@ class DefaultUpdateAssignmentUseCase implements UpdateAssignmentUseCase {
       this._assignmentRepository, this._memberRepository);
 
   @override
-  Future<bool> execute(
-      {required AssignmentID assignmentID,
-      required MemberID memberID,
-      String? title,
-      DateTime? dueDate,
-      Assignee? assignee,
-      String? noteContent}) async {
-    Assignment? assignment = await _assignmentRepository.find(assignmentID);
-    assignment ?? (throw AssignmentNotFoundError());
-
+  Future<bool> execute({
+    required AssignmentID assignmentID,
+    required MemberID memberID,
+    String? title,
+    DateTime? dueDate,
+    Role? assignee,
+    String? noteContent,
+    bool? editable,
+    bool? reassignable,
+    List<Role>? viewers,
+  }) async {
+    // look up accessor
     Member? accessor = await _memberRepository.find(memberID);
     accessor ?? (throw MemberNotFoundError());
 
-    if (assignment.canEdit(
-        memberID: accessor.id, authorization: accessor.role.authorization)) {
+    // Look up assignment
+    Assignment? assignment = await _assignmentRepository.find(assignmentID);
+    assignment ?? (throw AssignmentNotFoundError());
+
+    // Check permission to edit
+    if (assignment.canEdit(roleID: accessor.role.id)) {
       assignment.title = title ?? assignment.title;
       assignment.dueDate = dueDate ?? assignment.dueDate;
       assignment.assignee = assignee ?? assignment.assignee;
-      assignment.note.content = noteContent ?? assignment.note.content;
+      assignment.note = noteContent ?? assignment.note;
+      assignment.reassignable = reassignable ?? assignment.reassignable;
+      assignment.editable = editable ?? assignment.editable;
+      assignment.viewers = viewers ?? assignment.viewers;
 
       return _assignmentRepository.update(assignment);
     }

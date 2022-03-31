@@ -29,7 +29,7 @@ class Role extends Entity<Role> {
       : this(
           authorization: Authorization.fromMap(map[authorizationKey]),
           name: map[nameKey],
-          id: RoleID(map[idKey]),
+          id: map[idKey] == null ? null : RoleID(map[idKey]),
         );
 
   set __name(String name) {
@@ -40,6 +40,7 @@ class Role extends Entity<Role> {
   set roleID(RoleID id) => _id = id;
 
   String get name => _name;
+
   RoleID get id {
     _id ?? (throw IdDoesNotExistError(forObject: "Role ID"));
     return _id!;

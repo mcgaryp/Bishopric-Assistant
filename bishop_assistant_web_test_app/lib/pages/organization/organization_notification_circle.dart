@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/firebase/new_repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/pages/organization/join_request_detail_view.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/organization.dart';
@@ -10,11 +10,26 @@ import 'package:models/models/organization.dart';
 /// Created by Porter McGary on 2/1/22
 /// Copyright 2022 Porter McGary. All rights reserved.
 ///
-class OrganizationNotificationCircle extends StatelessWidget {
+class OrganizationNotificationCircle extends StatefulWidget {
   final List<JoinRequest> requests;
 
   const OrganizationNotificationCircle(this.requests, {Key? key})
       : super(key: key);
+
+  @override
+  State<OrganizationNotificationCircle> createState() =>
+      _OrganizationNotificationCircleState();
+}
+
+class _OrganizationNotificationCircleState
+    extends State<OrganizationNotificationCircle> {
+  List<JoinRequest> requests = [];
+
+  @override
+  void initState() {
+    requests = widget.requests;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +67,15 @@ class OrganizationNotificationCircle extends StatelessWidget {
                     children: details
                         .map<JoinRequestDetailsView>(
                             (JoinRequestDetail detail) =>
-                                JoinRequestDetailsView(detail))
+                                JoinRequestDetailsView(
+                                  detail,
+                                  onChange: (JoinRequest request) {
+                                    setState(() {
+                                      requests.removeWhere(
+                                          (JoinRequest r) => request == r);
+                                    });
+                                  },
+                                ))
                         .toList()),
               )));
   }

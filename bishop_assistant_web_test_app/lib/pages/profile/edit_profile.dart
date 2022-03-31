@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/firebase/new_repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:crypt/crypt.dart';
 import 'package:models/models/account.dart';

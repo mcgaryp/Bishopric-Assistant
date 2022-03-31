@@ -8,6 +8,7 @@ import 'package:models/shared/uuid.dart';
 /// Copyright 2022 Porter McGary. All rights reserved.
 ///
 
+@Deprecated("No Longer Valid")
 class NoteID extends UUID {
   NoteID(String id) : super(id);
 }

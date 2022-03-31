@@ -165,11 +165,14 @@ class ThemePage extends StatelessWidget {
               _ExampleCard(),
               MyDrawerHeader(account),
               OrganizationCard(organization: organization),
-              JoinRequestDetailsView(JoinRequestDetail(
-                  name: Name(first: "Test", last: "Join Request"),
-                  request: JoinRequest(
-                      accountID: AccountID("Fake"),
-                      organizationID: OrganizationID("Also Fake")))),
+              JoinRequestDetailsView(
+                JoinRequestDetail(
+                    name: Name(first: "Test", last: "Join Request"),
+                    request: JoinRequest(
+                        accountID: AccountID("Fake"),
+                        organizationID: OrganizationID("Also Fake"))),
+                onChange: (request) {},
+              ),
               MemberTitle(member),
               MemberDetailsCard(member),
               EditMemberDetailsCard(member),

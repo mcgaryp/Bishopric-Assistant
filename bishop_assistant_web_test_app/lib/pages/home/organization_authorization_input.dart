@@ -51,6 +51,8 @@ class _OrganizationAuthorizationInputState
       // Set up Input Fields
       InputField inputField = InputField.plain(
         authorization.name,
+        // TODO: Create String
+        label: "Group Name",
         controller: controller,
         onChange: (String? str) {
           _updateAuthorizations();
@@ -69,7 +71,7 @@ class _OrganizationAuthorizationInputState
       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         // Authorization Level Text
         // TODO: Add to string.dart
-        Text("Authorization Levels", style: subhead),
+        Text("Groups", style: subhead),
         // Plus Button
         IconButton(onPressed: _add, icon: Icon(Icons.add))
       ]),
@@ -103,8 +105,10 @@ class _OrganizationAuthorizationInputState
   void _add() {
     setState(() {
       controllers.add(TextEditingController());
-      inputs.add(InputField.plain(sAuthorization, controller: controllers.last,
-          onChange: (String? str) {
+      // TODO: Replace with string
+      inputs.add(InputField.plain(sAuthorization,
+          label: "Group Name",
+          controller: controllers.last, onChange: (String? str) {
         _updateAuthorizations();
         return str;
       }));

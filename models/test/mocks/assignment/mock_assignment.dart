@@ -1,14 +1,8 @@
-import 'package:models/models/account.dart';
 import 'package:models/models/assignment.dart';
 import 'package:models/models/organization.dart';
 
-import '../account/mock_contact.dart';
-import '../account/mock_name.dart';
-import '../organization/mock_authorization.dart';
-import '../organization/mock_member.dart';
 import '../organization/mock_organization.dart';
-import 'mock_assignee.dart';
-import 'mock_note.dart';
+import '../organization/mock_role.dart';
 
 ///
 /// assignment_mock.dart
@@ -19,37 +13,35 @@ import 'mock_note.dart';
 ///
 
 class MockAssignment {
-  static final Contact mockContact = MockContact().contact;
-  static final Name mockName = MockName().name;
-  static final AssignmentID mockID = MockAssignmentID().id;
-  static final MemberID mockMemberID = MockMemberID().id;
-  static final Authorization mockAuthorization = MockAuthorization().authorization;
-  static final DateTime mockDueDate = DateTime.now();
-
   late final Assignment assignment;
 
   MockAssignment({
     AssignmentID? id,
-    Creator? creator,
+    Role? creator,
     bool isArchived = false,
-    Assignee? assignee,
+    Role? assignee,
     bool isCompleted = false,
-    Note? note,
+    String note = "This is a note.",
     String title = "New Assignment",
     DateTime? dueDate,
     OrganizationID? organizationID,
+    bool reassignable = true,
+    bool editable = true,
   }) {
     assignment = Assignment(
-      id: id ?? mockID,
-      creator: creator ?? MockCreator().creator,
+      viewers: List.filled(3, MockRole().role),
+      id: id ?? MockAssignmentID().id,
+      creator: creator ?? MockRole().role,
       isArchived: isArchived,
-      assignee: assignee ?? MockAssignee().assignee,
+      assignee: assignee ?? MockRole().role,
       isCompleted: isCompleted,
-      note: note ?? MockNote().note,
+      note: note,
       title: title,
-      dueDate: dueDate ?? mockDueDate,
+      dueDate: dueDate ?? DateTime.now(),
       orgID: organizationID ??
           MockOrganization(id: MockOrganizationID().id).organization.id,
+      reassignable: reassignable,
+      editable: editable,
     );
   }
 }
@@ -60,22 +52,5 @@ class MockAssignmentID {
 
   MockAssignmentID({String? id}) {
     this.id = AssignmentID(id ?? mockID);
-  }
-}
-
-class MockCreator {
-  late final Creator creator;
-
-  MockCreator(
-      {Name? name,
-      Authorization? authorization,
-      Contact? contact,
-      MemberID? memberID}) {
-    creator = Creator(
-      name: name ?? MockName().name,
-      authorization: authorization ?? MockAuthorization().authorization,
-      contact: contact ?? MockContact().contact,
-      id: memberID ?? MockMemberID().id,
-    );
   }
 }

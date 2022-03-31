@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/firebase/new_repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/pages/organization/confirm_member_removal_dialog.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/organization.dart';
@@ -68,22 +68,20 @@ class _EditMemberDetailsCardState extends State<EditMemberDetailsCard> {
           children: [
             MyDivider(color: darkPrimary),
             MyDropdown(
+                initialValue: widget.member.role.id.id.hashCode,
                 hint: sRole,
                 onchange: (int? index) {
                   setState(() {
                     role = null;
                     if (index != null) {
-                      if (index != 0)
-                        role = roles.find(index);
+                      if (index != 0) role = roles.find(index);
                     }
                   });
                 },
                 collection: roles
-                    .map<DropdownMenuItem<int>>((Role? r) =>
-                        DropdownMenuItem(
-                            child: Text(r == null ? sRole : r.name,
-                                style: body),
-                            value: r == null ? 0 : r.id.id.hashCode))
+                    .map<DropdownMenuItem<int>>((Role? r) => DropdownMenuItem(
+                        child: Text(r == null ? sRole : r.name, style: body),
+                        value: r == null ? 0 : r.id.id.hashCode))
                     .toList()),
             if (StateContainer.of(context).member ==
                 StateContainer.of(context).organization.creator)
@@ -103,7 +101,7 @@ class _EditMemberDetailsCardState extends State<EditMemberDetailsCard> {
       ChangeMemberRoleInOrganizationUseCase useCase =
           DefaultChangeMemberRoleInOrganizationUseCase(
               FirestoreMemberRepository());
-      if (!(await useCase.execute(
+      if ((await useCase.execute(
           accessorID: accessorID, memberID: widget.member.id, role: role!))) {
         MyToast.toastSuccess("${widget.member.name}'s new role $role");
       }

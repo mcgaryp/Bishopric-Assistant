@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/firebase/new_repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
@@ -19,7 +19,6 @@ class OrganizationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return MyCard(
         child: Column(children: [
       Row(
@@ -34,7 +33,8 @@ class OrganizationCard extends StatelessWidget {
             ]),
           ),
           StreamBuilder<List<JoinRequest>>(
-              stream: FirestoreJoinRequestRepository().findAllStreamed(organization.id),
+              stream: FirestoreJoinRequestRepository()
+                  .findAllStreamed(organization.id),
               builder: (BuildContext context, snapshot) {
                 if (snapshot.hasData) {
                   List<JoinRequest> requests = snapshot.data ?? [];
@@ -47,10 +47,11 @@ class OrganizationCard extends StatelessWidget {
                       );
                   }
                   return MyButton(
-                      label: sJoin,
-                      onPressed: () => _joinOrganization(context),
-                      style: MyButtonStyle.text,
-                      isExpanded: false);
+                    label: sJoin,
+                    onPressed: () => _joinOrganization(context),
+                    style: MyButtonStyle.text,
+                    isExpanded: false,
+                  );
                 }
                 return Padding(
                   padding: const EdgeInsets.all(8.0),

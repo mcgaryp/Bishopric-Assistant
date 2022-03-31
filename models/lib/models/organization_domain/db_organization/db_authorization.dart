@@ -20,14 +20,14 @@ class DBAuthorization {
   String? orgID;
   int? rank;
 
-  DBAuthorization({this.rank, this.name, this.orgID})
-      : this.id = rank.toString();
+  DBAuthorization({this.rank, this.name, this.orgID, this.id});
 
   DBAuthorization.fromMap(Map<String, dynamic> map)
       : this(
           rank: map[rankKey],
           name: map[nameKey],
           orgID: map[orgIDKey],
+          id: map[idKey],
         );
 
   DBAuthorization.fromAuthorization(
@@ -43,17 +43,18 @@ class DBAuthorization {
       throw Exception(
           "Unable to convert to Authorization: name => $name, rank => $rank");
     }
-    return Authorization(name: name!, rank: rank!);
+    return Authorization(name: name!, rank: rank!, id: toAuthID);
   }
 
   Map<String, dynamic> get toMap => {
         rankKey: rank,
         nameKey: name,
         orgIDKey: orgID,
+        idKey: id,
       };
 
-  OrganizationID get toAuthID {
+  AuthorizationID get toAuthID {
     id ?? (throw IdDoesNotExistError(forObject: "DB Authorization"));
-    return OrganizationID(id!);
+    return AuthorizationID(id!);
   }
 }

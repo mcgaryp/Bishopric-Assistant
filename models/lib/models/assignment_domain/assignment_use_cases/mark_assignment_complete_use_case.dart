@@ -37,8 +37,7 @@ class DefaultMarkAssignmentCompleteUseCase
     Assignment? assignment = await _assignmentRepository.find(assignmentID);
     assignment ?? (throw AssignmentNotFoundError());
 
-    if (assignment.canComplete(
-        authorization: accessor.role.authorization, memberID: accessor.id)) {
+    if (assignment.canComplete(roleID: accessor.role.id)) {
       assignment.markComplete();
       return _assignmentRepository.update(assignment);
     }

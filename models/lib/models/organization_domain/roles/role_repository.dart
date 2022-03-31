@@ -14,4 +14,10 @@ mixin RoleRepository {
 
   @required
   Future<RoleID?> insert(Role role, OrganizationID organizationID);
+
+  @required
+  Future<bool> remove(RoleID roleID);
+
+  @required
+  Future<List<Role>> findAll(OrganizationID organizationID);
 }

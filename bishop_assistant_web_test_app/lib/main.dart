@@ -45,7 +45,7 @@ class _AppState extends State<App> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
 
     return MaterialApp(
-      title: sTitle,
+      title: sAppName,
       theme: theme,
       routes: routes,
       onGenerateRoute: (RouteSettings settings) {

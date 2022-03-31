@@ -46,7 +46,7 @@ class _RowToggleState extends State<RowToggle> {
       Text(widget.label, style: widget._style),
       Switch(
         activeColor: widget._color,
-        value: isOn,
+        value: widget.value,
         onChanged: widget.onChanged,
       )
     ]);

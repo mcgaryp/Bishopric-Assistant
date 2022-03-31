@@ -89,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                 label: sRequestToVerifyEmail,
                 onPressed: () =>
                     FirebaseAuthentication.user.sendEmailVerification(),
-                style: MyButtonStyle.text,
+                style: MyButtonStyle.lightText,
               ),
           ],
         ),

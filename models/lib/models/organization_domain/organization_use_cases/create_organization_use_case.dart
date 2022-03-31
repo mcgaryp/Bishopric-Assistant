@@ -63,42 +63,35 @@ class DefaultCreateOrganizationUseCase implements CreateOrganizationUseCase {
 
     // Insert the Roles
     RoleID? roleID;
-    for(Role role in roles) {
+    for (Role role in roles) {
       if (role == creatorRole) {
-       roleID = await _roleRepository.insert(role, organizationID);
-      }
-      else {
+        roleID = await _roleRepository.insert(role, organizationID);
+      } else {
         await _roleRepository.insert(role, organizationID);
       }
     }
 
+    if (roleID == null) throw FailedToSaveError(reason: "Creator Role");
+
     // Insert the Authorizations
-    for(Authorization auth in authorizations) {
-      _authorizationRepository.insert(auth, organizationID);
-    }
-
-    // Get top Authorization
-    Authorization? authorization;
     for (Authorization auth in authorizations) {
-      if (authorization == null) {
-        authorization = auth;
-      } else if (auth > authorization) {
-        authorization = auth;
-      }
+      await _authorizationRepository.insert(auth, organizationID);
     }
-    authorization ??
-        (throw FailedToSaveError(reason: "No authorizations found"));
 
+    // Update creatorRole with proper IDs
+    List<Authorization> auths =
+        await _authorizationRepository.findAll(organizationID);
+    Authorization authorizationWithID = auths.firstWhere(
+        (Authorization a) => a.rank == creatorRole.authorization.rank);
+    creatorRole = Role(
+      name: creatorRole.name,
+      id: roleID,
+      authorization: authorizationWithID,
+    );
 
-
-    // insert role
-    roleID ?? (throw FailedToSaveError(reason: "Role ID when creating organization"));
-    Role role = await _roleRepository.find(roleID, organizationID);
-
-    role.roleID = roleID;
     // Create Member
-    Member creator =
-        Member(name: accessor.name, contact: accessor.contact, role: role);
+    Member creator = Member(
+        name: accessor.name, contact: accessor.contact, role: creatorRole);
 
     // insert member
     if (await _memberRepository.insert(creator, organizationID, creatorId)) {

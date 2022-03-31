@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/firebase/new_repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/organization.dart';
 
@@ -28,7 +28,7 @@ class ConfirmMemberRemovalDialog extends StatelessWidget {
     try {
       RemoveMemberFromOrganizationUseCase useCase =
           DefaultRemoveMemberFromOrganizationUseCase(
-              FirestoreMemberRepository(), FirestoreOrganizationRepository());
+              FirestoreMemberRepository());
 
       if (await useCase.execute(
           accessorId: StateContainer.of(context).member.id,

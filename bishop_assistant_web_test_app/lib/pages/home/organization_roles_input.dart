@@ -36,7 +36,6 @@ class _OrganizationRolesInputState extends State<OrganizationRolesInput> {
   void initState() {
     roles = widget.roles;
 
-    // TODO: Add to string.dart
     for (Role? role in roles) {
       // add to controllers
       controllers.add(TextEditingController.fromValue(
@@ -45,6 +44,8 @@ class _OrganizationRolesInputState extends State<OrganizationRolesInput> {
       // add to inputs
       inputs.add(InputField.plain(
         role?.name ?? sOwner,
+        // TODO: Add to string.dart
+        label: "Role Name",
         controller: controllers.last,
         onChange: (String? str) {
           _updateRoles();
@@ -123,6 +124,8 @@ class _OrganizationRolesInputState extends State<OrganizationRolesInput> {
       controllers.add(TextEditingController());
       inputs.add(InputField.plain(
         sNewRole,
+        // TODO: Add to string.dart
+        label: "Role Name",
         controller: controllers.last,
         onChange: (String? str) {
           _updateRoles();

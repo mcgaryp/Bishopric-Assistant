@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/firebase/new_repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/assignment.dart';
 import 'package:models/models/organization.dart';
@@ -26,69 +26,94 @@ class _EditAssignmentCardState extends State<EditAssignmentCard> {
   late TextEditingController title;
   late TextEditingController notes;
   late DateTime selectedDate;
-  late Assignee assignee;
+  late Role assignee;
+  late bool reassignable;
+  late bool editable;
+  late Member currentUser;
+  late List<Role> viewers;
 
   @override
   void initState() {
+    print(widget.assignment.toMap);
+
     selectedDate = widget.assignment.dueDate;
     assignee = widget.assignment.assignee;
     notes = TextEditingController.fromValue(
-        TextEditingValue(text: widget.assignment.note.content));
+        TextEditingValue(text: widget.assignment.note));
     title = TextEditingController.fromValue(
         TextEditingValue(text: widget.assignment.title));
+    reassignable = widget.assignment.reassignable;
+    editable = widget.assignment.editable;
+    viewers = widget.assignment.viewers;
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    Authorization currentUserPermissions =
-        StateContainer.of(context).member.role.authorization;
-
-    AllAssigneesUseCase useCase =
-        DefaultAllAssigneesUseCase(FirestoreMemberRepository());
+    currentUser = StateContainer.of(context).member;
 
     return MyCard(
         child: Form(
             child: Wrap(children: [
-      InputField.plain(widget.assignment.title, controller: title),
-      Text(sDueDate, style: body),
-      CardDateTimeRow((DateTime newDate) {
-        setState(() {
-          selectedDate = newDate;
-        });
-      }, initialDateTime: selectedDate),
-      FutureBuilder<List<Assignee>>(
-          future: useCase.execute(StateContainer.of(context).organization.id),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              List<Assignee> assignees = snapshot.data!;
-              return MyDropdown(
-                hint: widget.assignment.assignee.name.fullName,
-                onchange: (int? value) {
-                  for (Assignee element in assignees) {
-                    if (element.id.id.hashCode == value) {
-                      setState(() {
-                        assignee = element;
-                      });
-                      break;
-                    }
-                  }
-                },
-                collection: assignees
-                    .map<DropdownMenuItem<int>>((Assignee assignee) =>
-                        DropdownMenuItem(
-                            child: Text(assignee.name.fullName),
-                            value: assignee.id.id.hashCode))
-                    .toList(),
-              );
-            }
-            return SpinKitThreeBounce(size: 25, color: dark);
-          }),
-      if (widget.assignment.note.canView(currentUserPermissions))
-        Text(sNotes, style: subhead),
-      if (widget.assignment.note.canView(currentUserPermissions))
-        InputField.plain(widget.assignment.note.content,
-            maxLines: true, controller: notes),
+      // Title
+      InputField.plain(widget.assignment.title,
+          label: sAssignmentTitle, controller: title),
+
+      // Due Date
+      Text(sDueDate, style: subhead),
+      CardDateTimeRow(
+        (DateTime newDate) {
+          setState(() {
+            selectedDate = newDate;
+          });
+        },
+        initialDateTime: selectedDate,
+      ),
+
+      // Notes
+      InputField.plain(widget.assignment.note,
+          label: sNotes, maxLines: true, controller: notes),
+
+      // Editable
+      if (isCreator)
+        RowToggle(
+          "Editable",
+          value: editable,
+          onChanged: (bool val) {
+            setState(() {
+              editable = val;
+            });
+          },
+        ),
+
+      // Reassignable
+      if (isCreator)
+        RowToggle("Reassignable", value: reassignable, onChanged: (bool val) {
+          setState(() {
+            reassignable = val;
+          });
+        }),
+
+      // Assigned to
+      if (widget.assignment.reassignable || editable || isCreator)
+        MyDropdown(
+          hint: "Assigned to...",
+          onchange: (lst) {},
+          collection: collection,
+          initialValue: assignee.id.id.hashCode,
+        ),
+
+      // Visible to
+      if (widget.assignment.reassignable || reassignable || isCreator)
+        MyMultiSelectField<Role>(
+          "Visible to...",
+          onChange: (lst) {},
+          items: items,
+          initialValues: viewers,
+        ),
+
+      // Save or Cancel
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -123,6 +148,9 @@ class _EditAssignmentCardState extends State<EditAssignmentCard> {
         dueDate: selectedDate,
         assignee: assignee,
         noteContent: notes.text,
+        editable: editable,
+        reassignable: reassignable,
+        viewers: viewers,
       );
 
       return result;
@@ -133,4 +161,22 @@ class _EditAssignmentCardState extends State<EditAssignmentCard> {
 
     return false;
   }
+
+  List<MultiSelectItem<Role>> get items {
+    return StateContainer.of(context)
+        .roles
+        .map<MultiSelectItem<Role>>(
+            (Role role) => MultiSelectItem(role, role.name))
+        .toList();
+  }
+
+  List<DropdownMenuItem<int>> get collection {
+    return StateContainer.of(context)
+        .roles
+        .map<DropdownMenuItem<int>>((Role role) => DropdownMenuItem(
+            value: role.id.id.hashCode, child: Text(role.name, style: body)))
+        .toList();
+  }
+
+  bool get isCreator => widget.assignment.creator == currentUser.role;
 }

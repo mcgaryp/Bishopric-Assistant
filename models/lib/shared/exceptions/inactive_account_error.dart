@@ -11,6 +11,7 @@ import 'package:models/shared/exceptions/for_object_exception.dart';
 
 class InactiveAccountError extends ForObjectException {
   final AccountID id;
+
   InactiveAccountError(this.id, {String? forObject})
       : super("Deactivated Account", forObject: forObject);
 }

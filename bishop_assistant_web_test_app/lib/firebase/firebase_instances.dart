@@ -23,7 +23,7 @@ class FirebaseInstances {
       if (kDebugMode) print("Current FirebaseApps: $apps");
       _isInitialized = true;
       return;
-    } catch(e) {
+    } catch (e) {
       // not Initialized
       try {
         final dev = DevFirebaseOptions();

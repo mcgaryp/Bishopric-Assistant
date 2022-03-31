@@ -10,7 +10,7 @@ import 'package:models/models/organization.dart';
 ///
 
 mixin AssignmentRepository {
-  Future<Assignment?> insert(Assignment assignment);
+  Future<bool> insert(Assignment assignment);
 
   Future<Assignment?> find(AssignmentID assignmentID);
 

@@ -1,4 +1,3 @@
-
 import 'package:models/models/organization_domain/organization_id.dart';
 import 'package:models/models/organization_domain/roles/role_id.dart';
 import 'package:models/shared/exceptions/id_does_not_exist_error.dart';
@@ -38,8 +37,7 @@ class DBRole {
   }
 
   String get toAuthorizationID {
-    authorizationID ??
-        (throw Exception("DB Role Authorization ID is null"));
+    authorizationID ?? (throw Exception("DB Role Authorization ID is null"));
     return authorizationID!;
   }
 

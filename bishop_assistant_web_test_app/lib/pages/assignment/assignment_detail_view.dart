@@ -33,9 +33,7 @@ class _AssignmentDetailViewState extends State<AssignmentDetailView> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           Assignment assignment = snapshot.data!;
-          if (assignment.canView(
-              authorization: currentUser.role.authorization,
-              memberID: currentUser.id)) {
+          if (assignment.canView(roleID: currentUser.role.id)) {
             if (assignment.isArchived)
               return ArchivedAssignmentCard(assignment);
             if (assignment.isOverDue)

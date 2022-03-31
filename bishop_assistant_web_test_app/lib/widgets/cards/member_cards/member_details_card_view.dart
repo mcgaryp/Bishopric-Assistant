@@ -19,6 +19,7 @@ class MemberDetailsCardView extends StatelessWidget {
   const MemberDetailsCardView(this.memberStream, {Key? key})
       : _editable = false,
         super(key: key);
+
   const MemberDetailsCardView.editing(this.memberStream, {Key? key})
       : _editable = true,
         super(key: key);

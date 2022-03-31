@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/firebase/new_repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/assignment.dart';
 import 'package:models/models/organization.dart';
@@ -25,21 +25,20 @@ class _CreateAssignmentCardState extends State<CreateAssignmentCard> {
   TextEditingController title = TextEditingController();
   TextEditingController content = TextEditingController();
   DateTime dueDate = DateTime.now();
-  Assignee? assignee;
-  Authorization? authorization;
-  List<Authorization> authorizations = [];
+  Role? assignee;
+  List<Role> viewers = [];
+
+  bool editable = true;
+  bool reassignable = true;
 
   @override
   Widget build(BuildContext context) {
-    AllAssigneesUseCase useCase =
-        DefaultAllAssigneesUseCase(FirestoreMemberRepository());
-
-    authorizations = StateContainer.of(context).authorizations;
-
     return MyCard(
         child: Form(
       child: Wrap(runSpacing: 8, children: [
+        // Assignment Title
         InputField.plain(sAssignmentTitle, controller: title),
+        // Assignment Due Date
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -53,46 +52,57 @@ class _CreateAssignmentCardState extends State<CreateAssignmentCard> {
             ),
           ],
         ),
-        FutureBuilder<List<Assignee>>(
-            future: useCase.execute(StateContainer.of(context).organization.id),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                List<Assignee> assignees = snapshot.data!;
-                return MyDropdown(
-                  hint: sAssignee,
-                  onchange: (int? value) {
-                    for (Assignee element in assignees) {
-                      if (element.id.id.hashCode == value) {
-                        setState(() {
-                          assignee = element;
-                        });
-                        break;
-                      }
-                    }
-                  },
-                  collection: assignees
-                      .map<DropdownMenuItem<int>>((Assignee assignee) =>
-                          DropdownMenuItem(
-                              child: Text(assignee.name.fullName),
-                              value: assignee.id.id.hashCode))
-                      .toList(),
-                );
-              }
-              return SpinKitThreeBounce(size: 25, color: dark);
-            }),
-        MyDropdown(
-          hint: sNotesViewPermission,
-          onchange: (int? value) {
+
+        // Assignment Notes
+        InputField.plain(sNotes, maxLines: true, controller: content),
+
+        // Assignment is Editable by others
+        RowToggle(
+          "Editable by Others",
+          value: editable,
+          onChanged: (bool value) {
             setState(() {
-              // TODO Manage authorizations
+              editable = value;
             });
           },
-          collection: authorizations
-              .map<DropdownMenuItem<int>>((Authorization p) =>
-                  DropdownMenuItem(child: Text(p.name), value: p.rank))
-              .toList(),
         ),
-        InputField.plain(sNotes, maxLines: true, controller: content),
+
+        // Assignment is Reassignable by others
+        RowToggle(
+          "Reassignable by Others",
+          value: reassignable,
+          onChanged: (bool value) {
+            setState(() {
+              reassignable = value;
+            });
+          },
+        ),
+
+        // Visible to
+        MyMultiSelectField<Role>(
+          "Visible to...",
+          onChange: (List<Role> lst) {
+            setState(() {
+              viewers = lst;
+            });
+          },
+          items: items,
+        ),
+
+        // Assigned to
+        MyDropdown(
+          hint: "Assigned to...",
+          onchange: (int? value) {
+            setState(() {
+              assignee = StateContainer.of(context)
+                  .roles
+                  .firstWhere((Role r) => r.id.id.hashCode == value);
+            });
+          },
+          collection: collection,
+        ),
+
+        // Save
         Align(
           alignment: Alignment.centerRight,
           child: MyButton(isExpanded: false, label: sCreate, onPressed: _save),
@@ -105,27 +115,45 @@ class _CreateAssignmentCardState extends State<CreateAssignmentCard> {
     try {
       if (assignee == null)
         throw FailedToSaveError(reason: "Assignee is not selected");
-      if (authorization == null)
-        throw FailedToSaveError(reason: "Note Permissions is not selected");
+
       CreateAssignmentUseCase useCase = DefaultCreateAssignmentUseCase(
           FirestoreAssignmentRepository(), FirestoreMemberRepository());
 
       MemberID memberID = StateContainer.of(context).member.id;
 
-      Note note = Note(content: content.text, authorization: authorization!);
-
-      Assignment assignment = await useCase.execute(
+      if (await useCase.execute(
         title: title.text,
         dueDate: dueDate,
         assignee: assignee!,
         memberID: memberID,
-        note: note,
-      );
-      if (widget.onSave != null) widget.onSave!();
-      MyToast.toastSuccess("Successfully saved ${assignment.title}");
+        note: content.text,
+        editable: editable,
+        viewers: viewers,
+        reassignable: reassignable,
+      )) {
+        if (widget.onSave != null) widget.onSave!();
+        MyToast.toastSuccess("Successfully saved ${title.text}");
+      }
     } catch (e) {
       if (kDebugMode) print(e);
       MyToast.toastError(e);
     }
   }
+
+  List<MultiSelectItem<Role>> get items {
+    return StateContainer.of(context)
+        .roles
+        .map<MultiSelectItem<Role>>((Role r) {
+      return MultiSelectItem<Role>(
+        r,
+        r.name,
+      );
+    }).toList();
+  }
+
+  List<DropdownMenuItem<int>> get collection => StateContainer.of(context)
+      .roles
+      .map<DropdownMenuItem<int>>((Role r) => DropdownMenuItem<int>(
+          value: r.id.id.hashCode, child: Text(r.name, style: body)))
+      .toList();
 }

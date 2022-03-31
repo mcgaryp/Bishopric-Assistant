@@ -11,7 +11,7 @@ import 'package:flutter/services.dart';
 ///
 
 class InputField extends StatelessWidget {
-  final String label;
+  final String? label;
   final String hint;
   final String? errorMsg;
   final TextInputType? inputType;
@@ -27,8 +27,8 @@ class InputField extends StatelessWidget {
   final FocusNode? focus;
   final TextStyle errorStyle;
 
-  InputField.border(this.label,
-      {this.hint = "",
+  InputField.border(this.hint,
+      {this.label,
       this.maxLines = false,
       this.formattingList = const [],
       this.inputType,
@@ -46,7 +46,7 @@ class InputField extends StatelessWidget {
         super(key: key);
 
   InputField.floating(this.hint,
-      {this.label = "",
+      {this.label,
       this.maxLines = false,
       this.formattingList = const [],
       this.inputType,
@@ -64,7 +64,7 @@ class InputField extends StatelessWidget {
         super(key: key);
 
   InputField.plain(this.hint,
-      {this.label = "",
+      {this.label,
       this.maxLines = false,
       this.formattingList = const [],
       this.inputType,
@@ -140,22 +140,20 @@ class InputField extends StatelessWidget {
       errorStyle: errorStyle,
       hintText: hint,
       hintStyle: captionLight,
-      labelText: label,
+      labelText: label ?? hint,
       labelStyle: bodyDark,
     );
   }
 
   InputDecoration _plain() {
     return InputDecoration(
-      contentPadding: EdgeInsets.symmetric(horizontal: padding16),
+      labelText: label ?? hint,
       border: InputBorder.none,
       enabledBorder: InputBorder.none,
       errorBorder: errorRedInputBorder,
       disabledBorder: InputBorder.none,
       errorStyle: errorStyle,
-      hintText: hint,
-      hintStyle: captionDark,
-      labelStyle: bodyDark,
+      labelStyle: subhead,
       errorText: errorMsg,
     );
   }

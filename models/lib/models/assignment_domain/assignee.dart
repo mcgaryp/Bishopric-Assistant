@@ -9,6 +9,7 @@ import 'package:models/models/organization.dart';
 /// Created by Joshua Bee on 1/18/22
 /// Copyright 2022 Joshua Bee. All rights reserved.
 ///
+@Deprecated("no longer valid")
 class Assignee extends Person {
   static final String nameKey = "Assignee Name";
   static final String contactKey = "Assignee Contact";
@@ -20,7 +21,8 @@ class Assignee extends Person {
       required Name name,
       required MemberID id,
       required Authorization authorization})
-      : super(contact: contact, name: name, id: id, authorization: authorization);
+      : super(
+            contact: contact, name: name, id: id, authorization: authorization);
 
   Assignee.fromMap(Map<String, dynamic> map)
       : this(

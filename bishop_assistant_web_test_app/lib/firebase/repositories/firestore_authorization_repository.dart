@@ -38,12 +38,16 @@ class FirestoreAuthorizationRepository extends FirestoreHelper
     );
 
     // insert
-    String? authID =
-        await addDocument(dbAuthorization.toMap, id: dbAuthorization.toAuthID);
+    String? authID = await addDocument(dbAuthorization.toMap);
     authID ?? (throw IdDoesNotExistError(forObject: "DBAuth ID"));
     dbAuthorization.id = authID;
 
     // update
     return updateDocument(dbAuthorization.toMap, dbAuthorization.toAuthID);
+  }
+
+  @override
+  Future<bool> remove(AuthorizationID authorizationID) {
+    return removeDocument(authorizationID);
   }
 }

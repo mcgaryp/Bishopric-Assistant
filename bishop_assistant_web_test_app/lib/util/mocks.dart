@@ -23,12 +23,15 @@ class Mocks {
         password: "none",
       );
 
+  Role get _mockRole => Role(
+        name: "Fake Role",
+        authorization: Authorization(rank: 0, name: 'Some Authorization'),
+      );
+
   Member get mockMember => Member(
         name: _mockName,
         contact: _mockContact,
-        role: Role(
-            name: "Fake Role",
-            authorization: Authorization(rank: 0, name: 'Some Authorization')),
+        role: _mockRole,
         id: MemberID("Fake ID"),
       );
 
@@ -53,40 +56,25 @@ class Mocks {
         credentials: _mockCredentials,
       );
 
-  Creator get _mockCreator => Creator(
-        contact: _mockContact,
-        name: _mockName,
-        id: MemberID("Fake Member ID"),
-        authorization: Authorization(rank: 0, name: 'Creator'),
-      );
-
-  Assignee get _mockAssignee => Assignee(
-        contact: _mockContact,
-        name: _mockName,
-        id: MemberID("Fake Member ID"),
-        authorization: Authorization(rank: 0, name: 'Creator')
-      );
-
-  Note get _mockNote => Note(
-        content: "Some note content for the greater good! You have no idea how "
-            "awesome it is. Hey guess what! i know a knock knock joke and you "
-            "should totally think about the answer because i said so haha\n\n"
-            "Here is me testing what a new line character does."
-            "That one was a tab character. There are so many awesome things "
-            "that i never know what i should put next in my text Hey guess what "
-            "i found out that my dead cat died.",
-        authorization: Authorization(rank: 0, name: 'Creator'),
-      );
+  @Deprecated("Not in use")
+  Assignee get mockAssignee => Assignee(
+      contact: _mockContact,
+      name: _mockName,
+      id: MemberID("Fake Member ID"),
+      authorization: Authorization(rank: 0, name: 'Creator'));
 
   Assignment get mockAssignment => Assignment(
         id: AssignmentID("Fake Assignment ID"),
-        creator: _mockCreator,
+        creator: _mockRole,
         isArchived: false,
-        assignee: _mockAssignee,
+        assignee: _mockRole,
         isCompleted: false,
-        note: _mockNote,
+        note: "This is some note content",
         title: "Fake Assignment",
         dueDate: DateTime.now(),
         orgID: OrganizationID("Fake Organization ID"),
+        editable: false,
+        viewers: [],
+        reassignable: true,
       );
 }

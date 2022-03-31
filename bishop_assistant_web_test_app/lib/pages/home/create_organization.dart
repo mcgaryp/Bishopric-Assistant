@@ -1,8 +1,4 @@
-import 'package:bishop_assistant_web_test_app/firebase/new_repositories/firestore_account_repository.dart';
-import 'package:bishop_assistant_web_test_app/firebase/new_repositories/firestore_authorization_repository.dart';
-import 'package:bishop_assistant_web_test_app/firebase/new_repositories/firestore_member_repository.dart';
-import 'package:bishop_assistant_web_test_app/firebase/new_repositories/firestore_organization_repository.dart';
-import 'package:bishop_assistant_web_test_app/firebase/new_repositories/firestore_role_repository.dart';
+import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/pages/home/organization_authorization_input.dart';
 import 'package:bishop_assistant_web_test_app/pages/home/organization_roles_input.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
@@ -107,9 +103,8 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       );
 
       List<Role> lst = [];
-      for(Role? role in roles) {
-        if (role != null)
-          lst.add(role);
+      for (Role? role in roles) {
+        if (role != null) lst.add(role);
       }
 
       AccountID accountID = StateContainer.of(context).account.id;

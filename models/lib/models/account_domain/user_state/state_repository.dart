@@ -10,7 +10,10 @@ import 'package:models/models/account.dart';
 
 mixin StateRepository {
   Future<bool> insert(UserState state);
+
   Future<bool> update(UserState state);
+
   Future<UserState> find();
+
   Future<bool> remove();
 }

@@ -9,6 +9,7 @@ import 'package:models/models/event.dart';
 /// Copyright 2022 Porter McGary. All rights reserved.
 ///
 
-class FirestoreEventRepository extends FirestoreHelper implements EventRepository {
+class FirestoreEventRepository extends FirestoreHelper
+    implements EventRepository {
   FirestoreEventRepository() : super(FirestoreCollectionPath.events);
 }

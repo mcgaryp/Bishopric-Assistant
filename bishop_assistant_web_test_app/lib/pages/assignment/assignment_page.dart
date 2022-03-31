@@ -44,8 +44,7 @@ class _AssignmentPageState extends State<AssignmentPage>
 
     children = [
       AssignmentsView(),
-      if (isMobile && currentUserPermissions.rank >= 0)
-        CreateAssignmentView(),
+      if (isMobile && currentUserPermissions.rank >= 0) CreateAssignmentView(),
       ArchiveAssignmentView(),
     ];
 

@@ -4,7 +4,6 @@ import 'package:models/shared/test.dart';
 
 import '../../../mocks/organization/mock_member.dart';
 import '../../../mocks/organization/mock_member_repository.dart';
-import '../../../mocks/organization/mock_organization_repository.dart';
 
 ///
 /// remove_member_from_organization_use_case_test.dart
@@ -18,27 +17,11 @@ class RemoveMemberFromOrganizationUseCaseTest implements Test {
   // TODO: REPO FUNCTION CALLS ?
   static void verifyFunctionRepoCalls() async {
     MockMemberRepository memberRepo = MockMemberRepository();
-    MockOrganizationRepository orgRepo = MockOrganizationRepository();
     RemoveMemberFromOrganizationUseCase useCase =
-        DefaultRemoveMemberFromOrganizationUseCase(memberRepo, orgRepo);
+        DefaultRemoveMemberFromOrganizationUseCase(memberRepo);
 
     await useCase.execute(
         accessorId: MockMemberID().id, memberID: MockMemberID().id);
-
-    expect(orgRepo.findFlag, false);
-    expect(orgRepo.findAllFlag, false);
-    expect(orgRepo.findAllRelationshipsFlag, true);
-    expect(orgRepo.findAllRequestsFlag, false);
-    expect(orgRepo.findAllRequestsStreamedFlag, false);
-    expect(orgRepo.findByNameFlag, false);
-    expect(orgRepo.findStreamedFlag, false);
-    expect(orgRepo.insertFlag, false);
-    expect(orgRepo.insertRelationshipFlag, false);
-    expect(orgRepo.removeFlag, false);
-    expect(orgRepo.removeRelationshipFlag, true);
-    expect(orgRepo.removeRequestToJoinOrganizationFlag, false);
-    expect(orgRepo.requestToJoinOrganizationFlag, false);
-    expect(orgRepo.updateFlag, false);
 
     expect(memberRepo.findFlag, true);
     expect(memberRepo.findAllFlag, false);

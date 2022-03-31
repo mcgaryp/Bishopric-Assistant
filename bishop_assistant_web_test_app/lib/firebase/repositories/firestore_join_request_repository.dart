@@ -54,4 +54,22 @@ class FirestoreJoinRequestRepository extends FirestoreHelper
       }).toList();
     });
   }
+
+  @override
+  Future<List<JoinRequest>> findAll(OrganizationID id) async {
+    // convert to DB Join Request
+    List<DBJoinRequest> dbRequests = (await getCollectionOfDocuments(
+            field: DBJoinRequest.organizationIDKey, isEqualTo: id.id))
+        .map<DBJoinRequest>(
+            (Map<String, dynamic> map) => DBJoinRequest.fromMap(map))
+        .toList();
+
+    // convert to Requests
+    List<JoinRequest> requests = [];
+    for (DBJoinRequest dbJoinRequest in dbRequests) {
+      requests.add(dbJoinRequest.toJoinRequest);
+    }
+
+    return requests;
+  }
 }

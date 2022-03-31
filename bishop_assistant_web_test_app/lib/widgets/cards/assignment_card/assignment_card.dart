@@ -1,6 +1,5 @@
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/assignment.dart';
-import 'package:models/models/organization.dart';
 
 ///
 /// assignment_card.dart
@@ -38,14 +37,10 @@ class DefaultAssignmentCard extends AssignmentCard {
 
   @override
   List<Widget> children(BuildContext context) {
-    Authorization currentUserPermissions =
-        StateContainer.of(context).member.role.authorization;
     return [
       AssignmentTitle(assignment, toggle: toggle),
-      CardRow(sAssignee, content: assignment.assignee.name.fullName),
-      if (assignment.note.canView(currentUserPermissions) &&
-          assignment.note.content.isNotEmpty)
-        CardColumn(sNotes, content: assignment.note.content),
+      CardRow(sAssignee, content: assignment.assignee.name),
+      CardColumn(sNotes, content: assignment.note),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

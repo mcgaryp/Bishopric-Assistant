@@ -43,8 +43,6 @@ class DeleteAssignmentUseCaseTests {
     /// Assignment Repository checks
     expect(assignmentRepository.findFlag, true);
     expect(assignmentRepository.findAllFlag, false);
-    expect(assignmentRepository.findAllStreamedByOrganizationIDFlag, false);
-    expect(assignmentRepository.findStreamFlag, false);
     expect(assignmentRepository.insertFlag, false);
     expect(assignmentRepository.removeFlag, true);
     expect(assignmentRepository.updateFlag, false);

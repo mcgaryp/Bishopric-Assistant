@@ -4,10 +4,13 @@ import 'package:models/shared/test.dart';
 
 import '../../../mocks/assignment/mock_assignment_repository.dart';
 import '../../../mocks/event/mock_event_repo.dart';
+import '../../../mocks/organization/mock_authorization_repository.dart';
+import '../../../mocks/organization/mock_join_request_repository.dart';
 import '../../../mocks/organization/mock_member.dart';
 import '../../../mocks/organization/mock_member_repository.dart';
 import '../../../mocks/organization/mock_organization.dart';
 import '../../../mocks/organization/mock_organization_repository.dart';
+import '../../../mocks/organization/mock_role_repository.dart';
 
 ///
 /// delete_organization_use_case_test.dart
@@ -24,8 +27,20 @@ class DeleteOrganizationUseCaseTest implements Test {
     MockOrganizationRepository orgRepo = MockOrganizationRepository();
     MockAssignmentRepository assignmentRepo = MockAssignmentRepository();
     MockEventRepository eventRepository = MockEventRepository();
+    MockJoinRequestRepository joinRequestRepository =
+        MockJoinRequestRepository();
+    MockAuthorizationRepository authorizationRepository =
+        MockAuthorizationRepository();
+    MockRoleRepository roleRepository = MockRoleRepository();
     DeleteOrganizationUseCase useCase = DefaultDeleteOrganizationUseCase(
-        orgRepo, memberRepo, assignmentRepo, eventRepository);
+      orgRepo,
+      memberRepo,
+      assignmentRepo,
+      eventRepository,
+      joinRequestRepository,
+      authorizationRepository,
+      roleRepository,
+    );
     await useCase.execute(
         creatorID: MockMemberID().id, organizationID: MockOrganizationID().id);
 
@@ -55,10 +70,8 @@ class DeleteOrganizationUseCaseTest implements Test {
     expect(orgRepo.requestToJoinOrganizationFlag, false);
     expect(orgRepo.updateFlag, false);
 
-    expect(assignmentRepo.findAllStreamedByOrganizationIDFlag, false);
     expect(assignmentRepo.findFlag, false);
     expect(assignmentRepo.findAllFlag, false);
-    expect(assignmentRepo.findStreamFlag, false);
     expect(assignmentRepo.insertFlag, false);
     expect(assignmentRepo.removeFlag, false);
     expect(assignmentRepo.updateFlag, false);

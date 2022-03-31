@@ -18,8 +18,12 @@ class JoinRequest extends Entity<JoinRequest> {
   final AccountID accountID;
   final OrganizationID organizationID;
 
-  JoinRequest({required this.accountID, required this.organizationID, JoinRequestID? id})
-      : this._id = id, super(JoinRequestID("Invalid ID"));
+  JoinRequest(
+      {required this.accountID,
+      required this.organizationID,
+      JoinRequestID? id})
+      : this._id = id,
+        super(JoinRequestID("Invalid ID"));
 
   JoinRequest.fromMap(Map<String, dynamic> map)
       : this(
@@ -34,10 +38,10 @@ class JoinRequest extends Entity<JoinRequest> {
 
   @override
   Map<String, dynamic> get toMap => {
-    accountIDKey: accountID.id,
-    organizationIDKey: organizationID.id,
-    idKey: _id?.id
-  };
+        accountIDKey: accountID.id,
+        organizationIDKey: organizationID.id,
+        idKey: _id?.id
+      };
 
   @override
   bool operator ==(Object other) {

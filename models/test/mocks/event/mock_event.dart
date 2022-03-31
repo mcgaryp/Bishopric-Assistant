@@ -10,6 +10,7 @@ import 'package:models/models/event.dart';
 
 class MockEvent {
   late final Event event;
+
   MockEvent() {
     this.event = Event();
   }

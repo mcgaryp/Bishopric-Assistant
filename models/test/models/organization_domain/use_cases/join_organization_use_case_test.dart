@@ -18,8 +18,9 @@ class JoinOrganizationUseCaseTest implements Test {
   // REPO FUNCTION CALLS
   static void verifyFunctionRepoCalls() async {
     MockJoinRequestRepository requestRepo = MockJoinRequestRepository();
-    
-    JoinOrganizationUseCase useCase = DefaultJoinOrganizationUseCase(requestRepo);
+
+    JoinOrganizationUseCase useCase =
+        DefaultJoinOrganizationUseCase(requestRepo);
 
     await useCase.execute(
         accountID: MockAccountID().id, organizationID: MockOrganizationID().id);

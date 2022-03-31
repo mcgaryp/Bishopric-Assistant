@@ -56,7 +56,8 @@ class MemberTest implements Test {
         member ==
             MockMember(
                     id: MockMemberID(id: "different").id,
-                    role: MockRole(authorization: MockAuthorization.Protected).role)
+                    role: MockRole(authorization: MockAuthorization.Protected)
+                        .role)
                 .member,
         false);
   }

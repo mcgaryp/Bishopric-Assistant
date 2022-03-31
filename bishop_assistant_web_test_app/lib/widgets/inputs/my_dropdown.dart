@@ -16,10 +16,12 @@ class MyDropdown extends StatefulWidget {
   final String? Function(dynamic)? validator;
   final List<DropdownMenuItem<int>> collection;
   final void Function(int?)? onchange;
+  final int? initialValue;
 
   const MyDropdown({
     Key? key,
     this.hint = "",
+    this.initialValue,
     this.isInput = true,
     this.onchange,
     this.validator,
@@ -38,15 +40,21 @@ class MyDropdown extends StatefulWidget {
 
 class _MyDropdownState extends State<MyDropdown> {
   int? dropdownValue;
+  List<DropdownMenuItem<int>> collection = [];
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     Set<DropdownMenuItem<int>> collectionSet = widget.collection.toSet();
-    List<DropdownMenuItem<int>> collection = collectionSet.toList();
+    collection = collectionSet.toList();
 
     if (dropdownValue != null && dropdownValue! >= collection.length)
       dropdownValue = null;
+    dropdownValue = widget.initialValue;
+    super.initState();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(bottom: widget.padding!),
       child: Stack(
@@ -65,6 +73,7 @@ class _MyDropdownState extends State<MyDropdown> {
             items: collection,
             icon: Icon(Icons.keyboard_arrow_down_rounded, color: darkText),
             style: body,
+
             // hint: Text(widget.hint, style: bodyDark),
           ),
         ],
@@ -83,6 +92,7 @@ class _MyDropdownState extends State<MyDropdown> {
 
   InputDecoration _floating() {
     return InputDecoration(
+      labelText: widget.hint,
       contentPadding: EdgeInsets.symmetric(horizontal: padding16),
       border: InputBorder.none,
       enabledBorder: InputBorder.none,
@@ -91,19 +101,18 @@ class _MyDropdownState extends State<MyDropdown> {
       errorStyle: calloutDark,
       hintText: widget.hint,
       hintStyle: captionDark,
-      labelStyle: bodyDark,
+      labelStyle: subhead,
     );
   }
 
   InputDecoration _border() {
     return InputDecoration(
-      focusedBorder: lightPrimaryInputBorder,
-      enabledBorder: darkPrimaryInputBorder,
-      errorBorder: errorRedInputBorder,
-      hintText: widget.hint,
-      hintStyle: bodyDark,
-      // labelText: widget.label,
-      // labelStyle: bodyDark
-    );
+        labelText: widget.hint,
+        focusedBorder: lightPrimaryInputBorder,
+        enabledBorder: darkPrimaryInputBorder,
+        errorBorder: errorRedInputBorder,
+        hintText: widget.hint,
+        hintStyle: bodyDark,
+        labelStyle: subhead);
   }
 }

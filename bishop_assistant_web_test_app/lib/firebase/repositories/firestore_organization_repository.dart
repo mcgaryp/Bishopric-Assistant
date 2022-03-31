@@ -1,5 +1,5 @@
 import 'package:bishop_assistant_web_test_app/firebase/firestore_helper.dart';
-import 'package:bishop_assistant_web_test_app/firebase/new_repositories/firestore_member_repository.dart';
+import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/shared/exceptions/exceptions.dart';
 
@@ -79,8 +79,7 @@ class FirestoreOrganizationRepository extends FirestoreHelper
 
   @override
   Future<bool> remove(OrganizationID id) {
-    // TODO: implement remove
-    throw UnimplementedError("Organization Remove");
+    return removeDocument(id);
   }
 
   @override

@@ -28,6 +28,7 @@ class Pin {
   bool get isExpired => DateTime.now().isAfter(_expiration);
 
   DateTime get expirationDateTime => _expiration;
+
   String get expiration =>
       "${_expiration.month}/${_expiration.day}/${_expiration.year} at "
       "${_expiration.hour}:${_expiration.minute}";

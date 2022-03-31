@@ -30,11 +30,15 @@ class CreateAssignmentUseCaseTest implements Test {
           assignmentRepository, memberRepository);
 
       await useCase.execute(
-          title: assignment.title,
-          dueDate: assignment.dueDate,
-          assignee: assignment.assignee,
-          memberID: assignment.creator.id,
-          note: assignment.note);
+        title: assignment.title,
+        dueDate: assignment.dueDate,
+        assignee: assignment.assignee,
+        memberID: MockMember(id: MockMemberID().id).member.id,
+        note: assignment.note,
+        reassignable: false,
+        editable: false,
+        viewers: [],
+      );
     } catch (e) {
       expect(true, "$e");
     }
@@ -61,11 +65,7 @@ class CreateAssignmentUseCaseTest implements Test {
     ///check it returns a true when the assignment has been placed in the repository correctly
     expect(assignmentRepository.updateFlag, false);
     expect(assignmentRepository.findFlag, false);
-
-    ///This one is used when creating an assignment when checking for duplicates
-    expect(assignmentRepository.findAllFlag, true);
-    expect(assignmentRepository.findAllStreamedByOrganizationIDFlag, false);
-    expect(assignmentRepository.findStreamFlag, false);
+    expect(assignmentRepository.findAllFlag, false);
   }
 
   //this should be a viewer attempting to create an assignment
@@ -110,7 +110,7 @@ class CreateAssignmentUseCaseTest implements Test {
               role: MockRole(authorization: permission).role)
           .member;
       Assignment assignment =
-          MockAssignment(creator: Creator.fromMember(creator)).assignment;
+          MockAssignment(creator: MockRole().role).assignment;
       AssignmentRepository assignmentRepository =
           MockAssignmentRepository(isEmptyList: true);
       MockMemberRepository memberRepository =
@@ -120,11 +120,15 @@ class CreateAssignmentUseCaseTest implements Test {
           assignmentRepository, memberRepository);
 
       await useCase.execute(
-          title: assignment.title,
-          dueDate: assignment.dueDate,
-          assignee: assignment.assignee,
-          memberID: assignment.creator.id,
-          note: assignment.note);
+        title: assignment.title,
+        dueDate: assignment.dueDate,
+        assignee: assignment.assignee,
+        memberID: MockMember(id: MockMemberID().id).member.id,
+        note: assignment.note,
+        reassignable: false,
+        editable: false,
+        viewers: [],
+      );
     } catch (e) {
       expect(true, e.toString());
     }
@@ -140,13 +144,17 @@ class CreateAssignmentUseCaseTest implements Test {
     CreateAssignmentUseCase useCase =
         DefaultCreateAssignmentUseCase(assignmentRepository, memberRepository);
 
-    Assignment result = await useCase.execute(
-        title: assignment.title,
-        dueDate: assignment.dueDate,
-        assignee: assignment.assignee,
-        memberID: assignment.creator.id,
-        note: assignment.note);
-    expect(result == assignment, true);
+    bool result = await useCase.execute(
+      title: assignment.title,
+      dueDate: assignment.dueDate,
+      assignee: assignment.assignee,
+      memberID: MockMember(id: MockMemberID().id).member.id,
+      note: assignment.note,
+      reassignable: false,
+      editable: false,
+      viewers: [],
+    );
+    expect(result, true);
   }
 
   static void givenNoDuplicates() async {
@@ -157,14 +165,18 @@ class CreateAssignmentUseCaseTest implements Test {
 
     CreateAssignmentUseCase useCase =
         DefaultCreateAssignmentUseCase(assignmentRepository, memberRepository);
-    Assignment result = await useCase.execute(
-        title: assignment.title,
-        dueDate: assignment.dueDate,
-        assignee: assignment.assignee,
-        memberID: assignment.creator.id,
-        note: assignment.note);
+    bool result = await useCase.execute(
+      title: assignment.title,
+      dueDate: assignment.dueDate,
+      assignee: assignment.assignee,
+      memberID: MockMember(id: MockMemberID().id).member.id,
+      note: assignment.note,
+      reassignable: false,
+      editable: false,
+      viewers: [],
+    );
 
-    expect(result == assignment, true);
+    expect(result, true);
   }
 
   static void givenDuplicates() async {
@@ -178,13 +190,16 @@ class CreateAssignmentUseCaseTest implements Test {
       CreateAssignmentUseCase useCase = DefaultCreateAssignmentUseCase(
           assignmentRepository, memberRepository);
       await useCase.execute(
-          title: assignment.title,
-          dueDate: assignment.dueDate,
-          assignee: assignment.assignee,
-          memberID: assignment.creator.id,
-          note: assignment.note);
+        title: assignment.title,
+        dueDate: assignment.dueDate,
+        assignee: assignment.assignee,
+        memberID: MockMember(id: MockMemberID().id).member.id,
+        note: assignment.note,
+        reassignable: false,
+        editable: false,
+        viewers: [],
+      );
     } catch (error) {
-
       expect(
           error.toString(),
           FailedToSaveError(

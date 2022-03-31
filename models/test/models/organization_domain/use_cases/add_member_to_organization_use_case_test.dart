@@ -40,7 +40,8 @@ class AddMemberToOrganizationUseCaseTest implements Test {
     MockJoinRequestRepository requestRepo = MockJoinRequestRepository();
 
     DefaultAddMemberToOrganizationUseCase useCase =
-        DefaultAddMemberToOrganizationUseCase(accountRepo, orgRepo, memberRepo, requestRepo);
+        DefaultAddMemberToOrganizationUseCase(
+            accountRepo, orgRepo, memberRepo, requestRepo);
     await useCase.execute(
       accessorId: MockMemberID().id,
       request: MockJoinRequest().request,
@@ -97,7 +98,8 @@ class AddMemberToOrganizationUseCaseTest implements Test {
     MockJoinRequestRepository requestRepo = MockJoinRequestRepository();
 
     DefaultAddMemberToOrganizationUseCase useCase =
-        DefaultAddMemberToOrganizationUseCase(accountRepo, orgRepo, memberRepo,requestRepo);
+        DefaultAddMemberToOrganizationUseCase(
+            accountRepo, orgRepo, memberRepo, requestRepo);
 
     try {
       await useCase.execute(
@@ -117,8 +119,8 @@ class AddMemberToOrganizationUseCaseTest implements Test {
                 id: MockMemberID(id: "I'm not the creator").id,
                 role: MockRole(authorization: MockAuthorization.TopSecret).role)
             .member);
-    useCase =
-        DefaultAddMemberToOrganizationUseCase(accountRepo, orgRepo, memberRepo, requestRepo);
+    useCase = DefaultAddMemberToOrganizationUseCase(
+        accountRepo, orgRepo, memberRepo, requestRepo);
 
     try {
       await useCase.execute(
@@ -136,10 +138,11 @@ class AddMemberToOrganizationUseCaseTest implements Test {
     memberRepo = MockMemberRepository(
         member: MockMember(
                 id: MockMemberID(id: "I'm not the creator").id,
-                role: MockRole(authorization: MockAuthorization.Unclassified).role)
+                role: MockRole(authorization: MockAuthorization.Unclassified)
+                    .role)
             .member);
-    useCase =
-        DefaultAddMemberToOrganizationUseCase(accountRepo, orgRepo, memberRepo, requestRepo);
+    useCase = DefaultAddMemberToOrganizationUseCase(
+        accountRepo, orgRepo, memberRepo, requestRepo);
 
     try {
       await useCase.execute(
@@ -164,8 +167,8 @@ class AddMemberToOrganizationUseCaseTest implements Test {
                 id: MockMemberID(id: "I'm not the creator").id,
                 role: MockRole(authorization: MockAuthorization.Protected).role)
             .member);
-    useCase =
-        DefaultAddMemberToOrganizationUseCase(accountRepo, orgRepo, memberRepo, requestRepo);
+    useCase = DefaultAddMemberToOrganizationUseCase(
+        accountRepo, orgRepo, memberRepo, requestRepo);
 
     try {
       await useCase.execute(
@@ -198,7 +201,8 @@ class AddMemberToOrganizationUseCaseTest implements Test {
     MockJoinRequestRepository requestRepo = MockJoinRequestRepository();
 
     DefaultAddMemberToOrganizationUseCase useCase =
-        DefaultAddMemberToOrganizationUseCase(accountRepo, orgRepo, memberRepo,requestRepo);
+        DefaultAddMemberToOrganizationUseCase(
+            accountRepo, orgRepo, memberRepo, requestRepo);
 
     bool result = await useCase.execute(
         accessorId: MockMemberID().id,
@@ -216,7 +220,7 @@ class AddMemberToOrganizationUseCaseTest implements Test {
           account: MockAccount(id: MockAccountID(id: "different").id).account);
 
       useCase = DefaultAddMemberToOrganizationUseCase(
-          accountRepo, orgRepo, memberRepo,requestRepo);
+          accountRepo, orgRepo, memberRepo, requestRepo);
 
       await useCase.execute(
           accessorId: MockMemberID().id,

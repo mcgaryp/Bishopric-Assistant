@@ -11,6 +11,7 @@ import 'package:models/models/organization.dart';
 
 class MemberDetailsCard extends StatelessWidget {
   final Member member;
+
   const MemberDetailsCard(this.member, {Key? key}) : super(key: key);
 
   @override

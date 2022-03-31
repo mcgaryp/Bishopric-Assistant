@@ -18,7 +18,8 @@ class FirestoreAccountRepository extends FirestoreHelper
 
   FirestoreCollectionPath _namePath = FirestoreCollectionPath.name;
   FirestoreCollectionPath _contactPath = FirestoreCollectionPath.contact;
-  FirestoreCollectionPath _credentialsPath = FirestoreCollectionPath.credentials;
+  FirestoreCollectionPath _credentialsPath =
+      FirestoreCollectionPath.credentials;
 
   @override
   Future<bool> activate(AccountID id) {

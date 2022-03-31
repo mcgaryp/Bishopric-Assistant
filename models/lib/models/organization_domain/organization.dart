@@ -71,8 +71,7 @@ class Organization extends Entity<Organization> {
     // The creator
     if (id != null && id == creator.id) return true;
     // TODO: This should be based off the Organization Settings
-    if (authorization != null && authorization.rank >= 1)
-      return true;
+    if (authorization != null && authorization.rank >= 1) return true;
     return false;
   }
 
@@ -84,7 +83,8 @@ class Organization extends Entity<Organization> {
   /// Who can edit the organizations name and general specifics
   bool canEdit({Authorization? authorization, MemberID? id}) {
     // TODO: This should be based off the Organization Settings
-    return (creator.id == id || (authorization != null && authorization.rank == 0));
+    return (creator.id == id ||
+        (authorization != null && authorization.rank == 0));
   }
 
   @override

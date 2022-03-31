@@ -16,11 +16,7 @@ import 'account_domain/use_cases/logout_account_use_case_tests.dart';
 import 'account_domain/use_cases/reactivate_account_use_case_tests.dart';
 import 'account_domain/use_cases/save_state_use_case_tests.dart';
 import 'account_domain/user_state_test.dart';
-import 'assignment_domain/assignee_test.dart';
 import 'assignment_domain/assignment_test.dart';
-import 'assignment_domain/creator_test.dart';
-import 'assignment_domain/note_test.dart';
-import 'assignment_domain/use_cases/all_assignees_use_case_test.dart';
 import 'assignment_domain/use_cases/archive_assignment_use_case_test.dart';
 import 'assignment_domain/use_cases/create_assignment_use_case_test.dart';
 import 'assignment_domain/use_cases/delete_assignment_use_case_tests.dart';
@@ -76,7 +72,6 @@ runModelsTests() {
     });
     group("Assignment Tests", () {
       group("Assignment Use Case Tests", () {
-        runAllAssigneesUseCaseTests();
         runArchiveAssignmentUseCaseTest();
         runCreateAssignmentUseCaseTest();
         runDeleteAssignmentUseCaseTests();
@@ -87,10 +82,7 @@ runModelsTests() {
         runUnarchiveAssignmentUseCaseTest();
         runUpdateAssignmentUseCaseTest();
       });
-      runAssigneeTests();
       runAssignmentTests();
-      runCreatorTests();
-      runNoteTests();
     });
     group("Event Tests", () {});
     group("Organization Tests", () {

@@ -26,8 +26,8 @@ mixin MemberRepository {
   Future<List<Member>> findAllWithAccountID(AccountID accountID);
 
   @required
-  Future<bool> insert(Member member, OrganizationID organizationID,
-      AccountID accountID);
+  Future<bool> insert(
+      Member member, OrganizationID organizationID, AccountID accountID);
 
   @required
   Future<bool> remove(MemberID id);

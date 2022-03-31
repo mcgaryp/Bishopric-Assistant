@@ -36,8 +36,7 @@ class DefaultUnarchiveAssignmentUseCase implements UnarchiveAssignmentUseCase {
     Assignment? assignment = await _assignmentRepository.find(assignmentID);
     assignment ?? (throw AssignmentNotFoundError());
 
-    if (assignment.canArchive(
-        memberID: accessor.id, authorization: accessor.role.authorization)) {
+    if (assignment.canArchive(roleID: accessor.role.id)) {
       assignment.unArchive();
       return _assignmentRepository.update(assignment);
     }

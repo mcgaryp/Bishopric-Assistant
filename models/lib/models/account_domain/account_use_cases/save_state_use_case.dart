@@ -14,6 +14,7 @@ mixin SaveStateUseCase {
 
 class DefaultSaveStateUseCase implements SaveStateUseCase {
   final StateRepository repository;
+
   DefaultSaveStateUseCase(this.repository);
 
   @override

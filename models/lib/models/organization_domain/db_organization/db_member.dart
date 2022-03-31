@@ -63,7 +63,8 @@ class DBMember {
   }
 
   OrganizationID get toOrganizationID {
-    organizationID ?? (throw IdDoesNotExistError(forObject: "DB Member Organization ID"));
+    organizationID ??
+        (throw IdDoesNotExistError(forObject: "DB Member Organization ID"));
     return OrganizationID(organizationID!);
   }
 

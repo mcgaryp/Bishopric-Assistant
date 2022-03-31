@@ -8,7 +8,7 @@ import 'package:models/shared/domain_driven_design/value_object.dart';
 /// Created by Joshua Bee on 1/18/22
 /// Copyright 2022 Joshua Bee. All rights reserved.
 ///
-
+@Deprecated("No longer valid")
 class Note extends ValueObject<Note> {
   static final String contentKey = "note content";
   static final String authorizationKey = "Note Authorization";

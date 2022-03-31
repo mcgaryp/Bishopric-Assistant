@@ -32,8 +32,8 @@ class CardTextFieldRow extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(left: padding8),
             child: InputField.border(
-              secondLabel,
-              hint: hint,
+              hint,
+              label: secondLabel,
               formattingList: [FilteringTextInputFormatter.digitsOnly],
               inputType: TextInputType.number,
             ),

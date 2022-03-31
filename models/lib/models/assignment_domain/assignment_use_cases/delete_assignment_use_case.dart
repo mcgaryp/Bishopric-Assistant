@@ -29,11 +29,10 @@ class DefaultDeleteAssignmentUseCase implements DeleteAssignmentUseCase {
     Assignment? assignment = await _assignmentRepository.find(assignmentID);
     assignment ?? (throw AssignmentNotFoundError());
 
-    Member? member = await _memberRepository.find(memberID);
-    member ?? (throw MemberNotFoundError());
+    Member? accessor = await _memberRepository.find(memberID);
+    accessor ?? (throw MemberNotFoundError());
 
-    if (assignment.canView(
-        authorization: member.role.authorization, memberID: member.id)) {
+    if (assignment.canView(roleID: accessor.role.id)) {
       return _assignmentRepository.remove(assignmentID);
     }
 

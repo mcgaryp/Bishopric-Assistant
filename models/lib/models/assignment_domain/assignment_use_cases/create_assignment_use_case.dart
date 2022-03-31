@@ -20,12 +20,16 @@ mixin CreateAssignmentUseCase {
   /// [visiblePermissions] who can see the assignment
   /// [note] for more detail about the assignment
   @required
-  Future<Assignment> execute(
-      {required String title,
-      required DateTime dueDate,
-      required Assignee assignee,
-      required MemberID memberID,
-      required Note note});
+  Future<bool> execute({
+    required String title,
+    required DateTime dueDate,
+    required String note,
+    required bool editable,
+    required bool reassignable,
+    required Role assignee,
+    required List<Role> viewers,
+    required MemberID memberID,
+  });
 }
 
 class DefaultCreateAssignmentUseCase implements CreateAssignmentUseCase {
@@ -36,37 +40,34 @@ class DefaultCreateAssignmentUseCase implements CreateAssignmentUseCase {
       this._assignmentRepository, this._memberRepository);
 
   @override
-  Future<Assignment> execute(
-      {required String title,
-      required DateTime dueDate,
-      required Assignee assignee,
-      required MemberID memberID,
-      required Note note}) async {
-    Member? member = await _memberRepository.find(memberID);
+  Future<bool> execute({
+    required String title,
+    required DateTime dueDate,
+    required String note,
+    required bool editable,
+    required bool reassignable,
+    required Role assignee,
+    required List<Role> viewers,
+    required MemberID memberID,
+  }) async {
+    // Verify Creator is in organization
+    Member? creator = await _memberRepository.find(memberID);
+    creator ?? (throw MemberNotFoundError());
 
-    member ?? (throw MemberNotFoundError());
-
-    if (member.role.authorization.rank < 0) {
-      throw PermissionDeniedError(
-          reason: "Insufficient privilege to create assignment");
-    }
-
+    // Find Organization
     Organization? organization =
         await _memberRepository.findOrganization(memberID);
-
     organization ?? (throw OrganizationNotFoundError());
 
-    List<Assignment> assignments =
-        await _assignmentRepository.findAll(organization.id);
+    // TODO: Check organization settings on creation
+    // if (member.role.authorization.rank < 0) {
+    //   throw PermissionDeniedError(
+    //       reason: "Insufficient privilege to create assignment");
+    // }
 
-    Creator creator = Creator(
-        contact: member.contact,
-        name: member.name,
-        id: member.id,
-        authorization: member.role.authorization);
-
+    // Create Assignment
     Assignment assignment = Assignment(
-      creator: creator,
+      creator: creator.role,
       isArchived: false,
       assignee: assignee,
       isCompleted: false,
@@ -74,23 +75,15 @@ class DefaultCreateAssignmentUseCase implements CreateAssignmentUseCase {
       title: title,
       dueDate: dueDate,
       orgID: organization.id,
+      reassignable: reassignable,
+      viewers: viewers,
+      editable: editable,
     );
 
-    if (assignments.isNotEmpty) {
-      bool hasDuplicates = assignments.every((Assignment a) => assignment == a);
-      if (hasDuplicates) {
-        throw FailedToSaveError(
-            reason:
-                "Cannot create assignment because assignment already exists");
-      }
-    }
+    // Insert Assignment
+    if (await _assignmentRepository.insert(assignment)) return true;
 
-    Assignment? assignmentWithID =
-        await _assignmentRepository.insert(assignment);
-
-    assignmentWithID ??
-        (throw FailedToSaveError(reason: "create_assignment_use_case Insert"));
-
-    return assignmentWithID;
+    // Notify of failure
+    throw FailedToSaveError(reason: "create_assignment_use_case Insert");
   }
 }

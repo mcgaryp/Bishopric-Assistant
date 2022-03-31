@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/firebase/new_repositories/repositories.dart';
+import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/shared/foundation.dart';
@@ -13,8 +13,10 @@ import 'package:models/shared/foundation.dart';
 
 class JoinRequestDetailsView extends StatefulWidget {
   final JoinRequestDetail details;
+  final Function(JoinRequest) onChange;
 
-  JoinRequestDetailsView(this.details, {Key? key}) : super(key: key);
+  JoinRequestDetailsView(this.details, {required this.onChange, Key? key})
+      : super(key: key);
 
   @override
   State<JoinRequestDetailsView> createState() => _JoinRequestDetailsViewState();
@@ -39,10 +41,8 @@ class _JoinRequestDetailsViewState extends State<JoinRequestDetailsView> {
             hint: sRole,
             validator: Validators.validateDropDown,
             collection: roles
-                .map<DropdownMenuItem<int>>((Role role) =>
-                    DropdownMenuItem(
-                        child: Text(role.name),
-                        value: role.id.id.hashCode))
+                .map<DropdownMenuItem<int>>((Role role) => DropdownMenuItem(
+                    child: Text(role.name), value: role.id.id.hashCode))
                 .toList(),
             onchange: _onRoleSelected),
         Row(
@@ -95,6 +95,7 @@ class _JoinRequestDetailsViewState extends State<JoinRequestDetailsView> {
 
       MyToast.toastSuccess(
           "Successfully added ${widget.details.name.fullName}");
+      Navigator.pop(context);
     } catch (e) {
       if (kDebugMode) print(e);
       MyToast.toastError(e);
@@ -106,8 +107,10 @@ class _JoinRequestDetailsViewState extends State<JoinRequestDetailsView> {
       DefaultRejectRequestUseCase useCase =
           DefaultRejectRequestUseCase(FirestoreJoinRequestRepository());
       useCase.execute(widget.details.request.id);
+      widget.onChange(widget.details.request);
       MyToast.toastSuccess(
           "Rejected ${widget.details.name.fullName}'s Request");
+      Navigator.pop(context);
     } catch (e) {
       if (kDebugMode) print(e);
       MyToast.toastError(e);

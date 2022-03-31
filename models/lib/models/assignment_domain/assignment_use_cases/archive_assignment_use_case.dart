@@ -30,17 +30,16 @@ class DefaultArchiveAssignmentUseCase implements ArchiveAssignmentUseCase {
   @override
   Future<bool> execute(
       {required MemberID memberID, required AssignmentID assignmentID}) async {
-    // get member
+    // Get member
     Member? accessor = await _memberRepository.find(memberID);
     accessor ?? (throw MemberNotFoundError());
 
-    // find the assignment
+    // Find the assignment
     Assignment? assignment = await _assignmentRepository.find(assignmentID);
     assignment ?? (throw AssignmentNotFoundError());
 
-    // check member permissions
-    if (assignment.canArchive(
-        authorization: accessor.role.authorization, memberID: accessor.id)) {
+    // Check member permissions
+    if (assignment.canArchive(roleID: accessor.role.id)) {
       assignment.archive();
       return _assignmentRepository.update(assignment);
     }

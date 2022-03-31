@@ -20,4 +20,16 @@ class MockRoleRepository implements RoleRepository {
     // TODO: implement insert
     throw UnimplementedError("Role Insert");
   }
+
+  @override
+  Future<List<Role>> findAll(OrganizationID organizationID) {
+    // TODO: implement findAll
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> remove(RoleID roleID) {
+    // TODO: implement remove
+    throw UnimplementedError();
+  }
 }

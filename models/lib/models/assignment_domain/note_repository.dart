@@ -7,7 +7,7 @@ import 'package:models/models/assignment.dart';
 /// Created by Porter McGary on 3/25/22
 /// Copyright 2022 Porter McGary. All rights reserved.
 ///
-
+@Deprecated("No longer valid")
 mixin NoteRepository {
   Future<bool> insert(Note note);
 

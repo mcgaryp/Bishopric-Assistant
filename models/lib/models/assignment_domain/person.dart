@@ -11,6 +11,7 @@ import 'package:models/shared/domain_driven_design/value_object.dart';
 /// Copyright 2022 Joshua Bee. All rights reserved.
 ///
 
+@Deprecated("No longer valid")
 abstract class Person implements ValueObject<Person> {
   final Name name;
   final Contact contact;

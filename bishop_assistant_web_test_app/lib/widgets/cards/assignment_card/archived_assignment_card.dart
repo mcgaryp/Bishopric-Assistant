@@ -17,8 +17,8 @@ class ArchivedAssignmentCard extends AssignmentCard {
   @override
   List<Widget> children(BuildContext context) => [
         AssignmentTitle(assignment),
-        CardRow(sAssignee, content: assignment.assignee.name.fullName),
-        CardColumn(sNotes, content: assignment.note.content),
+        CardRow(sAssignee, content: assignment.assignee.name),
+        CardColumn(sNotes, content: assignment.note),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

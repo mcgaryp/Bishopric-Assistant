@@ -16,8 +16,15 @@ class MockAuthorizationRepository implements AuthorizationRepository {
   }
 
   @override
-  Future<bool> insert(Authorization authorization, OrganizationID organizationID) {
+  Future<bool> insert(
+      Authorization authorization, OrganizationID organizationID) {
     // TODO: implement insert
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> remove(AuthorizationID authorizationID) {
+    // TODO: implement remove
     throw UnimplementedError();
   }
 }
