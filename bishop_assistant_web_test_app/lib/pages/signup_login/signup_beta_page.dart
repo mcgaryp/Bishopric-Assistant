@@ -2,6 +2,7 @@ import 'package:bishop_assistant_web_test_app/firebase/repositories/firestore_pi
 import 'package:bishop_assistant_web_test_app/pages/signup_login/sign_up_page.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/account.dart';
+import 'package:models/shared/exceptions/exceptions.dart';
 
 ///
 /// signup_beta_page.dart
@@ -55,14 +56,19 @@ class _SignupBetaPageState extends State<SignupBetaPage> {
   }
 
   void onPress() async {
-    PinRepository pinRepository = FirestorePinRepository();
-    AuthenticatePinUseCase useCase =
-        DefaultAuthenticatePinUseCase(pinRepository);
-    bool isValid = await useCase.execute(pinID: PinID(pinControl.text));
-    setState(() {
-      isAuthenticated = isValid;
-    });
-    // if true, navigate to signup page
-    if (!isValid) MyToast.toastError("That pin is incorrect, try again");
+    try {
+      PinRepository pinRepository = FirestorePinRepository();
+      AuthenticatePinUseCase useCase =
+          DefaultAuthenticatePinUseCase(pinRepository);
+      bool isValid = await useCase.execute(pinID: PinID(pinControl.text));
+      setState(() {
+        isAuthenticated = isValid;
+      });
+    } on PermissionDeniedError catch (e) {
+      MyToast.toastError(e);
+    } catch (err) {
+      MyToast.toastError("That pin is incorrect, try again");
+      if (kDebugMode) print(err);
+    }
   }
 }
