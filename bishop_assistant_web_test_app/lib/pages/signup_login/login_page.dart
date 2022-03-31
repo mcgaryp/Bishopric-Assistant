@@ -1,4 +1,5 @@
 import 'package:bishop_assistant_web_test_app/firebase/firebase_authentication.dart';
+import 'package:bishop_assistant_web_test_app/main.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:crypt/crypt.dart';
 import 'package:models/models/account.dart';
@@ -75,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
             // Sign Up Button
             MyButton(
                 label: sSignup,
-                onPressed: () => Navigator.pushNamed(context, rSignup)),
+                onPressed: pressedSignup,),
             // Forgot Password button
             // TODO: Uncomment
             // MyButton(
@@ -158,5 +159,13 @@ class _LoginPageState extends State<LoginPage> {
     usernameControl.text = "dev";
     passwordControl.text = "password1";
     _onPress();
+  }
+
+  void pressedSignup() {
+    if (isBeta) {
+      Navigator.pushNamed(context, rSignupBeta);
+      return;
+    }
+    Navigator.pushNamed(context, rSignup);
   }
 }

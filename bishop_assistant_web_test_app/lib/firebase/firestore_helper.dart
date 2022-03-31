@@ -181,6 +181,7 @@ enum FirestoreCollectionPath {
   @Deprecated("")
   organization_requests,
   organizations,
+  pin,
   requests,
   roles,
   util

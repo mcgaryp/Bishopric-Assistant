@@ -10,3 +10,4 @@ export "db_account.dart";
 export 'db_contact.dart';
 export 'db_credentials.dart';
 export 'db_name.dart';
+export 'db_pin.dart';

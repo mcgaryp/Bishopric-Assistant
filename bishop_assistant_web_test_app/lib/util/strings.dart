@@ -55,6 +55,7 @@ const String sHours = "Hours";
 const String sIncomplete = "Incomplete";
 const String sInterviewee = "Interviewee";
 const String sIntervieweeHint = "Name of the person to be interviewed";
+const String sInviteBeta = "Invite to Beta";
 const String sJoin = "Join";
 const String sLastname = "Last Name";
 const String sLegal = "Legal";

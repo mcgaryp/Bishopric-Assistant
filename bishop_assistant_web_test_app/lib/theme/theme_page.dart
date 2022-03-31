@@ -1,5 +1,6 @@
 import 'package:bishop_assistant_web_test_app/pages/organization/join_request_detail_view.dart';
 import 'package:bishop_assistant_web_test_app/widgets/cards/member_cards/edit_member_details_card.dart';
+import 'package:bishop_assistant_web_test_app/widgets/dialogs/beta_pin_dialog.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/assignment.dart';
@@ -154,6 +155,7 @@ class ThemePage extends StatelessWidget {
             onConfirm: () {},
             title: "Confirmation Dialog",
             content: "Are you sure you want to press that button?"),
+          BetaPinDialog(pin: Pin()),
       ]),
       Section(title: "Cards", children: [
         Padding(

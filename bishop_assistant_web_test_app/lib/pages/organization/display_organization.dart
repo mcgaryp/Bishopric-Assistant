@@ -1,3 +1,4 @@
+import 'package:bishop_assistant_web_test_app/pages/organization/beta_invite.dart';
 import 'package:bishop_assistant_web_test_app/pages/organization/organization_members_view.dart';
 import 'package:bishop_assistant_web_test_app/pages/organization/organization_requests_view.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
@@ -19,7 +20,7 @@ class DisplayOrganization extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(children: [
       Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -41,6 +42,8 @@ class DisplayOrganization extends StatelessWidget {
               ],
             ),
           ),
+          Spacer(),
+          BetaInvite(),
           OrganizationRequestsView(),
         ],
       ),

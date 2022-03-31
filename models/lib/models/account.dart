@@ -16,5 +16,7 @@ export 'account_domain/credentials.dart';
 export 'account_domain/db_accounts/db_accounts.dart';
 export 'account_domain/name.dart';
 export 'account_domain/pin.dart';
+export 'account_domain/pin_id.dart';
+export 'account_domain/pin_repository.dart';
 export 'account_domain/user_state/state_repository.dart';
 export 'account_domain/user_state/user_state.dart';

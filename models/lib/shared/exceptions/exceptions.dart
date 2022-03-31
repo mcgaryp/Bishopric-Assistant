@@ -22,4 +22,6 @@ export 'negative_integer_error.dart';
 export 'organization_already_exists_error.dart';
 export 'organization_not_found_error.dart';
 export 'permission_denied_error.dart';
+export 'pin_already_exists_error.dart';
+export 'pin_not_found_error.dart';
 export 'verify_email_error.dart';

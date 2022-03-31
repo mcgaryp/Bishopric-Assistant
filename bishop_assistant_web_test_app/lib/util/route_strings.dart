@@ -1,3 +1,4 @@
+import 'package:bishop_assistant_web_test_app/main.dart';
 import 'package:bishop_assistant_web_test_app/pages/assignment/assignment_page.dart';
 import 'package:bishop_assistant_web_test_app/pages/footer/legal.dart';
 import 'package:bishop_assistant_web_test_app/pages/footer/privacy.dart';
@@ -8,6 +9,7 @@ import 'package:bishop_assistant_web_test_app/pages/profile/profile_page.dart';
 import 'package:bishop_assistant_web_test_app/pages/signup_login/login_page.dart';
 import 'package:bishop_assistant_web_test_app/pages/signup_login/reactivate_account.dart';
 import 'package:bishop_assistant_web_test_app/pages/signup_login/sign_up_page.dart';
+import 'package:bishop_assistant_web_test_app/pages/signup_login/signup_beta_page.dart';
 import 'package:bishop_assistant_web_test_app/theme/theme_page.dart';
 import 'package:bishop_assistant_web_test_app/widgets/page_support/authentication/authenticate.dart';
 import 'package:flutter/foundation.dart';
@@ -42,6 +44,7 @@ const String rPrivacy = "/privacy";
 const String rProfile = "/profile";
 const String rReactivateAccount = "/reactivate";
 const String rSignup = "/signup";
+const String rSignupBeta = "/signup-beta";
 const String rSiteMap = "/sitemap";
 const String rTheme = "/theme";
 
@@ -54,7 +57,8 @@ final Map<String, Widget Function(BuildContext)> routes = {
   rPrivacy: (context) => Privacy(),
   rProfile: (context) => Authenticate(child: ProfilePage()),
   rReactivateAccount: (context) => ReactivateAccount(),
-  rSignup: (context) => SignupPage(),
+  if (kDebugMode || isProd) rSignup: (context) => SignupPage(),
+  if (kDebugMode || isBeta) rSignupBeta: (context) => SignupBetaPage(),
   rSiteMap: (context) => SiteMapPage(),
   if (kDebugMode) rTheme: (context) => ThemePage(),
 };
