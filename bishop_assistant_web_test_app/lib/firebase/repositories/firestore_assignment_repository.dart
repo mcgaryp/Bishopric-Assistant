@@ -78,8 +78,7 @@ class FirestoreAssignmentRepository extends FirestoreHelper
 
   @override
   Future<bool> remove(AssignmentID assignmentID) {
-    // TODO: implement remove
-    throw UnimplementedError("Remove Assignment Repo");
+    return removeDocument(assignmentID);
   }
 
   @override

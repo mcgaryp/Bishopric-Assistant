@@ -20,28 +20,47 @@ class SignupBetaPage extends StatefulWidget {
 }
 
 class _SignupBetaPageState extends State<SignupBetaPage> {
-  bool isAuthenticated =
-      false; //to tell us whether or not the pin they enter is good
+  // to tell us whether or not the pin they enter is good
+  bool isAuthenticated = false;
   bool _isWaiting = false;
 
   TextEditingController pinControl = TextEditingController();
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
+  Widget build(BuildContext context) {
+    // TODO: Add Strings to string.dart
+    // TODO: Create class that handles the get of a pin... maybe pin does this
+    List<String> strings = Uri.base.toString().split("?pin=");
+    if (strings.length > 1) {
+      return FutureBuilder<bool>(
+        future: _auth(strings.last),
+        builder: (BuildContext context, snapshot) {
+          if (snapshot.hasError) return Error404Page(msg: snapshot.error);
+          if (snapshot.hasData) {
+            if (snapshot.data!) {
+              return SignupPage();
+            } else {
+              return standard;
+            }
+          }
+          return DarkPage(showSpinner: true);
+        },
+      );
+    } else {
+      return standard;
+    }
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget get standard {
     if (!isAuthenticated)
       return DarkPage(
         inputs: [
+          // TODO: enforce number only
           InputField.floating(
             sPin,
             controller: pinControl,
           )
-        ], //TODO enforce number only maybe?
+        ],
         buttons: [
           AbsorbPointer(
             absorbing: _isWaiting,
@@ -55,20 +74,36 @@ class _SignupBetaPageState extends State<SignupBetaPage> {
     return SignupPage();
   }
 
-  void onPress() async {
+  Future<void> onPress() async {
+    setState(() {
+      _isWaiting = true;
+    });
+
+    bool value = await _authenticate(pinControl.text);
+
+    setState(() {
+      isAuthenticated = value;
+      _isWaiting = false;
+    });
+  }
+
+  Future<bool> _auth(String pin) async {
+    await Future.delayed(Duration(seconds: 1));
+    return _authenticate(pin);
+  }
+  Future<bool> _authenticate(String pin) async {
     try {
       PinRepository pinRepository = FirestorePinRepository();
       AuthenticatePinUseCase useCase =
           DefaultAuthenticatePinUseCase(pinRepository);
-      bool isValid = await useCase.execute(pinID: PinID(pinControl.text));
-      setState(() {
-        isAuthenticated = isValid;
-      });
+      return await useCase.execute(pinID: PinID(pin));
     } on PermissionDeniedError catch (e) {
       MyToast.toastError(e);
+      if (kDebugMode) print(e);
     } catch (err) {
       MyToast.toastError("That pin is incorrect, try again");
       if (kDebugMode) print(err);
     }
+    return false;
   }
 }

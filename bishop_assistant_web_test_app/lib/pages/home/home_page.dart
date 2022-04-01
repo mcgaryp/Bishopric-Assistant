@@ -25,9 +25,24 @@ class HomePage extends StatelessWidget {
       case UserState.noOrganization:
         return LightPage(child: FindOrganizationPage());
       case UserState.inOrganization:
-        return LightPage(child: Container());
+        return LightPage(child: _Home());
       default:
         return Error404Page(msg: "Unknown UserState");
     }
+  }
+}
+
+class _Home extends StatelessWidget {
+  const _Home({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+        child: MyButton(
+      isExpanded: false,
+      style: MyButtonStyle.errorText,
+      label: "Report a Bug",
+      onPressed: () => Navigator.pushNamed(context, rBugReport),
+    ));
   }
 }

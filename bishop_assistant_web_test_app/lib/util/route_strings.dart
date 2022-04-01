@@ -1,5 +1,6 @@
 import 'package:bishop_assistant_web_test_app/main.dart';
 import 'package:bishop_assistant_web_test_app/pages/assignment/assignment_page.dart';
+import 'package:bishop_assistant_web_test_app/pages/footer/bug_report_page.dart';
 import 'package:bishop_assistant_web_test_app/pages/footer/legal.dart';
 import 'package:bishop_assistant_web_test_app/pages/footer/privacy.dart';
 import 'package:bishop_assistant_web_test_app/pages/footer/site_map_page.dart';
@@ -29,6 +30,7 @@ import 'package:flutter/material.dart';
 const String rAddAssignment = "/assignment/create";
 const String rAddEvent = "/events/create";
 const String rAssignments = "/assignments";
+const String rBugReport = "/bug-report";
 const String rChangePassword = "/changePassword";
 const String rCreateOrganization = "/organization/create";
 const String rEditProfile = "/profile/edit";
@@ -56,6 +58,7 @@ final Map<String, Widget Function(BuildContext)> routes = {
   rOrganization: (context) => Authenticate(child: OrganizationPage()),
   rPrivacy: (context) => Privacy(),
   rProfile: (context) => Authenticate(child: ProfilePage()),
+  rBugReport: (context) => Authenticate(child: BugReportPage()),
   rReactivateAccount: (context) => ReactivateAccount(),
   if (kDebugMode || isProd) rSignup: (context) => SignupPage(),
   if (kDebugMode || isBeta) rSignupBeta: (context) => SignupBetaPage(),

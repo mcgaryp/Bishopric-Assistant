@@ -78,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                 label: sSignup,
                 onPressed: pressedSignup,),
             // Forgot Password button
-            // TODO: Uncomment
+            // TODO: Implement
             // MyButton(
             //   label: sForgot,
             //   onPressed: () => Navigator.pushNamed(context, rPasswordRequest),

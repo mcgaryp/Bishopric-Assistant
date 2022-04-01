@@ -1,4 +1,7 @@
+import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
+import 'package:models/models/assignment.dart';
+import 'package:models/models/organization.dart';
 
 ///
 /// assignment_incomplete.dart
@@ -12,26 +15,28 @@ class AssignmentIncomplete extends StatelessWidget {
   final bool _isArchived;
   final TextStyle _style;
   final MyButtonStyle _buttonStyle;
+  final AssignmentID assignmentID;
 
-  const AssignmentIncomplete({Key? key})
+  const AssignmentIncomplete({Key? key, required this.assignmentID})
       : _isArchived = false,
         _style = body,
         _buttonStyle = MyButtonStyle.text,
         super(key: key);
 
-  const AssignmentIncomplete.isArchived({Key? key})
+  const AssignmentIncomplete.isArchived({Key? key, required this.assignmentID})
       : _isArchived = true,
         _style = body,
         _buttonStyle = MyButtonStyle.text,
         super(key: key);
 
-  const AssignmentIncomplete.isLight({Key? key})
+  const AssignmentIncomplete.isLight({Key? key, required this.assignmentID})
       : _isArchived = false,
         _style = bodyLight,
         _buttonStyle = MyButtonStyle.lightText,
         super(key: key);
 
-  const AssignmentIncomplete.isArchivedLight({Key? key})
+  const AssignmentIncomplete.isArchivedLight(
+      {Key? key, required this.assignmentID})
       : _isArchived = true,
         _style = bodyLight,
         _buttonStyle = MyButtonStyle.lightText,
@@ -45,8 +50,22 @@ class AssignmentIncomplete extends StatelessWidget {
             isExpanded: false,
             style: _buttonStyle,
             label: sMarkComplete,
-            onPressed: () {
-              // TODO: Mark Complete UseCase
+            onPressed: () async {
+              try {
+                MarkAssignmentCompleteUseCase useCase =
+                DefaultMarkAssignmentCompleteUseCase(
+                    FirestoreMemberRepository(),
+                    FirestoreAssignmentRepository());
+                MemberID memberID = StateContainer
+                    .of(context)
+                    .member
+                    .id;
+                await useCase.execute(
+                    memberID: memberID, assignmentID: assignmentID);
+              } catch(e) {
+                MyToast.toastError(e);
+                if(kDebugMode) print(e);
+              }
             });
   }
 }

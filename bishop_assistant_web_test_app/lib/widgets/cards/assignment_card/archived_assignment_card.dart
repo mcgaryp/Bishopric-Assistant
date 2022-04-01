@@ -46,8 +46,8 @@ class ArchivedAssignmentCard extends AssignmentCard {
                 }),
             Spacer(),
             assignment.isCompleted
-                ? AssignmentComplete()
-                : AssignmentIncomplete.isArchived(),
+                ? AssignmentComplete(assignmentID: assignment.id)
+                : AssignmentIncomplete.isArchived(assignmentID: assignment.id),
           ],
         ),
       ];

@@ -106,9 +106,6 @@ class DefaultDeleteOrganizationUseCase implements DeleteOrganizationUseCase {
       //   if (!(await _eventRepository.remove(event.id)))
       //     // TODO: Failed to remove single event
       //     throw FailedToRemoveError(forEntity: "Delete Organization Event");
-      //   if (!(await _eventRepository.removeRelationship(event.id)))
-      //     // TODO: Failed to remove single event relationship
-      //     throw FailedToRemoveError(forEntity: "Delete Organization Event Relationship");
       // }
 
       return true;

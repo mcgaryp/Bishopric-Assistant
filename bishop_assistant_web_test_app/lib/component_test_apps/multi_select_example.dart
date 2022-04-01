@@ -142,8 +142,8 @@ class _MyHomePageState extends State<MyHomePage> {
               //################################################################################################
               // This MultiSelectBottomSheetField has no decoration, but is instead wrapped in a Container that has
               // decoration applied. This allows the ChipDisplay to render inside the same Container.
+              // ***Broken***
               //################################################################################################
-              // TODO: Broken
               /*Container(
                 decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor.withOpacity(.4),
@@ -188,8 +188,8 @@ class _MyHomePageState extends State<MyHomePage> {
                */
               //################################################################################################
               // MultiSelectBottomSheetField with validators
+              // ***Broken***
               //################################################################################################
-              // TODO: Broken
               /*MultiSelectBottomSheetField<Animal>(
                 key: _multiSelectKey,
                 initialChildSize: 0.7,

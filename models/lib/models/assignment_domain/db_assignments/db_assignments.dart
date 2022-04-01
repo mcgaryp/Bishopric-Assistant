@@ -6,4 +6,3 @@
 /// Copyright 2022 Porter McGary. All rights reserved.
 ///
 export "db_assignment.dart";
-export 'db_note.dart';

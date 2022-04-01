@@ -31,17 +31,19 @@ class DisplayProfile extends StatelessWidget {
           CardRow(sOrganization, content: organization.name),
         if (organization != null)
           CardRow(sCreator, content: organization.creator.name.fullName),
-        MyButton(label: sEdit, onPressed: onEdit),
-        MyButton(
-          label: sDeactivateAccount,
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (BuildContext con) =>
-                    ConfirmDeactivationDialog(() => _deactivate(con)));
-          },
-          style: MyButtonStyle.floatingError,
-        )
+        // TODO: Implement
+        // MyButton(label: sEdit, onPressed: onEdit),
+        // TODO: Implement
+        // MyButton(
+        //   label: sDeactivateAccount,
+        //   onPressed: () {
+        //     showDialog(
+        //         context: context,
+        //         builder: (BuildContext con) =>
+        //             ConfirmDeactivationDialog(() => _deactivate(con)));
+        //   },
+        //   style: MyButtonStyle.floatingError,
+        // ),
       ],
     );
   }

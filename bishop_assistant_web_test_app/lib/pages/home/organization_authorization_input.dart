@@ -51,8 +51,7 @@ class _OrganizationAuthorizationInputState
       // Set up Input Fields
       InputField inputField = InputField.plain(
         authorization.name,
-        // TODO: Create String
-        label: "Group Name",
+        label: sGroupName,
         controller: controller,
         onChange: (String? str) {
           _updateAuthorizations();
@@ -70,8 +69,7 @@ class _OrganizationAuthorizationInputState
     return Column(children: [
       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         // Authorization Level Text
-        // TODO: Add to string.dart
-        Text("Groups", style: subhead),
+        Text(sGroups, style: subhead),
         // Plus Button
         IconButton(onPressed: _add, icon: Icon(Icons.add))
       ]),
@@ -105,9 +103,8 @@ class _OrganizationAuthorizationInputState
   void _add() {
     setState(() {
       controllers.add(TextEditingController());
-      // TODO: Replace with string
       inputs.add(InputField.plain(sAuthorization,
-          label: "Group Name",
+          label: sGroupName,
           controller: controllers.last, onChange: (String? str) {
         _updateAuthorizations();
         return str;
@@ -142,7 +139,6 @@ class _OrganizationAuthorizationInputState
                   Navigator.pop(dialogContext);
                 },
                 title: sConfirmDelete,
-                // TODO: Add to string.dart
                 content: "Are you sure you would like "
                     "to remove `${input.controller?.text}`?");
           });

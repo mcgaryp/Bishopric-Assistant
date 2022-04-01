@@ -15,7 +15,6 @@ class FirestorePinRepository extends FirestoreHelper implements PinRepository {
   @override
   Future<Pin?> find(PinID id) async {
     Map<String, dynamic>? map = await getSingleDocument(id);
-    if (map == null) return null;
     return DBPin.fromMap(map).toPin;
   }
 

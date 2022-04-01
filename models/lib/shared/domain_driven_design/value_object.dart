@@ -9,7 +9,6 @@ import 'package:flutter/foundation.dart';
 ///
 
 /// A [ValueObject], as described in the DDD book.
-// TODO: Rethink the decode and toJson forcing implementation
 abstract class ValueObject<T> {
   /// Value objects compare by the values of their attributes, they don't have an identity.
   ///

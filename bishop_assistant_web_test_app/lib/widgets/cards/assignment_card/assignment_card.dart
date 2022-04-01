@@ -56,8 +56,8 @@ class DefaultAssignmentCard extends AssignmentCard {
             style: MyButtonStyle.errorText,
           ),
           assignment.isCompleted
-              ? AssignmentComplete()
-              : AssignmentIncomplete(),
+              ? AssignmentComplete(assignmentID: assignment.id)
+              : AssignmentIncomplete(assignmentID: assignment.id),
         ],
       ),
     ];

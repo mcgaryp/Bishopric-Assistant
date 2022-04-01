@@ -44,8 +44,7 @@ class _OrganizationRolesInputState extends State<OrganizationRolesInput> {
       // add to inputs
       inputs.add(InputField.plain(
         role?.name ?? sOwner,
-        // TODO: Add to string.dart
-        label: "Role Name",
+        label: sRoleName,
         controller: controllers.last,
         onChange: (String? str) {
           _updateRoles();
@@ -65,8 +64,7 @@ class _OrganizationRolesInputState extends State<OrganizationRolesInput> {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // TODO: Add to string.dart
-          Text("Roles", style: subhead),
+          Text(sRoles, style: subhead),
           IconButton(onPressed: _add, icon: Icon(Icons.add)),
         ],
       ),
@@ -98,8 +96,7 @@ class _OrganizationRolesInputState extends State<OrganizationRolesInput> {
                         ranks[index] = rank;
                         _updateRoles();
                       },
-                      // TODO: Add to string.dart
-                      hint: "Authorization Level",
+                      hint: sGroup,
                       collection: widget.authorizations
                           .map<DropdownMenuItem<int>>(
                               (Authorization authorization) => DropdownMenuItem(
@@ -124,8 +121,7 @@ class _OrganizationRolesInputState extends State<OrganizationRolesInput> {
       controllers.add(TextEditingController());
       inputs.add(InputField.plain(
         sNewRole,
-        // TODO: Add to string.dart
-        label: "Role Name",
+        label: sRoleName,
         controller: controllers.last,
         onChange: (String? str) {
           _updateRoles();
@@ -173,7 +169,6 @@ class _OrganizationRolesInputState extends State<OrganizationRolesInput> {
                   Navigator.pop(dialogContext);
                 },
                 title: sConfirmDelete,
-                // TODO: Add to string.dart
                 content: "Are you sure you would like "
                     "to remove `${input.controller?.text}`?");
           });

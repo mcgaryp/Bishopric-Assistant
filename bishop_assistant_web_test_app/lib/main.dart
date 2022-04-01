@@ -1,5 +1,6 @@
 import 'package:bishop_assistant_web_test_app/firebase/firebase_instances.dart';
 import 'package:bishop_assistant_web_test_app/pages/signup_login/login_page.dart';
+import 'package:bishop_assistant_web_test_app/pages/signup_login/signup_beta_page.dart';
 import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -50,6 +51,11 @@ class _AppState extends State<App> {
       routes: routes,
       onGenerateRoute: (RouteSettings settings) {
         return MaterialPageRoute(builder: (context) {
+          final regExpPattern = RegExp(r'^/signup-beta/?');
+          if (regExpPattern.hasMatch(settings.name ?? "")) {
+            return SignupBetaPage();
+          }
+
           if (FirebaseInstances.isInitialized) return LoginPage();
 
           return FutureBuilder<FirebaseApp>(

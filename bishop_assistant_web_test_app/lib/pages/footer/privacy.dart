@@ -14,7 +14,7 @@ class Privacy extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ComingSoon();
+    return LightPage(child: Center(child: ComingSoon()));
     // List<DataColumn> columns = [DataColumn(label: Container())];
     // columns.addAll(Permissions.values.map(
     //     (Permissions permission) => DataColumn(label: Text(permission.name))));

@@ -15,3 +15,4 @@ export 'firestore_organization_repository.dart';
 export 'firestore_pin_repository.dart';
 export 'firestore_role_repository.dart';
 export 'preferences_state_repository.dart';
+export 'firestore_util_repository.dart';

@@ -9,7 +9,7 @@ import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
 ///
 
 class Error404Page extends StatelessWidget {
-  final String? msg;
+  final Object? msg;
   final bool canLogin;
 
   const Error404Page({Key? key, this.msg, this.canLogin = true})

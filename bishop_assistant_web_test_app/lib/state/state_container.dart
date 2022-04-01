@@ -123,12 +123,18 @@ class StateContainerState extends State<StateContainer> {
   }
 
   List<Authorization> get authorizations {
-    _authorizations ?? (throw Exception("Authorizations is Null"));
+    if (_authorizations == null) {
+      if (kDebugMode) return List.filled(1, Mocks().mockAuthorization);
+      throw Exception("Authorizations is Null");
+    }
     return _authorizations!;
   }
 
   List<Role> get roles {
-    _roles ?? (throw Exception("Roles is Null"));
+    if (_roles == null) {
+      if (kDebugMode) return List.filled(1, Mocks().mockRole);
+      throw Exception("Roles is Null");
+    }
     return _roles!;
   }
 

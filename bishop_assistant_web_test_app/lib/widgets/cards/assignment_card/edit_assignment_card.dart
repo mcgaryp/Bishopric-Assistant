@@ -34,8 +34,6 @@ class _EditAssignmentCardState extends State<EditAssignmentCard> {
 
   @override
   void initState() {
-    print(widget.assignment.toMap);
-
     selectedDate = widget.assignment.dueDate;
     assignee = widget.assignment.assignee;
     notes = TextEditingController.fromValue(

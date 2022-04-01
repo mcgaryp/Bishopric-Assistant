@@ -1,5 +1,4 @@
 import 'package:models/models/account.dart';
-import 'package:models/models/account_domain/pin_repository.dart';
 
 ///
 /// create_pin_use_case.dart

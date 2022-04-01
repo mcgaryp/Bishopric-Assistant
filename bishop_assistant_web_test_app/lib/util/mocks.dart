@@ -23,15 +23,18 @@ class Mocks {
         password: "none",
       );
 
-  Role get _mockRole => Role(
+  Role get mockRole => Role(
         name: "Fake Role",
         authorization: Authorization(rank: 0, name: 'Some Authorization'),
+        id: RoleID("Hello"),
       );
+
+  Authorization get mockAuthorization =>Authorization(rank: 0, name: 'Some Authorization');
 
   Member get mockMember => Member(
         name: _mockName,
         contact: _mockContact,
-        role: _mockRole,
+        role: mockRole,
         id: MemberID("Fake ID"),
       );
 
@@ -40,7 +43,7 @@ class Mocks {
         contact: _mockContact,
         role: Role(
             name: "Fake Role",
-            authorization: Authorization(rank: 0, name: 'Some Authorization')),
+            authorization: mockAuthorization),
         id: MemberID("Fake Member ID"),
       );
 
@@ -56,18 +59,11 @@ class Mocks {
         credentials: _mockCredentials,
       );
 
-  @Deprecated("Not in use")
-  Assignee get mockAssignee => Assignee(
-      contact: _mockContact,
-      name: _mockName,
-      id: MemberID("Fake Member ID"),
-      authorization: Authorization(rank: 0, name: 'Creator'));
-
   Assignment get mockAssignment => Assignment(
         id: AssignmentID("Fake Assignment ID"),
-        creator: _mockRole,
+        creator: mockRole,
         isArchived: false,
-        assignee: _mockRole,
+        assignee: mockRole,
         isCompleted: false,
         note: "This is some note content",
         title: "Fake Assignment",
