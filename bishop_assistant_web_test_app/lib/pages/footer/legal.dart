@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
+import 'package:the_assistant/widgets/widgets.dart';
 
 ///
 /// Legal.dart

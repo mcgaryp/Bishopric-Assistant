@@ -1,6 +1,6 @@
-import 'package:bishop_assistant_web_test_app/firebase/firebase_authentication.dart';
-import 'package:bishop_assistant_web_test_app/main.dart';
-import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
+import 'package:the_assistant/firebase/firebase_authentication.dart';
+import 'package:the_assistant/main.dart';
+import 'package:the_assistant/widgets/widgets.dart';
 import 'package:crypt/crypt.dart';
 import 'package:models/models/account.dart';
 import 'package:models/shared/exceptions/exceptions.dart';

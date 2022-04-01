@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/firebase/firebase_options/firebase_options.dart';
+import 'package:the_assistant/firebase/firebase_options/firebase_options.dart';
 
 ///
 /// dev_firebase_options.dart

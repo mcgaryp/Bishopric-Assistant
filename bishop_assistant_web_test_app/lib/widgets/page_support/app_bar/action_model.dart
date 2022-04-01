@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/widgets/buttons/buttons.dart';
+import 'package:the_assistant/widgets/buttons/buttons.dart';
 import 'package:flutter/cupertino.dart';
 
 ///

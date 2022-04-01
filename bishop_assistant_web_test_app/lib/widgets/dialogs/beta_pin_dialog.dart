@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
+import 'package:the_assistant/widgets/widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:models/models/account_domain/pin.dart';

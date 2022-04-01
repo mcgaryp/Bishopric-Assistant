@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/firebase/firebase_options/environment.dart';
+import 'package:the_assistant/firebase/firebase_options/environment.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 

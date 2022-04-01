@@ -1,7 +1,7 @@
-import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
-import 'package:bishop_assistant_web_test_app/pages/home/organization_authorization_input.dart';
-import 'package:bishop_assistant_web_test_app/pages/home/organization_roles_input.dart';
-import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
+import 'package:the_assistant/firebase/repositories/repositories.dart';
+import 'package:the_assistant/pages/home/organization_authorization_input.dart';
+import 'package:the_assistant/pages/home/organization_roles_input.dart';
+import 'package:the_assistant/widgets/widgets.dart';
 import 'package:models/models/organization.dart';
 
 ///

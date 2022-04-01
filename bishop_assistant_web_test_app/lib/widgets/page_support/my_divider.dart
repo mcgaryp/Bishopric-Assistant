@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/theme/colors.dart';
+import 'package:the_assistant/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 ///

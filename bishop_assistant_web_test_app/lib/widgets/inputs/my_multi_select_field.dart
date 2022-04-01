@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/theme/theme.dart';
+import 'package:the_assistant/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 

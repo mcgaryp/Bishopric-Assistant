@@ -1,7 +1,7 @@
-import 'package:bishop_assistant_web_test_app/pages/organization/beta_invite.dart';
-import 'package:bishop_assistant_web_test_app/pages/organization/organization_members_view.dart';
-import 'package:bishop_assistant_web_test_app/pages/organization/organization_requests_view.dart';
-import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
+import 'package:the_assistant/pages/organization/beta_invite.dart';
+import 'package:the_assistant/pages/organization/organization_members_view.dart';
+import 'package:the_assistant/pages/organization/organization_requests_view.dart';
+import 'package:the_assistant/widgets/widgets.dart';
 
 ///
 /// display_organization.dart

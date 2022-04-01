@@ -1,5 +1,5 @@
-import 'package:bishop_assistant_web_test_app/theme/theme.dart';
-import 'package:bishop_assistant_web_test_app/widgets/buttons/navigation_button.dart';
+import 'package:the_assistant/theme/theme.dart';
+import 'package:the_assistant/widgets/buttons/navigation_button.dart';
 import 'package:flutter/material.dart';
 
 ///

@@ -1,6 +1,6 @@
-import 'package:bishop_assistant_web_test_app/pages/profile/display_profile.dart';
-import 'package:bishop_assistant_web_test_app/pages/profile/edit_profile.dart';
-import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
+import 'package:the_assistant/pages/profile/display_profile.dart';
+import 'package:the_assistant/pages/profile/edit_profile.dart';
+import 'package:the_assistant/widgets/widgets.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
 

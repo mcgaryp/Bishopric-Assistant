@@ -1,5 +1,5 @@
-import 'package:bishop_assistant_web_test_app/firebase/firestore_helper.dart';
-import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
+import 'package:the_assistant/firebase/firestore_helper.dart';
+import 'package:the_assistant/firebase/repositories/repositories.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/shared/exceptions/exceptions.dart';

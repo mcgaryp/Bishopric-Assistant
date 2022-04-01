@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:bishop_assistant_web_test_app/widgets/cards/member_cards/edit_member_details_card.dart';
-import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
+import 'package:the_assistant/widgets/cards/member_cards/edit_member_details_card.dart';
+import 'package:the_assistant/widgets/widgets.dart';
 import 'package:models/models/organization.dart';
 
 ///

@@ -1,5 +1,5 @@
-import 'package:bishop_assistant_web_test_app/widgets/page_support/app_bar/scaffold.dart';
-import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
+import 'package:the_assistant/widgets/page_support/app_bar/scaffold.dart';
+import 'package:the_assistant/widgets/widgets.dart';
 import 'package:models/models/account.dart';
 
 ///

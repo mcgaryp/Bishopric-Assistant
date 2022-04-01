@@ -1,7 +1,7 @@
-import 'package:bishop_assistant_web_test_app/pages/assignment/archive_assignment_view.dart';
-import 'package:bishop_assistant_web_test_app/pages/assignment/assignments_view.dart';
-import 'package:bishop_assistant_web_test_app/pages/assignment/create_assignment_view.dart';
-import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
+import 'package:the_assistant/pages/assignment/archive_assignment_view.dart';
+import 'package:the_assistant/pages/assignment/assignments_view.dart';
+import 'package:the_assistant/pages/assignment/create_assignment_view.dart';
+import 'package:the_assistant/widgets/widgets.dart';
 import 'package:models/models/organization.dart';
 
 ///

@@ -1,7 +1,7 @@
-import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
-import 'package:bishop_assistant_web_test_app/pages/organization/delete_organization_confirmation_dialog.dart';
-import 'package:bishop_assistant_web_test_app/pages/organization/organization_members_view.dart';
-import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
+import 'package:the_assistant/firebase/repositories/repositories.dart';
+import 'package:the_assistant/pages/organization/delete_organization_confirmation_dialog.dart';
+import 'package:the_assistant/pages/organization/organization_members_view.dart';
+import 'package:the_assistant/widgets/widgets.dart';
 import 'package:models/models/organization.dart';
 
 ///

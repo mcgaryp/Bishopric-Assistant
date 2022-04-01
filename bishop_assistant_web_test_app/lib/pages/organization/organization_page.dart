@@ -1,6 +1,6 @@
-import 'package:bishop_assistant_web_test_app/pages/organization/display_organization.dart';
-import 'package:bishop_assistant_web_test_app/pages/organization/edit_organization.dart';
-import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
+import 'package:the_assistant/pages/organization/display_organization.dart';
+import 'package:the_assistant/pages/organization/edit_organization.dart';
+import 'package:the_assistant/widgets/widgets.dart';
 
 ///
 /// OrganizationPage.dart

@@ -1,6 +1,6 @@
-import 'package:bishop_assistant_web_test_app/pages/assignment/assignment_list_view.dart';
-import 'package:bishop_assistant_web_test_app/pages/assignment/create_assignment_view.dart';
-import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
+import 'package:the_assistant/pages/assignment/assignment_list_view.dart';
+import 'package:the_assistant/pages/assignment/create_assignment_view.dart';
+import 'package:the_assistant/widgets/widgets.dart';
 
 ///
 /// assignments_view.dart

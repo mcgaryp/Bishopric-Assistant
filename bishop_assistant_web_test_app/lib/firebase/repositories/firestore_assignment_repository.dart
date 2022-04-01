@@ -1,5 +1,5 @@
-import 'package:bishop_assistant_web_test_app/firebase/firestore_helper.dart';
-import 'package:bishop_assistant_web_test_app/firebase/repositories/firestore_role_repository.dart';
+import 'package:the_assistant/firebase/firestore_helper.dart';
+import 'package:the_assistant/firebase/repositories/firestore_role_repository.dart';
 import 'package:models/models/assignment.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/shared/exceptions/account_not_found_error.dart';

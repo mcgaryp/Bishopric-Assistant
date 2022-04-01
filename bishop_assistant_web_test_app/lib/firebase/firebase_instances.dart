@@ -1,5 +1,5 @@
-import 'package:bishop_assistant_web_test_app/firebase/firebase_options.dart';
-import 'package:bishop_assistant_web_test_app/main.dart';
+import 'package:the_assistant/firebase/firebase_options.dart';
+import 'package:the_assistant/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';

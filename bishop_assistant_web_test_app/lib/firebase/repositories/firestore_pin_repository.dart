@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/firebase/firestore_helper.dart';
+import 'package:the_assistant/firebase/firestore_helper.dart';
 import 'package:models/models/account.dart';
 
 ///

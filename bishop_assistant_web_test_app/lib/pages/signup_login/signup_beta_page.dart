@@ -1,6 +1,6 @@
-import 'package:bishop_assistant_web_test_app/firebase/repositories/firestore_pin_repository.dart';
-import 'package:bishop_assistant_web_test_app/pages/signup_login/sign_up_page.dart';
-import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
+import 'package:the_assistant/firebase/repositories/firestore_pin_repository.dart';
+import 'package:the_assistant/pages/signup_login/sign_up_page.dart';
+import 'package:the_assistant/widgets/widgets.dart';
 import 'package:models/models/account.dart';
 import 'package:models/shared/exceptions/exceptions.dart';
 

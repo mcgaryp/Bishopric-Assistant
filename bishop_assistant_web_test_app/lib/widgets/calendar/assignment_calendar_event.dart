@@ -1,4 +1,4 @@
-import 'package:bishop_assistant_web_test_app/widgets/calendar/calendar.dart';
+import 'package:the_assistant/widgets/calendar/calendar.dart';
 import 'package:models/models/assignment.dart';
 import 'package:models/models/organization.dart';
 

@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:bishop_assistant_web_test_app/firebase/repositories/repositories.dart';
-import 'package:bishop_assistant_web_test_app/widgets/widgets.dart';
+import 'package:the_assistant/firebase/repositories/repositories.dart';
+import 'package:the_assistant/widgets/widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mailto/mailto.dart';
 import 'package:url_launcher/url_launcher.dart';
