@@ -54,6 +54,15 @@ Before beginning:
    </thead>
    <tbody>
       <tr>
+         <td>0.1.2</td>
+         <td><b>Infinite Loading Screen</b>
+            <ul>
+               <li>Fixes Infinite Loading screen</li>
+               <li>Login is more intuitive to website paths</li>
+            </ul>
+         </td>
+      </tr>
+      <tr>
          <td>0.1.1</td>
          <td><b>Patch</b>
             <ul>
