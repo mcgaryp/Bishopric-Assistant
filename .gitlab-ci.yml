@@ -26,18 +26,20 @@ flutter_model_test:
   only:
     - merge_requests
 
-# TODO: How is .env file included without disclosing the secrets
-#flutter_app_test:
-#  stage: test
-#  before_script:
-#    - cd bishop_assistant_web_test_app
-#    - flutter upgrade
-#  script:
-#    - flutter test test/tests.dart
-#  tags:
-#    - shared
-#  only:
-#    - merge_requests
+flutter_app_test:
+ stage: test
+ before_script:
+   - flutter upgrade
+   - cd bishop_assistant_web_test_app
+   - echo '$DEV_ENV' >dev.env
+   - echo '$BETA_ENV' >beta.env
+   - echo '$PROD_ENV' >prod.env
+ script:
+   - flutter test test/tests.dart
+ tags:
+   - shared
+ only:
+   - merge_requests
 
 flutter_build_web:
  stage: build
@@ -54,37 +56,49 @@ flutter_build_web:
      - build/web/
  tags:
    - shared
+ only:
+   - merge_requests
 
 # Website that describes how to set up build for flutter
 # https://medium.com/kinandcartacreated/setup-a-flutter-ci-cd-with-gitlab-ci-part-3-8e67c91c6da7
-# flutter_build_android: #Job name
-#   stage: build # kind of job
-#   before_script:
-#     - flutter packages get
-#     - flutter clean
-#   script:
-#      - flutter build apk
-#   artifacts:
-#     paths:
-#       - build/app/outputs/apk/release/app-release.apk
-#   tags:
-#     - flutter
+flutter_build_android: # Job name
+  stage: build # kind of job
+  before_script:
+   - flutter upgrade
+   - cd bishop_assistant_web_test_app
+   - echo '$DEV_ENV' >dev.env
+   - echo '$BETA_ENV' >beta.env
+   - echo '$PROD_ENV' >prod.env
+  script:
+     - flutter build apk
+  artifacts:
+    paths:
+      - build/app/outputs/apk/release/app-release.apk
+  tags:
+    - flutter
+  only:
+    - merge_requests
 
-# flutter_build_ios:
-#   stage: build
-#   before_script:
-#     - flutter packages get
-#     - flutter clean
-#   script:
-#     - flutter build ios
-#     - cd ios
-#     - xcodebuild clean archive -workspace Runner.xcworkspace -scheme Runner -archivePath RunnerArchive
-#     - xcodebuild -exportArchive -archivePath RunnerArchive.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath ./build
-#   artifacts:
-#     paths:
-#       - ios/build/Runner.ipa
-#   tags:
-#     - flutter
+flutter_build_ios:
+  stage: build
+  before_script:
+    - flutter upgrade
+    - cd bishop_assistant_web_test_app
+    - echo '$DEV_ENV' >dev.env
+    - echo '$BETA_ENV' >beta.env
+    - echo '$PROD_ENV' >prod.env
+  script:
+    - flutter build ios
+    - cd ios
+    - xcodebuild clean archive -workspace Runner.xcworkspace -scheme Runner -archivePath RunnerArchive
+    - xcodebuild -exportArchive -archivePath RunnerArchive.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath ./build
+  artifacts:
+    paths:
+      - ios/build/Runner.ipa
+  tags:
+    - flutter
+  only:
+    - merge_requests
 
 flutter_deploy_web:
  stage: deploy
@@ -100,7 +114,7 @@ flutter_deploy_web:
    - firebase hosting:channel:deploy cicd-test
  artifacts:
    paths:
-     - build/web/
+     - build/web/index.html
  only:
    - master
 
@@ -115,6 +129,8 @@ flutter_deploy_web:
 #     - appcenter distribute release -f ios/build/Runner.ipa -g Collaborators --app [username]/[project]
 #   tags:
 #     - flutter
+#   only:
+#     - master
 
 # deploy_android:
 #   stage: deploy
@@ -125,6 +141,8 @@ flutter_deploy_web:
 #     - appcenter distribute release -f build/app/outputs/apk/release/app-release.apk -g Collaborators -app [username]/[project]
 #   tags:
 #     - flutter
+#   only:
+#     - master
 
 # Article that describes the process of deployment with Fastlane
 # https://medium.com/kinandcartacreated/setup-a-flutter-ci-cd-with-gitlab-ci-part-5-26ab03f3190
