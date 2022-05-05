@@ -15,16 +15,16 @@ stages:
   - build # All Jobs related to building the app for web, iOS, and Android
   - deploy # All Jobs related to deploying the app
 
-# flutter_model_test:
-#   stage: test
-#   before_script:
-#     - cd models
-#   script:
-#     - flutter test test/test.dart
-#   tags:
-#     - shared
-#   only:
-#     - merge_requests
+flutter_model_test:
+  stage: test
+  before_script:
+    - cd models
+  script:
+    - flutter test test/test.dart
+  tags:
+    - shared
+  only:
+    - merge_requests
 
 # TODO: How is .env file included without disclosing the secrets
 #flutter_app_test:
@@ -43,19 +43,15 @@ flutter_build_web:
  stage: build
  before_script:
    - flutter upgrade
-   - npm install -g firebase-tools
    - cd bishop_assistant_web_test_app
    - echo '$DEV_ENV' >dev.env
    - echo '$BETA_ENV' >beta.env
    - echo '$PROD_ENV' >prod.env
  script:
    - flutter build web
-   - firebase login
-   - firebase use beta
-   - firebase hosting:channel:deploy cicd-test
  artifacts:
    paths:
-     - build/web/index.html
+     - build/web/
  tags:
    - shared
 
@@ -89,6 +85,24 @@ flutter_build_web:
 #       - ios/build/Runner.ipa
 #   tags:
 #     - flutter
+
+flutter_deploy_web:
+ stage: deploy
+ before_script:
+   - npm install -g firebase-tools
+   - cd bishop_assistant_web_test_app
+   - echo '$DEV_ENV' >dev.env
+   - echo '$BETA_ENV' >beta.env
+   - echo '$PROD_ENV' >prod.env
+ script:
+   - firebase login
+   - firebase use beta
+   - firebase hosting:channel:deploy cicd-test
+ artifacts:
+   paths:
+     - build/web/
+ only:
+   - master
 
 # Article that describes the process of deployment with App Center
 # https://medium.com/kinandcartacreated/setup-a-flutter-ci-cd-with-gitlab-ci-part-4-e517c4c11bd8
