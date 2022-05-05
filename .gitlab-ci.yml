@@ -18,7 +18,6 @@ stages:
 flutter_model_test:
   stage: test
   before_script:
-    - echo $DEV_ENV
     - cd models
   script:
     - flutter test test/test.dart
@@ -43,7 +42,9 @@ flutter_model_test:
 flutter_build_web:
  stage: build
  before_script:
+   - echo $DEV_ENV
    - flutter upgrade
+   - echo $pwd
    - flutter packages get
    - flutter clean
    - cd bishop_assistant_web_test_app
