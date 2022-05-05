@@ -15,16 +15,16 @@ stages:
   - build # All Jobs related to building the app for web, iOS, and Android
   - deploy # All Jobs related to deploying the app
 
-flutter_model_test:
-  stage: test
-  before_script:
-    - cd models
-  script:
-    - flutter test test/test.dart
-  tags:
-    - shared
-  only:
-    - merge_requests
+# flutter_model_test:
+#   stage: test
+#   before_script:
+#     - cd models
+#   script:
+#     - flutter test test/test.dart
+#   tags:
+#     - shared
+#   only:
+#     - merge_requests
 
 # TODO: How is .env file included without disclosing the secrets
 #flutter_app_test:
