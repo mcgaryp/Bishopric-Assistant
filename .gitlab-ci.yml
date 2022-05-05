@@ -53,6 +53,7 @@ flutter_build_web:
   #  - flutter clean
  script:
   #  - flutter build web
+   - echo Done
  artifacts:
    paths:
      - build/web/index.html
