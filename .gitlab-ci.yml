@@ -49,6 +49,7 @@ flutter_build_web:
    - echo '$DEV_ENV' >dev.env
    - echo '$BETA_ENV' >beta.env
    - ls
+   - open beta.env
   #  - flutter packages get
   #  - flutter clean
  script:
