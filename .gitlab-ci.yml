@@ -44,7 +44,7 @@ flutter_build_web:
  before_script:
    - echo $DEV_ENV
   #  - flutter upgrade
-   - echo $pwd
+   - pwd
    - cd bishop_assistant_web_test_app
    - echo '$DEV_ENV' >dev.env
    - echo '$BETA_ENV' >beta.env
