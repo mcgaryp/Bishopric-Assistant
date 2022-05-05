@@ -1,6 +1,6 @@
 # From an article
 # https://medium.com/version-1/flutter-continuous-integration-using-gitlab-80f3d896704a
-# image: mobiledevops/flutter-sdk-image:latest
+image: mobiledevops/flutter-sdk-image:latest
 
 # variables:
 
@@ -42,19 +42,14 @@ stages:
 flutter_build_web:
  stage: build
  before_script:
-   - echo $DEV_ENV
-  #  - flutter upgrade
-   - pwd
+   - flutter upgrade
    - cd bishop_assistant_web_test_app
    - echo '$DEV_ENV' >dev.env
    - echo '$BETA_ENV' >beta.env
-   - ls
-   - open beta.env
-  #  - flutter packages get
-  #  - flutter clean
+   - flutter packages get
+   - flutter clean
  script:
-  #  - flutter build web
-   - echo Done
+   - flutter build web
  artifacts:
    paths:
      - build/web/index.html
