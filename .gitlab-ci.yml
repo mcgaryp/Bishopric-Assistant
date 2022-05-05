@@ -47,10 +47,9 @@ flutter_build_web:
    - echo '$DEV_ENV' >dev.env
    - echo '$BETA_ENV' >beta.env
    - echo '$PROD_ENV' >prod.env
-   - flutter packages get
-   - flutter clean
  script:
    - flutter build web
+   - firebase login
  artifacts:
    paths:
      - build/web/index.html
