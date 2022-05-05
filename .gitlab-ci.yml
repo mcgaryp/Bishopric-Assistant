@@ -46,6 +46,7 @@ flutter_build_web:
    - cd bishop_assistant_web_test_app
    - echo '$DEV_ENV' >dev.env
    - echo '$BETA_ENV' >beta.env
+   - echo '$PROD_ENV' >prod.env
    - flutter packages get
    - flutter clean
  script:
