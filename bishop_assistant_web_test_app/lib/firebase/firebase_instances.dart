@@ -1,10 +1,10 @@
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:the_assistant/firebase/firebase_options.dart';
-import 'package:the_assistant/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
+import 'package:the_assistant/firebase/firebase_options.dart';
+import 'package:the_assistant/main.dart';
 
 ///
 /// firebase_instances.dart
@@ -34,7 +34,7 @@ class FirebaseInstances {
         await Firebase.initializeApp(options: options);
         if (kDebugMode) print("Initialized FirebaseApp: \'${dev.name}\'");
 
-        if (isBeta) {
+        if (isBeta && !kDebugMode) {
           final beta = BetaFirebaseOptions();
           options = await beta.currentPlatform;
           if (kDebugMode)
@@ -43,7 +43,7 @@ class FirebaseInstances {
           if (kDebugMode) print("Initialized FirebaseApp: \'${beta.name}\'");
         }
 
-        if (isProd) {
+        if (isProd && !kDebugMode) {
           final prod = ProdFirebaseOptions();
           options = await prod.currentPlatform;
           if (kDebugMode)
@@ -65,9 +65,9 @@ class FirebaseInstances {
   // Get the Firebase App
   static FirebaseApp get app {
     FirebaseApp app;
-    if (isBeta) {
+    if (isBeta && !kDebugMode) {
       app = Firebase.app(BetaFirebaseOptions().name);
-    } else if (isProd) {
+    } else if (isProd && !kDebugMode) {
       app = Firebase.app(ProdFirebaseOptions().name);
     } else {
       app = Firebase.app();
@@ -88,6 +88,7 @@ class FirebaseInstances {
     return FirebaseFirestore.instanceFor(app: app);
   }
 
+  // Get the Firebase Storage Instance
   static FirebaseStorage get storage {
     if (kDebugMode) print("Requesting FirebaseStorage with \'${app.name}\'");
     return FirebaseStorage.instanceFor(app: app);

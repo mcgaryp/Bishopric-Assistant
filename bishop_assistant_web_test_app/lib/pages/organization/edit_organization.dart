@@ -1,8 +1,8 @@
+import 'package:models/models/organization.dart';
 import 'package:the_assistant/firebase/repositories/repositories.dart';
 import 'package:the_assistant/pages/organization/delete_organization_confirmation_dialog.dart';
 import 'package:the_assistant/pages/organization/organization_members_view.dart';
 import 'package:the_assistant/widgets/widgets.dart';
-import 'package:models/models/organization.dart';
 
 ///
 /// edit_organization.dart
@@ -46,6 +46,9 @@ class _EditOrganizationState extends State<EditOrganization> {
                         name = str ?? "";
                       });
                       return str;
+                    },
+                    onSubmit: (String? str) {
+                      _changeOrganizationName();
                     },
                   ))
                 : Text(

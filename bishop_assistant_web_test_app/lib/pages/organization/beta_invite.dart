@@ -1,8 +1,8 @@
+import 'package:models/models/account.dart';
 import 'package:the_assistant/firebase/repositories/firestore_pin_repository.dart';
 import 'package:the_assistant/main.dart';
 import 'package:the_assistant/widgets/dialogs/beta_pin_dialog.dart';
 import 'package:the_assistant/widgets/widgets.dart';
-import 'package:models/models/account.dart';
 
 ///
 /// beta_invite.dart
@@ -24,7 +24,7 @@ class _BetaInviteState extends State<BetaInvite> {
 
   @override
   Widget build(BuildContext context) {
-    if (kDebugMode || isBeta)
+    if (isBeta)
       return MyButton(
         label: sInviteBeta,
         onPressed: onPress,

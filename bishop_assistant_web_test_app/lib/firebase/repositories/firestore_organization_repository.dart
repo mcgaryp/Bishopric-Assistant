@@ -1,7 +1,7 @@
-import 'package:the_assistant/firebase/firestore_helper.dart';
-import 'package:the_assistant/firebase/repositories/repositories.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/shared/exceptions/exceptions.dart';
+import 'package:the_assistant/firebase/firestore_helper.dart';
+import 'package:the_assistant/firebase/repositories/repositories.dart';
 
 ///
 /// $FILE_NAME.dart
@@ -121,7 +121,7 @@ class FirestoreOrganizationRepository extends FirestoreHelper
   Stream<Organization> findStreamed(OrganizationID id) {
     return getSingleDocumentStreamed(id)
         .asyncMap<Organization>((Map<String, dynamic>? map) async {
-      // convert ot DB Organization
+      // convert to DB Organization
       map ?? (throw OrganizationNotFoundError());
       DBOrganization dbOrganization = DBOrganization.fromMap(map);
 

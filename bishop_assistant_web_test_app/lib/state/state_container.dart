@@ -2,13 +2,13 @@
 
 import 'dart:async';
 
-import 'package:the_assistant/firebase/repositories/repositories.dart';
-import 'package:the_assistant/main.dart';
-import 'package:the_assistant/widgets/widgets.dart';
 import 'package:models/models/account.dart';
 import 'package:models/models/organization.dart';
 import 'package:models/shared/exceptions/exceptions.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:the_assistant/firebase/repositories/repositories.dart';
+import 'package:the_assistant/main.dart';
+import 'package:the_assistant/widgets/widgets.dart';
 
 ///
 /// state_container.dart

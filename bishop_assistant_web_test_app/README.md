@@ -43,3 +43,43 @@ Before beginning:
     device you would like to run the application on.
 11. Select the green Run/Debug Triangle button to run the application on it's selected device and
     environment.
+
+## Release Notes
+<table>
+   <thead>
+      <tr>
+         <th>Version</th>
+         <th>Release Notes</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td>0.1.1</td>
+         <td><b>Patch</b>
+            <ul>
+               <li>Beta Invites support more ways to share</li>
+               <li>Organization Name change on enter button</li>
+               <li>Dev database support</li>
+               <li>Media Picker for Bug Reports foundation</li>
+            </ul>
+         </td>
+      </tr>
+      <tr>
+         <td>0.1.0</td>
+         <td><b>Beta Release</b>
+            <ul>
+               <li>Sign Up with Beta 24hr Link</li>
+               <li>Login</li>
+               <li>View Organizations</li>
+               <li>Search Organizations</li>
+               <li>Create Organization</li>
+               <li>Request to Join Organization</li>
+               <li>Manage Organization</li>
+               <li>Create Assignments</li>
+               <li>Create Bug Reports</li>
+               <li>View Account Details</li>
+            </ul>
+         </td>
+      </tr>
+   </tbody>
+</table>

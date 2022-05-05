@@ -28,7 +28,6 @@ class Assignment extends Entity<Assignment> {
 
   late DateTime _dueDate;
   late String _title;
-  late bool _isOverDue;
   bool _isArchived;
   bool _isCompleted;
   bool editable;
@@ -78,7 +77,6 @@ class Assignment extends Entity<Assignment> {
         );
 
   set dueDate(DateTime date) {
-    _isOverDue = date.isBefore(DateTime.now());
     _dueDate = date;
   }
 
@@ -200,7 +198,7 @@ class Assignment extends Entity<Assignment> {
 
   bool get isCompleted => _isCompleted == true;
 
-  bool get isOverDue => _isOverDue;
+  bool get isOverDue => dueDate.isBefore(DateTime.now()) && isNotCompleted;
 
   AssignmentID get id {
     if (_id == null) throw IdDoesNotExistError(forObject: "Assignment");
