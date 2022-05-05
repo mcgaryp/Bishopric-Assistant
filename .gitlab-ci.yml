@@ -45,9 +45,9 @@ flutter_build_web:
    - echo $DEV_ENV
    - flutter upgrade
    - echo $pwd
+   - cd bishop_assistant_web_test_app
    - flutter packages get
    - flutter clean
-   - cd bishop_assistant_web_test_app
  script:
    - flutter build web
  artifacts:
