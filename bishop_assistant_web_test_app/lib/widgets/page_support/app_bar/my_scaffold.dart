@@ -41,6 +41,12 @@ class MyScaffold {
   // Footer
   static List<Widget> _footer(BuildContext context) => [
         MyButton(
+          isExpanded: false,
+          style: MyButtonStyle.errorText,
+          label: sReportBug,
+          onPressed: () => Navigator.pushNamed(context, rBugReport),
+        ),
+        MyButton(
           label: sLegal,
           onPressed: () => _navigate(context, rLegal),
           style: MyButtonStyle.text,

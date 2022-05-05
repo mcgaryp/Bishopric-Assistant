@@ -20,6 +20,7 @@ const String sAssignments = "Assignments";
 const String sAssignmentTitle = "Assignment Title";
 const String sAwaiting = "Pending";
 const String sAuthorization = "Authorization";
+const String sBetaInvitePin = "Beta Invite Pin";
 const String sCancel = "Cancel";
 const String sChangeRequest = "Change Request";
 const String sComplete = "Complete";

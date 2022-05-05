@@ -1,6 +1,6 @@
-import 'package:the_assistant/firebase/repositories/repositories.dart';
 import 'package:models/models/assignment.dart';
 import 'package:models/models/organization.dart';
+import 'package:the_assistant/firebase/repositories/repositories.dart';
 
 import '../../widgets.dart';
 
@@ -14,14 +14,27 @@ import '../../widgets.dart';
 
 class AssignmentComplete extends StatelessWidget {
   final AssignmentID assignmentID;
+  final bool _isLight;
+
+  const AssignmentComplete.isArchived({Key? key, required this.assignmentID})
+      : this._isLight = false,
+        super(key: key);
+
+  const AssignmentComplete.isOverDue({Key? key, required this.assignmentID})
+      : this._isLight = true,
+        super(key: key);
 
   const AssignmentComplete({Key? key, required this.assignmentID})
-      : super(key: key);
+      : this._isLight = false,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MyButton.icon(
-        icon: Icon(Icons.check_circle_outline, color: dark),
+        icon: Icon(
+          Icons.check_circle_outline,
+          color: _isLight ? light : darkText,
+        ),
         onPressed: () async {
           try {
             MarkAssignmentIncompleteUseCase useCase =

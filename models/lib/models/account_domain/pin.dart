@@ -29,7 +29,7 @@ class Pin extends Entity<Pin> {
 
   /// Constructor of [Pin]
   Pin({PinID? id})
-      : this._expiration = DateTime.now().add(Duration(minutes: 30)),
+      : this._expiration = DateTime.now().add(Duration(hours: 24)),
         super(id) {
     String temp = _generatePin;
     this._passcode = temp;

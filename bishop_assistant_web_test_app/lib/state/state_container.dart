@@ -75,7 +75,7 @@ class StateContainerState extends State<StateContainer> {
   /// and login is required
   Account get account {
     if (_account == null) {
-      if (kDebugMode) return Mocks().mockAccount;
+      if (isDebug) return Mocks().mockAccount;
       throw PermissionDeniedError(
           reason: "StateContainer UnAuthenticated User");
     }
@@ -85,7 +85,7 @@ class StateContainerState extends State<StateContainer> {
 
   Organization get organization {
     if (_organization == null) {
-      if (kDebugMode) return Mocks().mockOrganization;
+      if (isDebug) return Mocks().mockOrganization;
       throw PermissionDeniedError(
           reason: "StateContainer No Organizational Relationship");
     }
@@ -94,7 +94,7 @@ class StateContainerState extends State<StateContainer> {
 
   Member get member {
     if (_member == null) {
-      if (kDebugMode) return Mocks().mockMember;
+      if (isDebug) return Mocks().mockMember;
       throw PermissionDeniedError(
           reason: "StateContainer Not a Member of an organization");
     }
@@ -124,7 +124,7 @@ class StateContainerState extends State<StateContainer> {
 
   List<Authorization> get authorizations {
     if (_authorizations == null) {
-      if (kDebugMode) return List.filled(1, Mocks().mockAuthorization);
+      if (isDebug) return List.filled(1, Mocks().mockAuthorization);
       throw Exception("Authorizations is Null");
     }
     return _authorizations!;
@@ -132,7 +132,7 @@ class StateContainerState extends State<StateContainer> {
 
   List<Role> get roles {
     if (_roles == null) {
-      if (kDebugMode) return List.filled(1, Mocks().mockRole);
+      if (isDebug) return List.filled(1, Mocks().mockRole);
       throw Exception("Roles is Null");
     }
     return _roles!;

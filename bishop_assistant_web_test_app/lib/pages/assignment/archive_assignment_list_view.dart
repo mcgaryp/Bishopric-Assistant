@@ -25,7 +25,7 @@ class ArchiveAssignmentListView extends StatelessWidget {
             return Column(
                 children: assignments
                     .map((Stream<Assignment> assignmentStream) =>
-                        AssignmentDetailView(assignmentStream))
+                        AssignmentDetailView(assignmentStream, onlyArchived: true))
                     .toList());
           }
           return SpinKitThreeBounce(color: dark, size: 25);

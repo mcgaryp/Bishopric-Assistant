@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:the_assistant/firebase/repositories/repositories.dart';
-import 'package:the_assistant/widgets/widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mailto/mailto.dart';
+import 'package:the_assistant/firebase/repositories/repositories.dart';
+import 'package:the_assistant/widgets/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 ///
@@ -23,6 +23,7 @@ class _BugReportPageState extends State<BugReportPage> {
   TextEditingController titleControl = TextEditingController();
   TextEditingController descriptionControl = TextEditingController();
   TextEditingController replicationControl = TextEditingController();
+  List<File> _files = [];
 
   @override
   void initState() {
@@ -41,53 +42,69 @@ class _BugReportPageState extends State<BugReportPage> {
     return LightPage(
         child: Form(
             child: SingleChildScrollView(
-              child: Column(children: [
-                Text(sReportBug, style: smallTitle),
-      Text(
-        "We would love to hear feedback. Please let us know "
-        "what you think can be improved on or if there is "
-        "anything that has gone wrong when using The Assistant",
-        style: subhead,
-      ),
-      // Title
-      InputField.plain(
-        sTitle,
-        controller: titleControl,
-      ),
+      child: Column(children: [
+        Text(sReportBug, style: smallTitle),
+        Text(
+          "We would love to hear feedback. Please let us know "
+          "what you think can be improved on or if there is "
+          "anything that has gone wrong when using The Assistant",
+          style: subhead,
+        ),
+        // Title
+        InputField.plain(
+          sTitle,
+          controller: titleControl,
+        ),
 
-      // Description
-      InputField.plain(
-        sDescription,
-        controller: descriptionControl,
-        maxLines: true,
-      ),
+        // Description
+        InputField.plain(
+          sDescription,
+          controller: descriptionControl,
+          maxLines: true,
+        ),
 
-      // How to Replicate
-      InputField.plain(
-        sHowToReplicate,
-        controller: replicationControl,
-        maxLines: true,
-      ),
+        // How to Replicate
+        InputField.plain(
+          sHowToReplicate,
+          controller: replicationControl,
+          maxLines: true,
+        ),
 
-      // TODO: Media, Images, Video Footage
-      // Text("Attachment: Image, Video, Media"),
+        // Media, Images, Video Footage
+        Align(
+          alignment: Alignment.centerRight,
+          child: MediaPicker(
+            onSelected: (List<File> files) {
+              setState(() {
+                _files = files;
+              });
+            },
+          ),
+        ),
 
-      // Save
-      MyButton(
-        label: sSend,
-        onPressed: _onSend,
-      ),
-    ]),
-            )));
+        if (_files.isNotEmpty)
+          Column(
+              children: _files.map<Widget>((File file) {
+            return ListTile(title: Text(file.path, style: body));
+          }).toList()),
+
+        // Save
+        MyButton(
+          label: sSend,
+          onPressed: _onSend,
+        ),
+      ]),
+    )));
   }
 
   void _onSend() async {
     try {
       BugReport report = BugReport(
-          title: titleControl.text,
-          description: descriptionControl.text,
-          replication: replicationControl.text,
-          attachments: []);
+        title: titleControl.text,
+        description: descriptionControl.text,
+        replication: replicationControl.text,
+        attachments: _files,
+      );
 
       FirestoreUtilRepository repository = FirestoreUtilRepository();
 
@@ -107,26 +124,31 @@ class BugReport {
   final String title;
   final String _description;
   final String? _replication;
-  final List<File>? attachments;
+  final List<File> attachments;
 
   BugReport({
     required this.title,
     required String description,
     String? replication,
-    this.attachments,
+    this.attachments = const [],
   })  : this._description = description,
         this._replication = replication;
 
   String get reportBody {
     if (_replication != null) {
-      return """
+      String str = """
 ## Description  
 $_description
 ## How to Replicate  
 $_replication
-## Images
-Not actively supported
+## Media
 """;
+      if (attachments.isEmpty) str += "No Media Presented";
+      for (File file in attachments) {
+        str += "${file.path}\n";
+      }
+
+      return str;
     }
 
     return _description;

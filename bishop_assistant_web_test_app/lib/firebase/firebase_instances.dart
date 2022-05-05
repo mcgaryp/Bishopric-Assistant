@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:the_assistant/firebase/firebase_options.dart';
 import 'package:the_assistant/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -85,5 +86,10 @@ class FirebaseInstances {
   static FirebaseFirestore get firestore {
     if (kDebugMode) print("Requesting FirebaseFirestore with \'${app.name}\'");
     return FirebaseFirestore.instanceFor(app: app);
+  }
+
+  static FirebaseStorage get storage {
+    if (kDebugMode) print("Requesting FirebaseStorage with \'${app.name}\'");
+    return FirebaseStorage.instanceFor(app: app);
   }
 }

@@ -35,7 +35,7 @@ class OverDueAssignmentCard extends AssignmentCard {
             style: MyButtonStyle.lightText,
           ),
           assignment.isCompleted
-              ? AssignmentComplete(assignmentID: assignment.id)
+              ? AssignmentComplete.isOverDue(assignmentID: assignment.id)
               : AssignmentIncomplete.isLight(assignmentID: assignment.id),
         ],
       ),

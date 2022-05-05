@@ -29,6 +29,7 @@ import 'package:flutter/services.dart';
 // Environment variables for flavoring
 const bool isBeta = bool.fromEnvironment('beta');
 const bool isProd = bool.fromEnvironment('prod');
+const bool isDebug = bool.fromEnvironment('dev');
 
 void main() {
   runApp(StateContainer(child: App()));

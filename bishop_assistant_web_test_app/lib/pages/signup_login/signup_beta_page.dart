@@ -28,7 +28,6 @@ class _SignupBetaPageState extends State<SignupBetaPage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Add Strings to string.dart
     // TODO: Create class that handles the get of a pin... maybe pin does this
     List<String> strings = Uri.base.toString().split("?pin=");
     if (strings.length > 1) {
@@ -65,7 +64,7 @@ class _SignupBetaPageState extends State<SignupBetaPage> {
           AbsorbPointer(
             absorbing: _isWaiting,
             child: MyButton(
-              label: "Confirm Pin",
+              label: sConfirmPin,
               onPressed: onPress,
             ),
           )

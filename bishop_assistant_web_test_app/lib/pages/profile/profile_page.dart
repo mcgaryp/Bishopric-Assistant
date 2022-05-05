@@ -1,8 +1,8 @@
+import 'package:models/models/account.dart';
+import 'package:models/models/organization.dart';
 import 'package:the_assistant/pages/profile/display_profile.dart';
 import 'package:the_assistant/pages/profile/edit_profile.dart';
 import 'package:the_assistant/widgets/widgets.dart';
-import 'package:models/models/account.dart';
-import 'package:models/models/organization.dart';
 
 ///
 /// Profile.dart
@@ -25,7 +25,9 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     Account account = StateContainer.of(context).account;
-    Member member = StateContainer.of(context).member;
+    Member? member;
+    if (StateContainer.of(context).state >= UserState.inOrganization)
+      member = StateContainer.of(context).member;
 
     return LightPage(
       child: Column(
@@ -61,8 +63,7 @@ class _ProfilePageState extends State<ProfilePage> {
               style: title,
               textAlign: TextAlign.center,
             ),
-            if (StateContainer.of(context).state >= UserState.inOrganization)
-              Text(member.role.name, style: subhead),
+            if (member != null) Text(member.role.name, style: subhead),
             MyConstrainedBox300(children: [
               MyDivider(color: dark),
               Padding(

@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:the_assistant/widgets/widgets.dart';
 import 'package:models/models/assignment.dart';
 import 'package:models/models/organization.dart';
+import 'package:the_assistant/widgets/widgets.dart';
 
 ///
 /// assignment_detail_view.dart
@@ -14,8 +14,10 @@ import 'package:models/models/organization.dart';
 
 class AssignmentDetailView extends StatefulWidget {
   final Stream<Assignment> assignmentStream;
+  final bool onlyArchived;
 
-  const AssignmentDetailView(this.assignmentStream, {Key? key})
+  const AssignmentDetailView(this.assignmentStream,
+      {this.onlyArchived = false, Key? key})
       : super(key: key);
 
   @override
@@ -34,15 +36,19 @@ class _AssignmentDetailViewState extends State<AssignmentDetailView> {
         if (snapshot.hasData) {
           Assignment assignment = snapshot.data!;
           if (assignment.canView(roleID: currentUser.role.id)) {
-            if (assignment.isArchived)
+            if (assignment.isArchived && widget.onlyArchived)
               return ArchivedAssignmentCard(assignment);
-            if (assignment.isOverDue)
+            else if (assignment.isArchived)
+              return Container();
+            else if (assignment.isNotArchived && !widget.onlyArchived) {
+              if (assignment.isOverDue)
+                return _isEditing
+                    ? EditAssignmentCard(assignment, _save)
+                    : OverDueAssignmentCard(assignment, _edit);
               return _isEditing
                   ? EditAssignmentCard(assignment, _save)
-                  : OverDueAssignmentCard(assignment, _edit);
-            return _isEditing
-                ? EditAssignmentCard(assignment, _save)
-                : DefaultAssignmentCard(assignment, _edit);
+                  : DefaultAssignmentCard(assignment, _edit);
+            }
           }
           return Container();
         }

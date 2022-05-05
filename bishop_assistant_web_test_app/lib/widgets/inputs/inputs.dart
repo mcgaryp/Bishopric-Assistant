@@ -10,3 +10,4 @@ export 'my_dropdown.dart';
 export 'my_multi_select_field.dart';
 export 'row_toggle.dart';
 export 'search_bar.dart';
+export 'media_picker.dart';
