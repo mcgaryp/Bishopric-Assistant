@@ -1,8 +1,9 @@
+import 'package:models/models/organization.dart';
 import 'package:the_assistant/pages/assignment/archive_assignment_view.dart';
 import 'package:the_assistant/pages/assignment/assignments_view.dart';
 import 'package:the_assistant/pages/assignment/create_assignment_view.dart';
+import 'package:the_assistant/pages/home/home.dart';
 import 'package:the_assistant/widgets/widgets.dart';
-import 'package:models/models/organization.dart';
 
 ///
 /// assignment_page.dart
@@ -34,8 +35,15 @@ class _AssignmentPageState extends State<AssignmentPage>
 
   @override
   Widget build(BuildContext context) {
-    Authorization currentUserPermissions =
-        StateContainer.of(context).member.role.authorization;
+    Member member;
+    try {
+      member = StateContainer.of(context).member;
+    } catch (e) {
+      if (kDebugMode) print(e);
+      return HomePage();
+    }
+
+    Authorization currentUserPermissions = member.role.authorization;
 
     width = MediaQuery.of(context).size.width;
     isMobile = width < 700;

@@ -1,6 +1,6 @@
+import 'package:models/models/account.dart';
 import 'package:the_assistant/pages/signup_login/login_page.dart';
 import 'package:the_assistant/widgets/widgets.dart';
-import 'package:models/models/account.dart';
 
 ///
 /// authenticate.dart

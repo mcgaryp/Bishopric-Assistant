@@ -24,10 +24,15 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    Account account = StateContainer.of(context).account;
     Member? member;
-    if (StateContainer.of(context).state >= UserState.inOrganization)
-      member = StateContainer.of(context).member;
+    Account account = StateContainer.of(context).account;
+    try {
+      if (StateContainer.of(context).state >= UserState.inOrganization)
+        member = StateContainer.of(context).member;
+    } catch (e) {
+      if (kDebugMode) print(e);
+      return Error404Page(msg: e);
+    }
 
     return LightPage(
       child: Column(

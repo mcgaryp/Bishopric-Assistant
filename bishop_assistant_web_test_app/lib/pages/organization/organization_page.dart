@@ -1,3 +1,5 @@
+import 'package:models/models/organization.dart';
+import 'package:the_assistant/pages/home/home_page.dart';
 import 'package:the_assistant/pages/organization/display_organization.dart';
 import 'package:the_assistant/pages/organization/edit_organization.dart';
 import 'package:the_assistant/widgets/widgets.dart';
@@ -20,6 +22,14 @@ class _OrganizationPageState extends State<OrganizationPage> {
 
   @override
   Widget build(BuildContext context) {
+    try {
+      StateContainer.of(context).organization;
+      StateContainer.of(context).member;
+    } catch (e) {
+      if (kDebugMode) print(e);
+      return HomePage();
+    }
+
     return LightPage(
         child:
             isEditing ? EditOrganization(_save) : DisplayOrganization(_edit));

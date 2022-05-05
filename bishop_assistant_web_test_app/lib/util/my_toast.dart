@@ -1,5 +1,5 @@
-import 'package:the_assistant/theme/colors.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:the_assistant/theme/colors.dart';
 
 ///
 /// MyToast.dart
@@ -16,6 +16,6 @@ class MyToast {
       webBgColor: "linear-gradient(to right, #e36359, #a62c2b)",
       timeInSecForIosWeb: 5);
 
-  static void toastSuccess(String msg) => Fluttertoast.showToast(
-      msg: msg, timeInSecForIosWeb: 5, backgroundColor: green);
+  static void toastSuccess(dynamic msg) => Fluttertoast.showToast(
+      msg: msg.toString(), timeInSecForIosWeb: 5, backgroundColor: green);
 }

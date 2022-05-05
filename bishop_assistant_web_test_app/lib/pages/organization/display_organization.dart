@@ -1,3 +1,4 @@
+import 'package:models/models/organization.dart';
 import 'package:the_assistant/pages/organization/beta_invite.dart';
 import 'package:the_assistant/pages/organization/organization_members_view.dart';
 import 'package:the_assistant/pages/organization/organization_requests_view.dart';
@@ -18,6 +19,12 @@ class DisplayOrganization extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Organization organization;
+    Member member;
+
+    organization = StateContainer.of(context).organization;
+    member = StateContainer.of(context).member;
+
     return ListView(children: [
       Row(
         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -27,13 +34,12 @@ class DisplayOrganization extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  StateContainer.of(context).organization.name,
+                  organization.name,
                   style: title,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
-                if (StateContainer.of(context).member.role.authorization.rank >=
-                    0)
+                if (member.role.authorization.rank >= 0)
                   MyButton(
                       label: sEdit,
                       onPressed: onPress,

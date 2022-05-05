@@ -38,7 +38,7 @@ class _InheritedStateContainer extends InheritedWidget {
   // that rely on your state.
   @override
   bool updateShouldNotify(_InheritedStateContainer oldWidget) {
-    return this.data != oldWidget.data;
+    return true;
   }
 }
 
@@ -64,7 +64,7 @@ class StateContainer extends StatefulWidget {
 
 class StateContainerState extends State<StateContainer> {
   PackageInfo? _packageInfo;
-  UserState _state = UserState.unauthenticated;
+  UserState state = UserState.unauthenticated;
   Account? _account;
   Organization? _organization;
   Member? _member;
@@ -100,8 +100,6 @@ class StateContainerState extends State<StateContainer> {
     }
     return _member!;
   }
-
-  UserState get state => _state;
 
   String get now {
     DateTime time = DateTime.now();
@@ -140,7 +138,7 @@ class StateContainerState extends State<StateContainer> {
 
   @override
   void initState() {
-    _state = UserState.loadingIn;
+    state = UserState.loadingIn;
     _initPackageInfo();
     _initState();
     super.initState();
@@ -170,7 +168,7 @@ class StateContainerState extends State<StateContainer> {
     return this._account == other._account &&
         this._organization == other._organization &&
         this._member == other._member &&
-        this._state == other._state;
+        this.state == other.state;
   }
 
   /*****************************************************************************
@@ -195,19 +193,21 @@ class StateContainerState extends State<StateContainer> {
     // _accountStream = accountRepo.findStreamed(account.id);
     // _accountSub =
     //     _accountStream?.listen((Account account) => _updateAccount(account));
-    _updateState(UserState.authenticated);
 
     await findOrganization();
   }
 
   Future<void> findOrganization() async {
+    _updateState(UserState.loadingIn);
     FirestoreMemberRepository repository = FirestoreMemberRepository();
     HasAssociatedOrganizationUseCase useCase =
         DefaultHasAssociatedOrganizationUseCase(repository);
     OrganizationMember? relationship =
         await useCase.execute(accountID: account.id);
 
-    relationship == null ? _noOrganization() : __organization(relationship);
+    relationship == null
+        ? await _noOrganization()
+        : await __organization(relationship);
   }
 
   Future<void> _noOrganization() async {
@@ -222,35 +222,38 @@ class StateContainerState extends State<StateContainer> {
     _member = null;
   }
 
-  void _nullAccount() {
-    _accountSub?.cancel();
-    _account = null;
-  }
-
   Future<void> __organization(OrganizationMember relationship) async {
-    _initAuthorizations(relationship.organization.id);
-    _initRoles(relationship.organization.id);
+    await _initAuthorizations(relationship.organization.id);
+    await _initRoles(relationship.organization.id);
+
     FirestoreMemberRepository memberRepo = FirestoreMemberRepository();
     FirestoreOrganizationRepository orgRepo = FirestoreOrganizationRepository();
+
     _memberStream = memberRepo.findStreamed(relationship.member.id);
     _memberSub =
         _memberStream?.listen((Member member) => _updateMember(member));
+
     _organizationStream = orgRepo.findStreamed(relationship.organization.id);
     _organizationSub = _organizationStream?.listen(
         (Organization organization) => _updateOrganization(organization));
-    _updateState(UserState.inOrganization);
   }
 
   void _updateMember(Member member) => setState(() => _member = member);
 
-  void _updateOrganization(Organization organization) =>
-      setState(() => _organization = organization);
+  void _updateOrganization(Organization organization) {
+    setState(() => _organization = organization);
+    _updateState(UserState.inOrganization);
+  }
 
   void _updateAccount(Account account) => setState(() => _account = account);
 
-  void _updateState(UserState state) => setState(() {
-        _state = state;
+  void _updateState(UserState state) {
+    if (this.state != state) {
+      setState(() {
+        this.state = state;
       });
+    }
+  }
 
   /// Logout Process
   Future<bool> logout() async {
@@ -266,14 +269,20 @@ class StateContainerState extends State<StateContainer> {
     return false;
   }
 
+  void _nullAccount() {
+    _accountSub?.cancel();
+    _account = null;
+  }
+
   Future<void> _initState() async {
     try {
       GetStateUseCase useCase =
           DefaultGetStateUseCase(PreferencesStateRepository());
-      _state = await useCase.execute();
+      UserState temp = await useCase.execute();
+      _updateState(temp);
     } catch (e) {
       if (kDebugMode) print(e);
-      _state = UserState.unauthenticated;
+      _updateState(UserState.unauthenticated);
     }
   }
 
@@ -291,7 +300,7 @@ class StateContainerState extends State<StateContainer> {
   Future<void> _disposeState() async {
     SaveStateUseCase useCase =
         DefaultSaveStateUseCase(PreferencesStateRepository());
-    if (!(await useCase.execute(_state))) {}
+    if (!(await useCase.execute(state))) {}
   }
 
   @override

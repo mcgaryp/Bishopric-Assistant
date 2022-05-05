@@ -1,9 +1,9 @@
-import 'package:the_assistant/firebase/firebase_authentication.dart';
-import 'package:the_assistant/main.dart';
-import 'package:the_assistant/widgets/widgets.dart';
 import 'package:crypt/crypt.dart';
 import 'package:models/models/account.dart';
 import 'package:models/shared/exceptions/exceptions.dart';
+import 'package:the_assistant/firebase/firebase_authentication.dart';
+import 'package:the_assistant/main.dart';
+import 'package:the_assistant/widgets/widgets.dart';
 
 ///
 /// login_page.dart
@@ -75,8 +75,9 @@ class _LoginPageState extends State<LoginPage> {
             MyButton(label: sLogin, onPressed: _onPress),
             // Sign Up Button
             MyButton(
-                label: sSignup,
-                onPressed: pressedSignup,),
+              label: sSignup,
+              onPressed: pressedSignup,
+            ),
             // Forgot Password button
             // TODO: Implement
             // MyButton(
@@ -149,10 +150,14 @@ class _LoginPageState extends State<LoginPage> {
   void _success() async {
     _errorMsg = null;
 
+    String path = "/${Uri.base.toString().split('/').last}";
+    if (path == rLogin || path == rSignup || path == rSignupBeta || path == '/')
+      path = rHome;
+    if (kDebugMode) print("ReRouting to Path: \'$path\'");
     // TODO: save a token to recognize the user is logged in still and refer to that token to check if they are logged in on page refresh
 
     // Navigate to the home page
-    Navigator.pushReplacementNamed(context, rHome);
+    Navigator.pushReplacementNamed(context, path);
   }
 
   void _developerLogin() {
